@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/levelty_navigation"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.levelty.presenter.ui.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_kidsGoalsFragment"
+            app:destination="@id/kidsGoalsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kidsGoalsFragment"
+        android:name="com.example.levelty.presenter.ui.KidsGoalsFragment"
+        android:label="fragment_kids_goals"
+        tools:layout="@layout/fragment_kids_goals" />
+</navigation>
