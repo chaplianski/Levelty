@@ -1,6 +1,6 @@
 package com.example.levelty.domain.repository
 
-import com.example.levelty.domain.Kid
+import com.example.levelty.domain.models.Kid
 
 interface KidRepository {
 

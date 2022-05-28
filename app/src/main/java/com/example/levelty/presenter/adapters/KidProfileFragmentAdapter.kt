@@ -7,9 +7,9 @@ import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.levelty.R
-import com.example.levelty.domain.Kid
+import com.example.levelty.domain.models.Kid
 
-class KidAdapter(val kidList: List<Kid>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class KidProfileFragmentAdapter(val kidList: List<Kid>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

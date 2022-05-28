@@ -1,6 +1,6 @@
 package com.example.levelty.data.repository
 
-import com.example.levelty.domain.Kid
+import com.example.levelty.domain.models.Kid
 import com.example.levelty.domain.repository.KidRepository
 import javax.inject.Inject
 

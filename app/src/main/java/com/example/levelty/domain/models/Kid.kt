@@ -1,4 +1,4 @@
-package com.example.levelty.domain
+package com.example.levelty.domain.models
 
 import android.graphics.Bitmap
 import android.util.Log
