@@ -20,4 +20,28 @@
         <item name="cornerSize">16dp</item>
     </style>
 
+    <style name="Regular">
+        <item name="android:fontFamily">@font/nunito_sans_regular</item>
+        <item name="fontFamily">@font/nunito_sans_regular</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Light">
+        <item name="android:fontFamily">@font/nunito_sans_light</item>
+        <item name="fontFamily">@font/nunito_sans_light</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Bold">
+        <item name="android:fontFamily">@font/nunito_sans_semi_bold</item>
+        <item name="fontFamily">@font/nunito_sans_semi_bold</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ExtraBold">
+        <item name="android:fontFamily">@font/nunito_sans_extra_bold</item>
+        <item name="fontFamily">@font/nunito_sans_extra_bold</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
 </resources>
