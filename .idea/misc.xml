@@ -3,15 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_ellipse_29.xml" value="0.4785" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_ellipse_29__add_.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_profile.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_rectangle_88.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_settings.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_tasks.xml" value="0.273" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/my_gradient.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/activity_main.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_goals.xml" value="0.5421875" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile.xml" value="0.42769104354971244" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_goal_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_interest_item.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_kid_item.add.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_kid_item.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_kid_item_add.xml" value="0.3015625" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_purpose_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_task_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/menu/bottom_app_bar.xml" value="0.5421875" />
