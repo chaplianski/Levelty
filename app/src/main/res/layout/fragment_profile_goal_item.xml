@@ -9,6 +9,7 @@
         android:layout_width="164dp"
         android:layout_height="164dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -31,11 +32,11 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_fragment_profile_goal_approval"
+                style="@style/Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:text="Need approval"
-                style="@style/Light"
                 app:ensureMinTouchTargetSize="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -46,11 +47,11 @@
 
             <TextView
                 android:id="@+id/tv_fragment_profile_goal_name"
+                style="@style/Bold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="Dog"
-                style="@style/Bold"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -62,11 +63,11 @@
 
             <TextView
                 android:id="@+id/tv_fragment_profile_goal_reward"
+                style="@style/Regular"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:text="15 coins"
-                style="@style/Regular"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

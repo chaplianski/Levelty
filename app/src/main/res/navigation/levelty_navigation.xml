@@ -13,10 +13,35 @@
         <action
             android:id="@+id/action_profileFragment_to_kidsGoalsFragment"
             app:destination="@id/kidsGoalsFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_dayPersonalTasksFragment"
+            app:destination="@id/dayPersonalTasksFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment" />
     </fragment>
     <fragment
         android:id="@+id/kidsGoalsFragment"
         android:name="com.example.levelty.presenter.ui.KidsGoalsFragment"
         android:label="fragment_kids_goals"
         tools:layout="@layout/fragment_kids_goals" />
+    <fragment
+        android:id="@+id/dayPersonalTasksFragment"
+        android:name="com.example.levelty.presenter.ui.DayPersonalTasksFragment"
+        android:label="fragment_day_personal_tasks"
+        tools:layout="@layout/fragment_day_personal_tasks" >
+        <action
+            android:id="@+id/action_dayPersonalTasksFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tasksFragment"
+        android:name="com.example.levelty.presenter.ui.TasksFragment"
+        android:label="fragment_tasks"
+        tools:layout="@layout/fragment_tasks" />
+    <fragment
+        android:id="@+id/newTaskFragment"
+        android:name="com.example.levelty.presenter.ui.NewTaskFragment"
+        android:label="fragment_new_task"
+        tools:layout="@layout/fragment_new_task" />
 </navigation>

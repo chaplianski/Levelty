@@ -9,4 +9,13 @@
     <string name="profile">Profile</string>
     <string name="content_profile">content_profile</string>
     <string name="add_new_task">Add new task</string>
+    <string name="start_time">Start time</string>
+    <string name="repeat">Repeat</string>
+    <string name="date">*Date</string>
+    <string name="points">Points</string>
+    <string name="category">Category</string>
+    <string name="task">*Task</string>
+    <string name="today">Today</string>
+    <string name="categories">Categories</string>
+    <string name="new_task_in_this_category">New task in this category</string>
 </resources>

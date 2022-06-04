@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     tools:context=".presenter.ui.ProfileFragment">
 
 
@@ -15,13 +15,14 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:clickable="true"
-        app:backgroundTint= "#6D51FF"
-        app:tint="@color/white"
+        android:contentDescription="@string/add_new_task"
         android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="#6D51FF"
+        app:elevation="1dp"
         app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
         app:layout_constraintBottom_toTopOf="@id/bottomAppBar"
         app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="@string/add_new_task"/>
+        app:tint="@color/white" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -37,8 +38,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="#E1DFDF">
+            android:background="#E1DFDF"
+            android:orientation="vertical">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -73,10 +74,10 @@
 
                 <TextView
                     android:id="@+id/textView"
+                    style="@style/ExtraBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Profile"
-                    style="@style/ExtraBold"
                     android:textColor="@color/white"
                     android:textSize="32sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -106,13 +107,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_profile_fragment_days_recyclerView"
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip_profile_fragment_day"
                         android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_marginStart="20dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="6dp"
                         android:layout_marginTop="20dp"
                         android:layout_marginEnd="20dp"
+                        android:text="@string/today"
+                        android:textAppearance="@style/ChipTextBold"
+                        android:textSize="18sp"
+                        app:chipBackgroundColor="@color/white"
+                        app:closeIcon="@drawable/ic_rectangle_200"
+                        app:closeIconVisible="true"
+                        app:ensureMinTouchTargetSize="false"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -122,12 +130,12 @@
 
                     <TextView
                         android:id="@+id/tv_profile_fragment_progress_text"
+                        style="@style/Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="55dp"
                         android:text="4 from 6 complited"
-                        style="@style/Regular"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -137,31 +145,31 @@
 
                     <com.google.android.material.progressindicator.LinearProgressIndicator
                         android:id="@+id/pb_profile_fragment_progress_image"
-                        app:indicatorColor="#6D51FF"
-                        app:trackColor="#E1E1E1"
-                        app:trackThickness="8dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="84dp"
-                        android:layout_marginEnd="8dp"
-                        app:trackCornerRadius="4dp"
-
+                        android:layout_marginEnd="20dp"
+                        app:indicatorColor="#6D51FF"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.498"
+
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.0" />
+                        app:layout_constraintVertical_bias="0.0"
+                        app:trackColor="#E1E1E1"
+                        app:trackCornerRadius="4dp"
+                        app:trackThickness="8dp" />
 
                     <TextView
                         android:id="@+id/textView3"
+                        style="@style/Regular"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="114dp"
                         android:text="Uncoming tasks"
-                        style="@style/Regular"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -175,7 +183,7 @@
                         android:layout_height="0dp"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="137dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginEnd="20dp"
                         android:layout_marginBottom="32dp"
                         android:orientation="horizontal"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -210,12 +218,12 @@
 
                     <TextView
                         android:id="@+id/tv_profile_fragment_interests"
+                        style="@style/Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="Kid's interests"
-                        style="@style/Bold"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -262,12 +270,12 @@
 
                     <TextView
                         android:id="@+id/tv_profile_fragment_goals"
+                        style="@style/Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="Kid's goals"
-                        style="@style/Bold"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -317,12 +325,12 @@
 
                     <TextView
                         android:id="@+id/tv_profile_fragment_purposes"
+                        style="@style/Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="Parent's purpose"
-                        style="@style/Bold"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -372,12 +380,12 @@
 
                     <TextView
                         android:id="@+id/tv_profile_fragment_statistics"
+                        style="@style/Bold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginTop="20dp"
                         android:text="Statistics"
-                        style="@style/Bold"
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -386,6 +394,152 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintVertical_bias="0.0" />
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pie_profile_fragment_tasks"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+                        android:layout_marginStart="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4"
+                        app:layout_constraintVertical_bias="0.0">
+
+
+                    </com.github.mikephil.charting.charts.PieChart>
+
+
+                    <com.github.mikephil.charting.charts.PieChart
+                        android:id="@+id/pie_profile_fragment_categories"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
+
+                        android:layout_marginEnd="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/textView5"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        style="@style/Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="65dp"
+                        android:text="All tasks"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        style="@style/Regular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="191dp"
+                        android:layout_marginTop="65dp"
+                        android:text="Categories"
+                        android:textColor="@color/black"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/scrollView3"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/pie_profile_fragment_categories"
+                        app:layout_constraintTop_toBottomOf="@+id/pie_profile_fragment_categories"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_profile_fragment_pie_category"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:listitem="@layout/pie_charts_legend_item" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/scrollView4"
+                        android:layout_width="150dp"
+                        android:layout_height="100dp"
+                        android:layout_marginBottom="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/pie_profile_fragment_tasks"
+                        app:layout_constraintTop_toBottomOf="@+id/pie_profile_fragment_tasks"
+                        app:layout_constraintVertical_bias="0.0">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/rv_profile_fragment_pie_task"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintHorizontal_bias="0.5"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                tools:listitem="@layout/pie_charts_legend_item" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_profile_fragment_category_counrt"
+                        style="@style/Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6"
+                        android:textSize="32sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/pie_profile_fragment_categories"
+                        app:layout_constraintEnd_toEndOf="@+id/pie_profile_fragment_categories"
+                        app:layout_constraintHorizontal_bias="0.45"
+                        app:layout_constraintStart_toStartOf="@+id/pie_profile_fragment_categories"
+                        app:layout_constraintTop_toTopOf="@+id/pie_profile_fragment_categories" />
+
+                    <TextView
+                        android:id="@+id/tv_profile_fragment_tasks_counrt"
+                        style="@style/Bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="6"
+                        android:textSize="32sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/pie_profile_fragment_tasks"
+                        app:layout_constraintEnd_toEndOf="@+id/pie_profile_fragment_tasks"
+                        app:layout_constraintHorizontal_bias="0.45"
+                        app:layout_constraintStart_toStartOf="@+id/pie_profile_fragment_tasks"
+                        app:layout_constraintTop_toTopOf="@+id/pie_profile_fragment_tasks" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
