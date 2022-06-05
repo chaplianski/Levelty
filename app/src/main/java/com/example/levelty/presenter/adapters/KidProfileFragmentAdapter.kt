@@ -1,9 +1,11 @@
 package com.example.levelty.presenter.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.levelty.R
@@ -19,7 +21,7 @@ class KidProfileFragmentAdapter(val kidList: List<Kid>) : RecyclerView.Adapter<R
                 KidViewHolder(v)
             }
             R.id.iv_kid_item_add ->{
-                val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_profile_kid_item_add, parent, false)
+                val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_profile_kid_item, parent, false)
                 AddKidViewHolder(v)
             }
             else -> throw IllegalArgumentException("unknown view type $viewType")
@@ -47,9 +49,12 @@ class KidProfileFragmentAdapter(val kidList: List<Kid>) : RecyclerView.Adapter<R
     inner class KidViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val kidImage: ImageView = itemView.findViewById(R.id.iv_kid_item)
+        val kidName: TextView = itemView.findViewById(R.id.tv_kid_item_name)
 
         fun onBind(kid: Kid){
-            Glide.with(itemView.context).load(kid.kidImage)
+
+            kidName.text = kid.kidName
+            Glide.with(itemView.context).load(R.drawable.kid_icon_1)
                 .override(68, 68)
                 .centerCrop()
                 .circleCrop()
@@ -60,9 +65,13 @@ class KidProfileFragmentAdapter(val kidList: List<Kid>) : RecyclerView.Adapter<R
 
     inner class AddKidViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        val kidAddImage: ImageView = itemView.findViewById(R.id.iv_kid_item_add)
+        val kidAddImage: ImageView = itemView.findViewById(R.id.iv_kid_item)
+        val kidName: TextView = itemView.findViewById(R.id.tv_kid_item_name)
+
 
         fun onBind(){
+
+            kidName.text = "Add kid"
             Glide.with(itemView.context).load(R.drawable.ic_ellipse_29__add_)
                 .override(68, 68)
                 .centerCrop()

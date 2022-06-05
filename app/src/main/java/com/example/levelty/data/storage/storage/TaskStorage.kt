@@ -5,4 +5,6 @@ import com.example.levelty.data.storage.model.TaskDTO
 interface TaskStorage {
 
     fun getDayTask(): List<TaskDTO>
+
+    fun getUncomingTask(): List<TaskDTO>
 }

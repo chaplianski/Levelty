@@ -1,7 +1,7 @@
 package com.example.levelty.data.repository
 
-import com.example.levelty.data.storage.model.TaskDTO
-import com.example.levelty.domain.models.Task
+import com.example.levelty.data.storage.model.*
+import com.example.levelty.domain.models.*
 
 class Mapper {
 }
@@ -20,3 +20,34 @@ fun TaskDTO.taskMapDataToDomain(): Task {
     kidId = kidId
     )
 }
+
+fun PurposeDTO.purposeMapDataToDomain(): Purpose {
+    return Purpose(
+        purposeId = purposeId,
+        purposeName = purposeName
+    )
+}
+
+fun InterestDTO.interestMapDataToDomain(): Interest {
+    return Interest(
+        interestId = interestId,
+        interestName = interestName
+    )
+}
+
+fun KidDTO.kidMapDataToDomain(): Kid {
+    return Kid(
+        kidId = kidId,
+        kidName = kidName
+    )
+}
+
+fun GoalDTO.goalMapDataToDomain(): Goal {
+    return Goal(
+        goalId = goalId,
+        goalName = goalName,
+        goalReward = goalReward,
+        isApproval = isApproval
+    )
+}
+

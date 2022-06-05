@@ -37,11 +37,11 @@ class GoalsProfileFragmentAdapter(val goals: List<Goal>): RecyclerView.Adapter<G
         fun onBind(goal: Goal){
             goalNameText.text = goal.goalName
             goalRewardText.text = goal.goalReward
-            Glide.with(itemView.context).load(goal.goalImage)
-                .override(68, 68)
-                .centerCrop()
-                .circleCrop()
-                .into(goalImage)
+//            Glide.with(itemView.context).load(R.drawable.kid_goal_image_1)
+//                .override(68, 68)
+//                .centerCrop()
+//                .circleCrop()
+//                .into(goalImage)
         }
     }
 }

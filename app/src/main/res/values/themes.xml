@@ -32,6 +32,16 @@
 
     </style>
 
+    <style name="ShapeAppearanceOverlay.MaterialCardView.RoundCut" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">10dp</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+    </style>
+
+
+
     <style name="dateTask">
         <item name="android:topLeftRadius">2dp</item>
         <item name="android:topRightRadius">2dp</item>

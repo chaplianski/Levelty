@@ -1,5 +1,6 @@
 package com.example.levelty.presenter.ui
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -10,24 +11,43 @@ import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentProfileBinding
-import com.example.levelty.presenter.adapters.PieChartCategoryAdapter
+import com.example.levelty.di.DaggerAppComponent
+import com.example.levelty.presenter.adapters.*
+import com.example.levelty.presenter.factories.ProfileFragmentViewModelFactory
+import com.example.levelty.presenter.viewmodels.ProfileFragmentViewModel
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.chip.Chip
+import javax.inject.Inject
 
 
 class ProfileFragment : Fragment() {
 
-     var _binding: FragmentProfileBinding? = null
+    @Inject
+    lateinit var profileFragmentViewModelFactory: ProfileFragmentViewModelFactory
+    val profileFragmentViewModel: ProfileFragmentViewModel by viewModels { profileFragmentViewModelFactory }
+
+
+    var _binding: FragmentProfileBinding? = null
     val binding get() = _binding!!
+
+    override fun onAttach(context: Context) {
+        DaggerAppComponent.builder()
+            .context(context)
+            .build()
+            .profileFragmentInject(this)
+        super.onAttach(context)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,6 +74,62 @@ class ProfileFragment : Fragment() {
 
         val tasksPie = binding.pieProfileFragmentTasks
         val categoryPie = binding.pieProfileFragmentCategories
+
+
+        // **** Add kid list *****
+
+        profileFragmentViewModel.getKids()
+
+        profileFragmentViewModel.kidList.observe(this.viewLifecycleOwner){
+            val kidAdapter = KidProfileFragmentAdapter(it)
+            val purposeRV = binding.rvProfileFragmentKids
+            purposeRV.adapter = kidAdapter
+        }
+
+
+        // **** Add upcoming tasks list *****
+
+        profileFragmentViewModel.getUncomingTasks()
+
+        profileFragmentViewModel.uncommingTasksList.observe(this.viewLifecycleOwner){
+            val uncomingTaskAdapter = UpcomingTasksProfileFragmentAdapter(it)
+            val purposeRV = binding.rvProfileFragmentUncomingTasks
+            purposeRV.adapter = uncomingTaskAdapter
+        }
+
+
+        // **** Add interest list *****
+
+        profileFragmentViewModel.getInterests()
+
+        profileFragmentViewModel.kidInterestList.observe(this.viewLifecycleOwner){
+            val interestsProfileFragmentAdapter = InterestsProfileFragmentAdapter(it)
+            val purposeRV = binding.rvProfileFragmentInterests
+            purposeRV.adapter = interestsProfileFragmentAdapter
+        }
+
+        // **** Add interest list *****
+
+        profileFragmentViewModel.getGoals()
+
+        profileFragmentViewModel.kidGoalsList.observe(this.viewLifecycleOwner){
+            val goalsProfileFragmentAdapter = GoalsProfileFragmentAdapter(it)
+            val purposeRV = binding.rvProfileFragmentGoals
+            purposeRV.adapter = goalsProfileFragmentAdapter
+        }
+
+        // **** Add purpose list *****
+
+        profileFragmentViewModel.getParentsPurpose()
+
+        profileFragmentViewModel.parantsPurposeList.observe(this.viewLifecycleOwner){
+            val purposeProfileFragmentAdapter = PurposeProfileFragmentAdapter(it)
+            val purposeRV = binding.rvProfileFragmentPurposes
+            purposeRV.adapter = purposeProfileFragmentAdapter
+        }
+
+
+
 
 
         // ***** - Temp data progress - *****
@@ -175,7 +251,7 @@ class ProfileFragment : Fragment() {
 //        data.setValueFormatter(PercentFormatter(pieChart))
 //        data.setValueTextSize(12f)
 //        data.setValueTextColor(Color.BLACK)
-        Log.d("MyLog", "dataset: $dataSet")
+ //       Log.d("MyLog", "dataset: $dataSet")
 
         pieChart.data = data
         pieChart.invalidate()

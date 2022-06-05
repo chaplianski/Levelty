@@ -1,11 +1,13 @@
 package com.example.levelty.data.repository
 
+import com.example.levelty.data.storage.database.PurposeStorageImpl
 import com.example.levelty.domain.models.Purpose
 import com.example.levelty.domain.repository.PurposeRepository
 import javax.inject.Inject
 
-class PurposeRepositoryImpl @Inject constructor(): PurposeRepository {
+class PurposeRepositoryImpl @Inject constructor(private val purposeStorageImpl: PurposeStorageImpl): PurposeRepository {
+
     override fun getParentsPurpose(): List<Purpose> {
-        TODO("Not yet implemented")
+        return purposeStorageImpl.getParentsPurpose().map { it.purposeMapDataToDomain() }
     }
 }

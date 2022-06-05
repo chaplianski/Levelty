@@ -182,7 +182,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_fragment_new_task_start_repeat"
+        android:id="@+id/chip_fragment_new_task_repeat"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -209,7 +209,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_fragment_new_task_start_parents_purpose"
+        android:id="@+id/chip_fragment_new_task_parents_purpose"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -232,11 +232,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip_fragment_new_task_start_repeat"
+        app:layout_constraintTop_toBottomOf="@+id/chip_fragment_new_task_repeat"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_fragment_new_task_start_kids_interest"
+        android:id="@+id/chip_fragment_new_task_kids_interest"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginStart="20dp"
@@ -259,7 +259,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip_fragment_new_task_start_parents_purpose"
+        app:layout_constraintTop_toBottomOf="@+id/chip_fragment_new_task_parents_purpose"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
@@ -280,7 +280,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chip_fragment_new_task_start_kids_interest"
+        app:layout_constraintTop_toBottomOf="@+id/chip_fragment_new_task_kids_interest"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

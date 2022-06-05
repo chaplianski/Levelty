@@ -5,5 +5,5 @@ import android.graphics.Bitmap
 data class KidDTO(
     val kidId: Long,
     val kidName: String,
-    val kidImage: Bitmap
+//    val kidImage: Bitmap
 )

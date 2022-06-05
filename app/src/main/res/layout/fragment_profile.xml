@@ -55,7 +55,7 @@
                 app:layout_constraintVertical_bias="0.0">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView3"
+                    android:id="@+id/rv_profile_fragment_kids"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginStart="16dp"
@@ -84,7 +84,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.045"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/recyclerView3"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_profile_fragment_kids"
                     app:layout_constraintVertical_bias="0.147" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="204dp"
                 android:layout_marginStart="20dp"
-
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.RoundCut"
                 android:layout_marginTop="248dp"
                 android:layout_marginEnd="20dp"
                 app:layout_constraintBottom_toTopOf="@+id/cv_profile_fragment_kid_interest"
@@ -178,7 +178,7 @@
                         app:layout_constraintVertical_bias="0.0" />
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_profile_fragment_tasks_recyclerView"
+                        android:id="@+id/rv_profile_fragment_uncoming_tasks"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_marginStart="20dp"
@@ -206,7 +206,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
-
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.RoundCut"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -259,6 +259,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.RoundCut"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -313,7 +314,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
-
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.RoundCut"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -367,7 +368,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="20dp"
-
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.RoundCut"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

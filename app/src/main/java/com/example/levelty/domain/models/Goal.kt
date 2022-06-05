@@ -7,5 +7,5 @@ data class Goal(
     val goalName: String,
     val goalReward: String,
     val isApproval: Boolean,
-    val goalImage: Bitmap
+//    val goalImage: Bitmap
 )

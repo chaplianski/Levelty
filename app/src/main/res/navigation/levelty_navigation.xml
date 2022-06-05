@@ -42,6 +42,54 @@
     <fragment
         android:id="@+id/newTaskFragment"
         android:name="com.example.levelty.presenter.ui.NewTaskFragment"
-        android:label="fragment_new_task"
-        tools:layout="@layout/fragment_new_task" />
+        android:label="NewTaskFragment" >
+        <action
+            android:id="@+id/action_newTaskFragment_to_categoryChooseFragment"
+            app:destination="@id/categoryChooseFragment" />
+        <action
+            android:id="@+id/action_newTaskFragment_to_startTimeChooseFragment"
+            app:destination="@id/startTimeChooseFragment" />
+        <action
+            android:id="@+id/action_newTaskFragment_to_pointChooseFragment"
+            app:destination="@id/pointChooseFragment" />
+        <action
+            android:id="@+id/action_newTaskFragment_to_parentsPurposeChooseFragment"
+            app:destination="@id/parentsPurposeChooseFragment" />
+        <action
+            android:id="@+id/action_newTaskFragment_to_repiatChooseFragment"
+            app:destination="@id/repeatChooseFragment" />
+        <action
+            android:id="@+id/action_newTaskFragment_to_dateChooseFragment22"
+            app:destination="@id/dateChooseFragment" />
+    </fragment>
+    <dialog
+        android:id="@+id/categoryChooseFragment"
+        android:name="com.example.levelty.presenter.dialogs.CategoryChooseFragment"
+        android:label="fragment_category_choose"
+        tools:layout="@layout/fragment_category_choose" />
+    <dialog
+        android:id="@+id/startTimeChooseFragment"
+        android:name="com.example.levelty.presenter.dialogs.StartTimeChooseFragment"
+        android:label="fragment_start_time_choose"
+        tools:layout="@layout/fragment_start_time_choose" />
+    <dialog
+        android:id="@+id/pointChooseFragment"
+        android:name="com.example.levelty.presenter.dialogs.PointChooseFragment"
+        android:label="fragment_point_choose"
+        tools:layout="@layout/fragment_point_choose" />
+    <dialog
+        android:id="@+id/parentsPurposeChooseFragment"
+        android:name="com.example.levelty.presenter.dialogs.ParentsPurposeChooseFragment"
+        android:label="fragment_parents_purpose_choose"
+        tools:layout="@layout/fragment_parents_purpose_choose" />
+    <dialog
+        android:id="@+id/repeatChooseFragment"
+        android:name="com.example.levelty.presenter.dialogs.RepeatChooseFragment"
+        android:label="fragment_repeat_choose"
+        tools:layout="@layout/fragment_repeat_choose" />
+    <dialog
+        android:id="@+id/dateChooseFragment"
+        android:name="com.example.levelty.presenter.dialogs.DateChooseFragment"
+        android:label="fragment_date_choose"
+        tools:layout="@layout/fragment_date_choose" />
 </navigation>

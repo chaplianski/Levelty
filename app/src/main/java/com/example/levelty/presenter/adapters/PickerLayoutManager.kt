@@ -20,10 +20,6 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
 
     private var onScrollStopListener: scrollStopListener? = null
 
-
-
-
-
     override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
         super.onLayoutChildren(recycler, state)
         scaleDownView()

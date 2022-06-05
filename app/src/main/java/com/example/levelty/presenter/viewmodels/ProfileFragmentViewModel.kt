@@ -13,14 +13,14 @@ import javax.inject.Inject
 
 class ProfileFragmentViewModel @Inject constructor(
     private val getKidsUseCase: GtKidsUseCase,
-    private val getIncomingTaskUseCase: GetDayTaskUseCase,
+    private val getUpcomingTaskUseCase: GetUpcomingTasksUseCase,
     private val getKidInterestUseCase: GetKidInterestUseCase,
     private val getKidsGoalsUseCase: GetKidsGoalsUseCase,
     private val getParentsPurposeUseCase: GetParentsPurposeUseCase
 ) : ViewModel() {
 
     val _kidsList = MutableLiveData<List<Kid>>()
-    val answersList: LiveData<List<Kid>> get() = _kidsList
+    val kidList: LiveData<List<Kid>> get() = _kidsList
     val _uncomingTasksList = MutableLiveData<List<Task>>()
     val uncommingTasksList: LiveData<List<Task>> get() = _uncomingTasksList
     val _kidInterestList = MutableLiveData<List<Interest>>()
@@ -40,7 +40,7 @@ class ProfileFragmentViewModel @Inject constructor(
 
     fun getUncomingTasks(){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = getIncomingTaskUseCase.execute()
+            val list = getUpcomingTaskUseCase.execute()
             _uncomingTasksList.postValue(list)
         }
     }
