@@ -48,7 +48,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="96dp"
         android:layout_marginEnd="20dp"
-        android:hint="@string/task"
+
+        app:hintEnabled="false"
         android:textColorHint="@color/dark_grey"
         app:boxCornerRadiusBottomEnd="25dp"
         app:boxCornerRadiusBottomStart="25dp"
@@ -67,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
-
+            android:hint="@string/task"
             android:textAppearance="@style/ChipTextRegular"
             android:textColor="@color/black"
             android:textSize="16dp" />

@@ -312,7 +312,7 @@ class ProfileFragment : Fragment() {
         var allTasks = 0f
         for (entry in entries){
             allTasks += entry.value
-            Log.d("MyLog","value = ${entry.value}")
+  //          Log.d("MyLog","value = ${entry.value}")
         }
 
 

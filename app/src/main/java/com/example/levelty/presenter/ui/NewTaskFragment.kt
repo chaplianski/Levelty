@@ -1,5 +1,6 @@
 package com.example.levelty.presenter.ui
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import com.example.levelty.R
 import com.google.android.material.chip.Chip
 
@@ -64,6 +66,20 @@ class NewTaskFragment : Fragment() {
         repeat.setOnClickListener {
             val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_repiatChooseFragment)
+        }
+
+        val navController = Navigation.findNavController(view)
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Int>("points")?.observe(
+            viewLifecycleOwner) {
+            points.text = it.toString()
+            points.setTextColor(Color.BLACK)
+        }
+
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("repeat")?.observe(
+            viewLifecycleOwner) {
+            repeat.text = it.toString()
+            repeat.setTextColor(Color.BLACK)
+
         }
 
 

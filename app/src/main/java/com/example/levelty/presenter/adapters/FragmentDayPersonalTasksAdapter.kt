@@ -84,7 +84,7 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
             taskName.text = task.taskName
             tasksMoney.text = (task.taskPoints*10).toString()
             taskCoins.text = task.taskPoints.toString()
-            Log.d("MyLog", "name = ${taskName.text}")
+
         }
 
     }

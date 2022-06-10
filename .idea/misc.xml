@@ -4,13 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.379" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/custom_checkbox.xml" value="0.379" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/date_radius.xml" value="0.379" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_calendar.xml" value="0.379" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_checked.xml" value="0.35" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_chevron.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_ellipse_29.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_ellipse_29__add_.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_icon__close.xml" value="0.379" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_launcher_background.xml" value="0.379" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_no_checked.xml" value="0.349" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_plus.xml" value="0.379" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_profile.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_rectangle_100.xml" value="0.379" />
@@ -21,15 +24,20 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_watch.xml" value="0.379" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/my_gradient.xml" value="0.4785" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/round.xml" value="0.488" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/top_round_corners_layout.xml" value="0.379" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/font/my_font.xml" value="0.5713541666666667" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/activity_main.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/category_item.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/category_item_add.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/date_item.xml" value="0.5411458333333333" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/date_picker.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/experiment_swipe.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_category.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_category_choose.xml" value="0.5421875" />
-        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose.xml" value="0.536" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_day_item.xml" value="0.6" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_month_item.xml" value="0.5411458333333333" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_year_item.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_day_personal_tasks.xml" value="0.4" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_day_personal_tasks_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_day_personal_tasks_task_item.xml" value="0.5421875" />
@@ -45,11 +53,13 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_kid_item_add.xml" value="0.6" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_purpose_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_task_item.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_repeat_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_repiat_choose.xml" value="0.528125" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_start_time_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_tasks.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_tasks_task_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/need_approval.xml" value="0.536" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/order_string_list_item.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/parent_date_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/parent_dialog_choose_date.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/pie_charts_ilegend_tem.xml" value="1.0" />

@@ -1,68 +1,69 @@
 package com.example.levelty.presenter.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.Recycler
 
-class DatePickerLayoutManager (context: Context?, orientation: Int, reverseLayout: Boolean) :
-    LinearLayoutManager(context, orientation, reverseLayout) {
+class DatePickerLayoutManager (context: Context?, val dateOrientation: Int, reverseLayout: Boolean) :
+    LinearLayoutManager(context, dateOrientation, reverseLayout) {
 
-    var scaleDownBy = 0.66f
-    var scaleDownDistance = 1.8f
-    var isChangeAlpha = true
+    private var scaleDownBy = 0.66f
+    private var scaleDownDistance = 0.9f
+    private var changeAlpha = true
 
-    interface scrollDateStopListener {
-        //        fun selectedView(view: View?)
-        fun selectedView(view: View?)
-    }
+    private var onScrollDataListener: onScrollStopDataListener? = null
 
-    private var onScrollStopListener: DatePickerLayoutManager.scrollDateStopListener? = null
+//    fun PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Boolean) {
+//        super(context, orientation, reverseLayout)
+//    }
 
-
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
+    override fun onLayoutChildren(recycler: Recycler?, state: RecyclerView.State?) {
         super.onLayoutChildren(recycler, state)
         scaleDownView()
     }
 
-    override fun scrollVerticallyBy(
-        dy: Int,
-        recycler: RecyclerView.Recycler?,
-        state: RecyclerView.State?
-    ): Int {
+//    override fun scrollHorizontallyBy(
+//        dx: Int,
+//        recycler: Recycler?,
+//        state: RecyclerView.State?
+//    ): Int {
+//        val orientation = orientation
+//        return if (orientation == HORIZONTAL) {
+//            val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
+//            scaleDownView()
+//            scrolled
+//        } else 0
+//    }
 
-        val orientation = orientation
-        return if (orientation == VERTICAL) {
+    override fun scrollVerticallyBy(dy: Int, recycler: Recycler?, state: RecyclerView.State?): Int {
+        val orientation = dateOrientation
+        return  if (orientation == VERTICAL) {
             val scrolled = super.scrollVerticallyBy(dy, recycler, state)
             scaleDownView()
             scrolled
-        } else 0
+        }else 0
     }
 
     private fun scaleDownView() {
-        val mid = width / 2.0f  // центрирование вью
-        val unitScaleDownDist = scaleDownDistance * mid   // дистанция между элементами
+        val mid = width / 2.0f
+        val unitScaleDownDist = scaleDownDistance * mid
+
         for (i in 0 until childCount) {
             val child = getChildAt(i)
-//            Log.d("MyLog", "child: $childCount")
-//            if (1 == 0) {
-//                val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
-//                val scale = 1.0f + -1  / unitScaleDownDist
-//                child.scaleX = scale
-//                child.scaleY = scale
-//            }
-            //           if (i > 1){
             val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
+
             var scale = 0f
+
             when (i){
                 0 -> {
-                    scale = 0.85f
-                    child.alpha = 0.65f
+                    scale = 0.55f
+                    child.alpha = 0.55f
                 }
                 1 -> {
-                    scale = 0.85f
-                    child.alpha = 0.65f
+                    scale = 0.75f
+                    child.alpha = 0.75f
                 }
                 2 -> {
                     scale = 1f
@@ -70,38 +71,36 @@ class DatePickerLayoutManager (context: Context?, orientation: Int, reverseLayou
                 }
 
                 3 -> {
-                    scale = 0.85f
-                    child.alpha = 0.65f
+                    scale = 0.75f
+                    child.alpha = 0.75f
                 }
                 4 -> {
-                    scale = 0.85f
-                    child.alpha = 0.65f
+                    scale = 0.55f
+                    child.alpha = 0.55f
                 }
 
             }
 
 
 
-            // **** Scale with decreasing ******
-//                val scale = 1.0f + -1 * scaleDownBy * Math.min(
-//                    unitScaleDownDist,
-//                    Math.abs(mid - childMid)
-//                ) / unitScaleDownDist
-
+//            val scale = 1.0f + -1 * scaleDownBy * Math.min(
+//                unitScaleDownDist,
+//                Math.abs(mid - childMid)
+//            ) / unitScaleDownDist
             child.scaleX = scale
             child.scaleY = scale
-//        }
 
-//            if (isChangeAlpha) {
-//
-//            }
+ //           Log.d("MyLog", "childCount = $childCount, scale = $scale")
+            if (changeAlpha) {
+                child.alpha = scale
+            }
         }
     }
 
     override fun onScrollStateChanged(state: Int) {
         super.onScrollStateChanged(state)
         if (state == 0) {
-            if (onScrollStopListener != null) {
+            if (onScrollDataListener != null) {
                 var selected = 0
                 var lastHeight = 0f
                 for (i in 0 until childCount) {
@@ -110,14 +109,17 @@ class DatePickerLayoutManager (context: Context?, orientation: Int, reverseLayou
                         selected = i
                     }
                 }
-                onScrollStopListener?.selectedView(getChildAt(selected))
+                onScrollDataListener!!.selectedView(getChildAt(selected))
             }
         }
     }
 
-    fun setOnScrollStopListener(onScrollStopListener: DatePickerLayoutManager.scrollDateStopListener?) {
-        this.onScrollStopListener = onScrollStopListener
+    fun setOnScrollStopListener(onScrollStopDataListener: onScrollStopDataListener?) {
+        this.onScrollDataListener = onScrollStopDataListener
     }
 
+    interface onScrollStopDataListener {
+        fun selectedView(view: View?)
+    }
 
 }

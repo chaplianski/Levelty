@@ -113,7 +113,7 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
         }
     }
 
-    fun setOnScrollStopListener(onScrollStopListener: PickerLayoutManager.scrollStopListener?) {
+    fun setOnScrollStopListener(onScrollStopListener: scrollStopListener?) {
         this.onScrollStopListener = onScrollStopListener
     }
 

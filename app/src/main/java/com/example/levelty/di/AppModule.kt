@@ -2,7 +2,11 @@ package com.example.levelty.di
 
 import android.content.Context
 import com.example.levelty.data.repository.*
+import com.example.levelty.data.storage.database.CategoryStorageImpl
+import com.example.levelty.data.storage.database.RepeatStorageImpl
 import com.example.levelty.data.storage.database.TaskStorageImpl
+import com.example.levelty.data.storage.storage.CategoryStorage
+import com.example.levelty.data.storage.storage.RepeatStorage
 import com.example.levelty.data.storage.storage.TaskStorage
 import com.example.levelty.domain.repository.*
 import dagger.Module
@@ -40,8 +44,17 @@ class AppModule() {
     fun providePurposeRepository(impl: PurposeRepositoryImpl): PurposeRepository = impl
     @Provides
     fun provideTaskRepository(impl: TaskRepositoryImpl): TaskRepository = impl
+    @Provides
+    fun provideRepeatRepository(impl: RepeatRepositoryImpl): RepeatRepository = impl
+    @Provides
+    fun provideCategoryRepository(impl: CategoryRepositoryImpl): CategoryRepository = impl
+
 
     @Provides
     fun provideBTaskStorage(impl: TaskStorageImpl): TaskStorage = impl
+    @Provides
+    fun provideRepeatStorage(impl: RepeatStorageImpl): RepeatStorage = impl
+    @Provides
+    fun provideCategoryStorage(impl: CategoryStorageImpl): CategoryStorage = impl
 
 }

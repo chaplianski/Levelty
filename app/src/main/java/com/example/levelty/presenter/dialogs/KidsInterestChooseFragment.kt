@@ -1,31 +1,25 @@
 package com.example.levelty.presenter.dialogs
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.ImageView
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class PointChooseFragment : BottomSheetDialogFragment() {
+class KidsInterestChooseFragment : BottomSheetDialogFragment() {
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
-        return inflater.inflate(R.layout.fragment_point_choose, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_kids_interest_choose, container, false)
     }
 
     override fun getTheme(): Int {
@@ -34,26 +28,6 @@ class PointChooseFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val pointsText: EditText = view.findViewById(R.id.et_fragment_point_choose_text_field)
-        val closeButton: ImageView = view.findViewById(R.id.iv_fragment_point_choose_close)
-        val saveButton: Button = view.findViewById(R.id.bt_fragment_point_choose_save)
-
-
-
-       closeButton.setOnClickListener {
-            dismiss()
-       }
-        saveButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt("points", pointsText.text.toString().toInt())
-            val navController = findNavController()
-            navController.previousBackStackEntry?.savedStateHandle?.set("points", pointsText.text.toString().toInt())
-            dismiss()
-
-        }
-
-
     }
 
     override fun onStart() {
@@ -70,7 +44,5 @@ class PointChooseFragment : BottomSheetDialogFragment() {
             //    behavior.state = BottomSheetBehavior.SAVE_HIDEABLE
         }
     }
-
-
 
 }
