@@ -7,4 +7,6 @@ interface TaskRepository {
     fun getUpcomingTasks(): List<Task>
 
     fun getDayTasks(): List<Task>
+
+    fun getTasksList(): List<Task>
 }

@@ -64,8 +64,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:layout_marginBottom="172dp"
 
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_fragment_start_time_choose_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,12 +87,12 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_fragment_start_time_choose_hour"
-            android:layout_width="120dp"
+            android:layout_width="80dp"
             android:layout_height="150dp"
+            android:layout_marginStart="32dp"
             android:elevation="1dp"
-            app:layout_constraintBottom_toBottomOf="parent"
 
-            app:layout_constraintHorizontal_bias="0.006"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
@@ -114,7 +116,10 @@
             android:layout_width="270dp"
             android:layout_height="35dp"
             android:background="#F5F5F5"
-            android:text="                                                                                         "
+            android:text="                  :                                                                  "
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:gravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.478"

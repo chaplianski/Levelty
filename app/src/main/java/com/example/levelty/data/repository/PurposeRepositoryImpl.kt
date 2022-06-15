@@ -10,4 +10,8 @@ class PurposeRepositoryImpl @Inject constructor(private val purposeStorageImpl: 
     override fun getParentsPurpose(): List<Purpose> {
         return purposeStorageImpl.getParentsPurpose().map { it.purposeMapDataToDomain() }
     }
+
+    override fun getParentsPurposes(): List<Purpose> {
+        return purposeStorageImpl.getParentsPurposes().map { it.purposeMapDataToDomain() }
+    }
 }

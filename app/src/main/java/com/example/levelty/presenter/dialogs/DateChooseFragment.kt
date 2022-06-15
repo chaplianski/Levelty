@@ -2,39 +2,35 @@ package com.example.levelty.presenter.dialogs
 
 import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
 import com.example.levelty.presenter.adapters.MonthPickerAdapter
 import com.example.levelty.presenter.adapters.YearPickerAdapter
-import com.example.levelty.presenter.helpers.CircularScrollListener
+import com.example.levelty.presenter.viewmodels.DateChooseFragmentViewModel
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.text.DateFormatSymbols
-import java.text.SimpleDateFormat
+import java.time.YearMonth
 import java.util.*
 
 
 class DateChooseFragment : BottomSheetDialogFragment() {
 
-//    private lateinit var datePickerView: DatePickerView
-//
-//    override val circularCheckBox: CheckBox
-//        get() = findViewById(R.id.circular_check_box)
-//    override val selectedItemTextView: TextView
-//        get() = findViewById(R.id.selected_text_view)
-//    override val vibrationFeedbackCheckBox: CheckBox
-//        get() = findViewById(R.id.vibration_feedback_check_box)
-//
-//    private var formatter = SimpleDateFormat("yyyy-MM-dd")
-//    private val calendar = Calendar.getInstance()
-//
-//    private lateinit var maxDateTextField: TextInputEditText
-//    private lateinit var minDateTextField: TextInputEditText
+    val dateChooseFragmentViewModel: DateChooseFragmentViewModel by viewModels ()
+    var currentDayPosition = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,10 +41,31 @@ class DateChooseFragment : BottomSheetDialogFragment() {
 
     }
 
+    override fun getTheme(): Int {
+        return R.style.AppBottomSheetDialogTheme
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        dialog.let {
+            val bottomSheet = it?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+            val behavior = BottomSheetBehavior.from(bottomSheet)
+            behavior.state = BottomSheetBehavior.STATE_EXPANDED
+            behavior.isDraggable = false
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val saveButton: Button = view.findViewById(R.id.bt_fragment_date_choose_save)
+        val closeButton: ImageView = view.findViewById(R.id.iv_fragment_date_choose_close)
+
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        var currentDayValue = calendar[Calendar.DAY_OF_MONTH]
+        var currentYearValue = calendar[Calendar.YEAR]
+        var currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)-1]
 
         val yearRV: RecyclerView = view.findViewById(R.id.rv_fragment_date_choose_year)
         val yearPickerLayoutManager = DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -60,7 +77,6 @@ class DateChooseFragment : BottomSheetDialogFragment() {
             yearsList.add(i)
         }
 
-
         val dateTasksFragmentAdapter = context?.let { YearPickerAdapter(it, yearsList.toList(), yearRV) }
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(yearRV)
@@ -68,17 +84,23 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         yearRV.layoutManager?.scrollToPosition(18)
         yearRV.adapter = dateTasksFragmentAdapter
 
+        // ****** Month Picker *****
 
         val monthRV: RecyclerView = view.findViewById(R.id.rv_fragment_date_choose_month)
-        val monthList = mutableListOf<String>()
-        val monthes = Calendar.getInstance()
+//        val calendar = Calendar.getInstance(TimeZone.getDefault())
         val monthValues = mutableListOf<String>()
-        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
-        monthes.add(Calendar.MONTH, 1)
+        calendar.add(Calendar.MONTH, 1)
 
-
+        for (i in 7..11){
+            val month: String = DateFormatSymbols().months[i]
+            monthValues.add(month)
+        }
         for (i in 0..11){
-            val month: String = DateFormatSymbols().getMonths().get(i)
+            val month: String = DateFormatSymbols().months[i]
+            monthValues.add(month)
+        }
+        for (i in 0..5){
+            val month: String = DateFormatSymbols().months[i]
             monthValues.add(month)
         }
 
@@ -87,22 +109,35 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         val monthSnapHelper: SnapHelper = LinearSnapHelper()
 
         monthRV.setLayoutManager(monthPickerLayoutManager)
-
-  //      RecyclerView.LayoutManager lm = new GridLayoutManager(...): // or whatever layout manager you need
-        val smoothScroller:RecyclerView.SmoothScroller  = CenterSmoothScroller(context);
-        smoothScroller.setTargetPosition(Calendar.MONTH+1);
-        monthPickerLayoutManager.startSmoothScroll(smoothScroller);
-
- //       monthRV.layoutManager?.scrollToPosition(Calendar.MONTH+1)
+        monthRV.layoutManager?.scrollToPosition(Calendar.MONTH+6)
         monthRV.adapter = monthPickerAdapter
         monthSnapHelper.attachToRecyclerView(monthRV)
 
-        monthRV.addOnScrollListener(CircularScrollListener(monthValues.size))
+        monthRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val layoutManager = recyclerView.layoutManager
+                    val firstVisibleItemPosition =
+                        (layoutManager as LinearLayoutManager?)?.findFirstVisibleItemPosition()
+                    val lastVisibleItemPosition =
+                        (layoutManager as LinearLayoutManager?)?.findLastVisibleItemPosition()
+                    if (lastVisibleItemPosition == 22){
+                        layoutManager?.scrollToPosition(6)
 
-        val dayValue = mutableListOf<Int>()
-        for (i in 1..31){
-            dayValue.add(i)
-        }
+                    }
+                    if (firstVisibleItemPosition == 0){
+                        layoutManager?.scrollToPosition(16)
+
+                    }
+                }
+            }
+        })
+
+        // ***** Day picker  *******
+
+        var currentDaysInMonth = YearMonth.now().lengthOfMonth()
+        var dayValue = getDaysList(currentDaysInMonth)
 
         val dayRV: RecyclerView = view.findViewById(R.id.rv_fragment_date_choose_day)
         val dayPickerLayoutManager = DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -110,23 +145,45 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         val daySnapHelper: SnapHelper = LinearSnapHelper()
 
         dayRV.setLayoutManager(dayPickerLayoutManager)
-        dayRV.layoutManager?.scrollToPosition(Calendar.DAY_OF_MONTH-1)
+ //       dayRV.layoutManager?.scrollToPosition(Calendar.DAY_OF_MONTH + 9)
+        dayRV.layoutManager?.scrollToPosition(currentDayValue+1)
+
         dayRV.adapter = dayPickerAdapter
         daySnapHelper.attachToRecyclerView(dayRV)
 
-        var yearChoose = ""
-        var monthChoose = ""
-        var dayChoose = 0
+//        var currentDayValue = calendar[Calendar.DAY_OF_MONTH]
+//        var currentYearValue = calendar[Calendar.YEAR]
+//        var currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)-1]
+
+        dayRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val layoutManager = recyclerView.layoutManager
+                    val firstVisibleItemPosition =
+                        (layoutManager as LinearLayoutManager?)?.findFirstVisibleItemPosition()
+                    val lastVisibleItemPosition =
+                        (layoutManager as LinearLayoutManager?)?.findLastVisibleItemPosition()
+                    if (lastVisibleItemPosition == currentDaysInMonth + 6){
+                        layoutManager?.scrollToPosition(2)
+                    }
+                    if (firstVisibleItemPosition == 0){
+                        layoutManager?.scrollToPosition(currentDaysInMonth + 3)
+                    }
+                }
+            }
+        })
 
 
         yearPickerLayoutManager.setOnScrollStopListener( object : DatePickerLayoutManager.onScrollStopDataListener{
             override fun selectedView(view: View?) {
-                val year = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_year)
-                yearChoose = year?.text.toString()
-                Toast.makeText(
-                    context,
-                    "Selected year ${yearChoose} ", Toast.LENGTH_SHORT
-                ).show()
+               val year = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_year)
+               val yearChoose = year?.text.toString()
+               dateChooseFragmentViewModel.transferYearValue(yearChoose)
+//                Toast.makeText(
+//                    context,
+//                    "Selected year ${yearChoose} ", Toast.LENGTH_SHORT
+//                ).show()
             }
 
         })
@@ -134,10 +191,12 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         monthPickerLayoutManager.setOnScrollStopListener( object : DatePickerLayoutManager.onScrollStopDataListener{
             override fun selectedView(view: View?) {
                 val month = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_month)
-                Toast.makeText(
-                    context,
-                    "Selected month ${month?.text} ", Toast.LENGTH_SHORT
-                ).show()
+                val monthChoose = month?.text.toString()
+                dateChooseFragmentViewModel.transferMonthValue(monthChoose)
+//                Toast.makeText(
+//                    context,
+//                    "Selected month ${month?.text} ", Toast.LENGTH_SHORT
+//                ).show()
             }
 
         })
@@ -145,18 +204,130 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         dayPickerLayoutManager.setOnScrollStopListener( object : DatePickerLayoutManager.onScrollStopDataListener{
             override fun selectedView(view: View?) {
                 val day = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_year)
-                Toast.makeText(
-                    context,
-                    "Selected day ${day?.text} ", Toast.LENGTH_SHORT
-                ).show()
+                val dayChoose = day?.text.toString().toInt()
+                dateChooseFragmentViewModel.transferDayValue(dayChoose)
+//                Toast.makeText(
+//                    context,
+//                    "Selected day ${day?.text} ", Toast.LENGTH_SHORT
+//                ).show()
             }
 
         })
 
+        closeButton.setOnClickListener {
+            dismiss()
+        }
 
+        dateChooseFragmentViewModel.yearValue.observe(this.viewLifecycleOwner){
+            currentYearValue = it.toInt()
+        }
+
+        dateChooseFragmentViewModel.monthValue.observe(this.viewLifecycleOwner){
+
+            if (currentDayPosition == 0) currentDayPosition = currentDayValue// - 6
+            Log.d("MyLog", "begin currentDayPosition = $currentDayPosition ")
+ //           Log.d("MyLog", "currentDayPosition1 = $currentDayPosition")
+            val monthNumber = getMonthNumber(it)
+            val numberDaysInMonth = YearMonth.of(currentYearValue, monthNumber).lengthOfMonth()
+
+            dayValue.clear()
+            dayValue = getDaysList(numberDaysInMonth)
+            dayPickerAdapter?.updateList(dayValue)
+     //       currentDaysInMonth = numberDaysInMonth
+
+  //          dayRV.layoutManager?.scrollToPosition()
+            Log.d("MyLog", "currentDayPosition = $currentDayPosition, numberDaysInMonth = $numberDaysInMonth, currentDaysInMonth = $currentDaysInMonth")
+        //    if (currentDayPosition > 30)
+            if (numberDaysInMonth < currentDaysInMonth && currentDayPosition > numberDaysInMonth) {
+                val diffDays = currentDayPosition - numberDaysInMonth
+                Log.d("MyLog", "diffDays = $diffDays ")
+                currentDayPosition -= diffDays
+                dayRV.layoutManager?.scrollToPosition(currentDayPosition+1)
+                Log.d("MyLog", "currentDayPosition = $currentDayPosition ")
+            }else{
+                dayRV.layoutManager?.scrollToPosition(currentDayPosition+4)
+            }
+
+            currentDaysInMonth = numberDaysInMonth
+            currentMonthValue = it
+        }
+
+        dateChooseFragmentViewModel.dayValue.observe(this.viewLifecycleOwner){
+            currentDayValue = it
+            currentDayPosition = currentDayValue
+        }
+
+        saveButton.setOnClickListener {
+            val dateItem = "$currentMonthValue $currentDayValue $currentYearValue"
+            val navController = findNavController()
+            navController.previousBackStackEntry?.savedStateHandle?.set("date", dateItem)
+            dismiss()
+        }
 
     }
-    class CenterSmoothScroller(context: Context?) : LinearSmoothScroller(context) {
+
+    private fun getDaysList(month: Int): MutableList<Int> {
+        val dayValue = mutableListOf<Int>()
+
+        for (i in (month-3)..month) {
+            dayValue.add(i)
+          }
+        for (i in 1..month) {
+            dayValue.add(i)
+        }
+        for (i in 1..3) {
+            dayValue.add(i)
+        }
+ //       Log.d("MyLog", "month data = $dayValue")
+        return dayValue
+    }
+
+    fun getMonthNumber(month: String): Int{
+        var monthNumber = 0
+        val monthList = mutableListOf<String>()
+        for (i in 0..11){
+            val currMonth: String = DateFormatSymbols().months[i]
+            monthList.add(currMonth)
+        }
+ //       Log.d("MyLog", "List month = $monthList")
+        for ((i, m) in monthList.withIndex()){
+            if (m == month) monthNumber = i+1
+//            Log.d("MyLog", "index month = $monthNumber")
+        }
+        return monthNumber
+    }
+
+}
+
+class CenterLayoutManager1 : LinearLayoutManager {
+    constructor(context: Context?) : super(context) {}
+    constructor(context: Context?, orientation: Int, reverseLayout: Boolean) : super(
+        context,
+        orientation,
+        reverseLayout
+    ) {
+    }
+
+    constructor(
+        context: Context?,
+        attrs: AttributeSet?,
+        defStyleAttr: Int,
+        defStyleRes: Int
+    ) : super(context, attrs, defStyleAttr, defStyleRes) {
+    }
+
+    override fun smoothScrollToPosition(
+        recyclerView: RecyclerView,
+        state: RecyclerView.State,
+        position: Int
+    ) {
+        val smoothScroller: SmoothScroller = CenterSmoothScroller(recyclerView.context)
+        smoothScroller.targetPosition = position
+        startSmoothScroll(smoothScroller)
+    }
+
+    private class CenterSmoothScroller internal constructor(context: Context?) :
+        LinearSmoothScroller(context) {
         override fun calculateDtToFit(
             viewStart: Int,
             viewEnd: Int,
@@ -167,7 +338,4 @@ class DateChooseFragment : BottomSheetDialogFragment() {
             return boxStart + (boxEnd - boxStart) / 2 - (viewStart + (viewEnd - viewStart) / 2)
         }
     }
-
-
-
 }

@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.*
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -21,9 +22,12 @@ import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
 import com.example.levelty.presenter.factories.DayPersonalTasksFragmentViewModelFactory
+import com.example.levelty.presenter.helpers.SwipeController
 import com.example.levelty.presenter.helpers.TaskDayPersonalTasksFragmentHelper
 import com.example.levelty.presenter.viewmodels.DayPersonalTasksFragmentViewModel
+import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -63,7 +67,8 @@ class DayPersonalTasksFragment : Fragment() {
 
      //   val dataPicker: NumberPicker = view.findViewById(R.id.np_fragment_day_personal_tasks_numbers)
         val addNewTaskButton: FloatingActionButton = view.findViewById(R.id.fb_day_personal_tasks_fragment_add)
-        val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
+
+   //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
 
 
         // ***** Fill data Days personal tasks
@@ -74,24 +79,13 @@ class DayPersonalTasksFragment : Fragment() {
      //       Log.d("MyLog", "recycler task, List = $it")
 
             val dayPersonalTaskRecyclerView: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_tasks_tasks_list)
-
             val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(it)
             dayPersonalTaskRecyclerView.adapter = fragmentDayPersonalTasksAdapter
 
-            // ***** Swipe items *****
-            swipeRefresh.setOnRefreshListener {
-                swipeRefresh.isRefreshing = false
-
-            }
-
-            val taskDayPersonalTasksFragmentHelper = context?.let { it1 ->
-                TaskDayPersonalTasksFragmentHelper(dayPersonalTaskRecyclerView,
-                    it1
-                )
-            }
-            taskDayPersonalTasksFragmentHelper?.setItemTouchHelper()
-
-        }
+            val swipeController = SwipeController()
+            val itemTouchHelper = ItemTouchHelper(swipeController)
+            itemTouchHelper.attachToRecyclerView(dayPersonalTaskRecyclerView)
+         }
 
 
 
@@ -107,27 +101,17 @@ class DayPersonalTasksFragment : Fragment() {
 
 
         val dateRV: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_task_date)
-//        dateRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        val snapHelper: SnapHelper = LinearSnapHelper()
-//        snapHelper.attachToRecyclerView(dateRV)
-//        dateRV.adapter = dateTasksFragmentAdapter
-
-
         val pickerLayoutManager = PickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        pickerLayoutManager.setChangeAlpha(true)
-//        pickerLayoutManager.setScaleDownBy(0.99f)
-//        pickerLayoutManager.setScaleDownDistance(0.8f)
-
-
+        val beginDaysCount = 365
         val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
         val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
         val todayDate = Calendar.getInstance()
-        todayDate.add(Calendar.DATE, -365)
+        todayDate.add(Calendar.DATE, -beginDaysCount)
         //.timeInMillis
 
         val dateValues = mutableListOf<DateTask>()
         var counter = 0L
-        for (day in 1..742){
+        for (day in 1..(beginDaysCount+377)){
             todayDate.add(Calendar.DATE, 1)
             dateValues.add(DateTask(
                 counter, formatDateDay.format(todayDate.timeInMillis),
@@ -141,8 +125,15 @@ class DayPersonalTasksFragment : Fragment() {
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(dateRV)
         dateRV.setLayoutManager(pickerLayoutManager)
-        dateRV.layoutManager?.scrollToPosition(362)
         dateRV.adapter = dateTasksFragmentAdapter
+        lifecycleScope.launchWhenCreated {
+            delay(10)
+            dateRV.scrollToPosition(beginDaysCount-3)
+        }
+
+
+
+
 
 
 //        adapter = new open fun PickerAdapter())
@@ -151,14 +142,18 @@ class DayPersonalTasksFragment : Fragment() {
             override fun selectedView(view: View?) {
                 val day = view?.findViewById<TextView>(R.id.tv_date_item_number)
                 val month = view?.findViewById<TextView>(R.id.tv_date_item_month)
-
-                Toast.makeText(
-                    context,
-                    "Selected date ${day?.text} ${month?.text}", Toast.LENGTH_SHORT
-                ).show()
+                dayPersonalTasksFragmentViewModel.transferDateValue("${day?.text} ${month?.text}")
             }
-
         })
+
+        dayPersonalTasksFragmentViewModel.currentDay.observe(this.viewLifecycleOwner){
+            Toast.makeText(
+                context,
+                "Selected date ${it}", Toast.LENGTH_SHORT
+            ).show()
+        }
+
+
     }
 
 

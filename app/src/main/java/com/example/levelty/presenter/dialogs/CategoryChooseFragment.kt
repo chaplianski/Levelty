@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
@@ -67,6 +69,7 @@ class CategoryChooseFragment : BottomSheetDialogFragment() {
 
         val categoryRV: RecyclerView = view.findViewById(R.id.rv_fragment_category_choose)
         val saveButton: Button = view.findViewById(R.id.bt_fragment_category_choose_save)
+        val closeButton: ImageView = view.findViewById(R.id.iv_fragment_category_choose_close)
 
         categoryChooseViewModel.getCategoriesList()
 
@@ -76,7 +79,24 @@ class CategoryChooseFragment : BottomSheetDialogFragment() {
        //     categoryRV.setHasFixedSize(true)
             categoryRV.layoutManager = LinearLayoutManager(context)
             categoryRV.adapter = categoryAdapter
+
+            categoryAdapter.shortOnClickListener = object : OrderStringAdapter.ShortOnClickListener{
+                override fun ShortClick(item: String) {
+                    val navController = findNavController()
+                    navController.previousBackStackEntry?.savedStateHandle?.set("category", item)
+
+                    saveButton.setOnClickListener {
+                        dismiss()
+                    }
+                }
+            }
+
         }
+
+        closeButton.setOnClickListener {
+            dismiss()
+        }
+
 
     }
 }

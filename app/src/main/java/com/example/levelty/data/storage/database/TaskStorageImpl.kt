@@ -27,5 +27,32 @@ class TaskStorageImpl @Inject constructor(): TaskStorage {
         return taskList.toList()
     }
 
+    override fun getTasksList(): List<TaskDTO> {
+        val taskList = mutableListOf<TaskDTO>()
+        val dateToday = Calendar.getInstance().timeInMillis
+        val startDate = Calendar.getInstance().timeInMillis
+        taskList.add(TaskDTO(0, "0", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(1, "1", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(2, "2", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(3, "3", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(4, "4", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(5, "5", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(6, "6", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(7, "7", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(8, "8", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(9, "9", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(10, "10", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(11, "11", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(12, "12", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(13, "13", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(14, "14", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(15, "15", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(16, "16", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(17, "17", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(18, "18", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(19, "19", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        return taskList.toList()
+    }
+
 
 }

@@ -61,25 +61,12 @@
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         app:layout_constraintVertical_bias="1.0" />
 
-    <sh.tyy.wheelpicker.DatePickerView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="250dp"
-        android:layout_marginTop="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/bt_fragment_date_choose_save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="1.0" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="150dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="172dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/bt_fragment_date_choose_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,7 +88,7 @@
             android:id="@+id/rv_fragment_date_choose_month"
             android:layout_width="120dp"
             android:layout_height="150dp"
-            android:layout_marginStart="48dp"
+            android:layout_marginStart="24dp"
             android:elevation="1dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/rv_fragment_date_choose_year"
@@ -128,7 +115,6 @@
             android:id="@+id/textView12"
             android:layout_width="match_parent"
             android:layout_height="35dp"
-            android:layout_marginStart="16dp"
             android:background="#F5F5F5"
             android:text="                                                                                         "
             app:layout_constraintBottom_toBottomOf="parent"

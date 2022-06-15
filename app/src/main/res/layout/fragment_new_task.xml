@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.067" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/et_fragment_new_task_task"
+        android:id="@+id/et_fragment_new_task_task_container"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="54dp"
@@ -65,6 +65,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_fragment_new_task_task_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="10dp"
@@ -74,6 +75,20 @@
             android:textSize="16dp" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/iv_fragment_new_task_close"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/ic_icon__close" />
 
     <com.google.android.material.chip.Chip
         android:id="@+id/chip_fragment_new_task_category"
@@ -87,19 +102,19 @@
         android:textColor="@color/dark_grey"
         android:textSize="16sp"
         app:chipBackgroundColor="@color/white"
+        app:chipIconSize="16dp"
         app:chipStrokeColor="@color/dark_grey"
         app:chipStrokeWidth="1dp"
         app:closeIcon="@drawable/ic_chevron"
-        app:closeIconVisible="true"
-        app:chipIconSize="16dp"
         app:closeIconEndPadding="20dp"
         app:closeIconTint="@color/grey"
+        app:closeIconVisible="true"
         app:ensureMinTouchTargetSize="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_fragment_new_task_task"
+        app:layout_constraintTop_toBottomOf="@+id/et_fragment_new_task_task_container"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.chip.Chip

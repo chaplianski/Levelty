@@ -9,4 +9,8 @@ class InterestRepositoryImpl @Inject constructor(private val interestStorageImpl
     override fun getKidInterests(): List<Interest> {
         return interestStorageImpl.getKidInterests().map { it.interestMapDataToDomain() }
     }
+
+    override fun getKidsInterestChoose(): List<Interest> {
+        return interestStorageImpl.getKidsInterestsChoose().map { it.interestMapDataToDomain() }
+    }
 }

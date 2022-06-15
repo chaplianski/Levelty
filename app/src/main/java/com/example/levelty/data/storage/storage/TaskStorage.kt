@@ -7,4 +7,6 @@ interface TaskStorage {
     fun getDayTask(): List<TaskDTO>
 
     fun getUncomingTask(): List<TaskDTO>
+
+    fun getTasksList(): List<TaskDTO>
 }

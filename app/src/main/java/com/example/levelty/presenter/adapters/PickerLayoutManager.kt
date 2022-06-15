@@ -1,10 +1,12 @@
 package com.example.levelty.presenter.adapters
 
 import android.content.Context
-import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.SmoothScroller
+
 
 class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Boolean) :
     LinearLayoutManager(context, orientation, reverseLayout) {
@@ -116,6 +118,5 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
     fun setOnScrollStopListener(onScrollStopListener: scrollStopListener?) {
         this.onScrollStopListener = onScrollStopListener
     }
-
 
 }

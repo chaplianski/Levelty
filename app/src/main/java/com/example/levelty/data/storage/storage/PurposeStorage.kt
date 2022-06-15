@@ -6,4 +6,6 @@ import com.example.levelty.domain.models.Purpose
 interface PurposeStorage {
 
     fun getParentsPurpose(): List<PurposeDTO>
+
+    fun getParentsPurposes(): List<PurposeDTO>
 }

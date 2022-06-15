@@ -23,9 +23,9 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(tasksList[position])
 
-        holder.onDeleteClick = {
-            removeItem(it)
-        }
+//        holder.onDeleteClick = {
+//            removeItem(it)
+//        }
 
     }
 
@@ -46,20 +46,20 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
         val taskCoins: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_coins)
         val tasksMoney: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_money)
         val taskCondition: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_condition)
-        val taskApprove: Chip = itemView.findViewById(R.id.chip_tv_fragment_day_personal_tasks_item_approve)
+  //      val taskApprove: Chip = itemView.findViewById(R.id.chip_tv_fragment_day_personal_tasks_item_approve)
         val view = WeakReference(itemView)
 
    //     lateinit var textViewDelete: TextView
 
-        var onDeleteClick: ((RecyclerView.ViewHolder) -> Unit)? = null
-
-        init {
-            view.get()?.let {
-                it.setOnClickListener {
-                    if (view.get()?.scrollX != 0) {
-                        view.get()?.scrollTo(0, 0)
-                }
-                }
+//        var onDeleteClick: ((RecyclerView.ViewHolder) -> Unit)? = null
+//
+//        init {
+//            view.get()?.let {
+//                it.setOnClickListener {
+//                    if (view.get()?.scrollX != 0) {
+//                        view.get()?.scrollTo(0, 0)
+//                }
+//                }
 
 //            textViewDelete.setOnClickListener {
 //
@@ -71,14 +71,14 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
 //                }
 //            }
 
-            }
+ //           }
 
-            fun updateView(){
-                view.get()?.scrollTo(0,0)
-            //  textView.text = "index$index"
-            }
+//            fun updateView(){
+//                view.get()?.scrollTo(0,0)
+//            //  textView.text = "index$index"
+//            }
 
-        }
+ //       }
 
         fun onBind(task: Task){
             taskName.text = task.taskName

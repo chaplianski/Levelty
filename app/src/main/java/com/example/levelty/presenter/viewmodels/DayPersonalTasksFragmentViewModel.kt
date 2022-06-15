@@ -16,11 +16,19 @@ class DayPersonalTasksFragmentViewModel @Inject constructor(
 
     val _dayTaskList = MutableLiveData<List<Task>>()
     val dayTaskList: LiveData<List<Task>> get() = _dayTaskList
+    val _currentDay = MutableLiveData<String>()
+    val currentDay: LiveData<String> get() = _currentDay
 
     fun getDayTasks(){
         viewModelScope.launch(Dispatchers.IO) {
             val list = getDayTasksUseCase.execute()
             _dayTaskList.postValue(list)
+        }
+    }
+
+    fun transferDateValue(date: String){
+        viewModelScope.launch(Dispatchers.IO) {
+            _currentDay.postValue(date)
         }
     }
 

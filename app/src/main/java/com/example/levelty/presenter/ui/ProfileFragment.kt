@@ -71,10 +71,20 @@ class ProfileFragment : Fragment() {
         val taskProgressBar: ProgressBar = binding.pbProfileFragmentProgressImage
         val textProgress: TextView = binding.tvProfileFragmentProgressText
         val dayTaskButton: Chip = binding.chipProfileFragmentDay
+        val parentPurposeButton: Chip = binding.chipProfileFragmentPurposes
+        val goalsButton: Chip = binding.chipProfileFragmentGoals
+        val kidInterestsButton: TextView = binding.tvProfileFragmentInterests
 
         val tasksPie = binding.pieProfileFragmentTasks
         val categoryPie = binding.pieProfileFragmentCategories
 
+
+        // ***** Go to
+        kidInterestsButton.setOnClickListener {
+            val navController = Navigation.findNavController(view)
+            navController.navigate(R.id.action_profileFragment_to_tasksFragment)
+        }
+        
 
         // **** Add kid list *****
 
@@ -108,7 +118,7 @@ class ProfileFragment : Fragment() {
             purposeRV.adapter = interestsProfileFragmentAdapter
         }
 
-        // **** Add interest list *****
+        // **** Add goals list *****
 
         profileFragmentViewModel.getGoals()
 
@@ -117,6 +127,12 @@ class ProfileFragment : Fragment() {
             val purposeRV = binding.rvProfileFragmentGoals
             purposeRV.adapter = goalsProfileFragmentAdapter
         }
+
+        goalsButton.setOnClickListener {
+            val navController = Navigation.findNavController(view)
+            navController.navigate(R.id.action_profileFragment_to_kidsGoalsFragment)
+        }
+
 
         // **** Add purpose list *****
 
@@ -128,7 +144,10 @@ class ProfileFragment : Fragment() {
             purposeRV.adapter = purposeProfileFragmentAdapter
         }
 
-
+        parentPurposeButton.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_profileFragment_to_kidsGoalsFragment)
+        }
 
 
 

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.domain.models.DateTask
@@ -36,20 +37,19 @@ class YearPickerAdapter(
         return yearList.size
     }
 
+    fun updateList(newList: List<Int>){
+        yearList = newList
+        notifyDataSetChanged()
+    }
+
     fun swapData(newData: List<Int>) {
         yearList = newData
         notifyDataSetChanged()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        var pickerTxt: TextView
-//
-//        init {
-//            pickerTxt = itemView.findViewById<View>(R.id.picker_item) as TextView
-//        }
 
         val yearText: TextView = itemView.findViewById(R.id.tv_fragment_date_choose_year)
-
 
         fun onBind(year: Int) {
             if (year.toString().length == 1){

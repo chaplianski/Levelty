@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,8 +57,10 @@ class RepeatChooseFragment : BottomSheetDialogFragment() {
 
         val saveButton: Button = view.findViewById(R.id.bt_fragment_repeat_choose_save)
         val repeatRV: RecyclerView = view.findViewById(R.id.rv_fragment_repeat_choose)
-        repeatChooseFragmentViewModel.getRepeatVariants()
+        val closeButton: ImageView = view.findViewById(R.id.iv_fragment_repeat_choose_close)
 
+
+        repeatChooseFragmentViewModel.getRepeatVariants()
         repeatChooseFragmentViewModel.repeatList.observe(this.viewLifecycleOwner){
             val repeatList: List<String> = it.map { (id, value) -> value }
             val repeatAdapter = OrderStringAdapter(repeatList)
@@ -78,6 +81,10 @@ class RepeatChooseFragment : BottomSheetDialogFragment() {
                 }
 
             }
+        }
+
+        closeButton.setOnClickListener {
+            dismiss()
         }
 
 

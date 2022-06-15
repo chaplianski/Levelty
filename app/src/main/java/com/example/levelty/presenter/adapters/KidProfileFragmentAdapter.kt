@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.levelty.R
 import com.example.levelty.domain.models.Kid
 
-class KidProfileFragmentAdapter(val kidList: List<Kid>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class KidProfileFragmentAdapter(private val kidList: List<Kid>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -71,8 +71,8 @@ class KidProfileFragmentAdapter(val kidList: List<Kid>) : RecyclerView.Adapter<R
 
         fun onBind(){
 
-            kidName.text = "Add kid"
-            Glide.with(itemView.context).load(R.drawable.ic_ellipse_29__add_)
+            kidName.text = "Add new"
+            Glide.with(itemView.context).load(R.drawable.ic_add_new_kid)
                 .override(68, 68)
                 .centerCrop()
                 .circleCrop()

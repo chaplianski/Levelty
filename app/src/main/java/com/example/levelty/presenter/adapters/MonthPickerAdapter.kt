@@ -26,8 +26,6 @@ class MonthPickerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //      holder.pickerTxt.text = dataList[position]
         holder.onBind(monthList[position])
-
-
         holder.monthText.setOnClickListener { recyclerView?.smoothScrollToPosition(position) }
     }
 
@@ -41,16 +39,9 @@ class MonthPickerAdapter(
     }
 
 
-
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        var pickerTxt: TextView
-//
-//        init {
-//            pickerTxt = itemView.findViewById<View>(R.id.picker_item) as TextView
-//        }
 
         val monthText: TextView = itemView.findViewById(R.id.tv_fragment_date_choose_month)
-
 
         fun onBind(month: String) {
             monthText.text =  month

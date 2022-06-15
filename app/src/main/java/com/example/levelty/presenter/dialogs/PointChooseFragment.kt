@@ -23,8 +23,6 @@ class PointChooseFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-
         return inflater.inflate(R.layout.fragment_point_choose, container, false)
     }
 
@@ -39,21 +37,20 @@ class PointChooseFragment : BottomSheetDialogFragment() {
         val closeButton: ImageView = view.findViewById(R.id.iv_fragment_point_choose_close)
         val saveButton: Button = view.findViewById(R.id.bt_fragment_point_choose_save)
 
-
-
-       closeButton.setOnClickListener {
+        closeButton.setOnClickListener {
             dismiss()
-       }
-        saveButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putInt("points", pointsText.text.toString().toInt())
-            val navController = findNavController()
-            navController.previousBackStackEntry?.savedStateHandle?.set("points", pointsText.text.toString().toInt())
-            dismiss()
-
         }
+        saveButton.setOnClickListener {
 
-
+            if (!pointsText.text.isEmpty()) {
+                val navController = findNavController()
+                navController.previousBackStackEntry?.savedStateHandle?.set(
+                    "points",
+                    pointsText.text.toString().toInt()
+                )
+                dismiss()
+            }
+        }
     }
 
     override fun onStart() {
@@ -61,16 +58,14 @@ class PointChooseFragment : BottomSheetDialogFragment() {
 
         dialog.let {
 
-            val bottomSheet = it?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
+            val bottomSheet =
+                it?.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet) as FrameLayout
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            //      behavior.isHideable = false
             behavior.isDraggable = false
-            //    behavior.state = BottomSheetBehavior.SAVE_HIDEABLE
         }
     }
-
 
 
 }
