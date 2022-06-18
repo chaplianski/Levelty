@@ -82,7 +82,7 @@ class DayKidDetailTasksFragment : Fragment() {
         dateRV.layoutManager = pickerLayoutManager
         dateRV.adapter = dateTasksFragmentAdapter
         lifecycleScope.launchWhenCreated {
-            delay(50)
+            delay(51)
             dateRV.scrollToPosition(beginDaysCount+1)
         }
 
