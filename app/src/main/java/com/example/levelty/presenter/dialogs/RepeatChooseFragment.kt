@@ -2,7 +2,6 @@ package com.example.levelty.presenter.dialogs
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,15 +11,12 @@ import android.widget.ImageView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
-import com.example.levelty.presenter.adapters.OrderStringAdapter
-import com.example.levelty.presenter.factories.ProfileFragmentViewModelFactory
-import com.example.levelty.presenter.factories.RepeatChooseFragmentViewModelFactory
-import com.example.levelty.presenter.viewmodels.ProfileFragmentViewModel
-import com.example.levelty.presenter.viewmodels.RepeatChooseFragmentViewModel
+import com.example.levelty.presenter.adapters.parent.OrderStringAdapter
+import com.example.levelty.presenter.factories.parent.RepeatChooseFragmentViewModelFactory
+import com.example.levelty.presenter.viewmodels.parent.RepeatChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject

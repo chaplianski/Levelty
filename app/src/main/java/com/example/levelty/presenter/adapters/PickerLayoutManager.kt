@@ -3,9 +3,7 @@ package com.example.levelty.presenter.adapters
 import android.content.Context
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 
 
 class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Boolean) :
@@ -15,12 +13,12 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
     var scaleDownDistance = 1.8f
     var isChangeAlpha = true
 
-    interface scrollStopListener {
+    interface ScrollStopListener {
 //        fun selectedView(view: View?)
         fun selectedView(view: View?)
     }
 
-    private var onScrollStopListener: scrollStopListener? = null
+    private var onScrollStopListener: ScrollStopListener? = null
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
         super.onLayoutChildren(recycler, state)
@@ -46,14 +44,14 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
         for (i in 0 until childCount) {
             val child = getChildAt(i)
  //           Log.d("MyLog", "child: $childCount")
-//            if (1 == 0) {
+//            if (i == 0) {
 //                val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
 //                val scale = 1.0f + -1  / unitScaleDownDist
 //                child.scaleX = scale
 //                child.scaleY = scale
 //            }
  //           if (i > 1){
-                val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
+            val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
             var scale = 0f
             when (i){
                 0 -> {
@@ -115,7 +113,7 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
         }
     }
 
-    fun setOnScrollStopListener(onScrollStopListener: scrollStopListener?) {
+    fun setOnScrollStopListener(onScrollStopListener: ScrollStopListener?) {
         this.onScrollStopListener = onScrollStopListener
     }
 

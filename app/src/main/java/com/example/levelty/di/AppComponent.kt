@@ -5,9 +5,10 @@ import com.example.levelty.presenter.dialogs.CategoryChooseFragment
 import com.example.levelty.presenter.dialogs.KidsInterestChooseFragment
 import com.example.levelty.presenter.dialogs.ParentsPurposeChooseFragment
 import com.example.levelty.presenter.dialogs.RepeatChooseFragment
-import com.example.levelty.presenter.ui.DayPersonalTasksFragment
-import com.example.levelty.presenter.ui.KidsGoalsFragment
-import com.example.levelty.presenter.ui.ProfileFragment
+import com.example.levelty.presenter.ui.kid.DayKidDetailTasksFragment
+import com.example.levelty.presenter.ui.parent.DayPersonalTasksFragment
+import com.example.levelty.presenter.ui.parent.KidsGoalsFragment
+import com.example.levelty.presenter.ui.parent.ProfileFragment
 import com.example.levelty.presenter.ui.parent.TasksFragment
 import dagger.BindsInstance
 import dagger.Component
@@ -25,7 +26,7 @@ interface AppComponent {
     fun interestChooseFragmentInject(kidsInterestChooseFragment: KidsInterestChooseFragment)
     fun kidGoalsFragmentInject(kidsGoalsFragment: KidsGoalsFragment)
     fun tasksFragmentInject(tasksFragment: TasksFragment)
-//    fun answerFragmentInject(answerFragment: AnswerFragment)
+    fun taskKidDetailFragmentInject(dayKidDetailTasksFragment: DayKidDetailTasksFragment)
 //    fun loginFragmentInject(loginFragment: LoginFragment)
 //    fun notesFragmentInject(notesFragment: NotesFragment)
 //    fun noteFragmentInject(noteFragment: NoteFragment)

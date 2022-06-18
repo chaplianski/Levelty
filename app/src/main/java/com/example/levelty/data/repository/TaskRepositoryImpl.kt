@@ -18,4 +18,8 @@ class TaskRepositoryImpl @Inject constructor(private val taskStorageImpl: TaskSt
     override fun getTasksList(): List<Task> {
         return taskStorageImpl.getTasksList().map { it.taskMapDataToDomain() }
     }
+
+    override fun getKidDetailTasksList(): List<Task> {
+        return taskStorageImpl.getKidDetailTasksList().map { it.taskMapDataToDomain() }
+    }
 }

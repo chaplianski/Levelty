@@ -54,5 +54,18 @@ class TaskStorageImpl @Inject constructor(): TaskStorage {
         return taskList.toList()
     }
 
+    override fun getKidDetailTasksList(): List<TaskDTO> {
+        val taskList = mutableListOf<TaskDTO>()
+        val dateToday = Calendar.getInstance().timeInMillis
+        val startDate = Calendar.getInstance().timeInMillis
+        taskList.add(TaskDTO(0, "Find key", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(1, "Walk dog", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(2, "Find key", "Home", 2, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(3, "Walk dog", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        taskList.add(TaskDTO(4, "Find key", "Home", 1, dateToday, startDate, "Weekly", "Order", "Finding scill", 0L))
+        taskList.add(TaskDTO(5, "Walk dog", "Home", 3, dateToday, startDate, "Weekly", "Order", "Animal scill", 1L))
+        return taskList.toList()
+    }
+
 
 }

@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
-    tools:context=".presenter.ui.ProfileFragment">
+    tools:context=".presenter.ui.parent.ProfileFragment">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

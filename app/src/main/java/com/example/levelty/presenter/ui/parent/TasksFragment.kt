@@ -1,8 +1,6 @@
 package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
-import android.graphics.Color
-import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,9 +12,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.Task
-import com.example.levelty.presenter.adapters.TasksFragmentAdapter
-import com.example.levelty.presenter.factories.TaskFragmentViewModelFactory
-import com.example.levelty.presenter.viewmodels.TaskFragmentViewModel
+import com.example.levelty.presenter.adapters.parent.TasksFragmentAdapter
+import com.example.levelty.presenter.factories.parent.TaskFragmentViewModelFactory
+import com.example.levelty.presenter.viewmodels.parent.TaskFragmentViewModel
 import javax.inject.Inject
 
 

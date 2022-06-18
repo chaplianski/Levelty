@@ -2,7 +2,6 @@ package com.example.levelty.presenter.dialogs
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
-import com.example.levelty.presenter.adapters.OrderStringAdapter
-import com.example.levelty.presenter.factories.ParentPurposeChooseViewModelFactory
-import com.example.levelty.presenter.viewmodels.ParentPurposeChooseViewModel
+import com.example.levelty.presenter.adapters.parent.OrderStringAdapter
+import com.example.levelty.presenter.factories.parent.ParentPurposeChooseViewModelFactory
+import com.example.levelty.presenter.viewmodels.parent.ParentPurposeChooseViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import javax.inject.Inject

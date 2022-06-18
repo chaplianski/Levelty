@@ -10,4 +10,6 @@
     <color name="grey">#BEBEBE</color>
     <color name="dark_grey">#A9A9A9</color>
     <color name="light_grey">#D3D3D3</color>
+    <color name="violet_500">#D048F4</color>
+    <color name="alpha_65">#4DFFFFFF</color>
 </resources>

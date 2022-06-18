@@ -19,7 +19,7 @@ import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
 import com.example.levelty.presenter.adapters.MonthPickerAdapter
 import com.example.levelty.presenter.adapters.YearPickerAdapter
-import com.example.levelty.presenter.viewmodels.DateChooseFragmentViewModel
+import com.example.levelty.presenter.viewmodels.parent.DateChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.text.DateFormatSymbols

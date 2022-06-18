@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.levelty.presenter.ui.ProfileFragment"
+        android:name="com.example.levelty.presenter.ui.parent.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
         <action
@@ -19,15 +19,18 @@
         <action
             android:id="@+id/action_profileFragment_to_tasksFragment"
             app:destination="@id/tasksFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_dayKidDetailTasksFragment"
+            app:destination="@id/dayKidDetailTasksFragment" />
     </fragment>
     <fragment
         android:id="@+id/kidsGoalsFragment"
-        android:name="com.example.levelty.presenter.ui.KidsGoalsFragment"
+        android:name="com.example.levelty.presenter.ui.parent.KidsGoalsFragment"
         android:label="fragment_kids_goals"
         tools:layout="@layout/fragment_kids_goals" />
     <fragment
         android:id="@+id/dayPersonalTasksFragment"
-        android:name="com.example.levelty.presenter.ui.DayPersonalTasksFragment"
+        android:name="com.example.levelty.presenter.ui.parent.DayPersonalTasksFragment"
         android:label="fragment_day_personal_tasks"
         tools:layout="@layout/fragment_day_personal_tasks" >
         <action
@@ -41,7 +44,7 @@
         tools:layout="@layout/fragment_tasks" />
     <fragment
         android:id="@+id/newTaskFragment"
-        android:name="com.example.levelty.presenter.ui.NewTaskFragment"
+        android:name="com.example.levelty.presenter.ui.parent.NewTaskFragment"
         android:label="NewTaskFragment" >
         <action
             android:id="@+id/action_newTaskFragment_to_categoryChooseFragment"
@@ -104,4 +107,9 @@
         android:name="com.example.levelty.presenter.dialogs.KidsInterestChooseFragment"
         android:label="fragment_kids_interest_choose"
         tools:layout="@layout/fragment_kids_interest_choose" />
+    <fragment
+        android:id="@+id/dayKidDetailTasksFragment"
+        android:name="com.example.levelty.presenter.ui.kid.DayKidDetailTasksFragment"
+        android:label="fragment_day_kid_detail_tasks"
+        tools:layout="@layout/fragment_day_kid_detail_tasks" />
 </navigation>

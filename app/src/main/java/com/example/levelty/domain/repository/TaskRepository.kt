@@ -9,4 +9,6 @@ interface TaskRepository {
     fun getDayTasks(): List<Task>
 
     fun getTasksList(): List<Task>
+
+    fun getKidDetailTasksList(): List<Task>
 }

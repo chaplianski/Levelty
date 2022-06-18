@@ -9,4 +9,6 @@ interface TaskStorage {
     fun getUncomingTask(): List<TaskDTO>
 
     fun getTasksList(): List<TaskDTO>
+
+    fun getKidDetailTasksList(): List<TaskDTO>
 }
