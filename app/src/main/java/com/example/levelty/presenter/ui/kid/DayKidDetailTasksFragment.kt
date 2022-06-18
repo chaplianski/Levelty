@@ -58,7 +58,7 @@ class DayKidDetailTasksFragment : Fragment() {
 
         val dateRV: RecyclerView = view.findViewById(R.id.rv_fragment_day_kid_detail_task_date)
         val pickerLayoutManager = PickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val beginDaysCount = 365
+        val beginDaysCount = 4
         val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
         val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
         val todayDate = Calendar.getInstance()
@@ -83,7 +83,7 @@ class DayKidDetailTasksFragment : Fragment() {
         dateRV.adapter = dateTasksFragmentAdapter
         lifecycleScope.launchWhenCreated {
             delay(50)
-            dateRV.scrollToPosition(beginDaysCount-3)
+            dateRV.scrollToPosition(beginDaysCount+1)
         }
 
         pickerLayoutManager.setOnScrollStopListener( object : PickerLayoutManager.ScrollStopListener{
