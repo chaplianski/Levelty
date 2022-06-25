@@ -1,11 +1,9 @@
 package com.example.levelty.di
 
 import android.content.Context
+import androidx.room.Room
 import com.example.levelty.data.repository.*
-import com.example.levelty.data.storage.database.CategoryStorageImpl
-import com.example.levelty.data.storage.database.PurposeStorageImpl
-import com.example.levelty.data.storage.database.RepeatStorageImpl
-import com.example.levelty.data.storage.database.TaskStorageImpl
+import com.example.levelty.data.storage.database.*
 import com.example.levelty.data.storage.storage.CategoryStorage
 import com.example.levelty.data.storage.storage.PurposeStorage
 import com.example.levelty.data.storage.storage.RepeatStorage
@@ -18,20 +16,19 @@ import javax.inject.Singleton
 @Module
 class AppModule() {
 
-//    @Singleton
-//    @Provides
-//    fun provideBriefCaseDao(briefCaseDB: BriefCaseDB) = briefCaseDB.BriefCaseDao()
-//
-//    @Singleton
-//    @Provides
-//    fun provideBriefCaseDB(context: Context): BriefCaseDB =
-//        Room.databaseBuilder(
-//            context,
-//            BriefCaseDB::class.java,
-//            "briefcase_db"
-//        )
-//            //          .fallbackToDestructiveMigration()
-//            .build()
+    @Singleton
+    @Provides
+    fun provideLeveltyDao(leveltyDB: LeveltyDB) = leveltyDB.leveltyDao()
+
+    @Singleton
+    @Provides
+    fun provideLeveltyDB(context: Context): LeveltyDB =
+        Room.databaseBuilder(
+            context,
+            LeveltyDB::class.java,
+            "levelty_db"
+        )
+            .build()
 //
 //    @Provides
 //    fun provideBriefcaseStorage(impl: BriefCaseStorageImpl): BriefCaseStorage = impl

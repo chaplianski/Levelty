@@ -5,10 +5,12 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cv_fragment_kid_goal_card"
         android:layout_width="164dp"
-        android:layout_height="164dp"
+        android:layout_height="90dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -20,14 +22,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_fragment_kid_goal_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_rectangle_88" />
-
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_fragment_kid_goal_approval"
@@ -35,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:text="Need approval"
+                android:text="@string/need_approval"
                 app:ensureMinTouchTargetSize="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

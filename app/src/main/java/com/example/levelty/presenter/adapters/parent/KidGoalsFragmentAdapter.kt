@@ -1,14 +1,22 @@
 package com.example.levelty.presenter.adapters.parent
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.domain.models.Goal
 
 class KidGoalsFragmentAdapter  (val goals: List<Goal>): RecyclerView.Adapter<KidGoalsFragmentAdapter.ViewHolder>() {
+
+    interface ShortOnClickListener {
+        fun ShortClick(goal: Goal)
+    }
+
+    var shortOnClickListener: ShortOnClickListener? = null
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,6 +26,12 @@ class KidGoalsFragmentAdapter  (val goals: List<Goal>): RecyclerView.Adapter<Kid
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(goals[position])
+
+        holder.itemView.setOnClickListener {
+            shortOnClickListener?.ShortClick(goals[position])
+        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -28,12 +42,25 @@ class KidGoalsFragmentAdapter  (val goals: List<Goal>): RecyclerView.Adapter<Kid
 
         val goalNameText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_name)
         val goalRewardText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_reward)
+        val goalLayout = itemView.findViewById<CardView>(R.id.cv_fragment_kid_goal_card)
 //        val isApprovalButton: Chip = itemView.findViewById(R.id.chip_fragment_kid_goal_approval)
 //        val goalImage: ImageView = itemView.findViewById(R.id.iv_fragment_profile_goal_image)
 
         fun onBind(goal: Goal){
             goalNameText.text = goal.goalName
-            goalRewardText.text = goal.goalReward
+            goalRewardText.text = goal.goalValue.toString()
+
+//            val firstColor = ContextCompat.getColor(itemView.context, R.color.purple_500)
+//            val secondColor = ResourcesCompat.getColor(Resources.getSystem(), R.color.purple_700, null)
+//            val colorA = Color.parseColor("#2D98FB")
+            goalLayout.setBackgroundColor(Color.BLUE)
+
+   //         val gr = GradientDrawable(GradientDrawable.OVAL, intArrayOf(firstColor, secondColor))
+  //          gr.cornerRadius = 0f
+
+ //           goalLayout.setBackgroundDrawable(gr)
+
+
 //            Glide.with(itemView.context).load(R.drawable.kid_goal_image_1)
 //                .override(68, 68)
 //                .centerCrop()

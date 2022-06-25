@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.levelty.R
 import com.example.levelty.domain.models.Goal
 import com.google.android.material.chip.Chip
@@ -36,7 +35,7 @@ class GoalsProfileFragmentAdapter(val goals: List<Goal>): RecyclerView.Adapter<G
 
         fun onBind(goal: Goal){
             goalNameText.text = goal.goalName
-            goalRewardText.text = goal.goalReward
+            goalRewardText.text = goal.goalValue.toString()
 //            Glide.with(itemView.context).load(R.drawable.kid_goal_image_1)
 //                .override(68, 68)
 //                .centerCrop()

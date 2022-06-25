@@ -1,22 +1,45 @@
 package com.example.levelty.presenter.ui.parent
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
-import androidx.navigation.Navigation
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation.findNavController
 import com.example.levelty.R
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.example.levelty.databinding.FragmentNewTaskBinding
+import com.example.levelty.di.DaggerAppComponent
+import com.example.levelty.domain.models.Task
+import com.example.levelty.presenter.factories.parent.NewTaskViewModelFactory
+import com.example.levelty.presenter.viewmodels.parent.NewTaskViewModel
 import com.google.android.material.chip.Chip
+import javax.inject.Inject
 
 
 class NewTaskFragment : Fragment() {
+
+    @Inject
+    lateinit var newTaskViewModelFactory: NewTaskViewModelFactory
+    val newTaskViewModel: NewTaskViewModel by viewModels { newTaskViewModelFactory }
+
+    var _binding: FragmentNewTaskBinding? = null
+    val binding get() = _binding!!
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        DaggerAppComponent.builder()
+            .context(context)
+            .build()
+            .newTaskFragmentInject(this)
+
+    }
 
 
     override fun onCreateView(
@@ -24,56 +47,68 @@ class NewTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_new_task, container, false)
+        _binding = FragmentNewTaskBinding.inflate(inflater, container,false)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val taskText: EditText = view.findViewById(R.id.et_fragment_new_task_task_text)
-        val category: Chip = view.findViewById(R.id.chip_fragment_new_task_category)
-        val points: Chip = view.findViewById(R.id.chip_fragment_new_task_points)
-        val date: Chip = view.findViewById(R.id.chip_fragment_new_task_date)
-        val startTime: Chip = view.findViewById(R.id.chip_fragment_new_task_start_time)
-        val repeat: Chip = view.findViewById(R.id.chip_fragment_new_task_repeat)
-        val parentPurpose: Chip = view.findViewById(R.id.chip_fragment_new_task_parents_purpose)
-        val kidsInterest: Chip = view.findViewById(R.id.chip_fragment_new_task_kids_interest)
-        val closeButton: ImageView = view.findViewById(R.id.iv_fragment_new_task_close)
+        val taskText: EditText = binding.etFragmentNewTaskTaskText
+        val category: Chip = binding.chipFragmentNewTaskCategory
+        val points: Chip = binding.chipFragmentNewTaskPoints
+        val date: Chip = binding.chipFragmentNewTaskDate
+        val startTime: Chip = binding.chipFragmentNewTaskStartTime
+        val repeat: Chip = binding.chipFragmentNewTaskRepeat
+        val parentPurpose: Chip = binding.chipFragmentNewTaskParentsPurpose
+        val kidsInterest: Chip = binding.chipFragmentNewTaskKidsInterest
+        val closeButton: ImageView = binding.ivFragmentNewTaskClose
+        val saveButton: Button = binding.btFragmentNewTaskSave
+        val kidName = "Andrew"
+
+        var categoryValue = ""
+        var dateValue = ""
+        var startTimeValue = ""
+        var pointsValue = 0
+        var repeatValue = ""
+        var parentPurposeValue = ""
+        var kidInterestValue = ""
 
 
         category.setOnClickListener {
-            val navController = Navigation.findNavController(view)
+            val navController = findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_categoryChooseFragment)
 
         }
 
         date.setOnClickListener {
-            val navController = Navigation.findNavController(view)
+            val navController = findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_dateChooseFragment22)
         }
 
         startTime.setOnClickListener {
-            val navController = Navigation.findNavController(view)
+            val navController = findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_startTimeChooseFragment)
         }
 
         points.setOnClickListener {
-            val navController = Navigation.findNavController(view)
+            val navController = findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_pointChooseFragment)
         }
 
         parentPurpose.setOnClickListener {
-            val navController = Navigation.findNavController(view)
+            val navController = findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_parentsPurposeChooseFragment)
         }
 
         repeat.setOnClickListener {
-            val navController = Navigation.findNavController(view)
+            val navController = findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_repiatChooseFragment)
         }
 
         kidsInterest.setOnClickListener {
-            val navController = Navigation.findNavController(view)
+            val navController = findNavController(view)
             navController.navigate(R.id.action_newTaskFragment_to_kidsInterestChooseFragment)
 
         }
@@ -84,6 +119,7 @@ class NewTaskFragment : Fragment() {
         ) {
             points.text = it.toString()
             points.setTextColor(Color.BLACK)
+            pointsValue = it
         }
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("repeat")
@@ -100,6 +136,7 @@ class NewTaskFragment : Fragment() {
             ) {
                 parentPurpose.text = it.toString()
                 parentPurpose.setTextColor(Color.BLACK)
+                parentPurposeValue = it
             }
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("interest")
@@ -108,6 +145,7 @@ class NewTaskFragment : Fragment() {
             ) {
                 kidsInterest.text = it.toString()
                 kidsInterest.setTextColor(Color.BLACK)
+                kidInterestValue = it
             }
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("category")
@@ -116,6 +154,7 @@ class NewTaskFragment : Fragment() {
             ) {
                 category.text = it.toString()
                 category.setTextColor(Color.BLACK)
+                categoryValue = it
             }
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
@@ -124,6 +163,7 @@ class NewTaskFragment : Fragment() {
             ) {
                 date.text = it.toString()
                 date.setTextColor(Color.BLACK)
+                dateValue = it
             }
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("start time")
@@ -132,13 +172,28 @@ class NewTaskFragment : Fragment() {
             ) {
                 startTime.text = it.toString()
                 startTime.setTextColor(Color.BLACK)
+                startTimeValue = it
             }
 
         closeButton.setOnClickListener {
             navController.popBackStack()
         }
 
+        saveButton.setOnClickListener {
+            val taskNameValue = taskText.text.toString()
+            val newTask = Task(0,taskNameValue,categoryValue,pointsValue,dateValue,startTimeValue,repeatValue,parentPurposeValue,kidInterestValue,kidName, "Upcoming")
+            newTaskViewModel.addTask(newTask)
+            val navController = findNavController(view)
+            navController.navigate(R.id.action_newTaskFragment_to_tasksFragment)
+        }
 
+
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 
 

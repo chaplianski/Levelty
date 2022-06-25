@@ -11,5 +11,19 @@
     <color name="dark_grey">#A9A9A9</color>
     <color name="light_grey">#D3D3D3</color>
     <color name="violet_500">#D048F4</color>
-    <color name="alpha_65">#4DFFFFFF</color>
+    <color name="alpha_25">#4DFFFFFF</color>
+
+    <color name="blue_1">#2D98FB</color>
+    <color name="blue_2">#0B72D2</color>
+    <color name="green_1">#20B28F</color>
+    <color name="green_2">#0B8F6F</color>
+    <color name="violet_1">#D461F2</color>
+    <color name="violet_2">#A116C8</color>
+    <color name="red_1">#E5496E</color>
+    <color name="red_2">#CC2A50</color>
+
+
+
+
+
 </resources>

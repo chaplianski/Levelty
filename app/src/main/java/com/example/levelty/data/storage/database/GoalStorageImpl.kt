@@ -8,9 +8,9 @@ class GoalStorageImpl @Inject constructor(): GoalStorage {
 
     override fun getKidsGoals(): List<GoalDTO> {
         val goalList = mutableListOf<GoalDTO>()
-        goalList.add(GoalDTO(0, "Health", "Today", false, ))
-        goalList.add(GoalDTO(1, "Sport", "Weekly", false, ))
-        goalList.add(GoalDTO(2, "Science", "Weekly", false, ))
+        goalList.add(GoalDTO(0, "Health", 10, false, 1))
+        goalList.add(GoalDTO(1, "Sport", 34, false, 2))
+        goalList.add(GoalDTO(2, "Science", 48, false, 3))
         return goalList.toList()
     }
 }

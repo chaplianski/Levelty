@@ -2,16 +2,19 @@ package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.DateTask
@@ -61,13 +64,13 @@ class DayPersonalTasksFragment : Fragment() {
 
      //   val dataPicker: NumberPicker = view.findViewById(R.id.np_fragment_day_personal_tasks_numbers)
         val addNewTaskButton: FloatingActionButton = view.findViewById(R.id.fb_day_personal_tasks_fragment_add)
-
+        val kidName = arguments?.getString("kid name")
    //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
 
 
         // ***** Fill data Days personal tasks
 
-        dayPersonalTasksFragmentViewModel.getDayTasks()
+  //      dayPersonalTasksFragmentViewModel.getDayTasks()
 
         dayPersonalTasksFragmentViewModel.dayTaskList.observe(this.viewLifecycleOwner){
 
@@ -109,7 +112,7 @@ class DayPersonalTasksFragment : Fragment() {
         dateRV.adapter = dateTasksFragmentAdapter
         lifecycleScope.launchWhenCreated {
             delay(10)
-            dateRV.scrollToPosition(beginDaysCount-3)
+            dateRV.scrollToPosition(beginDaysCount+1)
         }
 
         pickerLayoutManager.setOnScrollStopListener( object : PickerLayoutManager.ScrollStopListener{
@@ -121,10 +124,16 @@ class DayPersonalTasksFragment : Fragment() {
         })
 
         dayPersonalTasksFragmentViewModel.currentDay.observe(this.viewLifecycleOwner){
-            Toast.makeText(
-                context,
-                "Selected date ${it}", Toast.LENGTH_SHORT
-            ).show()
+            if (kidName != null) {
+                dayPersonalTasksFragmentViewModel.getDayTasks(kidName, it)
+            }
+
+            Log.d("MyLog", "kid = $kidName, date = $it")
+
+//            Toast.makeText(
+//                context,
+//                "Selected date ${it}", Toast.LENGTH_SHORT
+//            ).show()
         }
 
 

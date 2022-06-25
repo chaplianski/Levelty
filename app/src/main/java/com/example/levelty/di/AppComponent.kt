@@ -6,10 +6,7 @@ import com.example.levelty.presenter.dialogs.KidsInterestChooseFragment
 import com.example.levelty.presenter.dialogs.ParentsPurposeChooseFragment
 import com.example.levelty.presenter.dialogs.RepeatChooseFragment
 import com.example.levelty.presenter.ui.kid.DayKidDetailTasksFragment
-import com.example.levelty.presenter.ui.parent.DayPersonalTasksFragment
-import com.example.levelty.presenter.ui.parent.KidsGoalsFragment
-import com.example.levelty.presenter.ui.parent.ProfileFragment
-import com.example.levelty.presenter.ui.parent.TasksFragment
+import com.example.levelty.presenter.ui.parent.*
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -27,7 +24,7 @@ interface AppComponent {
     fun kidGoalsFragmentInject(kidsGoalsFragment: KidsGoalsFragment)
     fun tasksFragmentInject(tasksFragment: TasksFragment)
     fun taskKidDetailFragmentInject(dayKidDetailTasksFragment: DayKidDetailTasksFragment)
-//    fun loginFragmentInject(loginFragment: LoginFragment)
+    fun newTaskFragmentInject(newTaskFragment: NewTaskFragment)
 //    fun notesFragmentInject(notesFragment: NotesFragment)
 //    fun noteFragmentInject(noteFragment: NoteFragment)
 

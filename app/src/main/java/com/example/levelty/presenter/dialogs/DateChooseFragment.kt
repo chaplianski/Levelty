@@ -65,7 +65,8 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         var currentDayValue = calendar[Calendar.DAY_OF_MONTH]
         var currentYearValue = calendar[Calendar.YEAR]
-        var currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)-1]
+        var currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
+
 
         val yearRV: RecyclerView = view.findViewById(R.id.rv_fragment_date_choose_year)
         val yearPickerLayoutManager = DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -121,7 +122,7 @@ class DateChooseFragment : BottomSheetDialogFragment() {
                     val firstVisibleItemPosition =
                         (layoutManager as LinearLayoutManager?)?.findFirstVisibleItemPosition()
                     val lastVisibleItemPosition =
-                        (layoutManager as LinearLayoutManager?)?.findLastVisibleItemPosition()
+                        layoutManager?.findLastVisibleItemPosition()
                     if (lastVisibleItemPosition == 22){
                         layoutManager?.scrollToPosition(6)
 

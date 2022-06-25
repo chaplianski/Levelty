@@ -3,8 +3,8 @@ package com.example.levelty.data.repository
 import com.example.levelty.data.storage.model.*
 import com.example.levelty.domain.models.*
 
-class Mapper {
-}
+//class Mapper {
+//}
 
 fun TaskDTO.taskMapDataToDomain(): Task {
     return Task(
@@ -17,8 +17,23 @@ fun TaskDTO.taskMapDataToDomain(): Task {
     taskRepeat = taskRepeat,
     taskParentPurpose = taskParentPurpose,
     taskKidsInterest = taskKidsInterest,
-    kidId = kidId
-    )
+    kidName = kidName,
+    taskStatus = taskStatus)
+}
+
+fun Task.taskMapDomainToData(): TaskDTO {
+    return TaskDTO(
+        taskId = taskId,
+        taskName = taskName,
+        taskCategory = taskCategory,
+        taskPoints = taskPoints,
+        taskDate = taskDate,
+        taskStartTime = taskStartTime,
+        taskRepeat = taskRepeat,
+        taskParentPurpose = taskParentPurpose,
+        taskKidsInterest = taskKidsInterest,
+        kidName = kidName,
+        taskStatus = taskStatus)
 }
 
 fun PurposeDTO.purposeMapDataToDomain(): Purpose {
@@ -46,8 +61,9 @@ fun GoalDTO.goalMapDataToDomain(): Goal {
     return Goal(
         goalId = goalId,
         goalName = goalName,
-        goalReward = goalReward,
-        isApproval = isApproval
+        goalValue = goalValue,
+        isApproval = isApproval,
+        kidId = kidId
     )
 }
 

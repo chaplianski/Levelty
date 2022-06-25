@@ -5,10 +5,11 @@ data class Task(
     val taskName: String,
     val taskCategory: String,
     val taskPoints: Int,
-    val taskDate: Long,
-    val taskStartTime: Long,
+    val taskDate: String,
+    val taskStartTime: String,
     val taskRepeat: String,
     val taskParentPurpose: String,
     val taskKidsInterest: String,
-    val kidId: Long
+    val kidName: String,
+    val taskStatus: String
 )

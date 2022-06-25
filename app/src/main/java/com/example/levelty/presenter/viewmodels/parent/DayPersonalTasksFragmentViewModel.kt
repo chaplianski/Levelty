@@ -19,9 +19,9 @@ class DayPersonalTasksFragmentViewModel @Inject constructor(
     val _currentDay = MutableLiveData<String>()
     val currentDay: LiveData<String> get() = _currentDay
 
-    fun getDayTasks(){
+    fun getDayTasks(kidName: String, date: String){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = getDayTasksUseCase.execute()
+            val list = getDayTasksUseCase.execute(kidName, date)
             _dayTaskList.postValue(list)
         }
     }

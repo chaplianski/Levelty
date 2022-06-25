@@ -5,10 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
-import com.example.levelty.domain.models.Purpose
 import com.google.android.material.chip.Chip
 
-class PurposeProfileFragmentAdapter(val purposeList: List<Purpose>): RecyclerView.Adapter<PurposeProfileFragmentAdapter.ViewHolder>() {
+class PurposeProfileFragmentAdapter(val purposeList: List<String>): RecyclerView.Adapter<PurposeProfileFragmentAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,8 +27,8 @@ class PurposeProfileFragmentAdapter(val purposeList: List<Purpose>): RecyclerVie
 
         val purposeName: Chip = itemView.findViewById(R.id.chip_fragment_profile_purpose)
 
-        fun onBind(purpose: Purpose){
-            purposeName.text = purpose.purposeName
+        fun onBind(purpose: String){
+            purposeName.text = purpose
         }
 
     }

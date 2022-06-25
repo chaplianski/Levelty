@@ -21,7 +21,8 @@ class TaskPickerLayoutManager (context: Context?, orientation: Int, reverseLayou
 
     override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
         super.onLayoutChildren(recycler, state)
-        scaleDownView()
+  //      scaleDownView(0)
+        scaleCentralView()
     }
 
     override fun scrollHorizontallyBy(
@@ -32,38 +33,90 @@ class TaskPickerLayoutManager (context: Context?, orientation: Int, reverseLayou
         val orientation = orientation
         return if (orientation == HORIZONTAL) {
             val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
-            scaleDownView()
+            scaleCentralView()
+//            scaleDownView(dx)
+//            Log.d("MyLog", " dx: ${dx}")
             scrolled
         } else 0
     }
 
-    private fun scaleDownView() {
-        val mid = width / 2.0f  // центрирование вью
-        val unitScaleDownDist = scaleDownDistance * mid   // дистанция между элементами
+//    private fun scaleDownView(dx: Int) {
+//        val mid = width / 2.0f  // центрирование вью
+//        val unitScaleDownDist = scaleDownDistance * mid   // дистанция между элементами
+//
+//        val countState = 0
+//
+//            for (i in 0 until childCount) {
+//                val child = getChildAt(i)
+//
+//                val originalPos = IntArray(2)
+//                val location = getChildAt(i)!!.getLocationOnScreen(originalPos)
+//                val xLocation = originalPos[0]
+//                val yLocation = originalPos[1]
+//
+//               Log.d("MyLog", "location x = $xLocation, location y = $yLocation")
+//
+//                val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
+//                var scale = 0f
+//                if (childCount < 3 ) {
+//                   when (i) {
+//                        0 -> {
+//                            scale = 1f
+//                            child?.alpha = 1f
+//                        }
+//                        1 -> {
+//                            scale = scaleDownBy
+//                            child?.alpha = 0.4f
+//                        }
+//                    }
+//                }else{
+//
+//                when (i) {
+//                    0 -> {
+//                        scale = scaleDownBy
+//                        child.alpha = 0.4f
+//                    }
+//                    1 -> {
+//                        scale = 1f
+//                        child.alpha = 1f
+//                    }
+//                    2 -> {
+//                        scale = scaleDownBy
+//                        child.alpha = 0.4f
+//                    }
+//                }
+//                }
+//                child.scaleX = scale
+//                child.scaleY = scale
+//            }
+//    }
+
+    private fun scaleCentralView() {
+
         for (i in 0 until childCount) {
             val child = getChildAt(i)
 
-                val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
-                var scale = 0f
-                when (i) {
-                    0 -> {
-                        scale = scaleDownBy
-                        child.alpha = 0.4f
-                    }
-                    1 -> {
-                        scale = 1f
-                        child.alpha = 1f
-                    }
-                    2 -> {
-                        scale = scaleDownBy
-                        child.alpha = 0.4f
-                    }
-                }
+            val originalPos = IntArray(2)
+            val location = getChildAt(i)!!.getLocationOnScreen(originalPos)
+            val xLocation = originalPos[0]
+            val yLocation = originalPos[1]
+            var scale = 0f
+            if (xLocation in 51..899) {
+                scale = 1f
+                child?.alpha = 1f
+            } else {
 
-                child.scaleX = scale
-                child.scaleY = scale
-            }
+                scale = scaleDownBy
+                child?.alpha = 0.4f
+                    }
+
+
+            child?.scaleX = scale
+            child?.scaleY = scale
+        }
     }
+
+
 
     override fun onScrollStateChanged(state: Int) {
         super.onScrollStateChanged(state)
@@ -81,6 +134,8 @@ class TaskPickerLayoutManager (context: Context?, orientation: Int, reverseLayou
             }
         }
     }
+
+
 
     fun setOnScrollStopListener(onScrollStopListener: TaskScrollStopListener?) {
         this.onScrollStopListener = onScrollStopListener

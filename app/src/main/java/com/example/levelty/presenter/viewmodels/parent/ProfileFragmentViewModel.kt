@@ -1,5 +1,6 @@
 package com.example.levelty.presenter.viewmodels.parent
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 class ProfileFragmentViewModel @Inject constructor(
     private val getKidsUseCase: GtKidsUseCase,
-    private val getUpcomingTaskUseCase: GetUpcomingTasksUseCase,
+    private val getUpcomingTaskUseCase: GetTodayTasksUseCase,
     private val getKidInterestUseCase: GetKidInterestUseCase,
     private val getKidsGoalsUseCase: GetKidsGoalsUseCase,
     private val getParentsPurposeUseCase: GetParentsPurposeUseCase
@@ -38,9 +39,11 @@ class ProfileFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getUncomingTasks(){
+    fun getTodayTasks(kidName: String, currentDate: String){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = getUpcomingTaskUseCase.execute()
+            val list = getUpcomingTaskUseCase.execute(kidName, currentDate)
+            Log.d("MyLog", "parametrs in profile view model = $kidName, $currentDate")
+            Log.d("MyLog", "list in profile view model = $list")
             _uncomingTasksList.postValue(list)
         }
     }
@@ -52,7 +55,7 @@ class ProfileFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getGoals(){
+    fun getTodayGoals(){
         viewModelScope.launch(Dispatchers.IO) {
             val list = getKidsGoalsUseCase.execute()
             _kidGoalsList.postValue(list)

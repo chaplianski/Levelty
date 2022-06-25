@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
-import com.example.levelty.domain.models.Task
 import com.example.levelty.presenter.adapters.parent.TasksFragmentAdapter
 import com.example.levelty.presenter.factories.parent.TaskFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.TaskFragmentViewModel
@@ -47,9 +46,18 @@ class TasksFragment : Fragment() {
 
         tasksFragmentViewModel.getTasksListValue()
         tasksFragmentViewModel.tasksListValue.observe(this.viewLifecycleOwner){
-            val listTasks: MutableList<Task> = it as MutableList<Task>
-            listTasks.add(0, Task((listTasks.size+1).toLong(), "My Task", "", 0, 0, 0, "0", "", "", 0 ))
-            val tasksAdapter = TasksFragmentAdapter(listTasks.toList())
+
+
+            val categoriesList = mutableListOf<String>()
+            val realCategories = it.map { task -> task.taskCategory }.toSet().toList()
+            categoriesList.add("My Task")
+            categoriesList.addAll(realCategories)
+
+//            val listTasks: MutableList<Task> = it as MutableList<Task>
+//            listTasks.add(0, Task((listTasks.size+1).toLong(), "My Task", "", 0, "", "0", "0", "", "", "" ,"Need approval"))
+//            val tasksAdapter = TasksFragmentAdapter(listTasks.toList())
+
+            val tasksAdapter = TasksFragmentAdapter(categoriesList.toList())
             val lm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
 

@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class TaskFragmentViewModel @Inject constructor(private val getTasksFragmentUseCase: GetTasksFragmentUseCase): ViewModel() {
 
-    val _tasksListValue = MutableLiveData<List<Task>>()
+    private val _tasksListValue = MutableLiveData<List<Task>>()
     val tasksListValue: LiveData<List<Task>> get() = _tasksListValue
 
     fun getTasksListValue(){

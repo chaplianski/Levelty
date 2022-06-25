@@ -123,7 +123,7 @@ class DayKidDetailTasksFragment : Fragment() {
 
             lifecycleScope.launchWhenCreated {
                 delay(500)
-                tasksRV.scrollToPosition(1)
+                tasksRV.scrollToPosition(0)
             }
 
         }

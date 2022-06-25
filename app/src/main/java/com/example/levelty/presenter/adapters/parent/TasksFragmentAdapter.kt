@@ -1,21 +1,22 @@
 package com.example.levelty.presenter.adapters.parent
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.levelty.R
-import com.example.levelty.domain.models.Task
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
 
-class TasksFragmentAdapter (val tasksList: List<Task>): RecyclerView.Adapter<TasksFragmentAdapter.ViewHolder>() {
+class TasksFragmentAdapter (val tasksList: List<String>): RecyclerView.Adapter<TasksFragmentAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -78,6 +79,17 @@ class TasksFragmentAdapter (val tasksList: List<Task>): RecyclerView.Adapter<Tas
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.onBind(tasksList[position])
+        holder.itemView.setOnClickListener {
+            if (position == 0){
+                val navController = holder.itemView.let { Navigation.findNavController(it) }
+                navController.navigate(R.id.action_tasksFragment_to_newTaskFragment)
+            } else {
+                val bundle = Bundle()
+                bundle.getString("category", tasksList[position])
+                val navController = holder.itemView.let { Navigation.findNavController(it) }
+                navController.navigate(R.id.action_tasksFragment_to_taskInCategoriesFragment)
+            }
+        }
 
     }
 
@@ -90,10 +102,11 @@ class TasksFragmentAdapter (val tasksList: List<Task>): RecyclerView.Adapter<Tas
         val taskNameText: TextView = itemView.findViewById(R.id.tv_fragment_tasks_item_name)
         val taskRewardText: TextView = itemView.findViewById(R.id.tv_fragment_tasks_item_reward)
 
-        fun onBind(task: Task){
+        fun onBind(category: String){
 
-            taskNameText.text = task.taskName
-            taskRewardText.text = task.taskCategory
+            taskNameText.text = category
+//            taskNameText.text = task.taskName
+//            taskRewardText.text = task.taskCategory
 
         }
 
@@ -106,8 +119,10 @@ class TasksFragmentAdapter (val tasksList: List<Task>): RecyclerView.Adapter<Tas
     }
 
     fun getColor (): Int {
-        val colorList = listOf<Int>(R.color.purple_700, R.color.purple_200, R.color.dark_grey, R.color.teal_200,
-            androidx.appcompat.R.color.material_blue_grey_800, R.color.purple_500, R.color.grey, R.color.black)
+        val colorList = listOf<Int>(
+            R.color.red_1, R.color.red_2, R.color.violet_1, R.color.violet_2,
+            R.color.green_1, R.color.green_2, R.color.blue_1, R.color.blue_2
+        )
         return colorList.random()
     }
 

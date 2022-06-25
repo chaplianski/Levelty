@@ -7,7 +7,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="164dp"
-        android:layout_height="164dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +19,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/iv_fragment_profile_goal_image"
@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_rectangle_88" />
+                app:srcCompat="@drawable/goal_item" />
 
 
             <com.google.android.material.chip.Chip
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:text="Need approval"
+                android:text="@string/need_approval"
                 app:ensureMinTouchTargetSize="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
