@@ -18,4 +18,9 @@
     <string name="today">Today</string>
     <string name="categories">Categories</string>
     <string name="new_task_in_this_category">New task in this category</string>
+    <string name="close">Close</string>
+    <string name="back">Back</string>
+    <string name="all_tasks">All Tasks</string>
+    <string name="current_date">Current date</string>
+    <string name="need_approval">Need approval</string>
 </resources>
