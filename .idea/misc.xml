@@ -47,6 +47,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/experiment_swipe.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_category.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_category_choose.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_common_profile.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose.xml" value="0.4" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_day_item.xml" value="0.6" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_month_item.xml" value="0.5411458333333333" />
@@ -94,7 +95,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" project-jdk-name="corretto-18" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_X" default="true" project-jdk-name="corretto-18" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

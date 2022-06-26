@@ -38,10 +38,12 @@ class PickerAdapter(
 
         val numberText: TextView = itemView.findViewById(R.id.tv_date_item_number)
         val monthText: TextView = itemView.findViewById(R.id.tv_date_item_month)
+        val yearText: TextView = itemView.findViewById(R.id.tv_date_item_year)
 
         fun onBind(dateTask: DateTask){
             numberText.text = dateTask.day
             monthText.text = dateTask.month
+            yearText.text = dateTask.year
         }
     }
 }

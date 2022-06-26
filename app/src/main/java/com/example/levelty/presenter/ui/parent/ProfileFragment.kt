@@ -112,7 +112,7 @@ class ProfileFragment : Fragment() {
         val calendar = Calendar.getInstance(TimeZone.getDefault())
         val currentDayValue = calendar[Calendar.DAY_OF_MONTH]
         val currentYearValue = calendar[Calendar.YEAR]
-        val currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)-1]
+        val currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
         val dateItem = "$currentMonthValue $currentDayValue $currentYearValue"
 
 
@@ -123,7 +123,6 @@ class ProfileFragment : Fragment() {
 
         profileFragmentViewModel.uncommingTasksList.observe(this.viewLifecycleOwner){
 
-            Log.d("MyLog", "list task in profile fragment = $it")
             // ***** Upcoming list ******
             val upcomingTaskList = getUpcomingTasks(it)
             val uncomingTaskAdapter = UpcomingTasksProfileFragmentAdapter(upcomingTaskList)
@@ -142,8 +141,6 @@ class ProfileFragment : Fragment() {
             // **** Add interest list *****
 
             val interestList = getInerestList(it)
-            Log.d("MyLog","list interests = $interestList")
-
                 val interestsProfileFragmentAdapter = InterestsProfileFragmentAdapter(interestList)
                 val interestRV = binding.rvProfileFragmentInterests
                interestRV.adapter = interestsProfileFragmentAdapter
@@ -193,14 +190,12 @@ class ProfileFragment : Fragment() {
                 purposeRV.adapter = purposeProfileFragmentAdapter
      //       }
 
-
-
-
         }
 
         dayTaskButton.setOnClickListener {
             val bundle = Bundle()
-            bundle.getString("kid name", kidName)
+            bundle.putString("kid name", kidName)
+            bundle.putString("current date", dateItem)
             val navController = Navigation.findNavController(view)
             navController.navigate(R.id.action_profileFragment_to_dayPersonalTasksFragment, bundle)
         }
@@ -251,8 +246,11 @@ class ProfileFragment : Fragment() {
         bottomNavigation.setOnItemSelectedListener { item ->
             when(item.itemId){
                 R.id.tasks -> {
+                    val bundle = Bundle()
+                    bundle.putString("kid name", kidName)
+
                     val navController = view.let { Navigation.findNavController(it) }
-                    navController.navigate(R.id.action_profileFragment_to_tasksFragment)
+                    navController.navigate(R.id.action_profileFragment_to_tasksFragment, bundle)
                     true
                 }
                 R.id.profile -> {
@@ -265,10 +263,7 @@ class ProfileFragment : Fragment() {
                 }
                 else -> false
             }
-
         }
-
-
     }
 
     private fun getPieCategoriesEntries(it: List<Task>): MutableList<PieEntry> {

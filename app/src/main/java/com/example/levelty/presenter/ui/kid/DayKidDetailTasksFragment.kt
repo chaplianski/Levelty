@@ -61,6 +61,7 @@ class DayKidDetailTasksFragment : Fragment() {
         val beginDaysCount = 4
         val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
         val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
+        val formatDateYear = SimpleDateFormat("yyyy")
         val todayDate = Calendar.getInstance()
         todayDate.add(Calendar.DATE, -beginDaysCount)
 
@@ -71,7 +72,8 @@ class DayKidDetailTasksFragment : Fragment() {
             dateValues.add(
                 DateTask(
                 counter, formatDateDay.format(todayDate.timeInMillis),
-                formatDateMonth.format(todayDate.timeInMillis))
+                formatDateMonth.format(todayDate.timeInMillis),
+                formatDateYear.format(todayDate.timeInMillis))
             )
             counter++
         }

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.DateTask
+import com.example.levelty.domain.models.Task
 import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
@@ -65,6 +67,10 @@ class DayPersonalTasksFragment : Fragment() {
      //   val dataPicker: NumberPicker = view.findViewById(R.id.np_fragment_day_personal_tasks_numbers)
         val addNewTaskButton: FloatingActionButton = view.findViewById(R.id.fb_day_personal_tasks_fragment_add)
         val kidName = arguments?.getString("kid name")
+        val currentDay = arguments?.getString("current date")
+        val progressText = view.findViewById<TextView>(R.id.tv_fragment_day_personal_tasks_progress_text)
+        val progressBar = view.findViewById<ProgressBar>(R.id.pb_fragment_day_personal_tasks_progress_view)
+
    //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
 
 
@@ -72,11 +78,25 @@ class DayPersonalTasksFragment : Fragment() {
 
   //      dayPersonalTasksFragmentViewModel.getDayTasks()
 
+        if (kidName != null) {
+            if (currentDay != null) {
+                dayPersonalTasksFragmentViewModel.getDayTasks(kidName, currentDay)
+            }
+        }
+
         dayPersonalTasksFragmentViewModel.dayTaskList.observe(this.viewLifecycleOwner){
 
             val dayPersonalTaskRecyclerView: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_tasks_tasks_list)
             val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(it)
             dayPersonalTaskRecyclerView.adapter = fragmentDayPersonalTasksAdapter
+
+            //***** Get progress indicators *******
+
+            val allTaskCount = it.size
+            val completedTaskCount = allTaskCount - getUpcomingCountTask(it)
+            progressText.text = "$completedTaskCount of $allTaskCount are completed"
+            progressBar.max = allTaskCount
+            progressBar.progress = completedTaskCount
          }
 
         // ***** Go to NewTaskFragment *****
@@ -92,6 +112,7 @@ class DayPersonalTasksFragment : Fragment() {
         val beginDaysCount = 365
         val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
         val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
+        val formatDateYear = SimpleDateFormat("yyyy")
         val todayDate = Calendar.getInstance()
         todayDate.add(Calendar.DATE, -beginDaysCount)
 
@@ -101,7 +122,8 @@ class DayPersonalTasksFragment : Fragment() {
             todayDate.add(Calendar.DATE, 1)
             dateValues.add(DateTask(
                 counter, formatDateDay.format(todayDate.timeInMillis),
-                formatDateMonth.format(todayDate.timeInMillis)))
+                formatDateMonth.format(todayDate.timeInMillis),
+            formatDateYear.format(todayDate.timeInMillis)))
             counter++
         }
 
@@ -119,7 +141,8 @@ class DayPersonalTasksFragment : Fragment() {
             override fun selectedView(view: View?) {
                 val day = view?.findViewById<TextView>(R.id.tv_date_item_number)
                 val month = view?.findViewById<TextView>(R.id.tv_date_item_month)
-                dayPersonalTasksFragmentViewModel.transferDateValue("${day?.text} ${month?.text}")
+                val year = view?.findViewById<TextView>(R.id.tv_date_item_year)
+                dayPersonalTasksFragmentViewModel.transferDateValue("${month?.text} ${day?.text} ${year?.text}")
             }
         })
 
@@ -139,6 +162,14 @@ class DayPersonalTasksFragment : Fragment() {
 
     }
 
+    private fun getUpcomingCountTask(tasksList: List<Task>): Int {
+        var count = 0
+        for (task in tasksList){
+            if (task.taskStatus == "Upcoming") count++
+        }
+        return count
+
+    }
 
 
 }
