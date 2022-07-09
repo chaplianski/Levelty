@@ -13,4 +13,6 @@ interface TaskStorage {
     fun getKidDetailTasksList(): List<TaskDTO>
 
     fun addTask(taskDTO: TaskDTO)
+
+    fun updateTask(taskDTO: TaskDTO)
 }

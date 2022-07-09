@@ -10,7 +10,7 @@ class TaskRepositoryImpl @Inject constructor(private val taskStorageImpl: TaskSt
 
     override fun getTodayTasks(kidName: String, date: String): List<Task> {
         val list = taskStorageImpl.getTodayTask(kidName, date).map { it.taskMapDataToDomain() }
-        Log.d("MyLog", "list in taskRepositoryImpl = $list")
+//        Log.d("MyLog", "list in taskRepositoryImpl = $list")
         return list
     }
 
@@ -29,5 +29,9 @@ class TaskRepositoryImpl @Inject constructor(private val taskStorageImpl: TaskSt
     override fun addTask(task: Task) {
         val newTask = task.taskMapDomainToData()
         taskStorageImpl.addTask(newTask)
+    }
+
+    override fun updateTask(task: Task) {
+        taskStorageImpl.updateTask(task.taskMapDomainToData())
     }
 }

@@ -1,10 +1,7 @@
 package com.example.levelty.di
 
 import android.content.Context
-import com.example.levelty.presenter.dialogs.CategoryChooseFragment
-import com.example.levelty.presenter.dialogs.KidsInterestChooseFragment
-import com.example.levelty.presenter.dialogs.ParentsPurposeChooseFragment
-import com.example.levelty.presenter.dialogs.RepeatChooseFragment
+import com.example.levelty.presenter.dialogs.*
 import com.example.levelty.presenter.ui.kid.DayKidDetailTasksFragment
 import com.example.levelty.presenter.ui.parent.*
 import dagger.BindsInstance
@@ -25,8 +22,8 @@ interface AppComponent {
     fun tasksFragmentInject(tasksFragment: TasksFragment)
     fun taskKidDetailFragmentInject(dayKidDetailTasksFragment: DayKidDetailTasksFragment)
     fun newTaskFragmentInject(newTaskFragment: NewTaskFragment)
-//    fun notesFragmentInject(notesFragment: NotesFragment)
-//    fun noteFragmentInject(noteFragment: NoteFragment)
+    fun dayPersonalTasksDialogInject(dayPersonalTasksDialogFragment: DayPersonalTasksDialogFragment)
+    fun editTaskFragmentInject(editTaskFragment: EditTaskFragment)
 
 
     @Component.Builder

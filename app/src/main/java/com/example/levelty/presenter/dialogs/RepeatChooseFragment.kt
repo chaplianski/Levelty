@@ -2,6 +2,7 @@ package com.example.levelty.presenter.dialogs
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.presenter.adapters.parent.OrderStringAdapter
+import com.example.levelty.presenter.adapters.parent.RepeatChooseFragmentAdapter
 import com.example.levelty.presenter.factories.parent.RepeatChooseFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.RepeatChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -59,22 +61,31 @@ class RepeatChooseFragment : BottomSheetDialogFragment() {
         repeatChooseFragmentViewModel.getRepeatVariants()
         repeatChooseFragmentViewModel.repeatList.observe(this.viewLifecycleOwner){
             val repeatList: List<String> = it.map { (id, value) -> value }
-            val repeatAdapter = OrderStringAdapter(repeatList)
+            val repeatAdapter = RepeatChooseFragmentAdapter(repeatList)
             repeatRV.layoutManager = LinearLayoutManager(context)
             repeatRV.setHasFixedSize(true)
             repeatRV.adapter = repeatAdapter
 
-            repeatAdapter.shortOnClickListener = object : OrderStringAdapter.ShortOnClickListener{
-                override fun ShortClick(item: String) {
-//                    val bundle = Bundle()
-//                    bundle.putString("repeat", item)
-                    val navController = findNavController()
-                    navController.previousBackStackEntry?.savedStateHandle?.set("repeat", item)
+            repeatAdapter.shortOnClickListener = object :
+                RepeatChooseFragmentAdapter.ShortOnClickListener {
 
-                    saveButton.setOnClickListener {
-                        dismiss()
+                override fun ShortClick(item: String, isLast: Boolean) {
+                    val navController = findNavController()
+                    if (isLast == true){
+                        Log.d("MyLog", "item = $item, isLast = $isLast")
+                        navController.navigate(R.id.action_repeatChooseFragment_to_repeatChoiceDialogFragment)
+                    }else{
+                        Log.d("MyLog", "item = $item, isLast = $isLast")
+                        navController.previousBackStackEntry?.savedStateHandle?.set("repeat", item)
+                        saveButton.setOnClickListener {
+                            dismiss()
+                        }
                     }
+
+
+
                 }
+
 
             }
         }

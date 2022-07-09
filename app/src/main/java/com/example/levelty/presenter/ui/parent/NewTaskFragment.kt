@@ -128,7 +128,9 @@ class NewTaskFragment : Fragment() {
             ) {
                 repeat.text = it.toString()
                 repeat.setTextColor(Color.BLACK)
+                repeatValue = it
             }
+
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("purpose")
             ?.observe(

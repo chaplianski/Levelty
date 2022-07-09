@@ -1,9 +1,6 @@
 package com.example.levelty.data.storage.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.levelty.data.storage.model.TaskDTO
 
 @Dao
@@ -20,4 +17,7 @@ abstract class LeveltyDao {
 
     @Query("SELECT * FROM tasks WHERE kidName=:kidName AND taskDate=:date")
     abstract fun getTodayTask(kidName: String, date: String): List<TaskDTO>
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    abstract fun updateTask(taskDTO: TaskDTO)
 }

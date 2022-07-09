@@ -1,5 +1,9 @@
 package com.example.levelty.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Task(
     val taskId: Long,
     val taskName: String,
@@ -11,5 +15,5 @@ data class Task(
     val taskParentPurpose: String,
     val taskKidsInterest: String,
     val kidName: String,
-    val taskStatus: String
-)
+    var taskStatus: String
+) : Parcelable

@@ -13,6 +13,12 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
 
     val tasksList = dayTasksList as MutableList<Task>
 
+    interface ShortOnClickListener {
+        fun ShortClick(task: Task)
+    }
+
+    var shortOnClickListener: ShortOnClickListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_day_personal_tasks_item, parent, false)
         return ViewHolder(v)
@@ -20,6 +26,9 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.onBind(tasksList[position])
+        holder.itemView.setOnClickListener {
+            shortOnClickListener?.ShortClick(tasksList[position])
+        }
     }
 
 //    private fun removeItem(viewHolder: RecyclerView.ViewHolder) {
@@ -31,14 +40,12 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
         return tasksList.size
     }
 
-
-
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val taskName: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_task)
         val taskCoins: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_coins)
         val tasksMoney: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_money)
-        val taskCondition: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_condition)
+        val taskStatus: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_condition)
   //      val taskApprove: Chip = itemView.findViewById(R.id.chip_tv_fragment_day_personal_tasks_item_approve)
         val view = WeakReference(itemView)
 
@@ -47,7 +54,7 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
             taskName.text = task.taskName
             tasksMoney.text = "${(task.taskPoints*10).toString()}$ "
             taskCoins.text = "${task.taskPoints.toString()} coins"
-
+            taskStatus.text = task.taskStatus
         }
     }
 }

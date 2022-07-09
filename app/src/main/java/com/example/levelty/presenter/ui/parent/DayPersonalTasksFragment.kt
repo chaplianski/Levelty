@@ -23,6 +23,7 @@ import com.example.levelty.domain.models.Task
 import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
+import com.example.levelty.presenter.dialogs.DayPersonalTasksDialogFragment
 import com.example.levelty.presenter.factories.parent.DayPersonalTasksFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.DayPersonalTasksFragmentViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -30,6 +31,7 @@ import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
+import kotlin.collections.ArrayList
 
 
 class DayPersonalTasksFragment : Fragment() {
@@ -86,9 +88,27 @@ class DayPersonalTasksFragment : Fragment() {
 
         dayPersonalTasksFragmentViewModel.dayTaskList.observe(this.viewLifecycleOwner){
 
+            // ***** Task List ****
             val dayPersonalTaskRecyclerView: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_tasks_tasks_list)
             val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(it)
             dayPersonalTaskRecyclerView.adapter = fragmentDayPersonalTasksAdapter
+            val bundle = Bundle()
+            fragmentDayPersonalTasksAdapter.shortOnClickListener = object : FragmentDayPersonalTasksAdapter.ShortOnClickListener{
+                override fun ShortClick(task: Task) {
+
+
+                    bundle.putParcelable("current task", task)
+                    val navController = Navigation.findNavController(view)
+                    navController.navigate(R.id.action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment, bundle)
+                }
+
+
+
+
+            }
+
+
+
 
             //***** Get progress indicators *******
 

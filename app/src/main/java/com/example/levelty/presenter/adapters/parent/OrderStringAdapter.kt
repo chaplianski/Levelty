@@ -1,6 +1,5 @@
 package com.example.levelty.presenter.adapters.parent
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,13 +31,7 @@ class OrderStringAdapter (private val listString: List<String>) : RecyclerView.A
             notifyDataSetChanged()
         }
 
-
-
-//        if (holder.checkedField.isChecked){
-//            checkedText = holder.textListItem.text.toString()
-//
-//        }
-        Log.d("MyLog", "checkedVariant = ${holder.checkedField.isChecked}")
+    //    Log.d("MyLog", "checkedVariant = ${holder.checkedField.isChecked}")
 
     }
 

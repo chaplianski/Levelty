@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.Task
 import com.example.levelty.domain.usecases.parent.GetDayTasksUseCase
+import com.example.levelty.domain.usecases.parent.UpdateTaskUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class DayPersonalTasksFragmentViewModel @Inject constructor(
-    private val getDayTasksUseCase: GetDayTasksUseCase
+    private val getDayTasksUseCase: GetDayTasksUseCase,
+    private val updateTaskUseCase: UpdateTaskUseCase
 ) : ViewModel() {
 
     val _dayTaskList = MutableLiveData<List<Task>>()
@@ -30,6 +33,18 @@ class DayPersonalTasksFragmentViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             _currentDay.postValue(date)
         }
+    }
+
+    fun updateTask (task: Task){
+        viewModelScope.launch(Dispatchers.IO) {
+//            Log.d("MyLog", "task = $task")
+            updateTaskUseCase.execute(task)
+
+        }
+
+    }
+    override fun onCleared() {
+        viewModelScope.cancel()
     }
 
 }

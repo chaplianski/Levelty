@@ -24,7 +24,7 @@ class TaskStorageImpl @Inject constructor(): TaskStorage {
 
     override fun getTodayTask(kidName: String, date: String): List<TaskDTO> {
         val list = leveltyDao.getTodayTask(kidName, date)
-        Log.d("MyLog", "list in taskStorageImpl = $list")
+//        Log.d("MyLog", "list in taskStorageImpl = $list")
         return list
 
 //        val taskList = mutableListOf<TaskDTO>()
@@ -79,6 +79,10 @@ class TaskStorageImpl @Inject constructor(): TaskStorage {
 
     override fun addTask(taskDTO: TaskDTO) {
         leveltyDao.insertTask(taskDTO)
+    }
+
+    override fun updateTask(taskDTO: TaskDTO) {
+        leveltyDao.updateTask(taskDTO)
     }
 
 

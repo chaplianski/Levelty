@@ -13,4 +13,6 @@ interface TaskRepository {
     fun getKidDetailTasksList(): List<Task>
 
     fun addTask(task: Task)
+
+    fun updateTask(task: Task)
 }

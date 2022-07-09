@@ -2,14 +2,17 @@ package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -30,6 +33,8 @@ import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.appbar.CollapsingToolbarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import java.text.DateFormatSymbols
@@ -75,13 +80,38 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+ //       val toolbar: androidx.appcompat.widget.Toolbar = view.findViewById(com.example.levelty.R.id.)
+        val collapsingToolbar = view.findViewById(com.example.levelty.R.id.profile_collapsing_toolbar) as CollapsingToolbarLayout
+        val appBar = view.findViewById(com.example.levelty.R.id.profile_appbar) as AppBarLayout
+
+//        Log.d("MyLog", "collapsingToolbar.height = ${collapsingToolbar.height}")
+
+        appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+            if (collapsingToolbar.height + verticalOffset < 2 * ViewCompat.getMinimumHeight(
+                    collapsingToolbar
+                )
+            ) {
+ //               activity?.window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
+                view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+ //               toolbar.navigationIcon?.setColorFilter(resources.getColor(com.example.levelty.R.color.white), PorterDuff.Mode.SRC_ATOP)
+            } else {
+                view.systemUiVisibility = 0
+ //               toolbar.navigationIcon?.setColorFilter(resources.getColor(com.example.levelty.R.color.black), PorterDuff.Mode.SRC_ATOP)
+            }
+        }
+
+
+
         val taskProgressBar: ProgressBar = binding.pbProfileFragmentProgressImage
         val textProgress: TextView = binding.tvProfileFragmentProgressText
         val dayTaskButton: Chip = binding.chipProfileFragmentDay
         val parentPurposeButton: Chip = binding.chipProfileFragmentPurposes
         val goalsButton: Chip = binding.chipProfileFragmentGoals
         val kidInterestsButton: TextView = binding.tvProfileFragmentInterests
-        val bottomNavigation: BottomNavigationView = binding.bnProfileFragmentBottomAppBar
+        val bottomNavigation: BottomNavigationView = binding.bvProfileFragmentBottomNavView
+        val kidImage: ImageView = binding.ivProfileFragmentKidImage
+        val kidNameText: TextView = binding.tvProfileFragmentKidName
+        val kidLevelText: TextView = binding.tvProfileFragmentKidLevel
 
         val tasksPie = binding.pieProfileFragmentTasks
         val categoryPie = binding.pieProfileFragmentCategories
@@ -254,6 +284,8 @@ class ProfileFragment : Fragment() {
                     true
                 }
                 R.id.profile -> {
+                    val navController = view.let { Navigation.findNavController(it) }
+                    navController.navigate(R.id.action_profileFragment_to_profileChoiceFragment)
                     true
                 }
                 R.id.settings -> {

@@ -42,8 +42,8 @@ class ProfileFragmentViewModel @Inject constructor(
     fun getTodayTasks(kidName: String, currentDate: String){
         viewModelScope.launch(Dispatchers.IO) {
             val list = getUpcomingTaskUseCase.execute(kidName, currentDate)
-            Log.d("MyLog", "parametrs in profile view model = $kidName, $currentDate")
-            Log.d("MyLog", "list in profile view model = $list")
+//            Log.d("MyLog", "parametrs in profile view model = $kidName, $currentDate")
+//            Log.d("MyLog", "list in profile view model = $list")
             _uncomingTasksList.postValue(list)
         }
     }
