@@ -8,12 +8,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 
-class MonthPickerAdapter(
+class StringWheelPickerAdapter(
     private val context: Context,
-    private var monthList: List<String>,
+    private var stringList: List<String>,
     private val recyclerView: RecyclerView?
 ) :
-    RecyclerView.Adapter<MonthPickerAdapter.ViewHolder>() {
+    RecyclerView.Adapter<StringWheelPickerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View
@@ -25,16 +25,16 @@ class MonthPickerAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         //      holder.pickerTxt.text = dataList[position]
-        holder.onBind(monthList[position])
+        holder.onBind(stringList[position])
         holder.monthText.setOnClickListener { recyclerView?.smoothScrollToPosition(position) }
     }
 
     override fun getItemCount(): Int {
-        return monthList.size
+        return stringList.size
     }
 
     fun swapData(newData: List<String>) {
-        monthList = newData
+        stringList = newData
         notifyDataSetChanged()
     }
 

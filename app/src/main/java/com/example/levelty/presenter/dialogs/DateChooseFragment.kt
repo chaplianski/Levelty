@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.RecyclerView.SmoothScroller
 import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
-import com.example.levelty.presenter.adapters.MonthPickerAdapter
-import com.example.levelty.presenter.adapters.YearPickerAdapter
+import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
+import com.example.levelty.presenter.adapters.IntegerWheelPickerAdapter
 import com.example.levelty.presenter.viewmodels.parent.DateChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -78,7 +78,7 @@ class DateChooseFragment : BottomSheetDialogFragment() {
             yearsList.add(i)
         }
 
-        val dateTasksFragmentAdapter = context?.let { YearPickerAdapter(it, yearsList.toList(), yearRV) }
+        val dateTasksFragmentAdapter = context?.let { IntegerWheelPickerAdapter(it, yearsList.toList(), yearRV) }
         val snapHelper: SnapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(yearRV)
         yearRV.setLayoutManager(yearPickerLayoutManager)
@@ -106,12 +106,12 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         }
 
         val monthPickerLayoutManager = DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val monthPickerAdapter = context?.let { MonthPickerAdapter(it, monthValues.toList(), monthRV) }
+        val stringWheelPickerAdapter = context?.let { StringWheelPickerAdapter(it, monthValues.toList(), monthRV) }
         val monthSnapHelper: SnapHelper = LinearSnapHelper()
 
         monthRV.setLayoutManager(monthPickerLayoutManager)
         monthRV.layoutManager?.scrollToPosition(Calendar.MONTH+6)
-        monthRV.adapter = monthPickerAdapter
+        monthRV.adapter = stringWheelPickerAdapter
         monthSnapHelper.attachToRecyclerView(monthRV)
 
         monthRV.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -142,7 +142,7 @@ class DateChooseFragment : BottomSheetDialogFragment() {
 
         val dayRV: RecyclerView = view.findViewById(R.id.rv_fragment_date_choose_day)
         val dayPickerLayoutManager = DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val dayPickerAdapter = context?.let { YearPickerAdapter(it, dayValue.toList(), dayRV) }
+        val dayPickerAdapter = context?.let { IntegerWheelPickerAdapter(it, dayValue.toList(), dayRV) }
         val daySnapHelper: SnapHelper = LinearSnapHelper()
 
         dayRV.setLayoutManager(dayPickerLayoutManager)

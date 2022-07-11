@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
-import com.example.levelty.presenter.adapters.MonthPickerAdapter
-import com.example.levelty.presenter.adapters.YearPickerAdapter
+import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
+import com.example.levelty.presenter.adapters.IntegerWheelPickerAdapter
 import com.example.levelty.presenter.viewmodels.parent.StartTimeChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -88,7 +88,7 @@ class StartTimeChooseFragment : BottomSheetDialogFragment() {
         val hourRV: RecyclerView = view.findViewById(R.id.rv_fragment_start_time_choose_hour)
         val hourPickerLayoutManager =
             DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val hourPickerAdapter = context?.let { YearPickerAdapter(it, hourValue.toList(), hourRV) }
+        val hourPickerAdapter = context?.let { IntegerWheelPickerAdapter(it, hourValue.toList(), hourRV) }
         val hourSnapHelper: SnapHelper = LinearSnapHelper()
 
         hourRV.setLayoutManager(hourPickerLayoutManager)
@@ -141,7 +141,7 @@ class StartTimeChooseFragment : BottomSheetDialogFragment() {
         val minutePickerLayoutManager =
             DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val minutePickerAdapter =
-            context?.let { YearPickerAdapter(it, minuteValue.toList(), minuteRV) }
+            context?.let { IntegerWheelPickerAdapter(it, minuteValue.toList(), minuteRV) }
         val minuteSnapHelper: SnapHelper = LinearSnapHelper()
 
         minuteRV.setLayoutManager(minutePickerLayoutManager)
@@ -188,7 +188,7 @@ class StartTimeChooseFragment : BottomSheetDialogFragment() {
         val amPmRV: RecyclerView = view.findViewById(R.id.rv_fragment_start_time_choose_ampm)
         val amPmPickerLayoutManager =
             DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val amPmPickerAdapter = context?.let { MonthPickerAdapter(it, amPmValue.toList(), hourRV) }
+        val amPmPickerAdapter = context?.let { StringWheelPickerAdapter(it, amPmValue.toList(), hourRV) }
         val amPmSnapHelper: SnapHelper = LinearSnapHelper()
 
         amPmRV.setLayoutManager(amPmPickerLayoutManager)

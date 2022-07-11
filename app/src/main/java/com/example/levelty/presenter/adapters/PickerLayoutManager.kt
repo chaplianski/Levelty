@@ -43,14 +43,7 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
         val unitScaleDownDist = scaleDownDistance * mid   // дистанция между элементами
         for (i in 0 until childCount) {
             val child = getChildAt(i)
- //           Log.d("MyLog", "child: $childCount")
-//            if (i == 0) {
-//                val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
-//                val scale = 1.0f + -1  / unitScaleDownDist
-//                child.scaleX = scale
-//                child.scaleY = scale
-//            }
- //           if (i > 1){
+
             val childMid = (getDecoratedLeft(child!!) + getDecoratedRight(child)) / 2.0f
             var scale = 0f
             when (i){
@@ -88,11 +81,7 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
 
                 child.scaleX = scale
                 child.scaleY = scale
-//        }
 
-//            if (isChangeAlpha) {
-//
-//            }
         }
     }
 

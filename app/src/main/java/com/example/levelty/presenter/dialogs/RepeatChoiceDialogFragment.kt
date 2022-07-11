@@ -1,26 +1,19 @@
 package com.example.levelty.presenter.dialogs
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
-import com.example.levelty.presenter.adapters.MonthPickerAdapter
-import com.example.levelty.presenter.adapters.YearPickerAdapter
-import com.example.levelty.presenter.viewmodels.parent.StartTimeChooseFragmentViewModel
+import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.*
 
 class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
 
@@ -71,7 +64,7 @@ class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
         val repeatFraquencyRV: RecyclerView = view.findViewById(R.id.rv_repeat_choose_dialog_frequency)
         val repeatFraquencyPickerLayoutManager =
             DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val repeatFraquencyPickerAdapter = context?.let { MonthPickerAdapter(it, repeatFrequencyValue.toList(), repeatFraquencyRV) }
+        val repeatFraquencyPickerAdapter = context?.let { StringWheelPickerAdapter(it, repeatFrequencyValue.toList(), repeatFraquencyRV) }
         val repeatFrequencyHelper: SnapHelper = LinearSnapHelper()
 
         repeatFraquencyRV.setLayoutManager(repeatFraquencyPickerLayoutManager)
@@ -95,13 +88,13 @@ class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
         val periodRV: RecyclerView = view.findViewById(R.id.rv_repeat_choose_dialog_item)
         val periodPickerLayoutManager =
             DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        val periodPickerAdapter = context?.let { MonthPickerAdapter(it, periodValue.toList(), periodRV) }
-        val amPmSnapHelper: SnapHelper = LinearSnapHelper()
+        val periodPickerAdapter = context?.let { StringWheelPickerAdapter(it, periodValue.toList(), periodRV) }
+        val periodSnapHelper: SnapHelper = LinearSnapHelper()
 
         periodRV.setLayoutManager(periodPickerLayoutManager)
     //    periodRV.layoutManager?.scrollToPosition(cal.get(Calendar.AM_PM))
         periodRV.adapter = periodPickerAdapter
-        amPmSnapHelper.attachToRecyclerView(periodRV)
+        periodSnapHelper.attachToRecyclerView(periodRV)
 
 //        Log.d("MyLog", "hour = $currentHour, minute = $currentMinute, am-pm = $currentAmPm")
 //        Log.d(
@@ -113,7 +106,7 @@ class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
 
         repeatFraquencyPickerLayoutManager.setOnScrollStopListener( object : DatePickerLayoutManager.onScrollStopDataListener{
             override fun selectedView(view: View?) {
-                val repeatFraquency = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_year)
+                val repeatFraquency = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_month)
      //           startTimeChooseFragmentViewModel.transferHourValue(hour?.text.toString())
                 Toast.makeText(
                     context,

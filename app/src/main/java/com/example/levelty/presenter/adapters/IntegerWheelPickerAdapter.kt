@@ -5,17 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
-import com.example.levelty.domain.models.DateTask
 
-class YearPickerAdapter(
+class IntegerWheelPickerAdapter(
     private val context: Context,
     private var yearList: List<Int>,
     private val recyclerView: RecyclerView?
 ) :
-    RecyclerView.Adapter<YearPickerAdapter.ViewHolder>() {
+    RecyclerView.Adapter<IntegerWheelPickerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View

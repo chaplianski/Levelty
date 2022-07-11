@@ -15,27 +15,10 @@ class DatePickerLayoutManager (context: Context?, val dateOrientation: Int, reve
 
     private var onScrollDataListener: onScrollStopDataListener? = null
 
-//    fun PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Boolean) {
-//        super(context, orientation, reverseLayout)
-//    }
-
     override fun onLayoutChildren(recycler: Recycler?, state: RecyclerView.State?) {
         super.onLayoutChildren(recycler, state)
         scaleDownView()
     }
-
-//    override fun scrollHorizontallyBy(
-//        dx: Int,
-//        recycler: Recycler?,
-//        state: RecyclerView.State?
-//    ): Int {
-//        val orientation = orientation
-//        return if (orientation == HORIZONTAL) {
-//            val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
-//            scaleDownView()
-//            scrolled
-//        } else 0
-//    }
 
     override fun scrollVerticallyBy(dy: Int, recycler: Recycler?, state: RecyclerView.State?): Int {
         val orientation = dateOrientation
@@ -80,8 +63,6 @@ class DatePickerLayoutManager (context: Context?, val dateOrientation: Int, reve
                 }
 
             }
-
-
 
 //            val scale = 1.0f + -1 * scaleDownBy * Math.min(
 //                unitScaleDownDist,
