@@ -27,20 +27,15 @@
         android:layout_marginTop="-80dp"
         android:layout_above="@+id/profile_appbar"
         android:layout_gravity="start"
-
         android:layout_marginBottom="100dp"
         android:elevation="5dp"
-
        app:layout_behavior=".presenter.helpers.ProfileFragmentBehavior" >
-
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="@color/white"
-
             >
 
             <TextView
@@ -77,8 +72,8 @@
 
             <ImageView
                 android:id="@+id/iv_profile_fragment_kid_image"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="20dp"
                 android:src="@drawable/ic_ellipse_29"
                 app:layout_constraintBottom_toBottomOf="parent"

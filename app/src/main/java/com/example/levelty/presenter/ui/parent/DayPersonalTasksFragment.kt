@@ -178,9 +178,8 @@ class DayPersonalTasksFragment : Fragment() {
 //                "Selected date ${it}", Toast.LENGTH_SHORT
 //            ).show()
         }
-
-
     }
+
 
     private fun getUpcomingCountTask(tasksList: List<Task>): Int {
         var count = 0

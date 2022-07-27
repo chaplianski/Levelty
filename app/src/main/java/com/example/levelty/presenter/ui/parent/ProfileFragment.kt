@@ -18,9 +18,11 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentProfileBinding
 import com.example.levelty.di.DaggerAppComponent
+import com.example.levelty.domain.models.Kid
 import com.example.levelty.domain.models.Task
 import com.example.levelty.presenter.adapters.*
 import com.example.levelty.presenter.adapters.parent.KidProfileFragmentAdapter
@@ -135,6 +137,26 @@ class ProfileFragment : Fragment() {
             val kidAdapter = KidProfileFragmentAdapter(it)
             val purposeRV = binding.rvProfileFragmentKids
             purposeRV.adapter = kidAdapter
+
+            Log.d("MyLog", "kidList = $it")
+            kidAdapter.kidShortOnClickListener = object : KidProfileFragmentAdapter.KidShortOnClickListener{
+                override fun shortClick(kid: Kid) {
+                    kidNameText.text = kid.kidName
+                    Glide.with(view.context).load(R.drawable.kid_icon_1)
+                        .override(68, 68)
+                        .centerCrop()
+                        .circleCrop()
+                        .into(kidImage)
+
+                    profileFragmentViewModel.getInterests()
+                    profileFragmentViewModel.getParentsPurpose()
+                    profileFragmentViewModel.getTodayGoals()
+       //             profileFragmentViewModel.getTodayTasks(kid.kidName, dateItem)
+
+                }
+
+            }
+
         }
 
         //****** Current date *****
@@ -296,6 +318,11 @@ class ProfileFragment : Fragment() {
                 else -> false
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun getPieCategoriesEntries(it: List<Task>): MutableList<PieEntry> {
