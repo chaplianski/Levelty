@@ -22,9 +22,11 @@
     <color name="violet_2">#A116C8</color>
     <color name="red_1">#E5496E</color>
     <color name="red_2">#CC2A50</color>
-
-
-
+    <color name="graphic_secondary">#C4C4C4</color>
+    <color name="background_secondary">#F5F5F5</color>
+    <color name="text_accent">#3217BA</color>
+    <color name="text_primary">#1C1C1C</color>
+    <color name="text_secondary">#909090</color>
 
 
 </resources>

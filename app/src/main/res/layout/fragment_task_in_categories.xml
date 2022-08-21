@@ -7,8 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".presenter.ui.parent.TaskInCategoriesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
         android:id="@+id/tv_task_in_categories_fragment_title"
         style="@style/Bold"
@@ -38,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_task_in_categories_fragment_title"
         app:layout_constraintVertical_bias="0.5"
-        tools:listitem="@layout/fragment_task_in_categories_item"/>
+        tools:listitem="@layout/fragment_categories_task_item"/>
 
     <ImageView
         android:id="@+id/iv_task_in_categories_fragment_back"

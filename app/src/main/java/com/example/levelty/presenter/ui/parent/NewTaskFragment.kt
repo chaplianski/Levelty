@@ -12,10 +12,14 @@ import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentNewTaskBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.Task
+import com.example.levelty.presenter.adapters.parent.PurposeProfileFragmentAdapter
 import com.example.levelty.presenter.factories.parent.NewTaskViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.NewTaskViewModel
 import com.google.android.material.chip.Chip
@@ -56,15 +60,23 @@ class NewTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val taskText: EditText = binding.etFragmentNewTaskTaskText
-        val category: Chip = binding.chipFragmentNewTaskCategory
-        val points: Chip = binding.chipFragmentNewTaskPoints
-        val date: Chip = binding.chipFragmentNewTaskDate
-        val startTime: Chip = binding.chipFragmentNewTaskStartTime
-        val repeat: Chip = binding.chipFragmentNewTaskRepeat
-        val parentPurpose: Chip = binding.chipFragmentNewTaskParentsPurpose
-        val kidsInterest: Chip = binding.chipFragmentNewTaskKidsInterest
+//        val category: Chip = binding.chipFragmentNewTaskCategory
+//        val points: Chip = binding.chipFragmentNewTaskPoints
+//        val date: Chip = binding.chipFragmentNewTaskDate
+//        val startTime: Chip = binding.chipFragmentNewTaskStartTime
+//        val repeat: Chip = binding.chipFragmentNewTaskRepeat
+//        val parentPurpose: Chip = binding.chipFragmentNewTaskParentsPurpose
+//        val kidsInterest: Chip = binding.chipFragmentNewTaskKidsInterest
         val closeButton: ImageView = binding.ivFragmentNewTaskClose
         val saveButton: Button = binding.btFragmentNewTaskSave
+
+        val kidsRV: RecyclerView = binding.rvFragmentNewTaskKids
+        val purposeRV: RecyclerView = binding.rvFragmentNewTaskPurposes
+        val pointRV: RecyclerView = binding.rvFragmentNewTaskPoints
+        val repeatRV: RecyclerView = binding.rvFragmentNewTaskRepeat
+        val dateRV: RecyclerView = binding.rvFragmentNewTaskSetDate
+
+
         val kidName = "Andrew"
 
         var categoryValue = ""
@@ -76,106 +88,127 @@ class NewTaskFragment : Fragment() {
         var kidInterestValue = ""
 
 
-        category.setOnClickListener {
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_categoryChooseFragment)
+        newTaskViewModel.getKids()
 
+        newTaskViewModel.kids.observe(this.viewLifecycleOwner){ kids ->
+            val kidsAdapter = PurposeProfileFragmentAdapter(kids.map { kid -> kid.kidName })
+//            kidsRV.layoutManager = LinearLayoutManager(context)
+            kidsRV.adapter = kidsAdapter
         }
 
-        date.setOnClickListener {
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_dateChooseFragment22)
+        newTaskViewModel.getPurpose()
+        newTaskViewModel.purpose.observe(this.viewLifecycleOwner){ purposes ->
+            val purposeAdapter = PurposeProfileFragmentAdapter(purposes.map { purpose -> purpose.purposeName })
+            purposeRV.adapter = purposeAdapter
         }
 
-        startTime.setOnClickListener {
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_startTimeChooseFragment)
+        newTaskViewModel.getRepeatVariants()
+        newTaskViewModel.repeats.observe(this.viewLifecycleOwner){ repeats ->
+            val repeatsAdapter = PurposeProfileFragmentAdapter(repeats.map { repeat -> repeat.repeatValue })
+            repeatRV.adapter = repeatsAdapter
         }
 
-        points.setOnClickListener {
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_pointChooseFragment)
-        }
 
-        parentPurpose.setOnClickListener {
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_parentsPurposeChooseFragment)
-        }
-
-        repeat.setOnClickListener {
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_repiatChooseFragment)
-        }
-
-        kidsInterest.setOnClickListener {
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_kidsInterestChooseFragment)
-
-        }
+//        category.setOnClickListener {
+//            val navController = findNavController(view)
+//            navController.navigate(R.id.action_newTaskFragment_to_categoryChooseFragment)
+//
+//        }
+//
+//        date.setOnClickListener {
+//            val navController = findNavController(view)
+//            navController.navigate(R.id.action_newTaskFragment_to_dateChooseFragment22)
+//        }
+//
+//        startTime.setOnClickListener {
+//            val navController = findNavController(view)
+//            navController.navigate(R.id.action_newTaskFragment_to_startTimeChooseFragment)
+//        }
+//
+//        points.setOnClickListener {
+//            val navController = findNavController(view)
+//            navController.navigate(R.id.action_newTaskFragment_to_pointChooseFragment)
+//        }
+//
+//        parentPurpose.setOnClickListener {
+//            val navController = findNavController(view)
+//            navController.navigate(R.id.action_newTaskFragment_to_parentsPurposeChooseFragment)
+//        }
+//
+//        repeat.setOnClickListener {
+//            val navController = findNavController(view)
+//            navController.navigate(R.id.action_newTaskFragment_to_repiatChooseFragment)
+//        }
+//
+//        kidsInterest.setOnClickListener {
+//            val navController = findNavController(view)
+//            navController.navigate(R.id.action_newTaskFragment_to_kidsInterestChooseFragment)
+//
+//        }
 
         val navController = findNavController(view)
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Int>("points")?.observe(
             viewLifecycleOwner
         ) {
-            points.text = it.toString()
-            points.setTextColor(Color.BLACK)
+//            points.text = it.toString()
+//            points.setTextColor(Color.BLACK)
             pointsValue = it
         }
-
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("repeat")
-            ?.observe(
-                viewLifecycleOwner
-            ) {
-                repeat.text = it.toString()
-                repeat.setTextColor(Color.BLACK)
-                repeatValue = it
-            }
-
-
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("purpose")
-            ?.observe(
-                viewLifecycleOwner
-            ) {
-                parentPurpose.text = it.toString()
-                parentPurpose.setTextColor(Color.BLACK)
-                parentPurposeValue = it
-            }
-
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("interest")
-            ?.observe(
-                viewLifecycleOwner
-            ) {
-                kidsInterest.text = it.toString()
-                kidsInterest.setTextColor(Color.BLACK)
-                kidInterestValue = it
-            }
-
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("category")
-            ?.observe(
-                viewLifecycleOwner
-            ) {
-                category.text = it.toString()
-                category.setTextColor(Color.BLACK)
-                categoryValue = it
-            }
-
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
-            ?.observe(
-                viewLifecycleOwner
-            ) {
-                date.text = it.toString()
-                date.setTextColor(Color.BLACK)
-                dateValue = it
-            }
-
-        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("start time")
-            ?.observe(
-                viewLifecycleOwner
-            ) {
-                startTime.text = it.toString()
-                startTime.setTextColor(Color.BLACK)
-                startTimeValue = it
-            }
+//
+//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("repeat")
+//            ?.observe(
+//                viewLifecycleOwner
+//            ) {
+//                repeat.text = it.toString()
+//                repeat.setTextColor(Color.BLACK)
+//                repeatValue = it
+//            }
+//
+//
+//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("purpose")
+//            ?.observe(
+//                viewLifecycleOwner
+//            ) {
+//                parentPurpose.text = it.toString()
+//                parentPurpose.setTextColor(Color.BLACK)
+//                parentPurposeValue = it
+//            }
+//
+//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("interest")
+//            ?.observe(
+//                viewLifecycleOwner
+//            ) {
+//                kidsInterest.text = it.toString()
+//                kidsInterest.setTextColor(Color.BLACK)
+//                kidInterestValue = it
+//            }
+//
+//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("category")
+//            ?.observe(
+//                viewLifecycleOwner
+//            ) {
+//                category.text = it.toString()
+//                category.setTextColor(Color.BLACK)
+//                categoryValue = it
+//            }
+//
+//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
+//            ?.observe(
+//                viewLifecycleOwner
+//            ) {
+//                date.text = it.toString()
+//                date.setTextColor(Color.BLACK)
+//                dateValue = it
+//            }
+//
+//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("start time")
+//            ?.observe(
+//                viewLifecycleOwner
+//            ) {
+//                startTime.text = it.toString()
+//                startTime.setTextColor(Color.BLACK)
+//                startTimeValue = it
+//            }
 
         closeButton.setOnClickListener {
             navController.popBackStack()
@@ -185,8 +218,7 @@ class NewTaskFragment : Fragment() {
             val taskNameValue = taskText.text.toString()
             val newTask = Task(0,taskNameValue,categoryValue,pointsValue,dateValue,startTimeValue,repeatValue,parentPurposeValue,kidInterestValue,kidName, "Upcoming")
             newTaskViewModel.addTask(newTask)
-            val navController = findNavController(view)
-            navController.navigate(R.id.action_newTaskFragment_to_tasksFragment)
+            findNavController().navigate(R.id.action_newTaskFragment_to_tasksFragment)
         }
 
 

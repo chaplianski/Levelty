@@ -8,29 +8,41 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_fragment_day_kid_detail_tasks_top"
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_height="415dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
-        android:background="@drawable/radius_constraint_layout_top"
-        app:layout_constraintBottom_toTopOf="@+id/layout_fragment_day_kid_detail_tasks_bottom"
+        android:background="@drawable/kid_task_card_form"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView12"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="54dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/file_0_2_1" />
 
         <TextView
             android:id="@+id/tv_fragment_day_kid_detail_tasks_name"
             style="@style/Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="105dp"
+            android:layout_marginTop="44dp"
             android:text="Walk with your dog"
-            android:textColor="@color/black"
+            android:textColor="@color/text_primary"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView12"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
@@ -41,39 +53,47 @@
             android:layout_marginTop="1dp"
             android:text="4 coins"
             android:textSize="18sp"
+            android:textColor="@color/text_secondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_fragment_day_kid_detail_tasks_name"
             app:layout_constraintVertical_bias="0.0" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_fragment_day_kid_detail_tasks_bottom"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginEnd="4dp"
-        android:background="@drawable/radius_constraint_layout_bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_fragment_day_kid_detail_tasks_top">
+        <Button
+            android:id="@+id/bt_fragment_day_kid_detail_tasks_done"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#6D51FF"
+            android:text="Done"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="25dp"
+            app:ensureMinTouchTargetSize="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_day_kid_detail_tasks_reward" />
 
         <TextView
-            android:id="@+id/textView14"
-            style="@style/ExtraBold"
+            android:id="@+id/textView22"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="93dp"
-            android:text="Done"
-            android:textColor="@color/white"
-            android:textSize="24sp"
+            android:layout_marginTop="24dp"
+
+            style="@style/Regular"
+            android:textSize="18sp"
+            android:textColor="@color/text_accent"
+            android:text="Skip"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/bt_fragment_day_kid_detail_tasks_done"
+            app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

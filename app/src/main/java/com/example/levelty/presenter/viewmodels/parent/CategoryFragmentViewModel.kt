@@ -7,24 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.Task
 import com.example.levelty.domain.usecases.parent.GetTasksUseCase
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TaskFragmentViewModel @Inject constructor(private val getTasksUseCase: GetTasksUseCase): ViewModel() {
+class CategoryFragmentViewModel @Inject constructor(
+    private val getTasksUseCase: GetTasksUseCase
+): ViewModel() {
 
-    private val _tasksListValue = MutableLiveData<List<Task>>()
-    val tasksListValue: LiveData<List<Task>> get() = _tasksListValue
+    private val _tasks = MutableLiveData<List<Task>>()
+    val tasks: LiveData<List<Task>> get() = _tasks
 
-    fun getTasksListValue(){
+    fun getTasks(){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = getTasksUseCase.execute()
-            _tasksListValue.postValue(list)
+            val tasks = getTasksUseCase.execute()
+            _tasks.postValue(tasks)
         }
     }
 
-
-    override fun onCleared() {
-        viewModelScope.cancel()
-    }
 }

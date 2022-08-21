@@ -12,11 +12,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
+import com.example.levelty.databinding.FragmentDayPersonalTasksBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.DateTask
 import com.example.levelty.domain.models.Task
@@ -43,6 +45,8 @@ class DayPersonalTasksFragment : Fragment() {
 
     var dayPersonalTaskRecyclerView: RecyclerView? = null
 
+    var _binding: FragmentDayPersonalTasksBinding? = null
+    val binding: FragmentDayPersonalTasksBinding get() = _binding!!
 
     override fun onAttach(context: Context) {
         DaggerAppComponent.builder()
@@ -59,7 +63,8 @@ class DayPersonalTasksFragment : Fragment() {
         // Inflate the layout for this fragment
         dayPersonalTaskRecyclerView =
             view?.findViewById(R.id.rv_fragment_day_personal_tasks_tasks_list)
-        return inflater.inflate(R.layout.fragment_day_personal_tasks, container, false )
+        _binding = FragmentDayPersonalTasksBinding.inflate(layoutInflater, container, false)
+        return binding.root
 
     }
 
@@ -67,13 +72,25 @@ class DayPersonalTasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
      //   val dataPicker: NumberPicker = view.findViewById(R.id.np_fragment_day_personal_tasks_numbers)
-        val addNewTaskButton: FloatingActionButton = view.findViewById(R.id.fb_day_personal_tasks_fragment_add)
+        val addNewTaskButton: FloatingActionButton = binding.fbDayPersonalTasksFragmentAdd
         val kidName = arguments?.getString("kid name")
         val currentDay = arguments?.getString("current date")
-        val progressText = view.findViewById<TextView>(R.id.tv_fragment_day_personal_tasks_progress_text)
-        val progressBar = view.findViewById<ProgressBar>(R.id.pb_fragment_day_personal_tasks_progress_view)
+        var checkedDay = currentDay
+        val progressText = binding.tvFragmentDayPersonalTasksProgressText
+        val progressBar = binding.pbFragmentDayPersonalTasksProgressView
+        val futureTaskDialog = binding.parentDialogFutureTask.viewParentDialogSetTask
+        val setNewTaskFutureText = binding.parentDialogFutureTask.tvDialogParentSetTask
+        val pastTaskDialog = binding.parentDialogPastTask.parentDialogPastTask
+        val backButton = binding.ivFragmentDayPersonalBack
+
 
    //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
+
+        //**** Back to profile fragment
+
+        backButton.setOnClickListener {
+            findNavController().navigate(R.id.action_dayPersonalTasksFragment_to_profileFragment)
+        }
 
 
         // ***** Fill data Days personal tasks
@@ -88,29 +105,40 @@ class DayPersonalTasksFragment : Fragment() {
 
         dayPersonalTasksFragmentViewModel.dayTaskList.observe(this.viewLifecycleOwner){
 
-            // ***** Task List ****
+            // ***** Task List *****
+            // *** Check taking and current dates and hide and show task list / messages about absent tasks
+
+            val format = SimpleDateFormat("MMMM dd yyyy")
+            if (it.isEmpty()){
+                progressText.visibility = View.INVISIBLE
+                progressBar.visibility = View.INVISIBLE
+                if (format.parse(currentDay).time <= format.parse(checkedDay).time) {
+                     futureTaskDialog.visibility = View.VISIBLE
+                }
+                if (format.parse(currentDay).time > format.parse(checkedDay).time){
+                    pastTaskDialog.visibility = View.VISIBLE
+                }
+            }else{
+                progressText.visibility = View.VISIBLE
+                progressBar.visibility = View.VISIBLE
+                futureTaskDialog.visibility = View.INVISIBLE
+                pastTaskDialog.visibility = View.INVISIBLE
+            }
+
+            // *** Fill list tasks according selected date
             val dayPersonalTaskRecyclerView: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_tasks_tasks_list)
             val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(it)
             dayPersonalTaskRecyclerView.adapter = fragmentDayPersonalTasksAdapter
             val bundle = Bundle()
             fragmentDayPersonalTasksAdapter.shortOnClickListener = object : FragmentDayPersonalTasksAdapter.ShortOnClickListener{
                 override fun ShortClick(task: Task) {
-
-
                     bundle.putParcelable("current task", task)
                     val navController = Navigation.findNavController(view)
                     navController.navigate(R.id.action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment, bundle)
                 }
-
-
-
-
             }
 
-
-
-
-            //***** Get progress indicators *******
+        //***** Set progress indicators *******
 
             val allTaskCount = it.size
             val completedTaskCount = allTaskCount - getUpcomingCountTask(it)
@@ -163,6 +191,7 @@ class DayPersonalTasksFragment : Fragment() {
                 val month = view?.findViewById<TextView>(R.id.tv_date_item_month)
                 val year = view?.findViewById<TextView>(R.id.tv_date_item_year)
                 dayPersonalTasksFragmentViewModel.transferDateValue("${month?.text} ${day?.text} ${year?.text}")
+                checkedDay = "${month?.text} ${day?.text} ${year?.text}"
             }
         })
 
@@ -170,13 +199,7 @@ class DayPersonalTasksFragment : Fragment() {
             if (kidName != null) {
                 dayPersonalTasksFragmentViewModel.getDayTasks(kidName, it)
             }
-
             Log.d("MyLog", "kid = $kidName, date = $it")
-
-//            Toast.makeText(
-//                context,
-//                "Selected date ${it}", Toast.LENGTH_SHORT
-//            ).show()
         }
     }
 
@@ -187,8 +210,11 @@ class DayPersonalTasksFragment : Fragment() {
             if (task.taskStatus == "Upcoming") count++
         }
         return count
-
     }
 
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
 
 }

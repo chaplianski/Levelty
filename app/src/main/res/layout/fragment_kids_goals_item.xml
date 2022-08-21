@@ -9,8 +9,10 @@
         android:layout_width="164dp"
         android:layout_height="90dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginBottom="8dp"
-
+        android:backgroundTint="@color/blue_1"
+        app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -25,18 +27,24 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip_fragment_kid_goal_approval"
-                style="@style/Light"
+                style="@style/Regular"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="14dp"
+                app:textStartPadding="2dp"
                 android:layout_marginEnd="4dp"
+                android:backgroundTint="@color/transparent"
                 android:text="@string/need_approval"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                app:chipStrokeColor="@color/white"
+                app:chipStrokeWidth="1dp"
                 app:ensureMinTouchTargetSize="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.555"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.121" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/tv_fragment_kid_goal_name"
+                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_kid_goal_name"
+                app:layout_constraintVertical_bias="0.117" />
 
             <TextView
                 android:id="@+id/tv_fragment_kid_goal_name"
@@ -44,14 +52,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="22dp"
                 android:text="Dog"
                 android:textColor="@color/white"
+                android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/chip_fragment_kid_goal_approval"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
             <TextView
@@ -60,13 +70,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:alpha="0.6"
                 android:text="15 coins"
                 android:textColor="@color/white"
+                android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_kid_goal_name"
+                app:layout_constraintTop_toBottomOf="@+id/chip_fragment_kid_goal_approval"
                 app:layout_constraintVertical_bias="0.0" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>

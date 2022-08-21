@@ -14,7 +14,7 @@ class GoalsProfileFragmentAdapter(val goals: List<Goal>): RecyclerView.Adapter<G
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_profile_goal_item, parent, false)
+        val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_kids_goals_item, parent, false)
         return ViewHolder(v)
     }
 
@@ -28,10 +28,10 @@ class GoalsProfileFragmentAdapter(val goals: List<Goal>): RecyclerView.Adapter<G
 
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
 
-        val goalNameText: TextView = itemView.findViewById(R.id.tv_fragment_profile_goal_name)
-        val goalRewardText: TextView = itemView.findViewById(R.id.tv_fragment_profile_goal_reward)
-        val isApprovalButton: Chip = itemView.findViewById(R.id.chip_fragment_profile_goal_approval)
-        val goalImage: ImageView = itemView.findViewById(R.id.iv_fragment_profile_goal_image)
+        val goalNameText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_name)
+        val goalRewardText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_reward)
+//        val isApprovalButton: Chip = itemView.findViewById(R.id.chip_fragment_profile_goal_approval)
+//        val goalImage: ImageView = itemView.findViewById(R.id.iv_fragment_profile_goal_image)
 
         fun onBind(goal: Goal){
             goalNameText.text = goal.goalName

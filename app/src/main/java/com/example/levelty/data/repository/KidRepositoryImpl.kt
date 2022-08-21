@@ -10,4 +10,8 @@ class KidRepositoryImpl @Inject constructor(private val kidStorageImpl: KidStora
     override fun getKids(): List<Kid> {
         return kidStorageImpl.getKids().map { it.kidMapDataToDomain() }
     }
+
+    override fun getKid(kidId: Long): Kid {
+        return kidStorageImpl.getKid(kidId).kidMapDataToDomain()
+    }
 }

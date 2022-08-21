@@ -2,7 +2,6 @@ package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -16,6 +15,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -29,6 +29,7 @@ import com.example.levelty.presenter.adapters.parent.KidProfileFragmentAdapter
 import com.example.levelty.presenter.adapters.parent.PurposeProfileFragmentAdapter
 import com.example.levelty.presenter.adapters.parent.UpcomingTasksProfileFragmentAdapter
 import com.example.levelty.presenter.factories.parent.ProfileFragmentViewModelFactory
+import com.example.levelty.presenter.utils.CURRENT_KID_ID
 import com.example.levelty.presenter.viewmodels.parent.ProfileFragmentViewModel
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -82,27 +83,19 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
- //       val toolbar: androidx.appcompat.widget.Toolbar = view.findViewById(com.example.levelty.R.id.)
-        val collapsingToolbar = view.findViewById(com.example.levelty.R.id.profile_collapsing_toolbar) as CollapsingToolbarLayout
-        val appBar = view.findViewById(com.example.levelty.R.id.profile_appbar) as AppBarLayout
-
-//        Log.d("MyLog", "collapsingToolbar.height = ${collapsingToolbar.height}")
+        val collapsingToolbar = view.findViewById(R.id.profile_collapsing_toolbar) as CollapsingToolbarLayout
+        val appBar = view.findViewById(R.id.profile_appbar) as AppBarLayout
 
         appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
             if (collapsingToolbar.height + verticalOffset < 2 * ViewCompat.getMinimumHeight(
                     collapsingToolbar
                 )
             ) {
- //               activity?.window?.decorView?.systemUiVisibility = (View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN)
-                view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
- //               toolbar.navigationIcon?.setColorFilter(resources.getColor(com.example.levelty.R.color.white), PorterDuff.Mode.SRC_ATOP)
+                 view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
             } else {
                 view.systemUiVisibility = 0
- //               toolbar.navigationIcon?.setColorFilter(resources.getColor(com.example.levelty.R.color.black), PorterDuff.Mode.SRC_ATOP)
             }
         }
-
-
 
         val taskProgressBar: ProgressBar = binding.pbProfileFragmentProgressImage
         val textProgress: TextView = binding.tvProfileFragmentProgressText
@@ -118,68 +111,68 @@ class ProfileFragment : Fragment() {
         val tasksPie = binding.pieProfileFragmentTasks
         val categoryPie = binding.pieProfileFragmentCategories
 
-        // *******  Hard kid name need in ckicable name choice *****
-        val kidName = "Andrew"
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        val currentKidId = sharedPref?.getLong(CURRENT_KID_ID, -1)
+        var kidName = ""
+        var currentKid = Kid(0,"")
+
+        //****** Current date *****
+
+        val dateItem = getCurrentDate()
+
+        // *******  Download kid data *****
+
+        if (currentKidId != null) {
+            if (currentKidId >= 0) currentKidId.let { profileFragmentViewModel.getKid(it) }
+        }
+
+        profileFragmentViewModel.kidValue.observe(this.viewLifecycleOwner){ kid ->
+            kidName = kid.kidName
+            currentKid = kid
+            fillKidData(kidImage)
+            profileFragmentViewModel.getTodayTasks(kid.kidName, dateItem)
+        }
+
 
 
         // ***** Go to
         kidInterestsButton.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_profileFragment_to_tasksFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_tasksFragment)
         }
-        
 
         // **** Add kid list *****
 
         profileFragmentViewModel.getKids()
 
         profileFragmentViewModel.kidList.observe(this.viewLifecycleOwner){
-            val kidAdapter = KidProfileFragmentAdapter(it)
+            val kidAdapter = KidProfileFragmentAdapter(it, currentKid)
             val purposeRV = binding.rvProfileFragmentKids
             purposeRV.adapter = kidAdapter
 
-            Log.d("MyLog", "kidList = $it")
             kidAdapter.kidShortOnClickListener = object : KidProfileFragmentAdapter.KidShortOnClickListener{
                 override fun shortClick(kid: Kid) {
+
+                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                    sharedPref?.edit()?.putLong(CURRENT_KID_ID, kid.kidId)?.apply()
+
                     kidNameText.text = kid.kidName
-                    Glide.with(view.context).load(R.drawable.kid_icon_1)
-                        .override(68, 68)
-                        .centerCrop()
-                        .circleCrop()
-                        .into(kidImage)
-
-                    profileFragmentViewModel.getInterests()
-                    profileFragmentViewModel.getParentsPurpose()
-                    profileFragmentViewModel.getTodayGoals()
-       //             profileFragmentViewModel.getTodayTasks(kid.kidName, dateItem)
-
+                    fillKidData(kidImage)
+                    profileFragmentViewModel.getTodayTasks(kid.kidName, dateItem)
                 }
 
+                override fun shortAddClick() {
+                    Log.d("MyLog", "Add new kid")
+                }
             }
-
         }
-
-        //****** Current date *****
-
-        val calendar = Calendar.getInstance(TimeZone.getDefault())
-        val currentDayValue = calendar[Calendar.DAY_OF_MONTH]
-        val currentYearValue = calendar[Calendar.YEAR]
-        val currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
-        val dateItem = "$currentMonthValue $currentDayValue $currentYearValue"
-
-
 
         // **** Tasks card *****
 
         profileFragmentViewModel.getTodayTasks(kidName, dateItem)
-
         profileFragmentViewModel.uncommingTasksList.observe(this.viewLifecycleOwner){
 
             // ***** Upcoming list ******
-            val upcomingTaskList = getUpcomingTasks(it)
-            val uncomingTaskAdapter = UpcomingTasksProfileFragmentAdapter(upcomingTaskList)
-            val upcomingTaskRV = binding.rvProfileFragmentUncomingTasks
-            upcomingTaskRV.adapter = uncomingTaskAdapter
+            val upcomingTaskList = getUncomingTaskList(it)
 
             // ***** Progress view in Task card *****
             val currentTaskQuantity = it.size
@@ -191,16 +184,11 @@ class ProfileFragment : Fragment() {
 
 
             // **** Add interest list *****
-
-            val interestList = getInerestList(it)
-                val interestsProfileFragmentAdapter = InterestsProfileFragmentAdapter(interestList)
-                val interestRV = binding.rvProfileFragmentInterests
-               interestRV.adapter = interestsProfileFragmentAdapter
+            getInterestList(it)
 
             // **** Add goals list *****
 
             profileFragmentViewModel.getTodayGoals()
-
             profileFragmentViewModel.kidGoalsList.observe(this.viewLifecycleOwner){
                 val goalsProfileFragmentAdapter = GoalsProfileFragmentAdapter(it)
                 val goalsRV = binding.rvProfileFragmentGoals
@@ -208,22 +196,14 @@ class ProfileFragment : Fragment() {
             }
 
             goalsButton.setOnClickListener {
-                val navController = Navigation.findNavController(view)
-                navController.navigate(R.id.action_profileFragment_to_kidsGoalsFragment)
+                findNavController().navigate(R.id.action_profileFragment_to_kidsGoalsFragment)
             }
 
             val pieCategoryList = getPieCategoriesEntries(it)
-
             val pieTaskList = getPieTaskEntries(it)
 
-
-//            Log.d("MyLog", "Pie List = $pieCategoryList")
-//            val taskPieEntries = arrayListOf<PieEntry>()//mutableListOf<PieEntry>()
-//
-//            taskPieEntries.add(PieEntry(5f, "completed"))
-//            taskPieEntries.add(PieEntry(2f, "failed"))
-
-            setupPieChartTasks(tasksPie, 60f)
+//            setupPieChartTasks(tasksPie, 60f)
+            setupPieChartTasks(tasksPie, 0f)
             loadPieTasks(tasksPie, pieTaskList, view)
 
             setupPieChartCategories(categoryPie)
@@ -233,14 +213,9 @@ class ProfileFragment : Fragment() {
             // **** Add purpose list *****
 
      //       profileFragmentViewModel.getParentsPurpose()
-
      //       profileFragmentViewModel.parantsPurposeList.observe(this.viewLifecycleOwner){
-                val purposeList = it.map { task -> task.taskParentPurpose }.toSet().toList()
-
-                val purposeProfileFragmentAdapter = PurposeProfileFragmentAdapter(purposeList)
-                val purposeRV = binding.rvProfileFragmentPurposes
-                purposeRV.adapter = purposeProfileFragmentAdapter
-     //       }
+            getPurposeList(it)
+            //       }
 
         }
 
@@ -312,12 +287,50 @@ class ProfileFragment : Fragment() {
                 }
                 R.id.settings -> {
                     val navController = view.let { Navigation.findNavController(it) }
-                    navController.navigate(R.id.action_profileFragment_to_settingsFragment)
+                    navController.navigate(R.id.action_profileFragment_to_dayKidDetailTasksFragment)
                     true
                 }
                 else -> false
             }
         }
+    }
+
+    private fun getUncomingTaskList(it: List<Task>): List<Task> {
+        val upcomingTaskList = getUpcomingTasks(it)
+        val uncomingTaskAdapter = UpcomingTasksProfileFragmentAdapter(upcomingTaskList)
+        val upcomingTaskRV = binding.rvProfileFragmentUncomingTasks
+        upcomingTaskRV.adapter = uncomingTaskAdapter
+        return upcomingTaskList
+    }
+
+    private fun getInterestList(it: List<Task>) {
+        val interestList = getInerestList(it)
+        val interestsProfileFragmentAdapter = InterestsProfileFragmentAdapter(interestList)
+        val interestRV = binding.rvProfileFragmentInterests
+        interestRV.adapter = interestsProfileFragmentAdapter
+    }
+
+    private fun getPurposeList(it: List<Task>) {
+        val purposeList = it.map { task -> task.taskParentPurpose }.toSet().toList()
+        val purposeProfileFragmentAdapter = PurposeProfileFragmentAdapter(purposeList)
+        val purposeRV = binding.rvProfileFragmentPurposes
+        purposeRV.adapter = purposeProfileFragmentAdapter
+    }
+
+    private fun fillKidData(kidImage: ImageView) {
+
+        view?.context?.let {
+            Glide.with(it).load(R.drawable.kid_icon_1)  // должно быть (kid.image)
+                .override(68, 68)
+                .centerCrop()
+                .circleCrop()
+                .into(kidImage)
+        }
+
+        // ******** Data get from task *************
+//        profileFragmentViewModel.getInterests()
+//        profileFragmentViewModel.getParentsPurpose()
+//        profileFragmentViewModel.getTodayGoals()
     }
 
     override fun onDestroyView() {
@@ -517,7 +530,13 @@ class ProfileFragment : Fragment() {
         pieRV.adapter = pieChartCategoryAdapter
     }
 
-
+    fun getCurrentDate(): String {
+        val calendar = Calendar.getInstance(TimeZone.getDefault())
+        val currentDayValue = calendar[Calendar.DAY_OF_MONTH]
+        val currentYearValue = calendar[Calendar.YEAR]
+        val currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
+        return "$currentMonthValue $currentDayValue $currentYearValue"
+    }
 
 
 }

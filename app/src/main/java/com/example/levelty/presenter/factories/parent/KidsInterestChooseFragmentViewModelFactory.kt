@@ -10,7 +10,7 @@ import javax.inject.Inject
 class KidsInterestChooseFragmentViewModelFactory @Inject constructor(
     private val getKidsInterestChooseUseCase: GetKidsInterestChooseUseCase
 ): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return KidsInterestChooseFragmentViewModel(getKidsInterestChooseUseCase) as T
     }
 }

@@ -1,6 +1,5 @@
 package com.example.levelty.presenter.viewmodels.parent
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,16 +12,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class ProfileFragmentViewModel @Inject constructor(
-    private val getKidsUseCase: GtKidsUseCase,
+    private val getKidsUseCase: GetKidsUseCase,
     private val getUpcomingTaskUseCase: GetTodayTasksUseCase,
     private val getKidInterestUseCase: GetKidInterestUseCase,
     private val getKidsGoalsUseCase: GetKidsGoalsUseCase,
-    private val getParentsPurposeUseCase: GetParentsPurposeUseCase
+    private val getParentsPurposeUseCase: GetParentsPurposeUseCase,
+    private val getKidUseCase: GetKidUseCase
 ) : ViewModel() {
 
     val _kidsList = MutableLiveData<List<Kid>>()
     val kidList: LiveData<List<Kid>> get() = _kidsList
     val _uncomingTasksList = MutableLiveData<List<Task>>()
+    val _kidValue = MutableLiveData<Kid>()
+    val kidValue: LiveData<Kid> get() = _kidValue
     val uncommingTasksList: LiveData<List<Task>> get() = _uncomingTasksList
     val _kidInterestList = MutableLiveData<List<Interest>>()
     val kidInterestList: LiveData<List<Interest>> get() = _kidInterestList
@@ -36,6 +38,13 @@ class ProfileFragmentViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val list = getKidsUseCase.execute()
             _kidsList.postValue(list)
+        }
+    }
+
+    fun getKid(kidId: Long){
+        viewModelScope.launch(Dispatchers.IO) {
+            val currentKid = getKidUseCase.execute(kidId)
+            _kidValue.postValue(currentKid)
         }
     }
 
@@ -68,9 +77,6 @@ class ProfileFragmentViewModel @Inject constructor(
             _parantsPurposeList.postValue(list)
         }
     }
-
-
-
 
     override fun onCleared() {
         viewModelScope.cancel()

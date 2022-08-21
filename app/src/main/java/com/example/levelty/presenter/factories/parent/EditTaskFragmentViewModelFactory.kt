@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 @Suppress ("UNCHECKED_CAST")
 class EditTaskFragmentViewModelFactory @Inject constructor(private val updateTaskUseCase: UpdateTaskUseCase): ViewModelProvider.Factory{
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return EditTaskFragmentViewModel (updateTaskUseCase) as T
     }
 }

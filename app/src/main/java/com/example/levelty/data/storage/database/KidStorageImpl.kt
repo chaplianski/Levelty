@@ -12,4 +12,8 @@ class KidStorageImpl @Inject constructor(): KidStorage {
         kidList.add(KidDTO(1, "Maxim"))
         return kidList.toList()
     }
+
+    override fun getKid(kidId: Long): KidDTO {
+        return KidDTO(0, "Andrew")
+    }
 }

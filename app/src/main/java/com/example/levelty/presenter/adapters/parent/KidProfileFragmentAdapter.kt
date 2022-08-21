@@ -1,11 +1,10 @@
 package com.example.levelty.presenter.adapters.parent
 
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -13,29 +12,37 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.levelty.R
 import com.example.levelty.domain.models.Kid
-import com.google.android.material.imageview.ShapeableImageView
-import com.google.android.material.shape.CornerFamily
+import de.hdodenhof.circleimageview.CircleImageView
 
 
-class KidProfileFragmentAdapter(private val kidList: List<Kid>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class KidProfileFragmentAdapter(private val kidList: List<Kid>, currentKid: Kid) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
- //   val sharedPref = context.getSharedPreferences("Kid current position", Context.MODE_PRIVATE)
-    var checkedPosition = 0 // sharedPref.getInt("kid position", 0)
+    var selectedPosition = getSelectedPosition(currentKid)
+
+    private fun getSelectedPosition(checkedKid: Kid): Int {
+        var position = 0
+        for (kid in kidList){
+            if (kid == checkedKid) return position
+            else position++
+        }
+        return position
+    }
 
     interface KidShortOnClickListener {
         fun shortClick(kid: Kid)
+        fun shortAddClick()
     }
 
     var kidShortOnClickListener: KidShortOnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when(viewType){
-            R.id.iv_kid_item -> {
+            KID -> {
                 val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_profile_kid_item, parent, false)
                 KidViewHolder(v)
             }
-            R.id.iv_kid_item_add ->{
-                val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_profile_kid_item, parent, false)
+            ADD ->{
+                val v = LayoutInflater.from(parent.context).inflate(R.layout.fragment_profile_kid_item_add, parent, false)
                 AddKidViewHolder(v)
             }
             else -> throw IllegalArgumentException("unknown view type $viewType")
@@ -44,28 +51,38 @@ class KidProfileFragmentAdapter(private val kidList: List<Kid>) : RecyclerView.A
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(getItemViewType(position)){
-            R.id.iv_kid_item -> {
+            KID -> {
                 (holder as KidViewHolder).onBind(kidList[position])
 
-                holder.checkField.isChecked = (checkedPosition == position)
+                if (selectedPosition == position){
+                    holder.kidImage.borderWidth = 4
+                    holder.kidImage.borderColor = Color.WHITE
+                    holder.kidImage.alpha = 1f
+                    holder.kidName.setTextColor(Color.WHITE)
+                    holder.kidName.alpha = 1f
+                    holder.kidName.isTextSelectable
+
+                }
 
                 holder.itemView.setOnClickListener {
-                    kidShortOnClickListener?.shortClick (kidList[position])
-//                    holder.kidImage.strokeWidth = 25f
-//                    holder.kidImage.strokeColor?.defaultColor
-                    this.checkedPosition = holder.absoluteAdapterPosition
+                    if (selectedPosition == position){
+                        selectedPosition = -1
+                        notifyDataSetChanged()
+                        return@setOnClickListener
+                    }
+                    selectedPosition = position
                     notifyDataSetChanged()
+                    kidShortOnClickListener?.shortClick(kidList[position])
                 }
-                holder.checkField.setOnClickListener {
-                    kidShortOnClickListener?.shortClick (kidList[position])
-                    this.checkedPosition = holder.absoluteAdapterPosition
-                    notifyDataSetChanged()
-                }
-
 
 
             }
-            R.id.iv_kid_item_add -> (holder as AddKidViewHolder).onBind()
+            ADD -> {
+                (holder as AddKidViewHolder).onBind()
+                holder.itemView.setOnClickListener {
+                    kidShortOnClickListener?.shortAddClick()
+                }
+            }
         }
     }
 
@@ -75,47 +92,59 @@ class KidProfileFragmentAdapter(private val kidList: List<Kid>) : RecyclerView.A
 
     override fun getItemViewType(position: Int): Int {
         return when(position){
-            kidList.size -> R.id.iv_kid_item_add
-            else -> R.id.iv_kid_item
+            kidList.size -> ADD
+            else -> KID
         }
     }
 
     inner class KidViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        val kidImage: ShapeableImageView = itemView.findViewById(R.id.iv_kid_item)
+        val kidImage: CircleImageView = itemView.findViewById(R.id.iv_kid_item_image)
         val kidName: TextView = itemView.findViewById(R.id.tv_kid_item_name)
-        val checkField: CheckBox = itemView.findViewById(R.id.cb_kid_item)
-
+//        val kidLayout: ConstraintLayout = itemView.findViewById(R.id.cl_kid_item)
 
         fun onBind(kid: Kid){
 
             kidName.text = kid.kidName
-            Glide.with(itemView.context).load(R.drawable.kid_icon_1)
-                .override(68, 68)
-                .centerCrop()
-                .circleCrop()
-                .into(kidImage)
+            kidName.alpha = 0.6f
+
+            val bitmap = BitmapFactory.decodeResource(itemView.context.resources, R.drawable.kid_icon_2)
+            kidImage.setImageBitmap(bitmap)
+            kidImage.borderWidth = 0
+            kidImage.alpha = 0.9f
+
+//            Glide.with(itemView.context).load(R.drawable.kid_icon_1)
+//                .override(68, 68)
+//                .centerCrop()
+//                .circleCrop()
+//                .into(kidImage)
         }
 
     }
 
     inner class AddKidViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        val kidAddImage: ImageView = itemView.findViewById(R.id.iv_kid_item)
-        val kidName: TextView = itemView.findViewById(R.id.tv_kid_item_name)
+        val kidImageAdd: ImageView = itemView.findViewById(R.id.iv_kid_item_add)
+        val kidNameAdd: TextView = itemView.findViewById(R.id.tv_kid_item_name_add)
 
 
         fun onBind(){
 
-            kidName.text = "Add new"
+            kidNameAdd.text = "Add new"
+            kidNameAdd.alpha = 0.6f
+//            kidImageAdd.alpha = 0.6f
+
             Glide.with(itemView.context).load(R.drawable.ic_add_new_kid)
                 .override(68, 68)
                 .centerCrop()
                 .circleCrop()
-                .into(kidAddImage)
+                .into(kidImageAdd)
         }
 
     }
-
+    companion object {
+        private val KID = 0
+        private val ADD = 1
+    }
 
 }

@@ -12,7 +12,7 @@ class DayKidDetailTaskFragmentViewModelFactory  @Inject constructor(
     private val getKidDetailTasksUseCase: GetKidDetailTasksUseCase
 ): ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return DayKidDetailTaskFragmentViewModel(getKidDetailTasksUseCase) as T
     }
 }

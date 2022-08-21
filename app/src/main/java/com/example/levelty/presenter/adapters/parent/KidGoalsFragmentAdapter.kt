@@ -53,7 +53,7 @@ class KidGoalsFragmentAdapter  (val goals: List<Goal>): RecyclerView.Adapter<Kid
 //            val firstColor = ContextCompat.getColor(itemView.context, R.color.purple_500)
 //            val secondColor = ResourcesCompat.getColor(Resources.getSystem(), R.color.purple_700, null)
 //            val colorA = Color.parseColor("#2D98FB")
-            goalLayout.setBackgroundColor(Color.BLUE)
+//            goalLayout.setBackgroundColor(Color.BLUE)
 
    //         val gr = GradientDrawable(GradientDrawable.OVAL, intArrayOf(firstColor, secondColor))
   //          gr.cornerRadius = 0f

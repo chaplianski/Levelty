@@ -1,5 +1,7 @@
 package com.example.levelty.presenter.dialogs
 
+import android.R.attr.left
+import android.R.attr.right
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,10 +10,14 @@ import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentGoalApproveBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 
 
 class GoalApproveFragment : BottomSheetDialogFragment() {
@@ -24,7 +30,6 @@ class GoalApproveFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentGoalApproveBinding.inflate(inflater, container,false)
-
         return binding.root
     }
 
@@ -46,19 +51,29 @@ class GoalApproveFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val closeButton: ImageView = binding.ivGoalApproveFragmentClose
-        val approveButton: Button = binding.btGoalApproveFragmentApprove
-        val goalName: TextView = binding.tvGoalApproveFragmentNameGoal
-        val goalValue: TextView = binding.tvGoalApproveFragmentGoalValue
+        val closeButton = binding.ivGoalApproveFragmentClose
+        val approveButton = binding.btGoalApproveFragmentApprove
+        val goalCoinField = binding.etGoalApproveFragmentCoinContainer
+        val goalCoinText = binding.etGoalApproveFragmentCoinText
+        val goalDecline = binding.tvGoalApproveFragmentDecline
 
         val goalCoins = arguments?.getInt("goal value")
-        goalName.text = arguments?.getString("goal name")
-        if (goalCoins == 1){
-            goalValue.text = "$goalCoins coin"
-        } else goalValue.text = "$goalCoins coins"
+//        goalName.text = arguments?.getString("goal name")
+//        if (goalCoins == 1){
+//            goalValue.text = "$goalCoins coin"
+//        } else goalValue.text = "$goalCoins coins"
+
+
+
 
         approveButton.setOnClickListener {
-            // сделать вьюмодель с юзкейсом обновить цель. Передавать ай-ди цели.
+            if (goalCoinText.text?.isEmpty() == true){
+                goalCoinField.error = "You not enter value"
+            } else {
+                // сделать вьюмодель с юзкейсом обновить цель. Передавать ай-ди цели и оценку.
+//                findNavController().navigate()
+            }
+
         }
 
         closeButton.setOnClickListener {

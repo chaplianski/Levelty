@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_dayPersonalTasksFragment_to_editTaskFragment2"
             app:destination="@id/editTaskFragment" />
+        <action
+            android:id="@+id/action_dayPersonalTasksFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
@@ -62,8 +65,8 @@
             android:id="@+id/action_tasksFragment_to_newTaskFragment"
             app:destination="@id/newTaskFragment" />
         <action
-            android:id="@+id/action_tasksFragment_to_taskInCategoriesFragment"
-            app:destination="@id/taskInCategoriesFragment" />
+            android:id="@+id/action_tasksFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
@@ -154,18 +157,6 @@
         android:label="fragment_goal_approve"
         tools:layout="@layout/fragment_goal_approve" />
     <fragment
-        android:id="@+id/taskInCategoriesFragment"
-        android:name="com.example.levelty.presenter.ui.parent.TaskInCategoriesFragment"
-        android:label="fragment_task_in_categories"
-        tools:layout="@layout/fragment_task_in_categories" >
-        <action
-            android:id="@+id/action_taskInCategoriesFragment_to_newTaskFragment"
-            app:destination="@id/newTaskFragment" />
-        <action
-            android:id="@+id/action_taskInCategoriesFragment_to_tasksFragment"
-            app:destination="@id/tasksFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.levelty.presenter.ui.parent.SettingsFragment"
         android:label="fragment_settings"
@@ -228,4 +219,16 @@
         android:id="@+id/repeatChoiceDialogFragment"
         android:name="com.example.levelty.presenter.dialogs.RepeatChoiceDialogFragment"
         android:label="RepeatChoiceDialogFragment" />
+    <fragment
+        android:id="@+id/categoryFragment"
+        android:name="com.example.levelty.presenter.ui.parent.CategoryFragment"
+        android:label="fragment_category"
+        tools:layout="@layout/fragment_category" >
+        <action
+            android:id="@+id/action_categoryFragment_to_newTaskFragment"
+            app:destination="@id/newTaskFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_tasksFragment"
+            app:destination="@id/tasksFragment" />
+    </fragment>
 </navigation>

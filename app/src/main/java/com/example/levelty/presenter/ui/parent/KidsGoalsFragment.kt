@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
@@ -51,9 +52,7 @@ class KidsGoalsFragment : Fragment() {
         kidGoalsFragmentViewModel.goalsValue.observe(this.viewLifecycleOwner){
             val goalAdapter = KidGoalsFragmentAdapter(it)
             goalsRV.adapter = goalAdapter
-
             clickItem(goalAdapter)
-            
 
         }
 
@@ -66,8 +65,7 @@ class KidsGoalsFragment : Fragment() {
                     val bundle = Bundle()
                     bundle.putString("goal name", goal.goalName)
                     bundle.putInt("goal value", goal.goalValue)
-                    val navController = view?.let { Navigation.findNavController(it) }
-                    navController?.navigate(R.id.action_kidsGoalsFragment_to_goalApproveFragment, bundle)
+                    findNavController().navigate(R.id.action_kidsGoalsFragment_to_goalApproveFragment, bundle)
                 }
             }
 

@@ -87,7 +87,7 @@ class TasksFragmentAdapter (val tasksList: List<String>): RecyclerView.Adapter<T
                 val bundle = Bundle()
                 bundle.getString("category", tasksList[position])
                 val navController = holder.itemView.let { Navigation.findNavController(it) }
-                navController.navigate(R.id.action_tasksFragment_to_taskInCategoriesFragment)
+                navController.navigate(R.id.action_tasksFragment_to_categoryFragment)
             }
         }
 

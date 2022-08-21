@@ -9,7 +9,7 @@ import javax.inject.Inject
 @Suppress ("UNCHECKED_CAST")
 class ParentPurposeChooseViewModelFactory @Inject constructor(private val getParentPurposesUseCase: GetParentPurposesUseCase): ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ParentPurposeChooseViewModel(getParentPurposesUseCase) as T
     }
 }

@@ -24,7 +24,7 @@ interface AppComponent {
     fun newTaskFragmentInject(newTaskFragment: NewTaskFragment)
     fun dayPersonalTasksDialogInject(dayPersonalTasksDialogFragment: DayPersonalTasksDialogFragment)
     fun editTaskFragmentInject(editTaskFragment: EditTaskFragment)
-
+    fun categoryFragmentInject(categoryFragment: CategoryFragment)
 
     @Component.Builder
     interface Builder{
