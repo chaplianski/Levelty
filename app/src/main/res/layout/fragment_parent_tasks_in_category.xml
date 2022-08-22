@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout11"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presenter.ui.parent.TaskInCategoriesFragment">
+    tools:context=".presenter.ui.parent.ParentTasksInCategoryFragment">
 
     <TextView
         android:id="@+id/tv_task_in_categories_fragment_title"

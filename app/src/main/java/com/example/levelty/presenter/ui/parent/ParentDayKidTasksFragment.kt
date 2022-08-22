@@ -36,7 +36,7 @@ import javax.inject.Inject
 import kotlin.collections.ArrayList
 
 
-class DayPersonalTasksFragment : Fragment() {
+class ParentDayKidTasksFragment : Fragment() {
 
 
     @Inject
@@ -107,6 +107,8 @@ class DayPersonalTasksFragment : Fragment() {
 
             // ***** Task List *****
             // *** Check taking and current dates and hide and show task list / messages about absent tasks
+            futureTaskDialog.visibility = View.INVISIBLE
+            pastTaskDialog.visibility = View.INVISIBLE
 
             val format = SimpleDateFormat("MMMM dd yyyy")
             if (it.isEmpty()){
@@ -155,35 +157,7 @@ class DayPersonalTasksFragment : Fragment() {
 
         // ***** Date Wheel ******
 
-        val dateRV: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_task_date)
-        val pickerLayoutManager = PickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val beginDaysCount = 365
-        val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
-        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
-        val formatDateYear = SimpleDateFormat("yyyy")
-        val todayDate = Calendar.getInstance()
-        todayDate.add(Calendar.DATE, -beginDaysCount)
-
-        val dateValues = mutableListOf<DateTask>()
-        var counter = 0L
-        for (day in 1..(beginDaysCount+377)){
-            todayDate.add(Calendar.DATE, 1)
-            dateValues.add(DateTask(
-                counter, formatDateDay.format(todayDate.timeInMillis),
-                formatDateMonth.format(todayDate.timeInMillis),
-            formatDateYear.format(todayDate.timeInMillis)))
-            counter++
-        }
-
-        val dateTasksFragmentAdapter = context?.let { PickerAdapter(it, dateValues.toList(), dateRV) }
-        val snapHelper: SnapHelper = LinearSnapHelper()
-        snapHelper.attachToRecyclerView(dateRV)
-        dateRV.setLayoutManager(pickerLayoutManager)
-        dateRV.adapter = dateTasksFragmentAdapter
-        lifecycleScope.launchWhenCreated {
-            delay(10)
-            dateRV.scrollToPosition(beginDaysCount+1)
-        }
+        val pickerLayoutManager = pickerLayoutManager(view)
 
         pickerLayoutManager.setOnScrollStopListener( object : PickerLayoutManager.ScrollStopListener{
             override fun selectedView(view: View?) {
@@ -199,8 +173,45 @@ class DayPersonalTasksFragment : Fragment() {
             if (kidName != null) {
                 dayPersonalTasksFragmentViewModel.getDayTasks(kidName, it)
             }
-            Log.d("MyLog", "kid = $kidName, date = $it")
         }
+    }
+
+    private fun pickerLayoutManager(view: View): PickerLayoutManager {
+        val dateRV: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_task_date)
+        val pickerLayoutManager =
+            PickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        val beginDaysCount = 365
+        val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
+        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
+        val formatDateYear = SimpleDateFormat("yyyy")
+        val todayDate = Calendar.getInstance()
+        todayDate.add(Calendar.DATE, -beginDaysCount)
+
+        val dateValues = mutableListOf<DateTask>()
+        var counter = 0L
+        for (day in 1..(beginDaysCount + 377)) {
+            todayDate.add(Calendar.DATE, 1)
+            dateValues.add(
+                DateTask(
+                    counter, formatDateDay.format(todayDate.timeInMillis),
+                    formatDateMonth.format(todayDate.timeInMillis),
+                    formatDateYear.format(todayDate.timeInMillis)
+                )
+            )
+            counter++
+        }
+
+        val dateTasksFragmentAdapter =
+            context?.let { PickerAdapter(it, dateValues.toList(), dateRV) }
+        val snapHelper: SnapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(dateRV)
+        dateRV.setLayoutManager(pickerLayoutManager)
+        dateRV.adapter = dateTasksFragmentAdapter
+        lifecycleScope.launchWhenCreated {
+            delay(10)
+            dateRV.scrollToPosition(beginDaysCount + 1)
+        }
+        return pickerLayoutManager
     }
 
 

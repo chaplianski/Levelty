@@ -29,7 +29,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class DayKidDetailTasksFragment : Fragment() {
+class KidDayTasksFragment : Fragment() {
 
     @Inject
     lateinit var dayKidDetailTaskFragmentViewModelFactory: DayKidDetailTaskFragmentViewModelFactory

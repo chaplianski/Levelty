@@ -2,16 +2,20 @@ package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -24,7 +28,9 @@ import com.example.levelty.databinding.FragmentProfileBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.Kid
 import com.example.levelty.domain.models.Task
-import com.example.levelty.presenter.adapters.*
+import com.example.levelty.presenter.adapters.GoalsProfileFragmentAdapter
+import com.example.levelty.presenter.adapters.InterestsProfileFragmentAdapter
+import com.example.levelty.presenter.adapters.PieChartCategoryAdapter
 import com.example.levelty.presenter.adapters.parent.KidProfileFragmentAdapter
 import com.example.levelty.presenter.adapters.parent.PurposeProfileFragmentAdapter
 import com.example.levelty.presenter.adapters.parent.UpcomingTasksProfileFragmentAdapter
@@ -45,7 +51,7 @@ import java.util.*
 import javax.inject.Inject
 
 
-class ProfileFragment : Fragment() {
+class ParentProfileFragment : Fragment() {
 
     @Inject
     lateinit var profileFragmentViewModelFactory: ProfileFragmentViewModelFactory
@@ -74,7 +80,6 @@ class ProfileFragment : Fragment() {
             addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
             decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
             statusBarColor = Color.TRANSPARENT
-
             _binding = FragmentProfileBinding.inflate(inflater, container, false)
             return binding.root
         }
@@ -83,7 +88,8 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val collapsingToolbar = view.findViewById(R.id.profile_collapsing_toolbar) as CollapsingToolbarLayout
+        val collapsingToolbar =
+            view.findViewById(R.id.profile_collapsing_toolbar) as CollapsingToolbarLayout
         val appBar = view.findViewById(R.id.profile_appbar) as AppBarLayout
 
         appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
@@ -91,7 +97,9 @@ class ProfileFragment : Fragment() {
                     collapsingToolbar
                 )
             ) {
-                 view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
+                view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+
             } else {
                 view.systemUiVisibility = 0
             }
@@ -114,7 +122,7 @@ class ProfileFragment : Fragment() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
         val currentKidId = sharedPref?.getLong(CURRENT_KID_ID, -1)
         var kidName = ""
-        var currentKid = Kid(0,"")
+        var currentKid = Kid(0, "")
 
         //****** Current date *****
 
@@ -126,13 +134,12 @@ class ProfileFragment : Fragment() {
             if (currentKidId >= 0) currentKidId.let { profileFragmentViewModel.getKid(it) }
         }
 
-        profileFragmentViewModel.kidValue.observe(this.viewLifecycleOwner){ kid ->
+        profileFragmentViewModel.kidValue.observe(this.viewLifecycleOwner) { kid ->
             kidName = kid.kidName
             currentKid = kid
             fillKidData(kidImage)
             profileFragmentViewModel.getTodayTasks(kid.kidName, dateItem)
         }
-
 
 
         // ***** Go to
@@ -144,32 +151,33 @@ class ProfileFragment : Fragment() {
 
         profileFragmentViewModel.getKids()
 
-        profileFragmentViewModel.kidList.observe(this.viewLifecycleOwner){
+        profileFragmentViewModel.kidList.observe(this.viewLifecycleOwner) {
             val kidAdapter = KidProfileFragmentAdapter(it, currentKid)
             val purposeRV = binding.rvProfileFragmentKids
             purposeRV.adapter = kidAdapter
 
-            kidAdapter.kidShortOnClickListener = object : KidProfileFragmentAdapter.KidShortOnClickListener{
-                override fun shortClick(kid: Kid) {
+            kidAdapter.kidShortOnClickListener =
+                object : KidProfileFragmentAdapter.KidShortOnClickListener {
+                    override fun shortClick(kid: Kid) {
 
-                    val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-                    sharedPref?.edit()?.putLong(CURRENT_KID_ID, kid.kidId)?.apply()
+                        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                        sharedPref?.edit()?.putLong(CURRENT_KID_ID, kid.kidId)?.apply()
 
-                    kidNameText.text = kid.kidName
-                    fillKidData(kidImage)
-                    profileFragmentViewModel.getTodayTasks(kid.kidName, dateItem)
+                        kidNameText.text = kid.kidName
+                        fillKidData(kidImage)
+                        profileFragmentViewModel.getTodayTasks(kid.kidName, dateItem)
+                    }
+
+                    override fun shortAddClick() {
+                        Log.d("MyLog", "Add new kid")
+                    }
                 }
-
-                override fun shortAddClick() {
-                    Log.d("MyLog", "Add new kid")
-                }
-            }
         }
 
         // **** Tasks card *****
 
         profileFragmentViewModel.getTodayTasks(kidName, dateItem)
-        profileFragmentViewModel.uncommingTasksList.observe(this.viewLifecycleOwner){
+        profileFragmentViewModel.uncommingTasksList.observe(this.viewLifecycleOwner) {
 
             // ***** Upcoming list ******
             val upcomingTaskList = getUncomingTaskList(it)
@@ -189,7 +197,7 @@ class ProfileFragment : Fragment() {
             // **** Add goals list *****
 
             profileFragmentViewModel.getTodayGoals()
-            profileFragmentViewModel.kidGoalsList.observe(this.viewLifecycleOwner){
+            profileFragmentViewModel.kidGoalsList.observe(this.viewLifecycleOwner) {
                 val goalsProfileFragmentAdapter = GoalsProfileFragmentAdapter(it)
                 val goalsRV = binding.rvProfileFragmentGoals
                 goalsRV.adapter = goalsProfileFragmentAdapter
@@ -212,8 +220,8 @@ class ProfileFragment : Fragment() {
 
             // **** Add purpose list *****
 
-     //       profileFragmentViewModel.getParentsPurpose()
-     //       profileFragmentViewModel.parantsPurposeList.observe(this.viewLifecycleOwner){
+            //       profileFragmentViewModel.getParentsPurpose()
+            //       profileFragmentViewModel.parantsPurposeList.observe(this.viewLifecycleOwner){
             getPurposeList(it)
             //       }
 
@@ -271,7 +279,7 @@ class ProfileFragment : Fragment() {
 //        loadPieCategories(categoryPie, categoryPieEntries, view)
 
         bottomNavigation.setOnItemSelectedListener { item ->
-            when(item.itemId){
+            when (item.itemId) {
                 R.id.tasks -> {
                     val bundle = Bundle()
                     bundle.putString("kid name", kidName)
@@ -378,15 +386,15 @@ class ProfileFragment : Fragment() {
 
     private fun getUpcomingTasks(taskList: List<Task>): List<Task> {
         val upcomingTaskList = mutableListOf<Task>()
-        for (task in taskList){
-            if (task.taskStatus == "Upcoming"){
+        for (task in taskList) {
+            if (task.taskStatus == "Upcoming") {
                 upcomingTaskList.add(task)
             }
         }
         return upcomingTaskList
     }
 
-    private fun setupPieChartCategories(pieChart: PieChart){
+    private fun setupPieChartCategories(pieChart: PieChart) {
         pieChart.isDrawHoleEnabled = true
         pieChart.setDrawEntryLabels(false)
         pieChart.holeRadius = 75f
@@ -396,8 +404,7 @@ class ProfileFragment : Fragment() {
         pieChart.maxAngle = 360f
 
 
-
- //       Log.d("MyLog", "v = $handler")
+        //       Log.d("MyLog", "v = $handler")
 
 //        val description = pieChart.description
 //        description.text = "All tasks"
@@ -406,11 +413,11 @@ class ProfileFragment : Fragment() {
 
         pieChart.setExtraOffsets(0f, 0f, 5f, 0f)
 
- //       pieChart.transparentCircleRadius = 80f
-  //      pieChart.setUsePercentValues(true)
- //       pieChart.setEntryLabelTextSize(12f)
- //       pieChart.setEntryLabelColor(Color.BLACK)
- //       pieChart.centerText = "6"
+        //       pieChart.transparentCircleRadius = 80f
+        //      pieChart.setUsePercentValues(true)
+        //       pieChart.setEntryLabelTextSize(12f)
+        //       pieChart.setEntryLabelColor(Color.BLACK)
+        //       pieChart.centerText = "6"
         pieChart.setCenterTextSize(24f)
         pieChart.description?.isEnabled = false
 
@@ -427,25 +434,24 @@ class ProfileFragment : Fragment() {
         legend?.isEnabled = false
     }
 
-    private fun loadPieCategories(pieChart: PieChart, entries: List<PieEntry>, view: View){
+    private fun loadPieCategories(pieChart: PieChart, entries: List<PieEntry>, view: View) {
 
 
 //        entries.add(PieEntry(0.1f, "not complete"))
 
         val colors = mutableListOf<Int>()//mutableListOf<Int>()
 
- //       val colorsSet = listOf<Int>(Color.BLUE, Color.CYAN, Color.GRAY, Color.MAGENTA, Color.RED, Color.YELLOW)
+        //       val colorsSet = listOf<Int>(Color.BLUE, Color.CYAN, Color.GRAY, Color.MAGENTA, Color.RED, Color.YELLOW)
         //        for (color in colorsSet){
 //            colors.add(color)
 //        }
 
-        for (color in ColorTemplate.MATERIAL_COLORS){
+        for (color in ColorTemplate.MATERIAL_COLORS) {
             colors.add(color)
         }
-        for (color in ColorTemplate.VORDIPLOM_COLORS){
+        for (color in ColorTemplate.VORDIPLOM_COLORS) {
             colors.add(color)
         }
-
 
 
 //        Log.d("MyLog", "colors: $colors")
@@ -457,24 +463,24 @@ class ProfileFragment : Fragment() {
 //        data.setValueFormatter(PercentFormatter(pieChart))
 //        data.setValueTextSize(12f)
 //        data.setValueTextColor(Color.BLACK)
- //       Log.d("MyLog", "dataset: $dataSet")
+        //       Log.d("MyLog", "dataset: $dataSet")
 
         pieChart.data = data
         pieChart.invalidate()
 
-        val categoryCountText: TextView = view.findViewById(R.id.tv_profile_fragment_category_counrt)
+        val categoryCountText: TextView =
+            view.findViewById(R.id.tv_profile_fragment_category_counrt)
         categoryCountText.text = entries.size.toString()
 
         val pieChartCategoryAdapter = PieChartCategoryAdapter(entries, colors)
         val pieRV: RecyclerView = view.findViewById(R.id.rv_profile_fragment_pie_category)
-        pieRV.layoutManager  = LinearLayoutManager(context)
+        pieRV.layoutManager = LinearLayoutManager(context)
         pieRV.adapter = pieChartCategoryAdapter
-
 
 
     }
 
-    private fun setupPieChartTasks(pieChart: PieChart, noComplite: Float){
+    private fun setupPieChartTasks(pieChart: PieChart, noComplite: Float) {
         pieChart.isDrawHoleEnabled = true
         pieChart.setDrawEntryLabels(false)
         pieChart.holeRadius = 75f
@@ -494,10 +500,10 @@ class ProfileFragment : Fragment() {
         legend?.isEnabled = false
     }
 
-    private fun loadPieTasks(pieChart: PieChart, entries: List<PieEntry>, view: View){
+    private fun loadPieTasks(pieChart: PieChart, entries: List<PieEntry>, view: View) {
 
         val colors = mutableListOf<Int>()
-        for (color in ColorTemplate.VORDIPLOM_COLORS){
+        for (color in ColorTemplate.VORDIPLOM_COLORS) {
             colors.add(color)
         }
 
@@ -516,9 +522,9 @@ class ProfileFragment : Fragment() {
 
         val taskCountText: TextView = view.findViewById(R.id.tv_profile_fragment_tasks_counrt)
         var allTasks = 0f
-        for (entry in entries){
+        for (entry in entries) {
             allTasks += entry.value
-  //          Log.d("MyLog","value = ${entry.value}")
+            //          Log.d("MyLog","value = ${entry.value}")
         }
 
 
@@ -526,7 +532,7 @@ class ProfileFragment : Fragment() {
 
         val pieChartCategoryAdapter = PieChartCategoryAdapter(entries, colors)
         val pieRV: RecyclerView = view.findViewById(R.id.rv_profile_fragment_pie_task)
-        pieRV.layoutManager  = LinearLayoutManager(context)
+        pieRV.layoutManager = LinearLayoutManager(context)
         pieRV.adapter = pieChartCategoryAdapter
     }
 

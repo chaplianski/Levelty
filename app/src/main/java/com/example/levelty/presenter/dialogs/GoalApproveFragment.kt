@@ -1,23 +1,14 @@
 package com.example.levelty.presenter.dialogs
 
-import android.R.attr.left
-import android.R.attr.right
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentGoalApproveBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 
 
 class GoalApproveFragment : BottomSheetDialogFragment() {

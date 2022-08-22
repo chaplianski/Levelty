@@ -8,10 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    tools:context=".presenter.ui.kid.KidDayTasksFragment">
-
-
-
+    tools:context=".presenter.ui.kid.KidGoalsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -25,25 +22,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <ImageView
+            android:id="@+id/iv_kid_goals_fragment_avatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="54dp"
+            android:src="@drawable/kid_icon_2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:id="@+id/tv_fragment_day_kid_detail_kid_name"
+            android:id="@+id/tv_kid_goals_fragment_kid_name"
             style="@style/Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="248dp"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="248dp"
             android:text="Andrew"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10"
+            app:layout_constraintStart_toEndOf="@+id/iv_kid_goals_fragment_avatar"
+            app:layout_constraintTop_toTopOf="@+id/iv_kid_goals_fragment_avatar"
             app:layout_constraintVertical_bias="0.001" />
 
         <TextView
-            android:id="@+id/tv_fragment_day_kid_detail_level"
+            android:id="@+id/tv_kid_goals_fragment_kid_level"
             style="@style/Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,39 +61,25 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/tv_fragment_day_kid_detail_kid_name"
-            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_day_kid_detail_kid_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_kid_goals_fragment_kid_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kid_goals_fragment_kid_name"
             app:layout_constraintVertical_bias="0.001" />
 
         <ImageView
-            android:id="@+id/imageView11"
+            android:id="@+id/iv_kid_goals_fragment_coins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:src="@drawable/ic_coins"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
-            app:layout_constraintEnd_toStartOf="@+id/tv_fragment_day_kid_detail_kid_number_coins"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_kid_goals_fragment_avatar"
+            app:layout_constraintEnd_toStartOf="@+id/tv_kid_goals_fragment_coins_number"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/iv_kid_goals_fragment_avatar"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
-            android:id="@+id/tv_fragment_day_kid_detail_coins"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:text="Coins"
-            style="@style/Regular"
-            android:textSize="18sp"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView11"
-            app:layout_constraintVertical_bias="0.5" />
-
-        <TextView
-            android:id="@+id/tv_fragment_day_kid_detail_kid_number_coins"
+            android:id="@+id/tv_kid_goals_fragment_coins_number"
             style="@style/ExtraBold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,69 +87,49 @@
             android:text="156"
             android:textColor="@color/white"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView11"
-            app:layout_constraintEnd_toStartOf="@+id/tv_fragment_day_kid_detail_coins"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_kid_goals_fragment_coins"
+            app:layout_constraintEnd_toStartOf="@+id/tv_kid_goals_fragment_coins_text"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView11"
+            app:layout_constraintTop_toTopOf="@+id/iv_kid_goals_fragment_coins"
             app:layout_constraintVertical_bias="0.5" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_fragment_day_kid_detail_task_date"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="135dp"
-            android:layout_marginEnd="20dp"
-            android:elevation="2dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/date_item" />
-
-        <ImageView
-            android:id="@+id/iv_fragment_day_kid_detail_tasks"
-            android:layout_width="68dp"
-            android:layout_height="64dp"
-            android:background="@drawable/date_radius"
-            android:contentDescription="@string/current_date"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.202" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_fragment_day_kid_detail_tasks_tasks_list"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingHorizontal="50dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/tv_fragment_day_kid_detail_tasks_progress_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_fragment_day_kid_detail_tasks"
-            app:layout_constraintVertical_bias="0.35"
-            tools:listitem="@layout/fragment_day_kid_detail_tasks_item">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
         <TextView
-            android:id="@+id/tv_fragment_day_kid_detail_tasks_progress_text"
+            android:id="@+id/tv_kid_goals_fragment_coins_text"
             style="@style/Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="Coins"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_kid_goals_fragment_coins"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_kid_goals_fragment_coins"
+            app:layout_constraintVertical_bias="0.5" />
+
+
+        <TextView
+            android:id="@+id/tv_kid_goals_fragment_title"
+            style="@style/ExtraBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="My goals"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kid_goals_fragment_kid_level"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_kid_goals_fragment_progress_text"
+            style="@style/Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:layout_marginStart="26dp"
             android:layout_marginBottom="8dp"
             android:text="4 from 6 complited"
@@ -165,46 +138,50 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.962" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_kid_goals_fragment_title"
+            app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/pb_fragment_day_kid_detail_tasks_progress_view"
+            android:id="@+id/pb_kid_goals_fragment_progress_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:layout_marginStart="26dp"
             android:layout_marginEnd="26dp"
             android:layout_marginBottom="4dp"
             app:indicatorColor="#6D51FF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.981"
+            app:layout_constraintTop_toBottomOf="@+id/tv_kid_goals_fragment_progress_text"
+            app:layout_constraintVertical_bias="0.0"
             app:trackColor="#E1E1E1"
             app:trackCornerRadius="4dp"
             app:trackThickness="8dp" />
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="54dp"
-            android:src="@drawable/kid_icon_2"
-            app:layout_constraintBottom_toTopOf="@+id/rv_fragment_day_kid_detail_task_date"
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_kid_goals_fragment_tasks_list"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:layout_gravity="center_horizontal"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
+            android:paddingHorizontal="50dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+           app:layout_constraintTop_toBottomOf="@+id/pb_kid_goals_fragment_progress_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            tools:listitem="@layout/fragment_day_kid_detail_tasks_item">
 
+        </androidx.recyclerview.widget.RecyclerView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomAppBar"
+        android:id="@+id/bottomAppBar_kid_goals_fragment"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

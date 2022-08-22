@@ -32,6 +32,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_category.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_category_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_day_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_month_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_date_choose_year_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_day_kid_detail_tasks.xml" value="0.5421875" />
@@ -41,12 +42,17 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_day_personal_tasks_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_edit_task.xml" value="0.34375" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_goal_approve.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_all_tasks.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_goals.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_personal.xml" value="0.41774891774891776" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_close_goal.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_close_task.xml" value="0.4" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_goals.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_goals_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_interest_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_new_task.xml" value="0.5246720799500312" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_choice.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_interest_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_kid_item.xml" value="1.6" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_kid_item_add.xml" value="0.536" />
@@ -58,6 +64,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_task_in_categories_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_task_in_categories_item_add.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_tasks.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/kid_dialog_no_task_in_future.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/kid_message_no_task_in_past.xml" value="0.4" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/order_string_list_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/parent_bottom_appbar.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/parent_dialog_set_task.xml" value="0.34375" />
