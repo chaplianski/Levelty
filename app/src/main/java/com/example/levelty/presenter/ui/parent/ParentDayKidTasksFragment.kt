@@ -176,6 +176,8 @@ class ParentDayKidTasksFragment : Fragment() {
         }
     }
 
+
+
     private fun pickerLayoutManager(view: View): PickerLayoutManager {
         val dateRV: RecyclerView = view.findViewById(R.id.rv_fragment_day_personal_task_date)
         val pickerLayoutManager =

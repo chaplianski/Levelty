@@ -44,7 +44,7 @@ class GoalApproveFragment : BottomSheetDialogFragment() {
 
         val closeButton = binding.ivGoalApproveFragmentClose
         val approveButton = binding.btGoalApproveFragmentApprove
-        val goalCoinField = binding.etGoalApproveFragmentCoinContainer
+        val goalCoinField = binding.otfGoalApproveFragmentCoinContainer
         val goalCoinText = binding.etGoalApproveFragmentCoinText
         val goalDecline = binding.tvGoalApproveFragmentDecline
 

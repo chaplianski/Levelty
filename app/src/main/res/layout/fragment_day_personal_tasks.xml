@@ -24,15 +24,15 @@
             android:id="@+id/iv_fragment_day_personal_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/indicator_to_left"
             android:layout_marginStart="36dp"
-            app:tint="@color/white"
+            android:src="@drawable/indicator_to_left"
             app:layout_constraintBottom_toBottomOf="@+id/tv_fragment_day_personal_tasks_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_fragment_day_personal_tasks_title"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/tv_fragment_day_personal_tasks_title"
@@ -90,13 +90,13 @@
             android:layout_width="68dp"
             android:layout_height="64dp"
             android:background="@drawable/date_radius"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.721" />
+            app:layout_constraintVertical_bias="0.721"
+            />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -123,6 +123,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="223dp"
+        android:background="@drawable/top_round_corners_layout"
         android:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -130,42 +131,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        android:background="@drawable/top_round_corners_layout"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.Round"
-        >
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.Round">
 
-            <TextView
-                android:id="@+id/tv_fragment_day_personal_tasks_progress_text"
-                style="@style/Regular"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="28dp"
-                android:text="4 from 6 completed"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+        <TextView
+            android:id="@+id/tv_fragment_day_personal_tasks_progress_text"
+            style="@style/Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="28dp"
+            android:text="4 from 6 completed"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <com.google.android.material.progressindicator.LinearProgressIndicator
-                android:id="@+id/pb_fragment_day_personal_tasks_progress_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="20dp"
-                app:indicatorColor="#6D51FF"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.498"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_fragment_day_personal_tasks_progress_text"
-                app:layout_constraintVertical_bias="0.0"
-                app:trackColor="#E1E1E1"
-                app:trackCornerRadius="4dp"
-                app:trackThickness="8dp" />
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/pb_fragment_day_personal_tasks_progress_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            app:indicatorColor="#6D51FF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_fragment_day_personal_tasks_progress_text"
+            app:layout_constraintVertical_bias="0.0"
+            app:trackColor="#E1E1E1"
+            app:trackCornerRadius="4dp"
+            app:trackThickness="8dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -173,8 +172,8 @@
         android:id="@+id/rv_fragment_day_personal_tasks_tasks_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="20dp"
         android:orientation="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -190,32 +189,32 @@
 
 
     <include
-        layout="@layout/parent_dialog_set_task"
         android:id="@+id/parent_dialog_future_task"
+        layout="@layout/parent_dialog_set_task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.635"
-        android:visibility="invisible">
+        app:layout_constraintVertical_bias="0.635">
 
     </include>
 
     <include
-        layout="@layout/parent_message_no_task_in_past"
         android:id="@+id/parent_dialog_past_task"
+        layout="@layout/parent_message_no_task_in_past"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.577"
-        android:visibility="invisible">
+        app:layout_constraintVertical_bias="0.577">
 
     </include>
 

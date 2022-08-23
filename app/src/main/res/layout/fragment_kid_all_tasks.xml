@@ -156,7 +156,7 @@
 
 
         <include
-            layout="@layout/kid_dialog_no_task_in_future"
+            layout="@layout/layout_kid_dialog_no_task_in_future"
             android:id="@+id/kid_all_tasks_fragment_no_task_in_future"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

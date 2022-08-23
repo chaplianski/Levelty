@@ -236,8 +236,7 @@ class ParentProfileFragment : Fragment() {
         }
 
         parentPurposeButton.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_profileFragment_to_dayKidDetailTasksFragment)
+
         }
 
         // ***** Add data pies diagrams *****
@@ -294,8 +293,8 @@ class ParentProfileFragment : Fragment() {
                     true
                 }
                 R.id.settings -> {
-                    val navController = view.let { Navigation.findNavController(it) }
-                    navController.navigate(R.id.action_profileFragment_to_dayKidDetailTasksFragment)
+//                    val navController = view.let { Navigation.findNavController(it) }
+//                    navController.navigate(R.id.action_profileFragment_to_dayKidDetailTasksFragment)
                     true
                 }
                 else -> false

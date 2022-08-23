@@ -4,13 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/frameLayout"
-    android:background="@drawable/my_gradient"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
+    android:background="@drawable/my_gradient"
     tools:context=".presenter.ui.kid.KidDayTasksFragment">
-
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
 
-        app:layout_constraintBottom_toTopOf="@+id/bottomAppBar"
+        app:layout_constraintBottom_toTopOf="@+id/bottomAppBar_kid_day_tasks"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
@@ -30,16 +28,16 @@
             style="@style/Bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="248dp"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="248dp"
             android:text="Andrew"
             android:textColor="@color/white"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView10"
-            app:layout_constraintTop_toTopOf="@+id/imageView10"
+            app:layout_constraintStart_toEndOf="@+id/iv_kid_day_task_avatar"
+            app:layout_constraintTop_toTopOf="@+id/iv_kid_day_task_avatar"
             app:layout_constraintVertical_bias="0.001" />
 
         <TextView
@@ -64,22 +62,22 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
             android:src="@drawable/ic_coins"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView10"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_kid_day_task_avatar"
             app:layout_constraintEnd_toStartOf="@+id/tv_fragment_day_kid_detail_kid_number_coins"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imageView10"
+            app:layout_constraintTop_toTopOf="@+id/iv_kid_day_task_avatar"
             app:layout_constraintVertical_bias="0.5" />
 
         <TextView
             android:id="@+id/tv_fragment_day_kid_detail_coins"
+            style="@style/Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:text="Coins"
-            style="@style/Regular"
-            android:textSize="18sp"
             android:textColor="@color/white"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/imageView11"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/imageView11"
@@ -101,115 +99,123 @@
             app:layout_constraintTop_toTopOf="@+id/imageView11"
             app:layout_constraintVertical_bias="0.5" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_fragment_day_kid_detail_task_date"
+        <include
+            android:id="@+id/dates_wheel_layout"
+            layout="@layout/common_date_wheel_layout"
             android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginStart="20dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="135dp"
-            android:layout_marginEnd="20dp"
-            android:elevation="2dp"
-            android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            tools:listitem="@layout/date_item" />
+            android:visibility="invisible">
 
-        <ImageView
-            android:id="@+id/iv_fragment_day_kid_detail_tasks"
-            android:layout_width="68dp"
-            android:layout_height="64dp"
-            android:background="@drawable/date_radius"
-            android:contentDescription="@string/current_date"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.202" />
+        </include>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_fragment_day_kid_detail_tasks_tasks_list"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="20dp"
-            android:clipToPadding="false"
-            android:orientation="horizontal"
-            android:paddingHorizontal="50dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toTopOf="@+id/tv_fragment_day_kid_detail_tasks_progress_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_fragment_day_kid_detail_tasks"
-            app:layout_constraintVertical_bias="0.35"
-            tools:listitem="@layout/fragment_day_kid_detail_tasks_item">
-
-        </androidx.recyclerview.widget.RecyclerView>
-
-        <TextView
-            android:id="@+id/tv_fragment_day_kid_detail_tasks_progress_text"
-            style="@style/Regular"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginBottom="8dp"
-            android:text="4 from 6 complited"
-            android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.962" />
-
-        <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/pb_fragment_day_kid_detail_tasks_progress_view"
+        <include
+            android:id="@+id/layout_fragment_day_kid_wheel_tasks"
+            layout="@layout/kid_tasks_wheel_cards_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="26dp"
-            android:layout_marginEnd="26dp"
-            android:layout_marginBottom="4dp"
-            app:indicatorColor="#6D51FF"
+            android:layout_marginTop="8dp"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.981"
-            app:trackColor="#E1E1E1"
-            app:trackCornerRadius="4dp"
-            app:trackThickness="8dp" />
+            app:layout_constraintTop_toBottomOf="@+id/dates_wheel_layout"
+            app:layout_constraintVertical_bias="0.0">
 
-        <ImageView
-            android:id="@+id/imageView10"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="54dp"
-            android:src="@drawable/kid_icon_2"
-            app:layout_constraintBottom_toTopOf="@+id/rv_fragment_day_kid_detail_task_date"
+        </include>
 
+        <include
+            android:id="@+id/layout_fragment_day_kid_list_tasks"
+            layout="@layout/kid_day_tasks_list_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/layout_fragment_day_kid_wheel_tasks"
+            app:layout_constraintVertical_bias="0.0">
+
+        </include>
+
+        <include
+            android:id="@+id/layout_kid_day_tasks_no_task_in_past"
+            layout="@layout/kid_message_no_task_in_past"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dates_wheel_layout"
+            app:layout_constraintVertical_bias="0.052">
+
+        </include>
+
+        <include
+            android:id="@+id/layout_kid_day_tasks_no_task_in_future"
+            layout="@layout/layout_kid_dialog_no_task_in_future"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/dates_wheel_layout"
+            app:layout_constraintVertical_bias="0.052">
+
+        </include>
+
+        <include
+            android:id="@+id/layout_kid_skip_task_dialog"
+            layout="@layout/kid_skip_task_dialog"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="70dp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_kid_day_task_avatar" >
+
+    </include>
+
+
+        <ImageView
+            android:id="@+id/iv_kid_day_task_avatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="54dp"
+            android:src="@drawable/kid_icon_2"
+            app:layout_constraintBottom_toTopOf="@+id/dates_wheel_layout"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.027" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomAppBar"
+        android:id="@+id/bottomAppBar_kid_day_tasks"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/white"
         android:alpha="0.8"
+        app:backgroundTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -20,9 +20,6 @@
             android:id="@+id/action_profileFragment_to_tasksFragment"
             app:destination="@id/tasksFragment" />
         <action
-            android:id="@+id/action_profileFragment_to_dayKidDetailTasksFragment"
-            app:destination="@id/dayKidDetailTasksFragment" />
-        <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
         <action
@@ -145,7 +142,7 @@
         android:id="@+id/dayKidDetailTasksFragment"
         android:name="com.example.levelty.presenter.ui.kid.KidDayTasksFragment"
         android:label="fragment_day_kid_detail_tasks"
-        tools:layout="@layout/fragment_day_kid_detail_tasks" />
+        tools:layout="@layout/fragment_kid_day_tasks" />
     <fragment
         android:id="@+id/kidPersonalFragment"
         android:name="com.example.levelty.presenter.ui.kid.KidProfileFragment"
