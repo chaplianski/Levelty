@@ -174,7 +174,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            tools:listitem="@layout/fragment_day_kid_detail_tasks_item">
+            tools:listitem="@layout/item_fragment_kid_day_task">
 
         </androidx.recyclerview.widget.RecyclerView>
 

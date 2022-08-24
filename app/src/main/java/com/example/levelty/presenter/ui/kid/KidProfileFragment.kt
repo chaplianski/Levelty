@@ -1,19 +1,15 @@
 package com.example.levelty.presenter.ui.kid
 
 
-import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentKidPersonalBinding
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class KidProfileFragment : Fragment() {
@@ -34,7 +30,13 @@ class KidProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val bottomNavigation: BottomNavigationView = binding.bottomAppBarKidDetailFragment
         val todayTasksButton = binding.chipKidDetailFragmentToday
+
+        getKidBottomNavigationBar(bottomNavigation)
+
+
+
 //        val toolbar: androidx.appcompat.widget.Toolbar = view.findViewById(com.example.levelty.R.id.toolbar)
 //        val collapsingToolbar = view.findViewById(com.example.levelty.R.id.collapsing_toolbar) as CollapsingToolbarLayout
 //        val appBar = view.findViewById(com.example.levelty.R.id.appbar) as AppBarLayout
@@ -68,7 +70,7 @@ class KidProfileFragment : Fragment() {
 
 
         todayTasksButton.setOnClickListener {
-            findNavController().navigate(R.id.action_kidPersonalFragment_to_dayKidDetailTasksFragment)
+            findNavController().navigate(R.id.action_kidProfileFragment_to_kidDayTasksFragment)
         }
 
 //        val levelText: TextView = view.findViewById(R.id.tv_kid_detail_fragment_level)
@@ -86,6 +88,26 @@ class KidProfileFragment : Fragment() {
 
 //        mToolBar.getLayoutParams().topMargin = DisplayUtils.getStatusBarHeight(this)
 
+    }
+
+    private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { itemMenu ->
+            when (itemMenu.itemId) {
+                R.id.tasks -> {
+                    findNavController().navigate(R.id.action_kidProfileFragment_to_kidDayTasksFragment)
+                    true
+                }
+                R.id.profile -> {
+                    true
+                }
+                R.id.goals -> {
+                    findNavController().navigate(R.id.action_kidProfileFragment_to_kidGoalsFragment)
+                    true
+                }
+                else -> false
+            }
+
+        }
     }
 
 

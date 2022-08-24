@@ -120,7 +120,7 @@ class TasksFragmentAdapter (val tasksList: List<String>): RecyclerView.Adapter<T
 
     fun getColor (): Int {
         val colorList = listOf<Int>(
-            R.color.red_1, R.color.red_2, R.color.violet_1, R.color.violet_2,
+            R.color.gradient_red, R.color.red_2, R.color.violet_1, R.color.violet_2,
             R.color.green_1, R.color.green_2, R.color.blue_1, R.color.blue_2
         )
         return colorList.random()

@@ -6,19 +6,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.usecases.parent.GetKidGoalsFragmentUseCase
+import com.example.levelty.domain.usecases.parent.GetKidsGoalsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class KidGoalsFragmentViewModel @Inject constructor(private val getKidGoalsFragmentUseCase: GetKidGoalsFragmentUseCase): ViewModel() {
+class ParentKidGoalsFragmentViewModel @Inject constructor(private val getKidsGoalsUseCase: GetKidsGoalsUseCase): ViewModel() {
 
-    val _goalsValue = MutableLiveData<List<Goal>>()
+    private val _goalsValue = MutableLiveData<List<Goal>>()
     val goalsValue: LiveData<List<Goal>> get() = _goalsValue
 
     fun getGoalsList(){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = getKidGoalsFragmentUseCase.execute()
+            val list = getKidsGoalsUseCase.execute()
             _goalsValue.postValue(list)
         }
     }

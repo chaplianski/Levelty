@@ -13,9 +13,9 @@ import javax.inject.Inject
 
 class DayKidDetailTaskFragmentViewModel  @Inject constructor(private val getKidDetailTasksUseCase: GetKidDetailTasksUseCase): ViewModel() {
 
-    val _taskList = MutableLiveData<List<Task>>()
+    private val _taskList = MutableLiveData<List<Task>>()
     val taskList: LiveData<List<Task>> get() = _taskList
-    val _currentDay = MutableLiveData<String>()
+    private val _currentDay = MutableLiveData<String>()
     val currentDay: LiveData<String> get() = _currentDay
 
     fun getTaskList(){

@@ -7,23 +7,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.Goal
 import com.example.levelty.presenter.adapters.parent.KidGoalsFragmentAdapter
-import com.example.levelty.presenter.factories.parent.KidGoalsFragmentViewModelFactory
-import com.example.levelty.presenter.viewmodels.parent.KidGoalsFragmentViewModel
+import com.example.levelty.presenter.factories.parent.ParentKidGoalsFragmentViewModelFactory
+import com.example.levelty.presenter.viewmodels.parent.ParentKidGoalsFragmentViewModel
 import javax.inject.Inject
 
 
-class KidsGoalsFragment : Fragment() {
+class ParentKidsGoalsFragment : Fragment() {
 
     @Inject
-    lateinit var kidGoalsFragmentViewModelFactory: KidGoalsFragmentViewModelFactory
-    val kidGoalsFragmentViewModel: KidGoalsFragmentViewModel by viewModels { kidGoalsFragmentViewModelFactory }
+    lateinit var parentKidGoalsFragmentViewModelFactory: ParentKidGoalsFragmentViewModelFactory
+    val parentKidGoalsFragmentViewModel: ParentKidGoalsFragmentViewModel by viewModels { parentKidGoalsFragmentViewModelFactory }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -47,9 +46,9 @@ class KidsGoalsFragment : Fragment() {
 //        val kidNameText: TextView = view.findViewById(R.id.tv_fragment_kid_goal_name)
         val goalsRV: RecyclerView = view.findViewById(R.id.rv_fragment_kids_goals)
 
-        kidGoalsFragmentViewModel.getGoalsList()
+        parentKidGoalsFragmentViewModel.getGoalsList()
 
-        kidGoalsFragmentViewModel.goalsValue.observe(this.viewLifecycleOwner){
+        parentKidGoalsFragmentViewModel.goalsValue.observe(this.viewLifecycleOwner){
             val goalAdapter = KidGoalsFragmentAdapter(it)
             goalsRV.adapter = goalAdapter
             clickItem(goalAdapter)

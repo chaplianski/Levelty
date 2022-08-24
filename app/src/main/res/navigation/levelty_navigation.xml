@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/kidsGoalsFragment"
-        android:name="com.example.levelty.presenter.ui.parent.KidsGoalsFragment"
+        android:name="com.example.levelty.presenter.ui.parent.ParentKidsGoalsFragment"
         android:label="fragment_kids_goals"
         tools:layout="@layout/fragment_kids_goals" >
         <action
@@ -139,18 +139,28 @@
         android:label="fragment_kids_interest_choose"
         tools:layout="@layout/fragment_kids_interest_choose" />
     <fragment
-        android:id="@+id/dayKidDetailTasksFragment"
+        android:id="@+id/kidDayTasksFragment"
         android:name="com.example.levelty.presenter.ui.kid.KidDayTasksFragment"
         android:label="fragment_day_kid_detail_tasks"
-        tools:layout="@layout/fragment_kid_day_tasks" />
+        tools:layout="@layout/fragment_kid_day_tasks" >
+        <action
+            android:id="@+id/action_kidDayTasksFragment_to_kidPersonalFragment"
+            app:destination="@id/kidProfileFragment" />
+        <action
+            android:id="@+id/action_kidDayTasksFragment_to_kidSuccessCloseTaskFragment"
+            app:destination="@id/kidSuccessCloseTaskFragment" />
+    </fragment>
     <fragment
-        android:id="@+id/kidPersonalFragment"
+        android:id="@+id/kidProfileFragment"
         android:name="com.example.levelty.presenter.ui.kid.KidProfileFragment"
         android:label="fragment_kid_personal"
         tools:layout="@layout/fragment_kid_personal" >
         <action
-            android:id="@+id/action_kidPersonalFragment_to_dayKidDetailTasksFragment"
-            app:destination="@id/dayKidDetailTasksFragment" />
+            android:id="@+id/action_kidProfileFragment_to_kidDayTasksFragment"
+            app:destination="@id/kidDayTasksFragment" />
+        <action
+            android:id="@+id/action_kidProfileFragment_to_kidGoalsFragment"
+            app:destination="@id/kidGoalsFragment" />
     </fragment>
     <dialog
         android:id="@+id/goalApproveFragment"
@@ -172,7 +182,7 @@
             app:destination="@id/profileFragment" />
         <action
             android:id="@+id/action_profileChoiceFragment_to_kidPersonalFragment"
-            app:destination="@id/kidPersonalFragment" />
+            app:destination="@id/kidProfileFragment" />
     </fragment>
     <dialog
         android:id="@+id/dayPersonalTasksDialogFragment"
@@ -232,4 +242,14 @@
             android:id="@+id/action_categoryFragment_to_tasksFragment"
             app:destination="@id/tasksFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/kidSuccessCloseTaskFragment"
+        android:name="com.example.levelty.presenter.ui.kid.KidSuccessCloseTaskFragment"
+        android:label="fragment_kid_success_close_task"
+        tools:layout="@layout/fragment_kid_success_close_task" />
+    <fragment
+        android:id="@+id/kidGoalsFragment"
+        android:name="com.example.levelty.presenter.ui.kid.KidGoalsFragment"
+        android:label="fragment_kid_goals"
+        tools:layout="@layout/fragment_kid_goals" />
 </navigation>

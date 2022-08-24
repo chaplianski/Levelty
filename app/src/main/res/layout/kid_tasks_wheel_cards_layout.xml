@@ -21,7 +21,7 @@
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.85"
-        tools:listitem="@layout/fragment_day_kid_detail_tasks_item">
+        tools:listitem="@layout/item_fragment_kid_day_task">
 
     </androidx.recyclerview.widget.RecyclerView>
 

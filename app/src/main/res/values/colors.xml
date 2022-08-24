@@ -20,13 +20,15 @@
     <color name="green_2">#0B8F6F</color>
     <color name="violet_1">#D461F2</color>
     <color name="violet_2">#A116C8</color>
-    <color name="red_1">#E5496E</color>
+    <color name="gradient_red">#E5496E</color>
     <color name="red_2">#CC2A50</color>
     <color name="graphic_secondary">#C4C4C4</color>
+    <color name="graphic_accent">#6D51FF</color>
     <color name="background_secondary">#F5F5F5</color>
     <color name="text_accent">#3217BA</color>
     <color name="text_primary">#1C1C1C</color>
     <color name="text_secondary">#909090</color>
+
 
 
 </resources>

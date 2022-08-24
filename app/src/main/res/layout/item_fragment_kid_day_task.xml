@@ -79,7 +79,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_fragment_day_kid_detail_tasks_reward" />
 
         <TextView
-            android:id="@+id/textView22"
+            android:id="@+id/tv_fragment_day_kid_detail_tasks_skip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
