@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.SnapHelper
+import com.example.levelty.R
 import com.example.levelty.databinding.FragmentKidGoalsBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.presenter.adapters.kid.KidGoalsWheelAdapter
@@ -18,6 +20,8 @@ import com.example.levelty.presenter.adapters.kid.TaskPickerLayoutManager
 import com.example.levelty.presenter.factories.kid.KidGoalsFragmentViewModelFactory
 import com.example.levelty.presenter.factories.parent.ParentKidGoalsFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.kid.KidGoalsFragmentViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -57,9 +61,12 @@ class KidGoalsFragment : Fragment() {
         val kidName = binding.tvKidGoalsFragmentKidName
         val kidLevel = binding.tvKidGoalsFragmentKidLevel
         val kidCoins = binding.ivKidGoalsFragmentCoins
+
+        val bottomNavigation: BottomNavigationView = binding.bottomAppBarKidGoalsFragment
         val goalPickerLayoutManager =
             TaskPickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
+        getKidBottomNavigationBar(bottomNavigation)
 
         kidGoalsFragmentViewModel.getGoals()
         kidGoalsFragmentViewModel.goals.observe(this.viewLifecycleOwner){ goals ->
@@ -83,6 +90,28 @@ class KidGoalsFragment : Fragment() {
             }
         }
 
+
+    }
+
+    private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { itemMenu ->
+            when (itemMenu.itemId) {
+                R.id.tasks -> {
+                    findNavController().navigate(R.id.kidDayTasksFragment)
+                    true
+                }
+                R.id.profile -> {
+                    findNavController().navigate(R.id.kidProfileFragment)
+                    true
+                }
+                R.id.goals -> {
+                    findNavController().navigate(R.id.kidGoalsFragment)
+                    true
+                }
+                else -> false
+            }
+
+        }
     }
 
 }

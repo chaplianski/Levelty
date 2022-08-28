@@ -26,7 +26,7 @@ import com.google.android.material.chip.Chip
 import javax.inject.Inject
 
 
-class NewTaskFragment : Fragment() {
+class ParentNewTaskFragment : Fragment() {
 
     @Inject
     lateinit var newTaskViewModelFactory: NewTaskViewModelFactory

@@ -28,6 +28,7 @@ import com.example.levelty.presenter.adapters.PickerLayoutManager
 import com.example.levelty.presenter.dialogs.DayPersonalTasksDialogFragment
 import com.example.levelty.presenter.factories.parent.DayPersonalTasksFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.DayPersonalTasksFragmentViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
@@ -82,9 +83,11 @@ class ParentDayKidTasksFragment : Fragment() {
         val setNewTaskFutureText = binding.parentDialogFutureTask.tvDialogParentSetTask
         val pastTaskDialog = binding.parentDialogPastTask.parentDialogPastTask
         val backButton = binding.ivFragmentDayPersonalBack
-
+        val bottomNavigation = binding.bottomAppBarParentDayKidTasksFragment
 
    //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
+        getParentBottomNavigationBar(bottomNavigation)
+
 
         //**** Back to profile fragment
 
@@ -228,6 +231,26 @@ class ParentDayKidTasksFragment : Fragment() {
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
+    }
+
+    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.tasks -> {
+                    findNavController().navigate(R.id.tasksFragment)
+                    true
+                }
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
+                    true
+                }
+                R.id.settings -> {
+                    findNavController().navigate(R.id.settingsFragment)
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
 }

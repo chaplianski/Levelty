@@ -25,7 +25,7 @@
         app:srcCompat="@drawable/smile11" />
 
     <TextView
-        android:id="@+id/tv_item_fragment_kit_day_task_skipped_name"
+        android:id="@+id/tv_item_fragment_kid_day_task_declined_name"
         style="@style/Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_item_fragment_kit_day_task_skipped_reward"
+        android:id="@+id/tv_item_fragment_kid_day_task_declined_cost"
         style="@style/Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,11 +52,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_fragment_kit_day_task_skipped_name"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_fragment_kid_day_task_declined_name"
         app:layout_constraintVertical_bias="0.0" />
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/item_fragment_kit_day_task_skipped"
+        android:id="@+id/chip_item_fragment_kid_day_task_declined"
         style="@style/Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -70,13 +70,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_fragment_kit_day_task_skipped_reward">
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_fragment_kid_day_task_declined_cost">
 
     </com.google.android.material.chip.Chip>
 
 
     <TextView
-        android:id="@+id/item_fragment_kit_day_task_redo"
+        android:id="@+id/tv_item_fragment_kid_day_task_declined_redo"
         style="@style/Regular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_fragment_kit_day_task_skipped"
+        app:layout_constraintTop_toBottomOf="@+id/chip_item_fragment_kid_day_task_declined"
         app:layout_constraintVertical_bias="0.0" />
 
 

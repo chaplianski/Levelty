@@ -94,14 +94,15 @@ class KidProfileFragment : Fragment() {
         bottomNavigation.setOnItemSelectedListener { itemMenu ->
             when (itemMenu.itemId) {
                 R.id.tasks -> {
-                    findNavController().navigate(R.id.action_kidProfileFragment_to_kidDayTasksFragment)
+                    findNavController().navigate(R.id.kidDayTasksFragment)
                     true
                 }
                 R.id.profile -> {
+                    findNavController().navigate(R.id.kidProfileFragment)
                     true
                 }
                 R.id.goals -> {
-                    findNavController().navigate(R.id.action_kidProfileFragment_to_kidGoalsFragment)
+                    findNavController().navigate(R.id.kidGoalsFragment)
                     true
                 }
                 else -> false

@@ -17,9 +17,7 @@ class InterestsProfileFragmentAdapter(private val interestsList: List<String>): 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        Log.d("MyLog", "interestList = $interestsList")
         holder.onBind(interestsList[position])
-        Log.d("MyLog", "interest = ${interestsList[position]}")
     }
 
     override fun getItemCount(): Int {
@@ -35,7 +33,6 @@ class InterestsProfileFragmentAdapter(private val interestsList: List<String>): 
 
         fun onBind(interest: String){
             interestName.text = interest
-            Log.d("MyLog", "interest on bind = ${interest}")
         }
     }
 }

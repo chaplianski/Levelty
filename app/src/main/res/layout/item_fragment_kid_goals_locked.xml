@@ -6,11 +6,12 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/layout_item_fragment_day_kid_approved"
+        android:id="@+id/layout_item_fragment_kid_goals_locked"
         android:layout_width="300dp"
         android:layout_height="415dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="4dp"
+        android:alpha="0.5"
         android:background="@drawable/kid_task_card_form"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -18,62 +19,50 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView12"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="54dp"
+            android:id="@+id/iv_item_fragment_kid_goals_locked"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/success_goal" />
+            app:srcCompat="@drawable/lock_dynamic_clay" />
 
         <TextView
-            android:id="@+id/tv_item_fragment_day_kid_approved_name"
-            style="@style/Bold"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="44dp"
-            android:text="Walk with your dog"
-            android:textColor="@color/text_primary"
-            android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView12"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/tv_item_fragment_day_kid_approved_cost"
+            android:id="@+id/tv_item_fragment_kid_goals_locked_message"
             style="@style/Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
-            android:text="4 coins"
+            android:layout_marginTop="14dp"
+            android:text="Reach Level 3 to unlock the slot"
+            android:textColor="@color/text_primary"
             android:textSize="18sp"
-            android:textColor="@color/text_secondary"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_fragment_day_kid_approved_name"
+            app:layout_constraintTop_toBottomOf="@+id/iv_item_fragment_kid_goals_locked"
             app:layout_constraintVertical_bias="0.0" />
 
         <com.google.android.material.chip.Chip
+            android:id="@+id/item_item_fragment_kid_goals_locked_stamp"
+            style="@style/Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:backgroundTint="@color/white"
-            android:text="Approved"
-            style="@style/Regular"
-            android:textSize="18sp"
-            android:textColor="@color/text_accent"
-            app:chipStrokeColor="@color/graphic_accent"
             app:chipStrokeWidth="2dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="Locked"
+            android:textColor="@color/text_primary"
+            android:textSize="18sp"
+            app:chipStrokeColor="@color/graphic_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_item_fragment_day_kid_approved_cost" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_fragment_kid_goals_locked_message">
+
+        </com.google.android.material.chip.Chip>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

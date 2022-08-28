@@ -2,20 +2,16 @@ package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
 import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
@@ -97,8 +93,12 @@ class ParentProfileFragment : Fragment() {
                     collapsingToolbar
                 )
             ) {
-                view.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                var flags = view.systemUiVisibility
+                flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                view.systemUiVisibility = flags
+                activity!!.window.statusBarColor = context?.resources?.getColor(R.color.background_secondary)!!
             } else {
+                activity!!.window.statusBarColor = Color.TRANSPARENT
                 view.systemUiVisibility = 0
             }
         }
@@ -280,19 +280,15 @@ class ParentProfileFragment : Fragment() {
                 R.id.tasks -> {
                     val bundle = Bundle()
                     bundle.putString("kid name", kidName)
-
-                    val navController = view.let { Navigation.findNavController(it) }
-                    navController.navigate(R.id.action_profileFragment_to_tasksFragment, bundle)
+                    findNavController().navigate(R.id.tasksFragment, bundle)
                     true
                 }
                 R.id.profile -> {
-                    val navController = view.let { Navigation.findNavController(it) }
-                    navController.navigate(R.id.action_profileFragment_to_profileChoiceFragment)
+                    findNavController().navigate(R.id.profileFragment)
                     true
                 }
                 R.id.settings -> {
-//                    val navController = view.let { Navigation.findNavController(it) }
-//                    navController.navigate(R.id.action_profileFragment_to_dayKidDetailTasksFragment)
+                    findNavController().navigate(R.id.settingsFragment)
                     true
                 }
                 else -> false

@@ -1,6 +1,7 @@
 package com.example.levelty.presenter.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,11 @@ class PickerAdapter(
 ) :
     RecyclerView.Adapter<PickerAdapter.ViewHolder>() {
 
+    interface PickerDateListener{
+        fun onItemClick(position: Int, dateTask: DateTask)
+    }
+    var pickerDateListener: PickerDateListener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View
         val inflater = LayoutInflater.from(context)
@@ -28,6 +34,11 @@ class PickerAdapter(
 
       holder.onBind(dataList[position])
       holder.numberText.setOnClickListener { recyclerView?.smoothScrollToPosition(position) }
+      holder.itemView.setOnClickListener {
+          pickerDateListener?.onItemClick(position, dataList[position])
+
+      }
+
     }
 
     override fun getItemCount(): Int {

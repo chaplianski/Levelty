@@ -9,7 +9,7 @@ fun getTodayDate(): String {
     val formatDateYear = SimpleDateFormat("yyyy")
     val today = Calendar.getInstance()
     val dateInString =
-        "${formatDateDay.format(today.timeInMillis)} ${formatDateMonth.format(today.timeInMillis)} ${
+        "${formatDateMonth.format(today.timeInMillis)} ${formatDateDay.format(today.timeInMillis)} ${
             formatDateYear.format(today.timeInMillis)
         }"
     return dateInString

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.levelty.R
@@ -14,10 +15,11 @@ import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.presenter.adapters.parent.TasksFragmentAdapter
 import com.example.levelty.presenter.factories.parent.TaskFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.TaskFragmentViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
 
-class TasksFragment : Fragment() {
+class ParentTasksFragment : Fragment() {
 
     @Inject
     lateinit var tasksFragmentViewModelFactory: TaskFragmentViewModelFactory
@@ -43,7 +45,10 @@ class TasksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val taskRV: RecyclerView = view.findViewById(R.id.rv_fragment_tasks_list)
+        val bottomNavigation: BottomNavigationView = view.findViewById(R.id.bottomAppBar_parent_tasks_fragment)
 
+
+        getParentBottomNavigationBar(bottomNavigation)
         tasksFragmentViewModel.getTasksListValue()
         tasksFragmentViewModel.tasksListValue.observe(this.viewLifecycleOwner){
 
@@ -72,6 +77,24 @@ class TasksFragment : Fragment() {
 
 
     }
-
+    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.tasks -> {
+                    findNavController().navigate(R.id.tasksFragment)
+                    true
+                }
+                R.id.profile -> {
+                    findNavController().navigate(R.id.profileFragment)
+                    true
+                }
+                R.id.settings -> {
+                    findNavController().navigate(R.id.settingsFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
 
 }

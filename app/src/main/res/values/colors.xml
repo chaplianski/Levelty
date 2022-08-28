@@ -24,6 +24,7 @@
     <color name="red_2">#CC2A50</color>
     <color name="graphic_secondary">#C4C4C4</color>
     <color name="graphic_accent">#6D51FF</color>
+    <color name="graphic_primary">#1C1C1C</color>
     <color name="background_secondary">#F5F5F5</color>
     <color name="text_accent">#3217BA</color>
     <color name="text_primary">#1C1C1C</color>

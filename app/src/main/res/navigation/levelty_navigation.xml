@@ -55,7 +55,7 @@
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
-        android:name="com.example.levelty.presenter.ui.parent.TasksFragment"
+        android:name="com.example.levelty.presenter.ui.parent.ParentTasksFragment"
         android:label="fragment_tasks"
         tools:layout="@layout/fragment_tasks" >
         <action
@@ -67,7 +67,7 @@
     </fragment>
     <fragment
         android:id="@+id/newTaskFragment"
-        android:name="com.example.levelty.presenter.ui.parent.NewTaskFragment"
+        android:name="com.example.levelty.presenter.ui.parent.ParentNewTaskFragment"
         android:label="NewTaskFragment"
         tools:layout="@layout/fragment_new_task">
         <action
@@ -251,5 +251,18 @@
         android:id="@+id/kidGoalsFragment"
         android:name="com.example.levelty.presenter.ui.kid.KidGoalsFragment"
         android:label="fragment_kid_goals"
-        tools:layout="@layout/fragment_kid_goals" />
+        tools:layout="@layout/fragment_kid_goals" >
+        <action
+            android:id="@+id/action_kidGoalsFragment_to_kidSetGoalFragment"
+            app:destination="@id/kidSetGoalFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/kidSetGoalFragment"
+        android:name="com.example.levelty.presenter.ui.kid.KidSetGoalFragment"
+        android:label="fragment_kid_set_goal"
+        tools:layout="@layout/fragment_kid_set_goal" >
+        <action
+            android:id="@+id/action_kidSetGoalFragment_to_kidGoalsFragment"
+            app:destination="@id/kidGoalsFragment" />
+    </fragment>
 </navigation>

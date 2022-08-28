@@ -13,6 +13,26 @@ class PickerLayoutManager(context: Context?, orientation: Int, reverseLayout: Bo
     var scaleDownDistance = 1.8f
     var isChangeAlpha = true
 
+    // ***** Enable / Disable Scroll
+    private var scrollable = true
+
+    fun enableScrolling() {
+        scrollable = true
+    }
+
+    fun disableScrolling() {
+        scrollable = false
+    }
+
+//    override fun canScrollVertically() =
+//        super.canScrollVertically() && scrollable
+
+
+    override fun canScrollHorizontally() =
+        scrollable
+    //super.canScrollVertically() &&
+
+// *********************************************************
     interface ScrollStopListener {
 //        fun selectedView(view: View?)
         fun selectedView(view: View?)
