@@ -91,7 +91,7 @@ class ParentNewTaskFragment : Fragment() {
         newTaskViewModel.getKids()
 
         newTaskViewModel.kids.observe(this.viewLifecycleOwner){ kids ->
-            val kidsAdapter = PurposeProfileFragmentAdapter(kids.map { kid -> kid.kidName })
+            val kidsAdapter = PurposeProfileFragmentAdapter(kids.map { kid -> kid.user?.firstName.toString() })
 //            kidsRV.layoutManager = LinearLayoutManager(context)
             kidsRV.adapter = kidsAdapter
         }

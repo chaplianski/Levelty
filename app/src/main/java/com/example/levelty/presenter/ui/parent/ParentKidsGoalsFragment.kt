@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.Goal
+import com.example.levelty.domain.models.GoalsItem
 import com.example.levelty.presenter.adapters.parent.KidGoalsFragmentAdapter
 import com.example.levelty.presenter.factories.parent.ParentKidGoalsFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.ParentKidGoalsFragmentViewModel
@@ -62,11 +63,11 @@ class ParentKidsGoalsFragment : Fragment() {
 
     private fun clickItem(goalAdapter: KidGoalsFragmentAdapter) {
         goalAdapter.shortOnClickListener = object : KidGoalsFragmentAdapter.ShortOnClickListener{
-            override fun ShortClick(goal: Goal) {
-                if (!goal.isApproval){
+            override fun ShortClick(goal: GoalsItem) {
+                if (goal.status != "isApproval"){
                     val bundle = Bundle()
-                    bundle.putString("goal name", goal.goalName)
-                    bundle.putInt("goal value", goal.goalValue)
+                    bundle.putString("goal name", goal.title)
+                    goal.price?.let { bundle.putInt("goal value", it) }
                     findNavController().navigate(R.id.action_kidsGoalsFragment_to_goalApproveFragment, bundle)
                 }
             }

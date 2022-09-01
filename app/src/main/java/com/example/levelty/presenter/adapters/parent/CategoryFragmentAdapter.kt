@@ -7,10 +7,11 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
+import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.Task
 import kotlinx.coroutines.NonDisposableHandle.parent
 
-class CategoryFragmentAdapter(val taskList: List<Task>): RecyclerView.Adapter<CategoryFragmentAdapter.ViewHolder>() {
+class CategoryFragmentAdapter(val taskList: List<CreatedTasksItem>): RecyclerView.Adapter<CategoryFragmentAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,9 +42,9 @@ class CategoryFragmentAdapter(val taskList: List<Task>): RecyclerView.Adapter<Ca
         val taskCoins: TextView = itemView.findViewById(R.id.tv_categories_fragment_task_coins)
         val taskNumber: TextView = itemView.findViewById(R.id.tv_categories_fragment_task_number)
 
-        fun onBind(task: Task){
-            taskName.text = task.taskName
-            taskCoins.text = "${task.taskPoints} coins"
+        fun onBind(task: CreatedTasksItem){
+            taskName.text = task.title
+            taskCoins.text = "${task.cost} coins"
 
 
         }

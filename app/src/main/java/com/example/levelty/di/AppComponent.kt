@@ -10,7 +10,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class, ApiModule::class])
 interface AppComponent {
 
     fun profileFragmentInject(parentProfileFragment: ParentProfileFragment)

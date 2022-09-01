@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.Goal
+import com.example.levelty.domain.models.GoalsItem
 import com.example.levelty.domain.usecases.parent.GetKidsGoalsUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -13,8 +14,8 @@ import javax.inject.Inject
 
 class KidGoalsFragmentViewModel @Inject constructor(private val getKidsGoalsUseCase: GetKidsGoalsUseCase): ViewModel() {
 
-    private val _goals = MutableLiveData<List<Goal>>()
-    val goals: LiveData<List<Goal>> = _goals
+    private val _goals = MutableLiveData<List<GoalsItem>>()
+    val goals: LiveData<List<GoalsItem>> = _goals
 
     fun getGoals(){
         viewModelScope.launch(Dispatchers.IO) {

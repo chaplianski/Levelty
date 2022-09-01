@@ -32,9 +32,9 @@
             android:text="Andrew"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/iv_kid_item_image"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/iv_kid_item_image"
             app:layout_constraintTop_toBottomOf="@+id/iv_kid_item_image" />
 
 

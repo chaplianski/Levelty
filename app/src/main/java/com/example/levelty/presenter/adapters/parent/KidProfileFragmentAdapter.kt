@@ -11,15 +11,16 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.levelty.R
+import com.example.levelty.domain.models.ChildrenItem
 import com.example.levelty.domain.models.Kid
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class KidProfileFragmentAdapter(private val kidList: List<Kid>, currentKid: Kid) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class KidProfileFragmentAdapter(private val kidList: List<ChildrenItem>, currentKid: ChildrenItem) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var selectedPosition = getSelectedPosition(currentKid)
 
-    private fun getSelectedPosition(checkedKid: Kid): Int {
+    private fun getSelectedPosition(checkedKid: ChildrenItem): Int {
         var position = 0
         for (kid in kidList){
             if (kid == checkedKid) return position
@@ -29,7 +30,7 @@ class KidProfileFragmentAdapter(private val kidList: List<Kid>, currentKid: Kid)
     }
 
     interface KidShortOnClickListener {
-        fun shortClick(kid: Kid)
+        fun shortClick(childrenItem: ChildrenItem)
         fun shortAddClick()
     }
 
@@ -103,9 +104,9 @@ class KidProfileFragmentAdapter(private val kidList: List<Kid>, currentKid: Kid)
         val kidName: TextView = itemView.findViewById(R.id.tv_kid_item_name)
 //        val kidLayout: ConstraintLayout = itemView.findViewById(R.id.cl_kid_item)
 
-        fun onBind(kid: Kid){
+        fun onBind(childrenItem: ChildrenItem){
 
-            kidName.text = kid.kidName
+            kidName.text = childrenItem.user?.firstName
             kidName.alpha = 0.6f
 
             val bitmap = BitmapFactory.decodeResource(itemView.context.resources, R.drawable.kid_icon_2)

@@ -5,10 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
+import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.Task
 import com.google.android.material.chip.Chip
 
-class UpcomingTasksProfileFragmentAdapter (val taskList: List<Task>): RecyclerView.Adapter<UpcomingTasksProfileFragmentAdapter.ViewHolder>() {
+class UpcomingTasksProfileFragmentAdapter (val taskList: List<CreatedTasksItem>): RecyclerView.Adapter<UpcomingTasksProfileFragmentAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,8 +28,8 @@ class UpcomingTasksProfileFragmentAdapter (val taskList: List<Task>): RecyclerVi
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val taskName: Chip = itemView.findViewById(R.id.chip_fragment_profile_task)
 
-        fun onBind(task: Task){
-            taskName.text = task.taskName
+        fun onBind(task: CreatedTasksItem){
+            taskName.text = task.title
         }
     }
 }

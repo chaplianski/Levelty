@@ -51,7 +51,7 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/tv_fragment_day_personal_tasks_item_name"
+            android:id="@+id/tv_fragment_day_personal_tasks_kid_name"
             style="@style/Regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

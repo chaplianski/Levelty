@@ -1,22 +1,30 @@
 package com.example.levelty.presenter.adapters.parent
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.toColorInt
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.levelty.R
+import com.example.levelty.domain.models.Category
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.shape.ShapeAppearanceModel
 
 
-class TasksFragmentAdapter (val tasksList: List<String>): RecyclerView.Adapter<TasksFragmentAdapter.ViewHolder>() {
+class TasksFragmentAdapter (val tasksList: List<Category>): RecyclerView.Adapter<TasksFragmentAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -52,15 +60,15 @@ class TasksFragmentAdapter (val tasksList: List<String>): RecyclerView.Adapter<T
                     return true
                 }
             })
-        val shapeAppearanceModelLL = ShapeAppearanceModel()
-            .toBuilder()
-            .setAllCorners(CornerFamily.ROUNDED, 20F)
-            .build()
-
-        val shapeDrawableLL = MaterialShapeDrawable(shapeAppearanceModelLL)
-        shapeDrawableLL.fillColor = ContextCompat.getColorStateList(v.context,getColor())
-
-        v.background = shapeDrawableLL
+//        val shapeAppearanceModelLL = ShapeAppearanceModel()
+//            .toBuilder()
+//            .setAllCorners(CornerFamily.ROUNDED, 50F)
+//            .build()
+//
+//        val shapeDrawableLL = MaterialShapeDrawable(shapeAppearanceModelLL)
+////        shapeDrawableLL.fillColor = ContextCompat.getColorStateList(v.context,getColor())
+//
+//        v.background = shapeDrawableLL
 
 
       return ViewHolder(v)
@@ -85,9 +93,9 @@ class TasksFragmentAdapter (val tasksList: List<String>): RecyclerView.Adapter<T
                 navController.navigate(R.id.action_tasksFragment_to_newTaskFragment)
             } else {
                 val bundle = Bundle()
-                bundle.getString("category", tasksList[position])
+                bundle.getString("category", tasksList[position].title)
                 val navController = holder.itemView.let { Navigation.findNavController(it) }
-                navController.navigate(R.id.action_tasksFragment_to_categoryFragment)
+                navController.navigate(R.id.action_tasksFragment_to_categoryFragment, bundle)
             }
         }
 
@@ -99,14 +107,45 @@ class TasksFragmentAdapter (val tasksList: List<String>): RecyclerView.Adapter<T
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        val taskNameText: TextView = itemView.findViewById(R.id.tv_fragment_tasks_item_name)
-        val taskRewardText: TextView = itemView.findViewById(R.id.tv_fragment_tasks_item_reward)
+        val taskNameText: TextView = itemView.findViewById(R.id.tv_item_parent_tasks_fragment_name)
+        val taskImage: ImageView = itemView.findViewById(R.id.iv_item_parent_tasks_fragment)
+        val taskCard: CardView = itemView.findViewById(R.id.cardView_item_parent_tasks_fragment)
 
-        fun onBind(category: String){
+        fun onBind(category: Category){
 
-            taskNameText.text = category
+            Log.d("MyLog", "category = ${category.title}")
+//            val shapeAppearanceModelLL = ShapeAppearanceModel()
+//                .toBuilder()
+//                .setAllCorners(CornerFamily.ROUNDED, 50F)
+//                .build()
+//            val shapeDrawableLL = MaterialShapeDrawable(shapeAppearanceModelLL)
+
+            if (category.id == null) {
+
+                taskCard.setCardBackgroundColor("#2D98FB".toColorInt())
+                Glide.with(itemView.context).load(R.drawable.ic_big_plus)
+                    .override(30, 30)
+//                    .centerCrop()
+                    .circleCrop()
+                    .into(taskImage)
+            } else {
+
+                taskNameText.text = category.title.toString()
+                category.backgroundColor?.toColorInt()?.let { taskCard.setCardBackgroundColor(it) }
+                Glide.with(itemView.context).load(category.image)
+                    .override(68, 68)
+//                    .centerCrop()
+                    .circleCrop()
+                    .into(taskImage)
+            }
+            taskNameText.text = category.title.toString()
 //            taskNameText.text = task.taskName
 //            taskRewardText.text = task.taskCategory
+
+
+
+
+//            taskLayout.background = shapeDrawableLL
 
         }
 

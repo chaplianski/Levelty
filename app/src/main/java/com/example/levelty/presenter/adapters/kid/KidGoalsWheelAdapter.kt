@@ -15,7 +15,7 @@ import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter.Com
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 class KidGoalsWheelAdapter(
-val goalList: List<Goal>, private val recyclerView: RecyclerView):
+val goalList: List<GoalsItem>, private val recyclerView: RecyclerView):
     RecyclerView.Adapter<KidGoalsWheelAdapter.ViewHolder>() {
 //    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     interface GoalCardListener{
@@ -126,10 +126,10 @@ val goalList: List<Goal>, private val recyclerView: RecyclerView):
         val getButton: Button = itemView.findViewById(R.id.bt_item_fragment_kid_goals_get)
         val changeButton: TextView = itemView.findViewById(R.id.tv_item_fragment_kid_goals_change)
 
-        fun onBind(goal: Goal){
+        fun onBind(goal: GoalsItem){
 
-            goalName.text = goal.goalName
-            goalCost.text = goal.goalValue.toString()
+            goalName.text = goal.title
+            goalCost.text = goal.price.toString()
         }
     }
 

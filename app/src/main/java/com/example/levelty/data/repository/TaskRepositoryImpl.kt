@@ -2,14 +2,15 @@ package com.example.levelty.data.repository
 
 import android.util.Log
 import com.example.levelty.data.storage.database.TaskStorageImpl
+import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.Task
 import com.example.levelty.domain.repository.TaskRepository
 import javax.inject.Inject
 
 class TaskRepositoryImpl @Inject constructor(private val taskStorageImpl: TaskStorageImpl): TaskRepository {
 
-    override fun getTodayTasks(kidName: String, date: String): List<Task> {
-        val list = taskStorageImpl.getTodayTask(kidName, date).map { it.taskMapDataToDomain() }
+    override fun getTodayTasks(kidId: Int, date: String): List<CreatedTasksItem> {
+        val list = taskStorageImpl.getTodayTask(kidId, date).map { it.taskMapDataToDomain() }
 //        Log.d("MyLog", "list in taskRepositoryImpl = $list")
         return list
     }
@@ -18,7 +19,7 @@ class TaskRepositoryImpl @Inject constructor(private val taskStorageImpl: TaskSt
         return taskStorageImpl.getDayTask(kidName, date).map { it.taskMapDataToDomain() }
     }
 
-    override fun getTasksList(): List<Task> {
+    override fun getTasksList(): List<CreatedTasksItem> {
         return taskStorageImpl.getTasksList().map { it.taskMapDataToDomain() }
     }
 

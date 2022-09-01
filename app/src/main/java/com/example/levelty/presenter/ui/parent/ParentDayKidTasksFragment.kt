@@ -27,6 +27,7 @@ import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
 import com.example.levelty.presenter.dialogs.DayPersonalTasksDialogFragment
 import com.example.levelty.presenter.factories.parent.DayPersonalTasksFragmentViewModelFactory
+import com.example.levelty.presenter.utils.getTodayDate
 import com.example.levelty.presenter.viewmodels.parent.DayPersonalTasksFragmentViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -76,7 +77,9 @@ class ParentDayKidTasksFragment : Fragment() {
         val addNewTaskButton: FloatingActionButton = binding.fbDayPersonalTasksFragmentAdd
         val kidName = arguments?.getString("kid name")
         val currentDay = arguments?.getString("current date")
-        var checkedDay = currentDay
+//        var checkedDay = currentDay
+        var checkedDay = getTodayDate()
+
         val progressText = binding.tvFragmentDayPersonalTasksProgressText
         val progressBar = binding.pbFragmentDayPersonalTasksProgressView
         val futureTaskDialog = binding.parentDialogFutureTask.viewParentDialogSetTask
@@ -84,11 +87,12 @@ class ParentDayKidTasksFragment : Fragment() {
         val pastTaskDialog = binding.parentDialogPastTask.parentDialogPastTask
         val backButton = binding.ivFragmentDayPersonalBack
         val bottomNavigation = binding.bottomAppBarParentDayKidTasksFragment
+        val kidNameField = binding.tvFragmentDayPersonalTasksKidName
 
    //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
         getParentBottomNavigationBar(bottomNavigation)
-
-
+        Log.d("MyLog", "name = $kidName")
+        kidNameField.text = kidName.toString()
         //**** Back to profile fragment
 
         backButton.setOnClickListener {

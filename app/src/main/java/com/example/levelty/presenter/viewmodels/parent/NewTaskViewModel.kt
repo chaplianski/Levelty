@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.levelty.domain.models.Kid
-import com.example.levelty.domain.models.Purpose
-import com.example.levelty.domain.models.Repeat
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.*
 import com.example.levelty.domain.usecases.parent.AddTaskUseCase
 import com.example.levelty.domain.usecases.parent.GetKidsUseCase
 import com.example.levelty.domain.usecases.parent.GetParentPurposesUseCase
@@ -26,8 +23,8 @@ class NewTaskViewModel @Inject constructor(
 
     ): ViewModel() {
 
-    val _kids = MutableLiveData<List<Kid>>()
-    val kids: LiveData<List<Kid>> get() = _kids
+    val _kids = MutableLiveData<List<ChildrenItem>>()
+    val kids: LiveData<List<ChildrenItem>> get() = _kids
     val _purposes = MutableLiveData<List<Purpose>>()
     val purpose: LiveData<List<Purpose>> get() = _purposes
     val _repeats = MutableLiveData<List<Repeat>>()

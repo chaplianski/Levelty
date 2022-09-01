@@ -9,11 +9,12 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.domain.models.Goal
+import com.example.levelty.domain.models.GoalsItem
 
-class KidGoalsFragmentAdapter  (val goals: List<Goal>): RecyclerView.Adapter<KidGoalsFragmentAdapter.ViewHolder>() {
+class KidGoalsFragmentAdapter  (val goals: List<GoalsItem>): RecyclerView.Adapter<KidGoalsFragmentAdapter.ViewHolder>() {
 
     interface ShortOnClickListener {
-        fun ShortClick(goal: Goal)
+        fun ShortClick(goal: GoalsItem)
     }
 
     var shortOnClickListener: ShortOnClickListener? = null
@@ -46,9 +47,9 @@ class KidGoalsFragmentAdapter  (val goals: List<Goal>): RecyclerView.Adapter<Kid
 //        val isApprovalButton: Chip = itemView.findViewById(R.id.chip_fragment_kid_goal_approval)
 //        val goalImage: ImageView = itemView.findViewById(R.id.iv_fragment_profile_goal_image)
 
-        fun onBind(goal: Goal){
-            goalNameText.text = goal.goalName
-            goalRewardText.text = goal.goalValue.toString()
+        fun onBind(goal: GoalsItem){
+            goalNameText.text = goal.title
+            goalRewardText.text = goal.price.toString()
 
 //            val firstColor = ContextCompat.getColor(itemView.context, R.color.purple_500)
 //            val secondColor = ResourcesCompat.getColor(Resources.getSystem(), R.color.purple_700, null)

@@ -20,16 +20,16 @@ class ProfileFragmentViewModel @Inject constructor(
     private val getKidUseCase: GetKidUseCase
 ) : ViewModel() {
 
-    val _kidsList = MutableLiveData<List<Kid>>()
-    val kidList: LiveData<List<Kid>> get() = _kidsList
-    val _uncomingTasksList = MutableLiveData<List<Task>>()
-    val _kidValue = MutableLiveData<Kid>()
-    val kidValue: LiveData<Kid> get() = _kidValue
-    val uncommingTasksList: LiveData<List<Task>> get() = _uncomingTasksList
+    val _kidsList = MutableLiveData<List<ChildrenItem>>()
+    val kidList: LiveData<List<ChildrenItem>> get() = _kidsList
+    val _uncomingTasksList = MutableLiveData<List<CreatedTasksItem>>()
+    val uncommingTasksList: LiveData<List<CreatedTasksItem>> get() = _uncomingTasksList
+    val _kidValue = MutableLiveData<ChildrenItem>()
+    val kidValue: LiveData<ChildrenItem> get() = _kidValue
     val _kidInterestList = MutableLiveData<List<Interest>>()
     val kidInterestList: LiveData<List<Interest>> get() = _kidInterestList
-    val _kidGoalsList = MutableLiveData<List<Goal>>()
-    val kidGoalsList: LiveData<List<Goal>> get() = _kidGoalsList
+    val _kidGoalsList = MutableLiveData<List<GoalsItem>>()
+    val kidGoalsList: LiveData<List<GoalsItem>> get() = _kidGoalsList
     val _parantsPurposeList = MutableLiveData<List<Purpose>>()
     val parantsPurposeList: LiveData<List<Purpose>> get() = _parantsPurposeList
 
@@ -41,16 +41,16 @@ class ProfileFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getKid(kidId: Long){
+    fun getKid(kidId: Int){
         viewModelScope.launch(Dispatchers.IO) {
             val currentKid = getKidUseCase.execute(kidId)
             _kidValue.postValue(currentKid)
         }
     }
 
-    fun getTodayTasks(kidName: String, currentDate: String){
+    fun getTodayTasks(kidId: Int, currentDate: String){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = getUpcomingTaskUseCase.execute(kidName, currentDate)
+            val list = getUpcomingTaskUseCase.execute(kidId, currentDate)
 //            Log.d("MyLog", "parametrs in profile view model = $kidName, $currentDate")
 //            Log.d("MyLog", "list in profile view model = $list")
             _uncomingTasksList.postValue(list)

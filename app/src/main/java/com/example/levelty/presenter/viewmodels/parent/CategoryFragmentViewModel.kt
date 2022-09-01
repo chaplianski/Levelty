@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.Task
 import com.example.levelty.domain.usecases.parent.GetTasksUseCase
 import kotlinx.coroutines.Dispatchers
@@ -14,8 +15,8 @@ class CategoryFragmentViewModel @Inject constructor(
     private val getTasksUseCase: GetTasksUseCase
 ): ViewModel() {
 
-    private val _tasks = MutableLiveData<List<Task>>()
-    val tasks: LiveData<List<Task>> get() = _tasks
+    private val _tasks = MutableLiveData<List<CreatedTasksItem>>()
+    val tasks: LiveData<List<CreatedTasksItem>> get() = _tasks
 
     fun getTasks(){
         viewModelScope.launch(Dispatchers.IO) {

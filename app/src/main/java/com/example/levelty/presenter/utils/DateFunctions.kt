@@ -14,3 +14,13 @@ fun getTodayDate(): String {
         }"
     return dateInString
 }
+
+fun dateStringToTime(date: String): Long? {
+    val format = SimpleDateFormat("MMMM dd yyyy")
+    return format.parse(date)?.time
+
+}
+
+fun dateTimeToString(){
+
+}

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
+import com.example.levelty.domain.models.Category
 import com.example.levelty.presenter.adapters.parent.TasksFragmentAdapter
 import com.example.levelty.presenter.factories.parent.TaskFragmentViewModelFactory
 import com.example.levelty.presenter.viewmodels.parent.TaskFragmentViewModel
@@ -50,19 +51,25 @@ class ParentTasksFragment : Fragment() {
 
         getParentBottomNavigationBar(bottomNavigation)
         tasksFragmentViewModel.getTasksListValue()
-        tasksFragmentViewModel.tasksListValue.observe(this.viewLifecycleOwner){
+        tasksFragmentViewModel.tasksListValue.observe(this.viewLifecycleOwner){ tasks ->
 
 
-            val categoriesList = mutableListOf<String>()
-            val realCategories = it.map { task -> task.taskCategory }.toSet().toList()
-            categoriesList.add("My Task")
+//            val categoriesList = mutableListOf<String>()
+//            val realCategories = tasks.map { task -> task.category?.title.toString() }.toSet().toList()
+//            categoriesList.add("My Task")
+//            categoriesList.addAll(realCategories)
+
+            val categoriesList = mutableListOf<Category?>()
+            val realCategories = tasks.map { task -> task.category }.toSet().toList()
+            categoriesList.add(Category(null, "#2D98FB", null, "My Task"))
             categoriesList.addAll(realCategories)
 
 //            val listTasks: MutableList<Task> = it as MutableList<Task>
 //            listTasks.add(0, Task((listTasks.size+1).toLong(), "My Task", "", 0, "", "0", "0", "", "", "" ,"Need approval"))
 //            val tasksAdapter = TasksFragmentAdapter(listTasks.toList())
 
-            val tasksAdapter = TasksFragmentAdapter(categoriesList.toList())
+
+            val tasksAdapter = TasksFragmentAdapter(categoriesList.toList() as List<Category>)
             val lm = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
 

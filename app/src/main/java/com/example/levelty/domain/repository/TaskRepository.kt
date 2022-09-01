@@ -1,14 +1,15 @@
 package com.example.levelty.domain.repository
 
+import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.Task
 
 interface TaskRepository {
 
-    fun getTodayTasks(kidName: String, date: String): List<Task>
+    fun getTodayTasks(kidId: Int, date: String): List<CreatedTasksItem>
 
     fun getDayTasks(kidName: String, date: String): List<Task>
 
-    fun getTasksList(): List<Task>
+    fun getTasksList(): List<CreatedTasksItem>
 
     fun getKidDetailTasksList(): List<Task>
 
