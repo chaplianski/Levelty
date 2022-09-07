@@ -28,4 +28,7 @@
     <string name="no_tasks_on_this_date">No tasks on this date</string>
     <string name="no_tasks_yet">No tasks yet</string>
     <string name="set_task">Set task</string>
+    <string name="client_error">Authorization error</string>
+    <string name="server_error">Network error</string>
+    <string name="internet_error">Internet connection error</string>
 </resources>

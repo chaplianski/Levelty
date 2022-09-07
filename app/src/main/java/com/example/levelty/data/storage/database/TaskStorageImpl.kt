@@ -3,11 +3,14 @@ package com.example.levelty.data.storage.database
 import android.util.Log
 import com.example.levelty.data.storage.dao.LeveltyDao
 import com.example.levelty.data.storage.model.CategoryDTO
+import com.example.levelty.data.storage.model.ChoresItemDTO
 import com.example.levelty.data.storage.model.CreatedTasksItemDTO
 import com.example.levelty.data.storage.model.TaskDTO
 import com.example.levelty.data.storage.storage.TaskStorage
+import com.example.levelty.domain.models.ChoresItem
 import com.example.levelty.domain.models.CreatedTasksItem
 import javax.inject.Inject
+import javax.inject.Singleton
 
 class TaskStorageImpl @Inject constructor() : TaskStorage {
 
@@ -89,6 +92,26 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
     override fun getTasksList(): List<CreatedTasksItemDTO> {
 //        val taskList = mutableListOf<TaskDTO>()
 //        return leveltyDao.getTasksList()
+        val choresList = mutableListOf<ChoresItemDTO>()
+        choresList.add(ChoresItemDTO("2022-09-02", 0, "2022-09-20", "Nothing", 0, "done"))
+        choresList.add(ChoresItemDTO("2022-09-03", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList.add(ChoresItemDTO("2022-09-04", 0, "2022-09-20", "Nothing", 0, "refused"))
+        choresList.add(ChoresItemDTO("2022-09-05", 0, "2022-09-20", "Nothing", 0, "rejected"))
+        choresList.add(
+            ChoresItemDTO(
+                "2022-09-05",
+                0,
+                "2022-09-20",
+                "Nothing",
+                0,
+                "waiting for approval"
+            )
+        )
+
+        val choresList2 = mutableListOf<ChoresItemDTO>()
+        choresList2.add(ChoresItemDTO("2022-09-02", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-03", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-04", 0, "2022-09-20", "Nothing", 0, "refused"))
 
         val category1 = CategoryDTO(null, "#AED581", 0, "School")
         val category2 = CategoryDTO(null, "#EA80FC", 1, "Science")
@@ -103,17 +126,17 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
                 15,
                 true,
                 1,
-                "October 12 2022",
+                "2022-09-25",
                 "Any description",
                 "Father",
                 null,
-                null,
+                choresList.toList(),
                 1,
                 0,
                 category1,
-                "September 01 2022",
+                "2022-08-25",
                 0,
-                "need approved"
+                "pending"
             )
         )
         listTasks.add(
@@ -124,17 +147,17 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
                 10,
                 true,
                 1,
-                "October 12 2022",
+                "2022-10-01",
                 "Any description",
                 "Father",
                 null,
-                null,
+                choresList2.toList(),
                 0,
                 0,
                 category2,
-                "September 01 2022",
+                "2022-09-02",
                 0,
-                "created"
+                "done"
             )
         )
 

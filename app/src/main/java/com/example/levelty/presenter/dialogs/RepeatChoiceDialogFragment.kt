@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSnapHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -45,11 +46,11 @@ class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        var fraquency = 0
+        var namePeriod = ""
 
         val saveButton: Button = view.findViewById(R.id.bt_repeat_choose_dialog_save)
         val closeButton: ImageView = view.findViewById(R.id.iv_repeat_choose_dialog_close)
-
-
 
         // ****** Repeat frequency ******
         val repeatFrequencyValue = mutableListOf<String>()
@@ -106,11 +107,12 @@ class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
 
         repeatFraquencyPickerLayoutManager.setOnScrollStopListener( object : DatePickerLayoutManager.onScrollStopDataListener{
             override fun selectedView(view: View?) {
-                val repeatFraquency = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_month)
+                val repeatFrequency = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_month)
      //           startTimeChooseFragmentViewModel.transferHourValue(hour?.text.toString())
+                fraquency = repeatFrequency?.text.toString().toInt()
                 Toast.makeText(
                     context,
-                    "Selected frequency ${repeatFraquency?.text} ", Toast.LENGTH_SHORT
+                    "Selected frequency ${repeatFrequency?.text} ", Toast.LENGTH_SHORT
                 ).show()
             }
 
@@ -121,6 +123,7 @@ class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
             override fun selectedView(view: View?) {
                 val period = view?.findViewById<TextView>(R.id.tv_fragment_date_choose_month)
     //            startTimeChooseFragmentViewModel.transferAmPmValue(amPm?.text.toString())
+                namePeriod = period?.text.toString()
                 Toast.makeText(
                     context,
                     "Selected period ${period?.text} ", Toast.LENGTH_SHORT
@@ -142,9 +145,17 @@ class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
 //        }
 
         saveButton.setOnClickListener {
+              val repeatInterval = when(namePeriod){
+                  "day" -> 1
+                  "week" -> 7/fraquency.toInt()
+                  "month" -> 30/fraquency.toInt()
+                  "year" -> 365/fraquency.toInt()
+                  else -> 1
+              }
+
 //            val customRepeat = "$hourToValue : $minuteToValue $amPmToValue"
-//            val navController = findNavController()
-//            navController.previousBackStackEntry?.savedStateHandle?.set("start time", startTimeItem)
+            val navController = findNavController()
+            navController.previousBackStackEntry?.savedStateHandle?.set("repeat", repeatInterval)
             dismiss()
         }
 

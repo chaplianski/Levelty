@@ -6,15 +6,16 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
+import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.Task
 import java.lang.ref.WeakReference
 
-class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.Adapter<FragmentDayPersonalTasksAdapter.ViewHolder>(){
+class FragmentDayPersonalTasksAdapter (private val dayTasksList: List<CreatedTasksItem>, val checkedDay: String) : RecyclerView.Adapter<FragmentDayPersonalTasksAdapter.ViewHolder>(){
 
-    val tasksList = dayTasksList as MutableList<Task>
+
 
     interface ShortOnClickListener {
-        fun ShortClick(task: Task)
+        fun ShortClick(task: CreatedTasksItem)
     }
 
     var shortOnClickListener: ShortOnClickListener? = null
@@ -25,9 +26,9 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.onBind(tasksList[position])
+        holder.onBind(dayTasksList[position])
         holder.itemView.setOnClickListener {
-            shortOnClickListener?.ShortClick(tasksList[position])
+            shortOnClickListener?.ShortClick(dayTasksList[position])
         }
     }
 
@@ -37,10 +38,10 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
 //    }
 
     override fun getItemCount(): Int {
-        return tasksList.size
+        return dayTasksList.size
     }
 
-    class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
 
         val taskName: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_task)
         val taskCoins: TextView = itemView.findViewById(R.id.tv_fragment_day_personal_tasks_item_coins)
@@ -50,11 +51,19 @@ class FragmentDayPersonalTasksAdapter (dayTasksList: List<Task>) : RecyclerView.
         val view = WeakReference(itemView)
 
 
-        fun onBind(task: Task){
-            taskName.text = task.taskName
-            tasksMoney.text = "${(task.taskPoints*10).toString()}$ "
-            taskCoins.text = "${task.taskPoints.toString()} coins"
-            taskStatus.text = task.taskStatus
+        fun onBind(task: CreatedTasksItem){
+            taskName.text = task.title
+//            tasksMoney.text = "${(task.taskPoints*10).toString()}$ "
+            taskCoins.text = "${task.cost} coins"
+            if (task.chores != null){
+                for (chore in task.chores){
+                    if (chore?.date == checkedDay){
+                        taskStatus.text = chore.status
+                    }
+                }
+            }
+
+
         }
     }
 }

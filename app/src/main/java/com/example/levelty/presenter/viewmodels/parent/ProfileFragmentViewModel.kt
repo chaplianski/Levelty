@@ -1,11 +1,15 @@
 package com.example.levelty.presenter.viewmodels.parent
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.*
 import com.example.levelty.domain.usecases.parent.*
+import com.example.levelty.presenter.utils.dateShortStringToTime
+import com.example.levelty.presenter.utils.dayToMls
+import com.example.levelty.presenter.utils.getTodayDateMls
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -13,18 +17,19 @@ import javax.inject.Inject
 
 class ProfileFragmentViewModel @Inject constructor(
     private val getKidsUseCase: GetKidsUseCase,
-    private val getUpcomingTaskUseCase: GetTodayTasksUseCase,
+    private val getTasksUseCase: GetTasksUseCase,
+//    private val getTodayTasksUseCase: GetTodayTasksUseCase,
     private val getKidInterestUseCase: GetKidInterestUseCase,
     private val getKidsGoalsUseCase: GetKidsGoalsUseCase,
     private val getParentsPurposeUseCase: GetParentsPurposeUseCase,
     private val getKidUseCase: GetKidUseCase
 ) : ViewModel() {
 
-    val _kidsList = MutableLiveData<List<ChildrenItem>>()
+    private val _kidsList = MutableLiveData<List<ChildrenItem>>()
     val kidList: LiveData<List<ChildrenItem>> get() = _kidsList
-    val _uncomingTasksList = MutableLiveData<List<CreatedTasksItem>>()
-    val uncommingTasksList: LiveData<List<CreatedTasksItem>> get() = _uncomingTasksList
-    val _kidValue = MutableLiveData<ChildrenItem>()
+    private val _todayTaskList = MutableLiveData<List<CreatedTasksItem>>()
+    val todayTasksList: LiveData<List<CreatedTasksItem>> get() = _todayTaskList
+    private val _kidValue = MutableLiveData<ChildrenItem>()
     val kidValue: LiveData<ChildrenItem> get() = _kidValue
     val _kidInterestList = MutableLiveData<List<Interest>>()
     val kidInterestList: LiveData<List<Interest>> get() = _kidInterestList
@@ -48,12 +53,34 @@ class ProfileFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getTodayTasks(kidId: Int, currentDate: String){
+    fun getTodayTasks(kidId: Int){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = getUpcomingTaskUseCase.execute(kidId, currentDate)
-//            Log.d("MyLog", "parametrs in profile view model = $kidName, $currentDate")
-//            Log.d("MyLog", "list in profile view model = $list")
-            _uncomingTasksList.postValue(list)
+
+            val allTasksList = getTasksUseCase.execute()
+//            val allTasksList = getTasksUseCase.execute()
+//            val todayTasks = mutableListOf<CreatedTasksItem>()
+//
+//            val currentDate = getTodayDateMls()
+//
+//            for (task in allTasksList){
+//                if (kidId == task.assigneeId){
+//
+//                    val startDate = task.startDate?.let { dateShortStringToTime(it) }
+//                    val endDate = task.dueDate?.let { dateShortStringToTime(it) }
+//                    val repeat = task.repeatInterval?.let { dayToMls(it) }
+//                    Log.d("MyLog", "start = $startDate, end = $endDate, current = $currentDate")
+//                    if (currentDate != null) {
+//                        if (currentDate < endDate!!){
+//                            if (startDate == currentDate || ((currentDate - startDate!!) % repeat!!) == 0L){
+//                                todayTasks.add(task)
+//                            }
+//                        }
+//                    }
+//
+//                }
+//            }
+
+            _todayTaskList.postValue(todayTasks)
         }
     }
 

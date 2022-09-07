@@ -27,24 +27,22 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
+
     <TextView
         android:id="@+id/tv_goal_approve_fragment_goal_value"
         style="@style/Regular"
-        android:textColor="@color/text_primary"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
         android:text="Set the price to approve this goal:"
+        android:textColor="@color/text_primary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.006"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_goal_approve_fragment_name_goal"
-        app:layout_constraintVertical_bias="0.0" />
-
-
-
+        app:layout_constraintVertical_bias="0.018" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/otf_goal_approve_fragment_coin_container"

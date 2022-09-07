@@ -9,7 +9,8 @@ import javax.inject.Inject
 @Suppress("UNCHECKED_CAST")
 class ProfileFragmentViewModelFactory @Inject constructor(
     private val getKidsUseCase: GetKidsUseCase,
-    private val getTodayTasksUseCase: GetTodayTasksUseCase,
+    private val getTasksUseCase: GetTasksUseCase,
+//    private val getTodayTasksUseCase: GetTodayTasksUseCase,
     private val getKidInterestUseCase: GetKidInterestUseCase,
     private val getKidsGoalsUseCase: GetKidsGoalsUseCase,
     private val getParentsPurposeUseCase: GetParentsPurposeUseCase,
@@ -19,7 +20,7 @@ class ProfileFragmentViewModelFactory @Inject constructor(
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return ProfileFragmentViewModel(
             getKidsUseCase,
-            getTodayTasksUseCase,
+            getTasksUseCase,
             getKidInterestUseCase,
             getKidsGoalsUseCase,
             getParentsPurposeUseCase,

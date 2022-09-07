@@ -137,112 +137,112 @@ class KidDayTasksFragment : Fragment() {
             TaskPickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         dayKidDetailTaskFragmentViewModel.getTaskList()
 
-        dayKidDetailTaskFragmentViewModel.taskList.observe(this.viewLifecycleOwner) { tasks ->
-            Log.d("MyLog", "checked date = $checkedDate, today = ${getTodayDate()}" )
-            datesWheelLayout.visibility = View.VISIBLE
-            when (true) {
-                (checkedDate == getTodayDate() && tasks.isNotEmpty()) -> {
-                    // *** Fill wheel cards tasks
-                    noTaskFutureLayout.visibility = View.INVISIBLE
-                    noTasksPastLayout.visibility = View.INVISIBLE
-                    tasksListLayout.visibility = View.INVISIBLE
-                    tasksWheelLayout.visibility = View.VISIBLE
-                    skipTaskLayout.visibility = View.INVISIBLE
-
-                    val kidDayTasksFragmentAdapter =
-                        KidDayTasksFragmentAdapter(tasks, tasksWheelRV)
-                    //         val dayKidDetailTaskFragmentTasksAdapter = DayKidDetailTaskFragmentTasksAdapter(it)
-                    tasksWheelRV.onFlingListener = null
-                    val tasksSnapHelper: SnapHelper = LinearSnapHelper()
-                    tasksSnapHelper.attachToRecyclerView(tasksWheelRV)
-
-                    if (tasks.size > 1) {
-                        tasksWheelRV.layoutManager = taskPickerLayoutManager
-                    }
-
-                    tasksWheelRV.adapter = kidDayTasksFragmentAdapter
-
-                    lifecycleScope.launchWhenCreated {
-                        delay(100)
-                        tasksWheelRV.scrollToPosition(0)
-                    }
-
-                    kidDayTasksFragmentAdapter.checkTaskElementListener = object : KidDayTasksFragmentAdapter.CheckTaskElementListener{
-                        override fun clickOnDoneButton(task: CreatedTasksItem) {
-                            findNavController().navigate(R.id.action_kidDayTasksFragment_to_kidSuccessCloseTaskFragment)
-                        }
-
-                        override fun clickOnSkipButton(task: CreatedTasksItem) {
-                            noTaskFutureLayout.visibility = View.INVISIBLE
-                            datesWheelLayout.visibility = View.INVISIBLE
-                            noTasksPastLayout.visibility = View.INVISIBLE
-                            tasksListLayout.visibility = View.INVISIBLE
-                            tasksWheelLayout.visibility = View.INVISIBLE
-                            skipTaskLayout.visibility = View.VISIBLE
-                        }
-
-                        override fun clickOnCancelTaskButton(task: CreatedTasksItem) {
-                            TODO("Not yet implemented")
-                        }
-
-                        override fun clickOnRedoButton(task: CreatedTasksItem) {
-                            TODO("Not yet implemented")
-                        }
-
-                    }
-
-                    //***** Set progress indicators *******
-
-                    val allTaskCount = tasks.size
-                    val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks)
-                    progressWheelText.text = "$completedTaskCount of $allTaskCount are completed"
-                    progressWheelView.max = allTaskCount
-                    progressWheelView.progress = completedTaskCount
-                }
-
-                (checkedDate > getTodayDate() && tasks.isEmpty()) -> {
-                    noTaskFutureLayout.visibility = View.VISIBLE
-                    noTasksPastLayout.visibility = View.INVISIBLE
-                    tasksListLayout.visibility = View.INVISIBLE
-                    tasksWheelLayout.visibility = View.INVISIBLE
-                    skipTaskLayout.visibility = View.INVISIBLE
-                }
-                (checkedDate < getTodayDate() && tasks.isEmpty()) -> {
-                    noTaskFutureLayout.visibility = View.INVISIBLE
-                    noTasksPastLayout.visibility = View.VISIBLE
-                    tasksListLayout.visibility = View.INVISIBLE
-                    tasksWheelLayout.visibility = View.INVISIBLE
-                    skipTaskLayout.visibility = View.INVISIBLE
-                }
-                else -> {
-                    noTaskFutureLayout.visibility = View.INVISIBLE
-                    noTasksPastLayout.visibility = View.INVISIBLE
-                    tasksListLayout.visibility = View.VISIBLE
-                    tasksWheelLayout.visibility = View.INVISIBLE
-                    skipTaskLayout.visibility = View.INVISIBLE
-                    fetchListTaskLayout(tasks, view)
-                }
-            }
-        }
+//        dayKidDetailTaskFragmentViewModel.taskList.observe(this.viewLifecycleOwner) { tasks ->
+//            Log.d("MyLog", "checked date = $checkedDate, today = ${getTodayDate()}" )
+//            datesWheelLayout.visibility = View.VISIBLE
+//            when (true) {
+//                (checkedDate == getTodayDate() && tasks.isNotEmpty()) -> {
+//                    // *** Fill wheel cards tasks
+//                    noTaskFutureLayout.visibility = View.INVISIBLE
+//                    noTasksPastLayout.visibility = View.INVISIBLE
+//                    tasksListLayout.visibility = View.INVISIBLE
+//                    tasksWheelLayout.visibility = View.VISIBLE
+//                    skipTaskLayout.visibility = View.INVISIBLE
+//
+//                    val kidDayTasksFragmentAdapter =
+//                        KidDayTasksFragmentAdapter(tasks, tasksWheelRV)
+//                    //         val dayKidDetailTaskFragmentTasksAdapter = DayKidDetailTaskFragmentTasksAdapter(it)
+//                    tasksWheelRV.onFlingListener = null
+//                    val tasksSnapHelper: SnapHelper = LinearSnapHelper()
+//                    tasksSnapHelper.attachToRecyclerView(tasksWheelRV)
+//
+//                    if (tasks.size > 1) {
+//                        tasksWheelRV.layoutManager = taskPickerLayoutManager
+//                    }
+//
+//                    tasksWheelRV.adapter = kidDayTasksFragmentAdapter
+//
+//                    lifecycleScope.launchWhenCreated {
+//                        delay(100)
+//                        tasksWheelRV.scrollToPosition(0)
+//                    }
+//
+//                    kidDayTasksFragmentAdapter.checkTaskElementListener = object : KidDayTasksFragmentAdapter.CheckTaskElementListener{
+//                        override fun clickOnDoneButton(task: CreatedTasksItem) {
+//                            findNavController().navigate(R.id.action_kidDayTasksFragment_to_kidSuccessCloseTaskFragment)
+//                        }
+//
+//                        override fun clickOnSkipButton(task: CreatedTasksItem) {
+//                            noTaskFutureLayout.visibility = View.INVISIBLE
+//                            datesWheelLayout.visibility = View.INVISIBLE
+//                            noTasksPastLayout.visibility = View.INVISIBLE
+//                            tasksListLayout.visibility = View.INVISIBLE
+//                            tasksWheelLayout.visibility = View.INVISIBLE
+//                            skipTaskLayout.visibility = View.VISIBLE
+//                        }
+//
+//                        override fun clickOnCancelTaskButton(task: CreatedTasksItem) {
+//                            TODO("Not yet implemented")
+//                        }
+//
+//                        override fun clickOnRedoButton(task: CreatedTasksItem) {
+//                            TODO("Not yet implemented")
+//                        }
+//
+//                    }
+//
+//                    //***** Set progress indicators *******
+//
+//                    val allTaskCount = tasks.size
+//                    val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks)
+//                    progressWheelText.text = "$completedTaskCount of $allTaskCount are completed"
+//                    progressWheelView.max = allTaskCount
+//                    progressWheelView.progress = completedTaskCount
+//                }
+//
+//                (checkedDate > getTodayDate() && tasks.isEmpty()) -> {
+//                    noTaskFutureLayout.visibility = View.VISIBLE
+//                    noTasksPastLayout.visibility = View.INVISIBLE
+//                    tasksListLayout.visibility = View.INVISIBLE
+//                    tasksWheelLayout.visibility = View.INVISIBLE
+//                    skipTaskLayout.visibility = View.INVISIBLE
+//                }
+//                (checkedDate < getTodayDate() && tasks.isEmpty()) -> {
+//                    noTaskFutureLayout.visibility = View.INVISIBLE
+//                    noTasksPastLayout.visibility = View.VISIBLE
+//                    tasksListLayout.visibility = View.INVISIBLE
+//                    tasksWheelLayout.visibility = View.INVISIBLE
+//                    skipTaskLayout.visibility = View.INVISIBLE
+//                }
+//                else -> {
+//                    noTaskFutureLayout.visibility = View.INVISIBLE
+//                    noTasksPastLayout.visibility = View.INVISIBLE
+//                    tasksListLayout.visibility = View.VISIBLE
+//                    tasksWheelLayout.visibility = View.INVISIBLE
+//                    skipTaskLayout.visibility = View.INVISIBLE
+//                    fetchListTaskLayout(tasks, view, checkedDate)
+//                }
+//            }
+//        }
     }
 
     private fun fetchListTaskLayout(
-        tasks: List<Task>,
-        view: View
+        tasks: List<CreatedTasksItem>,
+        view: View, checkedDate: String
     ) {
         val tasksListRV = binding.layoutFragmentDayKidListTasks.rvKidDayTasksList
 
-        val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(tasks)
+        val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(tasks, checkedDate)
         tasksListRV.adapter = fragmentDayPersonalTasksAdapter
         val bundle = Bundle()
         fragmentDayPersonalTasksAdapter.shortOnClickListener =
             object : FragmentDayPersonalTasksAdapter.ShortOnClickListener {
-                override fun ShortClick(task: Task) {
-                    bundle.putParcelable("current task", task)
+                override fun ShortClick(task: CreatedTasksItem) {
+//                    bundle.putParcelable("current task", task)
                     val navController = Navigation.findNavController(view)
                     navController.navigate(
                         R.id.action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment,
-                        bundle
+//                        bundle
                     )
                 }
             }
@@ -251,7 +251,7 @@ class KidDayTasksFragment : Fragment() {
         val progressListText = binding.layoutFragmentDayKidListTasks.tvKidDayTasksListProgressText
         val progressListView = binding.layoutFragmentDayKidListTasks.pbKidDayTasksListProgressView
         val allTaskCount = tasks.size
-        val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks)
+        val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks, checkedDate)
         progressListText.text = "$completedTaskCount of $allTaskCount are completed"
         progressListView.max = allTaskCount
         progressListView.progress = completedTaskCount
@@ -338,10 +338,26 @@ class KidDayTasksFragment : Fragment() {
         return dateValues.toList()
     }
 
-    private fun getUpcomingCountTask(tasksList: List<Task>): Int {
+//    private fun getUpcomingCountTask(tasksList: List<CreatedTasksItem>): Int {
+//        var count = 0
+//        for (task in tasksList) {
+//            if (task.taskStatus == "Upcoming") count++
+//        }
+//        return count
+//    }
+
+    private fun getUpcomingCountTask(tasksList: List<CreatedTasksItem>, checkedDate: String): Int {
         var count = 0
         for (task in tasksList) {
-            if (task.taskStatus == "Upcoming") count++
+            if (task.chores != null){
+                for (chore in task.chores){
+                    if (chore?.date == checkedDate){
+                        if (chore.status != "done" ){
+                            count++
+                        }
+                    }
+                }
+            }
         }
         return count
     }

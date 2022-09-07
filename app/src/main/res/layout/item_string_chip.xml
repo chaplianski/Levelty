@@ -6,11 +6,12 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.chip.Chip
-        android:id="@+id/chip_fragment_profile_purpose"
+        android:id="@+id/chip_item_string_chip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="4dp"
         android:text="Any purpose"
+        app:chipBackgroundColor="@color/background_secondary"
         android:textAppearance="@style/ChipTextRegular"
         app:ensureMinTouchTargetSize="false"
         app:layout_constraintBottom_toBottomOf="parent"

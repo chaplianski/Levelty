@@ -19,6 +19,7 @@ import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
 import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
 import com.example.levelty.presenter.adapters.IntegerWheelPickerAdapter
+import com.example.levelty.presenter.utils.getMonthNumber
 import com.example.levelty.presenter.viewmodels.parent.DateChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -109,8 +110,13 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         val stringWheelPickerAdapter = context?.let { StringWheelPickerAdapter(it, monthValues.toList(), monthRV) }
         val monthSnapHelper: SnapHelper = LinearSnapHelper()
 
+        Log.d("MyLog", "month = ${calendar.get(Calendar.MONTH)}")
+        for (date in monthValues.withIndex()){
+            Log.d("MyLog", "month = ${date}")
+        }
+
         monthRV.setLayoutManager(monthPickerLayoutManager)
-        monthRV.layoutManager?.scrollToPosition(Calendar.MONTH+6)
+        monthRV.layoutManager?.scrollToPosition(calendar.get(Calendar.MONTH))
         monthRV.adapter = stringWheelPickerAdapter
         monthSnapHelper.attachToRecyclerView(monthRV)
 
@@ -125,11 +131,9 @@ class DateChooseFragment : BottomSheetDialogFragment() {
                         layoutManager?.findLastVisibleItemPosition()
                     if (lastVisibleItemPosition == 22){
                         layoutManager?.scrollToPosition(6)
-
                     }
                     if (firstVisibleItemPosition == 0){
                         layoutManager?.scrollToPosition(16)
-
                     }
                 }
             }
@@ -226,7 +230,7 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         dateChooseFragmentViewModel.monthValue.observe(this.viewLifecycleOwner){
 
             if (currentDayPosition == 0) currentDayPosition = currentDayValue// - 6
-            Log.d("MyLog", "begin currentDayPosition = $currentDayPosition ")
+//            Log.d("MyLog", "begin currentDayPosition = $currentDayPosition ")
  //           Log.d("MyLog", "currentDayPosition1 = $currentDayPosition")
             val monthNumber = getMonthNumber(it)
             val numberDaysInMonth = YearMonth.of(currentYearValue, monthNumber).lengthOfMonth()
@@ -237,14 +241,14 @@ class DateChooseFragment : BottomSheetDialogFragment() {
      //       currentDaysInMonth = numberDaysInMonth
 
   //          dayRV.layoutManager?.scrollToPosition()
-            Log.d("MyLog", "currentDayPosition = $currentDayPosition, numberDaysInMonth = $numberDaysInMonth, currentDaysInMonth = $currentDaysInMonth")
+//            Log.d("MyLog", "currentDayPosition = $currentDayPosition, numberDaysInMonth = $numberDaysInMonth, currentDaysInMonth = $currentDaysInMonth")
         //    if (currentDayPosition > 30)
             if (numberDaysInMonth < currentDaysInMonth && currentDayPosition > numberDaysInMonth) {
                 val diffDays = currentDayPosition - numberDaysInMonth
-                Log.d("MyLog", "diffDays = $diffDays ")
+//                Log.d("MyLog", "diffDays = $diffDays ")
                 currentDayPosition -= diffDays
                 dayRV.layoutManager?.scrollToPosition(currentDayPosition+1)
-                Log.d("MyLog", "currentDayPosition = $currentDayPosition ")
+//                Log.d("MyLog", "currentDayPosition = $currentDayPosition ")
             }else{
                 dayRV.layoutManager?.scrollToPosition(currentDayPosition+4)
             }

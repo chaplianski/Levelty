@@ -23,12 +23,16 @@ class NewTaskViewModel @Inject constructor(
 
     ): ViewModel() {
 
-    val _kids = MutableLiveData<List<ChildrenItem>>()
+    private val _kids = MutableLiveData<List<ChildrenItem>>()
     val kids: LiveData<List<ChildrenItem>> get() = _kids
-    val _purposes = MutableLiveData<List<Purpose>>()
+    private val _purposes = MutableLiveData<List<Purpose>>()
     val purpose: LiveData<List<Purpose>> get() = _purposes
-    val _repeats = MutableLiveData<List<Repeat>>()
-    val repeats: LiveData<List<Repeat>> get() = _repeats
+    private val _repeats = MutableLiveData<List<String>>()
+    val repeats: LiveData<List<String>> get() = _repeats
+    private val _dates = MutableLiveData<List<String>>()
+    val dates: LiveData<List<String>> get() = _dates
+    private val _points = MutableLiveData<List<String>>()
+    val points: LiveData<List<String>> get() = _points
 
     fun addTask(task: Task){
         viewModelScope.launch(Dispatchers.IO) {
@@ -50,13 +54,27 @@ class NewTaskViewModel @Inject constructor(
         }
     }
 
-    fun getRepeatVariants(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val repeats = getRepeatVariantsUseCase.execute()
-            _repeats.postValue(repeats)
-        }
+//    fun getRepeatVariants(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val repeats = getRepeatVariantsUseCase.execute()
+//            _repeats.postValue(repeats)
+//        }
+//    }
+
+    fun getDateVariants(){
+        val dataList = listOf<String>("Today", "Tomorrow", "Set another day")
+        _dates.postValue(dataList)
     }
 
+    fun getPointsVariants(){
+        val pointList = listOf<String>("5", "15", "35", "55", "80", "Custom")
+        _points.postValue(pointList)
+    }
+
+    fun getRepeatVariants(){
+        val repeatList = listOf("Don't repeat", "Daily", "Every 3 days", "Every week", "Every month", "Custom")
+        _repeats.postValue(repeatList)
+    }
 
     override fun onCleared() {
         viewModelScope.cancel()

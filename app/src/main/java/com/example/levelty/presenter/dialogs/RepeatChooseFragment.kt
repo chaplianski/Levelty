@@ -73,7 +73,7 @@ class RepeatChooseFragment : BottomSheetDialogFragment() {
                     val navController = findNavController()
                     if (isLast == true){
                         Log.d("MyLog", "item = $item, isLast = $isLast")
-                        navController.navigate(R.id.action_repeatChooseFragment_to_repeatChoiceDialogFragment)
+//                        navController.navigate(R.id.action_repeatChooseFragment_to_repeatChoiceDialogFragment)
                     }else{
                         Log.d("MyLog", "item = $item, isLast = $isLast")
                         navController.previousBackStackEntry?.savedStateHandle?.set("repeat", item)

@@ -1,6 +1,7 @@
 package com.example.levelty.domain.repository
 
 import com.example.levelty.domain.models.CreatedTasksItem
+import com.example.levelty.domain.models.ProcessedTask
 import com.example.levelty.domain.models.Task
 
 interface TaskRepository {
@@ -9,9 +10,10 @@ interface TaskRepository {
 
     fun getDayTasks(kidName: String, date: String): List<Task>
 
-    fun getTasksList(): List<CreatedTasksItem>
+//    fun getTasksList(): List<CreatedTasksItem>
+    fun getTasksList(): List<ProcessedTask>
 
-    fun getKidDetailTasksList(): List<Task>
+    fun getKidDetailTasksList(): List<CreatedTasksItem>
 
     fun addTask(task: Task)
 

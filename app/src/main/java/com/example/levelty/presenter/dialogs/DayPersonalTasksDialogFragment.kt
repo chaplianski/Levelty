@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.Task
-import com.example.levelty.presenter.factories.parent.DayPersonalTasksFragmentViewModelFactory
-import com.example.levelty.presenter.viewmodels.parent.DayPersonalTasksFragmentViewModel
+import com.example.levelty.presenter.factories.parent.ParentDayKidTasksViewModelFactory
+import com.example.levelty.presenter.viewmodels.parent.ParentDayKidTasksViewModel
 import javax.inject.Inject
 
 
@@ -20,8 +20,8 @@ class DayPersonalTasksDialogFragment () : DialogFragment() {
 
 
     @Inject
-    lateinit var dayPersonalTasksFragmentViewModelFactory: DayPersonalTasksFragmentViewModelFactory
-    val dayPersonalTasksFragmentViewModel: DayPersonalTasksFragmentViewModel by viewModels { dayPersonalTasksFragmentViewModelFactory }
+    lateinit var parentDayKidTasksViewModelFactory: ParentDayKidTasksViewModelFactory
+    val parentDayKidTasksViewModel: ParentDayKidTasksViewModel by viewModels { parentDayKidTasksViewModelFactory }
 
     override fun onAttach(context: Context) {
         DaggerAppComponent.builder()
@@ -67,7 +67,7 @@ class DayPersonalTasksDialogFragment () : DialogFragment() {
         approveButton.setOnClickListener {
             task?.taskStatus = "Approval"
             if (task != null) {
-                dayPersonalTasksFragmentViewModel.updateTask(task)
+                parentDayKidTasksViewModel.updateTask(task)
             }
 
 //            if (task != null) {
@@ -79,7 +79,7 @@ class DayPersonalTasksDialogFragment () : DialogFragment() {
         declineButton.setOnClickListener {
             task?.taskStatus = "Decline"
             if (task != null) {
-                dayPersonalTasksFragmentViewModel.updateTask(task)
+                parentDayKidTasksViewModel.updateTask(task)
             }
             dismiss()
         }

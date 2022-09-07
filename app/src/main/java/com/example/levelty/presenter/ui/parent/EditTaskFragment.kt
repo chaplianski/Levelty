@@ -97,42 +97,42 @@ class EditTaskFragment : Fragment() {
 
 
 
-        category.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_editTaskFragment_to_categoryChooseFragment)
-
-        }
-
-        date.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_editTaskFragment_to_dateChooseFragment)
-        }
-
-        startTime.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_editTaskFragment_to_startTimeChooseFragment)
-        }
-
-        points.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_editTaskFragment_to_pointChooseFragment)
-        }
-
-        purpose.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_editTaskFragment_to_parentsPurposeChooseFragment)
-        }
-
-        repeat.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_editTaskFragment_to_repeatChooseFragment)
-        }
-
-        kidsInterest.setOnClickListener {
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_editTaskFragment_to_kidsInterestChooseFragment)
-
-        }
+//        category.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_editTaskFragment_to_categoryChooseFragment)
+//
+//        }
+//
+//        date.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_editTaskFragment_to_dateChooseFragment)
+//        }
+//
+//        startTime.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_editTaskFragment_to_startTimeChooseFragment)
+//        }
+//
+//        points.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_editTaskFragment_to_pointChooseFragment)
+//        }
+//
+//        purpose.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_editTaskFragment_to_parentsPurposeChooseFragment)
+//        }
+//
+//        repeat.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_editTaskFragment_to_repeatChooseFragment)
+//        }
+//
+//        kidsInterest.setOnClickListener {
+//            val navController = Navigation.findNavController(view)
+//            navController.navigate(R.id.action_editTaskFragment_to_kidsInterestChooseFragment)
+//
+//        }
 
         val navController = Navigation.findNavController(view)
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Int>("points")?.observe(

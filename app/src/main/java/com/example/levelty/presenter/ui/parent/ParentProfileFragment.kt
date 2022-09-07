@@ -24,13 +24,12 @@ import com.example.levelty.databinding.FragmentProfileBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.*
 import com.example.levelty.presenter.adapters.GoalsProfileFragmentAdapter
-import com.example.levelty.presenter.adapters.InterestsProfileFragmentAdapter
 import com.example.levelty.presenter.adapters.PieChartCategoryAdapter
 import com.example.levelty.presenter.adapters.parent.KidProfileFragmentAdapter
-import com.example.levelty.presenter.adapters.parent.PurposeProfileFragmentAdapter
+import com.example.levelty.presenter.adapters.parent.SampleStringChipsAdapter
 import com.example.levelty.presenter.adapters.parent.UpcomingTasksProfileFragmentAdapter
 import com.example.levelty.presenter.factories.parent.ProfileFragmentViewModelFactory
-import com.example.levelty.presenter.utils.CURRENT_KID_ID
+import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.ProfileFragmentViewModel
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -122,7 +121,6 @@ class ParentProfileFragment : Fragment() {
         var currentKid = ChildrenItem(0, 0)
 
         //****** Current date *****
-
         val dateItem = getCurrentDate()
 
         // *******  Download kid data *****
@@ -141,10 +139,10 @@ class ParentProfileFragment : Fragment() {
 
 
             kidName = kid.user?.firstName.toString()
-            Log.d("MyLog", "profile name = $kidName")
+//            Log.d("MyLog", "profile name = $kidName")
             currentKid = kid
 
-            kid.id?.let { profileFragmentViewModel.getTodayTasks(it, dateItem) }
+            kid.id?.let { profileFragmentViewModel.getTodayTasks(it) }
         }
 
 
@@ -158,7 +156,7 @@ class ParentProfileFragment : Fragment() {
         profileFragmentViewModel.getKids()
 
         profileFragmentViewModel.kidList.observe(this.viewLifecycleOwner) { kids ->
-            Log.d("MyLog", "$kids")
+//            Log.d("MyLog", "$kids")
 
             val kidAdapter = KidProfileFragmentAdapter(kids, currentKid)
 
@@ -182,8 +180,8 @@ class ParentProfileFragment : Fragment() {
 //                        Log.d("MyLog", "$childrenItem")
                         fillKidGoals(childrenItem.goals)
                         kidName = childrenItem.user?.firstName.toString()
-                        Log.d("MyLog", "profile name 2 = $kidName")
-                        childrenItem.id?.let { profileFragmentViewModel.getTodayTasks(it, dateItem) }
+//                        Log.d("MyLog", "profile name 2 = $kidName")
+                        childrenItem.id?.let { profileFragmentViewModel.getTodayTasks(it) }
                     }
 
                     override fun shortAddClick() {
@@ -208,9 +206,9 @@ class ParentProfileFragment : Fragment() {
         // **** Tasks card *****
 
         if (currentKidId != null) {
-            profileFragmentViewModel.getTodayTasks(currentKidId, dateItem)
+            profileFragmentViewModel.getTodayTasks(currentKidId)
         }
-        profileFragmentViewModel.uncommingTasksList.observe(this.viewLifecycleOwner) { tasks ->
+        profileFragmentViewModel.todayTasksList.observe(this.viewLifecycleOwner) { tasks ->
 
             // ***** Upcoming list ******
             val upcomingTaskList = getUncomingTaskList(tasks)
@@ -264,40 +262,6 @@ class ParentProfileFragment : Fragment() {
         // ***** Add data pies diagrams *****
 
 
-//        val taskPieEntries = arrayListOf<PieEntry>()//mutableListOf<PieEntry>()
-//
-//        taskPieEntries.add(PieEntry(5f, "completed"))
-//        taskPieEntries.add(PieEntry(2f, "failed"))
-//
-//        setupPieChartTasks(tasksPie, 60f)
-//        loadPieTasks(tasksPie, taskPieEntries, view)
-//
-//
-//
-//        val categoryPieEntries = arrayListOf<PieEntry>()//mutableListOf<PieEntry>()
-//
-//        categoryPieEntries.add(PieEntry(0.2f, "Creativity"))
-//        categoryPieEntries.add(PieEntry(0.1f, "Home"))
-//        categoryPieEntries.add(PieEntry(0.1f, "Kindness"))
-//        categoryPieEntries.add(PieEntry(0.3f, "School"))
-//        categoryPieEntries.add(PieEntry(0.2f, "School"))
-//        categoryPieEntries.add(PieEntry(0.1f, "Home"))
-//        categoryPieEntries.add(PieEntry(0.1f, "Kindness"))
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//        setupPieChartCategories(categoryPie)
-// //       loadPieCategories(categoryPie, categoryPieEntries, view)
-//
-//        loadPieCategories(categoryPie, categoryPieEntries, view)
 
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
@@ -343,9 +307,9 @@ class ParentProfileFragment : Fragment() {
 
     private fun getPurposeList(it: List<CreatedTasksItem>) {
         val purposeList = it.map { task -> task.parentPurpose.toString() }.toSet().toList()
-        val purposeProfileFragmentAdapter = PurposeProfileFragmentAdapter(purposeList)
+        val sampleStringChipsAdapter = SampleStringChipsAdapter(purposeList)
         val purposeRV = binding.rvProfileFragmentPurposes
-        purposeRV.adapter = purposeProfileFragmentAdapter
+        purposeRV.adapter = sampleStringChipsAdapter
     }
 
     private fun fillKidData(kidImage: ImageView) {
@@ -410,10 +374,23 @@ class ParentProfileFragment : Fragment() {
     private fun getUpcomingTasks(taskList: List<CreatedTasksItem>): List<CreatedTasksItem> {
         val upcomingTaskList = mutableListOf<CreatedTasksItem>()
         for (task in taskList) {
-            if (task.status == "Upcoming") {
-                upcomingTaskList.add(task)
+
+            if (task.chores != null){
+                for (chore in task.chores) {
+                    if (chore?.date == getTodayShortDate() && chore.status != "done"){
+                        upcomingTaskList.add(task)
+                    }
+                }
+
             }
+
+//            if (task.status == "done" || task.status == "refused") {
+//                Log.d("MyLog", "status")
+//
+//            } else upcomingTaskList.add(task)
+
         }
+//        Log.d("MyLog", "up tasks = $upcomingTaskList")
         return upcomingTaskList
     }
 

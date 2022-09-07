@@ -5,7 +5,7 @@ import com.example.levelty.domain.models.Kid
 
 interface KidRepository {
 
-    fun getKids (): List<ChildrenItem>
+    suspend fun getKids (): List<ChildrenItem>
 
     fun getKid(kidId: Int): ChildrenItem
 }

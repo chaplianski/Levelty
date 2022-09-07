@@ -1,5 +1,9 @@
 package com.example.levelty.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
 data class CreatedTasksItem(
     val id: Int? = null,
     val title: String? = null,

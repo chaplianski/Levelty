@@ -152,11 +152,11 @@ fun CreatedTasksItem.taskMapDomainToData(): CreatedTasksItemDTO {
         dueDate = dueDate,
         description = description,
         createdAt = createdAt,
-        childInterests = childInterests,
-        chores = chores,
+        childInterests = childInterests?.map { it?.interestsDomainToData() },
+        chores = chores?.map { it?.choreMapDataToDomain() },
         categoryId = categoryId,
         creatorId = creatorId,
-        category = category?.categoryMapDataToDomain(),
+        category = category?.categoryMapDomainToData(),
         startDate = startDate,
         assigneeId = assigneeId,
         status = status
@@ -174,8 +174,8 @@ fun CreatedTasksItemDTO.taskMapDataToDomain(): CreatedTasksItem {
         dueDate = dueDate,
         description = description,
         createdAt = createdAt,
-        childInterests = childInterests,
-        chores = chores,
+        childInterests = childInterests?.map { it?.interestsDataToDomain() },
+        chores = chores?.map { it?.choreMapDataToDomain() },
         categoryId = categoryId,
         creatorId = creatorId,
         category = category?.categoryMapDataToDomain(),
@@ -208,11 +208,67 @@ fun CategoryDTO.categoryMapDataToDomain(): Category {
     )
 }
 
-fun Category.categoryMapDataToDomain(): CategoryDTO {
+fun Category.categoryMapDomainToData(): CategoryDTO {
     return CategoryDTO(
         image = image,
         backgroundColor = backgroundColor,
         id = id,
+        title = title
+    )
+}
+
+fun ChoresItemDTO.choreMapDataToDomain(): ChoresItem {
+    return ChoresItem(
+        date = date,
+        taskId = taskId,
+        finishedDatetime = finishedDatetime,
+        comment = comment,
+        id = id,
+        status = status
+    )
+}
+
+fun ChoresItem.choreMapDataToDomain(): ChoresItemDTO {
+    return ChoresItemDTO(
+        date = date,
+        taskId = taskId,
+        finishedDatetime = finishedDatetime,
+        comment = comment,
+        id = id,
+        status = status
+    )
+}
+
+fun ProcessedTaskDTO.processedTaskDataToDomain(): ProcessedTask {
+    return  ProcessedTask(id = id,
+    title = title,
+    parentPurpose = parentPurpose,
+    cost = cost,
+    description = description,
+    createdAt = createdAt,
+    assigneeId = assigneeId,
+    categoryId = categoryId,
+    category = category?.categoryMapDataToDomain(),
+    creatorId = creatorId,
+    childInterests = childInterests?.map { it?.interestsDataToDomain() },
+    status = status,
+    choreDate = choreDate,
+    choreFinishDate = choreFinishDate,
+    choreStatus = choreStatus,
+    choreID = choreID,
+    choreComment = choreComment,)
+}
+
+fun ChildInterestsItemDTO.interestsDataToDomain(): ChildInterestsItem {
+    return ChildInterestsItem(
+        id =id,
+        title = title
+    )
+}
+
+fun ChildInterestsItem.interestsDomainToData(): ChildInterestsItemDTO {
+    return ChildInterestsItemDTO(
+        id =id,
         title = title
     )
 }

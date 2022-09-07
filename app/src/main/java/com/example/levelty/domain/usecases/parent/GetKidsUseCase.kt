@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 class GetKidsUseCase @Inject constructor(private val kidRepository: KidRepository){
 
-    fun execute(): List<ChildrenItem> {
+    suspend fun execute(): List<ChildrenItem> {
         return kidRepository.getKids()
     }
 }

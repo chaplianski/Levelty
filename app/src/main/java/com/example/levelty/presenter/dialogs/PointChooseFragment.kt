@@ -4,14 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
-import androidx.navigation.Navigation
-import androidx.navigation.Navigation.findNavController
+import android.widget.*
 import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
+import com.example.levelty.presenter.ui.parent.ParentNewTaskFragment
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -36,6 +32,8 @@ class PointChooseFragment : BottomSheetDialogFragment() {
         val pointsText: EditText = view.findViewById(R.id.et_fragment_point_choose_text_field)
         val closeButton: ImageView = view.findViewById(R.id.iv_fragment_point_choose_close)
         val saveButton: Button = view.findViewById(R.id.bt_fragment_point_choose_save)
+        val taskName: TextView = view.findViewById(R.id.tv_fragment_point_choose_title)
+        taskName.text = arguments?.getString(ParentNewTaskFragment.TASK_NAME)
 
         closeButton.setOnClickListener {
             dismiss()
