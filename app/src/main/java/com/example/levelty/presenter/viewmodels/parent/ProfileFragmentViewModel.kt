@@ -27,8 +27,8 @@ class ProfileFragmentViewModel @Inject constructor(
 
     private val _kidsList = MutableLiveData<List<ChildrenItem>>()
     val kidList: LiveData<List<ChildrenItem>> get() = _kidsList
-    private val _todayTaskList = MutableLiveData<List<CreatedTasksItem>>()
-    val todayTasksList: LiveData<List<CreatedTasksItem>> get() = _todayTaskList
+    private val _todayTaskList = MutableLiveData<List<ProcessedTask>>()
+    val todayTasksList: LiveData<List<ProcessedTask>> get() = _todayTaskList
     private val _kidValue = MutableLiveData<ChildrenItem>()
     val kidValue: LiveData<ChildrenItem> get() = _kidValue
     val _kidInterestList = MutableLiveData<List<Interest>>()
@@ -80,7 +80,7 @@ class ProfileFragmentViewModel @Inject constructor(
 //                }
 //            }
 
-            _todayTaskList.postValue(todayTasks)
+            _todayTaskList.postValue(allTasksList)
         }
     }
 

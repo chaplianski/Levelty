@@ -8,11 +8,17 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.domain.models.CreatedTasksItem
+import com.example.levelty.domain.models.ProcessedTask
 import com.example.levelty.domain.models.Task
 import kotlinx.coroutines.NonDisposableHandle.parent
 
-class CategoryFragmentAdapter(val taskList: List<CreatedTasksItem>): RecyclerView.Adapter<CategoryFragmentAdapter.ViewHolder>() {
+class CategoryFragmentAdapter(val taskList: List<ProcessedTask>): RecyclerView.Adapter<CategoryFragmentAdapter.ViewHolder>() {
 
+    interface CategoryClickListener{
+        fun onItemClick(processedTask: ProcessedTask)
+    }
+
+    var categoryClickListener: CategoryClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
@@ -26,8 +32,9 @@ class CategoryFragmentAdapter(val taskList: List<CreatedTasksItem>): RecyclerVie
                 holder.onBind(taskList[position])
                 holder.taskNumber.text = "Task ${position + 1}"
                 holder.itemView.setOnClickListener {
-                    val navController = holder.itemView.let { Navigation.findNavController(it) }
-                    navController.navigate(R.id.action_categoryFragment_to_tasksFragment)
+                    categoryClickListener?.onItemClick(taskList[position])
+//                    val navController = holder.itemView.let { Navigation.findNavController(it) }
+//                    navController.navigate(R.id.action_categoryFragment_to_editTaskFragment)
                 }
     }
 
@@ -42,7 +49,7 @@ class CategoryFragmentAdapter(val taskList: List<CreatedTasksItem>): RecyclerVie
         val taskCoins: TextView = itemView.findViewById(R.id.tv_categories_fragment_task_coins)
         val taskNumber: TextView = itemView.findViewById(R.id.tv_categories_fragment_task_number)
 
-        fun onBind(task: CreatedTasksItem){
+        fun onBind(task: ProcessedTask){
             taskName.text = task.title
             taskCoins.text = "${task.cost} coins"
 

@@ -152,7 +152,7 @@ fun CreatedTasksItem.taskMapDomainToData(): CreatedTasksItemDTO {
         dueDate = dueDate,
         description = description,
         createdAt = createdAt,
-        childInterests = childInterests?.map { it?.interestsDomainToData() },
+        childInterests = childInterests?.map { it?.interestsMapDomainToData() },
         chores = chores?.map { it?.choreMapDataToDomain() },
         categoryId = categoryId,
         creatorId = creatorId,
@@ -174,7 +174,7 @@ fun CreatedTasksItemDTO.taskMapDataToDomain(): CreatedTasksItem {
         dueDate = dueDate,
         description = description,
         createdAt = createdAt,
-        childInterests = childInterests?.map { it?.interestsDataToDomain() },
+        childInterests = childInterests?.map { it?.interestsMapDataToDomain() },
         chores = chores?.map { it?.choreMapDataToDomain() },
         categoryId = categoryId,
         creatorId = creatorId,
@@ -239,36 +239,175 @@ fun ChoresItem.choreMapDataToDomain(): ChoresItemDTO {
     )
 }
 
-fun ProcessedTaskDTO.processedTaskDataToDomain(): ProcessedTask {
-    return  ProcessedTask(id = id,
-    title = title,
-    parentPurpose = parentPurpose,
-    cost = cost,
-    description = description,
-    createdAt = createdAt,
-    assigneeId = assigneeId,
-    categoryId = categoryId,
-    category = category?.categoryMapDataToDomain(),
-    creatorId = creatorId,
-    childInterests = childInterests?.map { it?.interestsDataToDomain() },
-    status = status,
-    choreDate = choreDate,
-    choreFinishDate = choreFinishDate,
-    choreStatus = choreStatus,
-    choreID = choreID,
-    choreComment = choreComment,)
+fun ProcessedTaskDTO.processedMapTaskDataToDomain(): ProcessedTask {
+    return ProcessedTask(
+        id = id,
+        title = title,
+        parentPurpose = parentPurpose,
+        cost = cost,
+        description = description,
+        createdAt = createdAt,
+        assigneeId = assigneeId,
+        categoryId = categoryId,
+        category = category?.categoryMapDataToDomain(),
+        creatorId = creatorId,
+        isPeriodic = isPeriodic,
+        repeatInterval = repeatInterval,
+        childInterests = childInterests?.map { it?.interestsMapDataToDomain() },
+        status = status,
+        choreDate = choreDate,
+        choreFinishDate = choreFinishDate,
+        choreStatus = choreStatus,
+        choreID = choreID,
+        choreComment = choreComment,
+    )
 }
 
-fun ChildInterestsItemDTO.interestsDataToDomain(): ChildInterestsItem {
+fun ChildInterestsItemDTO.interestsMapDataToDomain(): ChildInterestsItem {
     return ChildInterestsItem(
-        id =id,
+        id = id,
         title = title
     )
 }
 
-fun ChildInterestsItem.interestsDomainToData(): ChildInterestsItemDTO {
+fun ChildInterestsItem.interestsMapDomainToData(): ChildInterestsItemDTO {
     return ChildInterestsItemDTO(
-        id =id,
+        id = id,
         title = title
+    )
+}
+
+fun NewTask.taskMapDomainToData(): NewTaskDTO {
+    return NewTaskDTO(
+        childInterestIds = childInterestIds,
+        cost = cost,
+        categoryId = categoryId,
+        dueDate = dueDate,
+        description = description,
+        parentPurpose = parentPurpose,
+        customSchedule = customSchedule,
+        repeatInterval = repeatInterval,
+        title = title,
+        isPeriodic = isPeriodic,
+        startDate = startDate,
+        assigneeId = assigneeId
+    )
+}
+
+fun Child.childMapDomainToData(): ChildDTO {
+    return ChildDTO(
+        experienceForNextLevel = experienceForNextLevel,
+        availableGoalSlots = availableGoalSlots,
+        balance = balance?.balanceMapDomainToData(),
+        level = level,
+        id = id,
+        assignedTasks = assignedTasks?.map { it?.assignedTaskMapDomainToData() },
+        totalGoalSlots = totalGoalSlots,
+        experience = experience,
+        interests = interests?.map { it?.interestMapDomainToData() },
+        user = user?.userMapDomainToData(),
+        parents = parents?.map { it?.parentMapDomainToData() },
+        goals = goals?.map { it?.goalMapDomainToData() }
+    )
+}
+
+fun ChildDTO.childMapDomainToData(): Child {
+    return Child(
+        experienceForNextLevel = experienceForNextLevel,
+        availableGoalSlots = availableGoalSlots,
+        balance = balance?.balanceMapDomainToData(),
+        level = level,
+        id = id,
+        assignedTasks = assignedTasks?.map { it?.assignedTaskMapDataToDomain() },
+        totalGoalSlots = totalGoalSlots,
+        experience = experience,
+        interests = interests?.map { it?.interestMapDataToDomain() },
+        user = user?.userMapDataToDomain(),
+        parents = parents?.map { it?.parentMapDataToDomain() },
+        goals = goals?.map { it?.goalMapDataToDomain() }
+    )
+}
+
+fun Parent.parentMapDomainToData(): ParentDTO {
+    return ParentDTO(
+        children = children?.map { it?.childrenMapDomainToData() },
+        id = id,
+        user = user,
+        createdTasks = createdTasks?.map { it?.taskMapDomainToData() }
+    )
+}
+
+fun ParentDTO.parentMapDataToDomain(): Parent {
+    return Parent(
+        children = children?.map { it?.childrenMapDataToDomain() },
+        id = id,
+        user = user,
+        createdTasks = createdTasks?.map { it?.taskMapDataToDomain() }
+    )
+}
+
+fun ParentsItem.parentMapDomainToData(): ParentsItemDTO{
+    return ParentsItemDTO(
+        id = id
+    )
+}
+
+fun ParentsItemDTO.parentMapDataToDomain(): ParentsItem{
+    return ParentsItem(
+        id = id
+    )
+}
+
+fun Balance.balanceMapDomainToData(): BalanceDTO{
+    return BalanceDTO(
+        amount = amount,
+        childId = childId
+    )
+}
+
+fun BalanceDTO.balanceMapDomainToData(): Balance{
+    return Balance(
+        amount = amount,
+        childId = childId
+    )
+}
+
+fun AssignedTasksItem.assignedTaskMapDomainToData(): AssignedTasksItemDTO{
+    return AssignedTasksItemDTO(
+        cost = cost,
+        dueDate = dueDate,
+        description = description,
+        parentPurpose = parentPurpose,
+        createdAt = createdAt,
+        childInterests = childInterests?.map { it?.interestsMapDomainToData() },
+        chores = chores?.map { it?.choreMapDataToDomain() },
+        title = title,
+        categoryId = categoryId,
+        creatorId = creatorId,
+        repeatInterval = repeatInterval,
+        id = id,
+        category = category?.categoryMapDomainToData(),
+        isPeriodic = isPeriodic,
+        startDate = startDate
+    )
+}
+
+fun AssignedTasksItemDTO.assignedTaskMapDataToDomain(): AssignedTasksItem{
+    return AssignedTasksItem(
+        cost = cost,
+        dueDate = dueDate,
+        description = description,
+        parentPurpose = parentPurpose,
+        createdAt = createdAt,
+        childInterests = childInterests?.map { it?.interestsMapDataToDomain() },
+        chores = chores?.map { it?.choreMapDataToDomain() },
+        title = title,
+        categoryId = categoryId,
+        creatorId = creatorId,
+        repeatInterval = repeatInterval,
+        id = id,
+        category = category?.categoryMapDataToDomain(),
+        isPeriodic = isPeriodic,
+        startDate = startDate
     )
 }

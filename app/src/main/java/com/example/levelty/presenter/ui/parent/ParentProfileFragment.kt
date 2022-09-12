@@ -38,6 +38,7 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import java.text.DateFormatSymbols
@@ -94,9 +95,10 @@ class ParentProfileFragment : Fragment() {
                 var flags = view.systemUiVisibility
                 flags = flags or View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
                 view.systemUiVisibility = flags
-                activity!!.window.statusBarColor = context?.resources?.getColor(R.color.background_secondary)!!
+                requireActivity().window.statusBarColor =
+                    context?.resources?.getColor(R.color.background_secondary)!!
             } else {
-                activity!!.window.statusBarColor = Color.TRANSPARENT
+                requireActivity().window.statusBarColor = Color.TRANSPARENT
                 view.systemUiVisibility = 0
             }
         }
@@ -112,6 +114,8 @@ class ParentProfileFragment : Fragment() {
         val kidNameText: TextView = binding.tvProfileFragmentKidName
         val kidLevelText: TextView = binding.tvProfileFragmentKidLevel
 
+        bottomNavigation.selectedItemId = R.id.parent_profile
+
         val tasksPie = binding.pieProfileFragmentTasks
         val categoryPie = binding.pieProfileFragmentCategories
 
@@ -124,26 +128,26 @@ class ParentProfileFragment : Fragment() {
         val dateItem = getCurrentDate()
 
         // *******  Download kid data *****
-
-        if (currentKidId != null) {
-            if (currentKidId >= 0) currentKidId.let { profileFragmentViewModel.getKid(it) }
-        }
-
-        profileFragmentViewModel.kidValue.observe(this.viewLifecycleOwner) { kid ->
-            //**** First filling data to upper field from shared *****
-            kidLevelText.text = "Level ${kid.level.toString()}"
-            kidNameText.text = kid.user?.firstName
-            fillKidData(kidImage)
-
-            fillKidGoals(kid.goals)
-
-
-            kidName = kid.user?.firstName.toString()
-//            Log.d("MyLog", "profile name = $kidName")
-            currentKid = kid
-
-            kid.id?.let { profileFragmentViewModel.getTodayTasks(it) }
-        }
+//
+//        if (currentKidId != null) {
+//            if (currentKidId >= 0) currentKidId.let { profileFragmentViewModel.getKid(it) }
+//        }
+//
+//        profileFragmentViewModel.kidValue.observe(this.viewLifecycleOwner) { kid ->
+//            //**** First filling data to upper field from shared *****
+//            kidLevelText.text = "Level ${kid.level.toString()}"
+//            kidNameText.text = kid.user?.firstName
+//            fillKidData(kidImage)
+//
+//            fillKidGoals(kid.goals)
+//
+//
+//            kidName = kid.user?.firstName.toString()
+////            Log.d("MyLog", "profile name = $kidName")
+//            currentKid = kid
+//
+//            kid.id?.let { profileFragmentViewModel.getTodayTasks(it) }
+//        }
 
 
         // ***** Go to
@@ -158,18 +162,31 @@ class ParentProfileFragment : Fragment() {
         profileFragmentViewModel.kidList.observe(this.viewLifecycleOwner) { kids ->
 //            Log.d("MyLog", "$kids")
 
-            val kidAdapter = KidProfileFragmentAdapter(kids, currentKid)
+            // Fill upper information about kid
+            for (kid in kids) {
+                if (kid.id == currentKidId) {
+                    kidLevelText.text = "Level ${kid.level.toString()}"
+                    kidNameText.text = kid.user?.firstName
+                    fillKidData(kidImage)
+                    fillKidGoals(kid.goals)
+                    kid.id?.let { profileFragmentViewModel.getTodayTasks(it) }
+                    kidName = kid.user?.firstName.toString()
+                }
+            }
+
+            val kidAdapter = currentKidId?.let { KidProfileFragmentAdapter(kids, it) }
 
             val purposeRV = binding.rvProfileFragmentKids
             purposeRV.adapter = kidAdapter
 
-            kidAdapter.kidShortOnClickListener =
+            kidAdapter?.kidShortOnClickListener =
                 object : KidProfileFragmentAdapter.KidShortOnClickListener {
                     override fun shortClick(childrenItem: ChildrenItem) {
 
                         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
                         childrenItem.id?.let { it1 ->
-                            sharedPref?.edit()?.putInt(CURRENT_KID_ID,
+                            sharedPref?.edit()?.putInt(
+                                CURRENT_KID_ID,
                                 it1
                             )?.apply()
                         }
@@ -191,7 +208,7 @@ class ParentProfileFragment : Fragment() {
 
             // **** Add goals list *****
 
-            val goalsList = kids
+//            val goalsList = kids
 
 //            profileFragmentViewModel.getTodayGoals()
 //            profileFragmentViewModel.kidGoalsList.observe(this.viewLifecycleOwner) {
@@ -261,27 +278,27 @@ class ParentProfileFragment : Fragment() {
 
         // ***** Add data pies diagrams *****
 
+        getParentBottomNavigationBar(bottomNavigation, view)
 
-
-        bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.tasks -> {
-                    val bundle = Bundle()
-                    bundle.putString("kid name", kidName)
-                    findNavController().navigate(R.id.tasksFragment, bundle)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.action_profileFragment_to_profileChoiceFragment)
-                    true
-                }
-                R.id.settings -> {
-                    findNavController().navigate(R.id.settingsFragment)
-                    true
-                }
-                else -> false
-            }
-        }
+//        bottomNavigation.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.parent_tasks -> {
+//                    val bundle = Bundle()
+//                    bundle.putString("kid name", kidName)
+//                    findNavController().navigate(R.id.tasksFragment, bundle)
+//                    true
+//                }
+//                R.id.parent_profile -> {
+//                    findNavController().navigate(R.id.action_profileFragment_to_profileChoiceFragment)
+//                    true
+//                }
+//                R.id.parent_settings -> {
+//                    findNavController().navigate(R.id.settingsFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
     }
 
     private fun fillKidGoals(goals: List<GoalsItem?>?) {
@@ -290,7 +307,7 @@ class ParentProfileFragment : Fragment() {
         goalsRV.adapter = goalsProfileFragmentAdapter
     }
 
-    private fun getUncomingTaskList(tasks: List<CreatedTasksItem>): List<CreatedTasksItem> {
+    private fun getUncomingTaskList(tasks: List<ProcessedTask>): List<ProcessedTask> {
         val upcomingTaskList = getUpcomingTasks(tasks)
         val uncomingTaskAdapter = UpcomingTasksProfileFragmentAdapter(upcomingTaskList)
         val upcomingTaskRV = binding.rvProfileFragmentUncomingTasks
@@ -305,9 +322,10 @@ class ParentProfileFragment : Fragment() {
 //        interestRV.adapter = interestsProfileFragmentAdapter
 //    }
 
-    private fun getPurposeList(it: List<CreatedTasksItem>) {
+    private fun getPurposeList(it: List<ProcessedTask>) {
+        val purposePosition = -1
         val purposeList = it.map { task -> task.parentPurpose.toString() }.toSet().toList()
-        val sampleStringChipsAdapter = SampleStringChipsAdapter(purposeList)
+        val sampleStringChipsAdapter = SampleStringChipsAdapter(purposeList, purposePosition)
         val purposeRV = binding.rvProfileFragmentPurposes
         purposeRV.adapter = sampleStringChipsAdapter
     }
@@ -333,7 +351,7 @@ class ParentProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun getPieCategoriesEntries(tasks: List<CreatedTasksItem>): MutableList<PieEntry> {
+    private fun getPieCategoriesEntries(tasks: List<ProcessedTask>): MutableList<PieEntry> {
         val pieCategoryList = mutableListOf<PieEntry>()
         val pieCategorySet = mutableSetOf<String>()
         for (task in tasks) {
@@ -350,7 +368,7 @@ class ParentProfileFragment : Fragment() {
         return pieCategoryList
     }
 
-    private fun getPieTaskEntries(tasks: List<CreatedTasksItem>): MutableList<PieEntry> {
+    private fun getPieTaskEntries(tasks: List<ProcessedTask>): MutableList<PieEntry> {
         val pieTaskList = mutableListOf<PieEntry>()
         val pieTaskSet = mutableSetOf<String>()
         for (task in tasks) {
@@ -371,24 +389,12 @@ class ParentProfileFragment : Fragment() {
 //        return tasks.map { task -> task.childInterests }.toSet().toList()
 //    }
 
-    private fun getUpcomingTasks(taskList: List<CreatedTasksItem>): List<CreatedTasksItem> {
-        val upcomingTaskList = mutableListOf<CreatedTasksItem>()
+    private fun getUpcomingTasks(taskList: List<ProcessedTask>): List<ProcessedTask> {
+        val upcomingTaskList = mutableListOf<ProcessedTask>()
         for (task in taskList) {
-
-            if (task.chores != null){
-                for (chore in task.chores) {
-                    if (chore?.date == getTodayShortDate() && chore.status != "done"){
-                        upcomingTaskList.add(task)
-                    }
-                }
-
+            if (task.status == DONE_TASK_STATUS) {
+                upcomingTaskList.add(task)
             }
-
-//            if (task.status == "done" || task.status == "refused") {
-//                Log.d("MyLog", "status")
-//
-//            } else upcomingTaskList.add(task)
-
         }
 //        Log.d("MyLog", "up tasks = $upcomingTaskList")
         return upcomingTaskList
@@ -402,35 +408,16 @@ class ParentProfileFragment : Fragment() {
 
         // ограничивает окружность
         pieChart.maxAngle = 360f
-
-
-        //       Log.d("MyLog", "v = $handler")
-
-//        val description = pieChart.description
-//        description.text = "All tasks"
-//        description.isEnabled = true
-//        description.setPosition(1f, 2f)
+//        Log.d("MyLog", "v = $handler")
 
         pieChart.setExtraOffsets(0f, 0f, 5f, 0f)
 
-        //       pieChart.transparentCircleRadius = 80f
-        //      pieChart.setUsePercentValues(true)
-        //       pieChart.setEntryLabelTextSize(12f)
-        //       pieChart.setEntryLabelColor(Color.BLACK)
-        //       pieChart.centerText = "6"
         pieChart.setCenterTextSize(24f)
         pieChart.description?.isEnabled = false
 
 
         val legend = pieChart.legend
-//        legend?.verticalAlignment = Legend.LegendVerticalAlignment.BOTTOM
-//        legend?.horizontalAlignment = Legend.LegendHorizontalAlignment.LEFT
-//        legend?.orientation = Legend.LegendOrientation.VERTICAL
-//        legend.textSize = 14f
-//        legend.isWordWrapEnabled = false
-//        legend.form = Legend.LegendForm.CIRCLE
-//        legend.formSize = 20F
-//        legend?.setDrawInside(false)
+
         legend?.isEnabled = false
     }
 

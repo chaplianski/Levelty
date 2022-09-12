@@ -38,7 +38,7 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
             CreatedTasksItemDTO(
                 0,
                 "Walk dog",
-                "Feel",
+                "Home help",
                 15,
                 true,
                 1,
@@ -59,7 +59,7 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
             CreatedTasksItemDTO(
                 1,
                 "Go to school",
-                "Study",
+                "Autonomy",
                 10,
                 true,
                 1,
@@ -122,10 +122,10 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
             CreatedTasksItemDTO(
                 0,
                 "Walk dog",
-                "Feel",
+                "Home help",
                 15,
-                true,
-                1,
+                false,
+                0,
                 "2022-09-25",
                 "Any description",
                 "Father",
@@ -143,8 +143,8 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
             CreatedTasksItemDTO(
                 1,
                 "Go to school",
-                "Study",
-                10,
+                "Autonomy",
+                55,
                 true,
                 1,
                 "2022-10-01",

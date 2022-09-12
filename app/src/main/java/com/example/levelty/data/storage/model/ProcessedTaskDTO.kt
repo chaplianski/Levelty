@@ -15,6 +15,8 @@ data class ProcessedTaskDTO(
     val categoryId: Int? = null,
     val category: CategoryDTO? = null,
     val creatorId: Int? = null,
+    val isPeriodic: Boolean? = null,
+    val repeatInterval: Int? = null,
     val childInterests: List<ChildInterestsItemDTO?>? = null,
     val status: String? = null,
     val choreDate: String? = null,

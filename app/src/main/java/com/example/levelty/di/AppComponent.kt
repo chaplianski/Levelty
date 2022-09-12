@@ -2,8 +2,10 @@ package com.example.levelty.di
 
 import android.content.Context
 import com.example.levelty.presenter.dialogs.*
+import com.example.levelty.presenter.dialogs.parent.ParentDayKidChangeStatusTaskDialogFragment
 import com.example.levelty.presenter.ui.kid.KidDayTasksFragment
 import com.example.levelty.presenter.ui.kid.KidGoalsFragment
+import com.example.levelty.presenter.ui.kid.KidProfileFragment
 import com.example.levelty.presenter.ui.parent.*
 import dagger.BindsInstance
 import dagger.Component
@@ -23,10 +25,11 @@ interface AppComponent {
     fun tasksFragmentInject(parentTasksFragment: ParentTasksFragment)
     fun taskKidDetailFragmentInject(kidDayTasksFragment: KidDayTasksFragment)
     fun newTaskFragmentInject(parentNewTaskFragment: ParentNewTaskFragment)
-    fun dayPersonalTasksDialogInject(dayPersonalTasksDialogFragment: DayPersonalTasksDialogFragment)
-    fun editTaskFragmentInject(editTaskFragment: EditTaskFragment)
+    fun parentDayKidChangeStatusTaskDialogFragmentInject(parentDayKidChangeStatusTaskDialogFragment: ParentDayKidChangeStatusTaskDialogFragment)
+    fun parentEditTaskFragmentInject(parentEditTaskFragment: ParentEditTaskFragment)
     fun categoryFragmentInject(categoryFragment: CategoryFragment)
     fun kidGoalsFragmentInject(kidGoalsFragment: KidGoalsFragment)
+    fun kidProfileFragmentInject(kidProfileFragment: KidProfileFragment)
 
     @Component.Builder
     interface Builder{

@@ -2,6 +2,7 @@ package com.example.levelty.data.repository
 
 import com.example.levelty.data.network.retrofit.parents.GetChildrenApiHelper
 import com.example.levelty.data.storage.database.KidStorageImpl
+import com.example.levelty.domain.models.Child
 import com.example.levelty.domain.models.ChildrenItem
 import com.example.levelty.domain.models.Kid
 import com.example.levelty.domain.repository.KidRepository
@@ -17,6 +18,12 @@ class KidRepositoryImpl @Inject constructor(
 //    return getChildrenApiHelper.getChildren().map { it.childrenMapDataToDomain() } // TODO switch to get data from server
         return kidStorageImpl.getKids().map { it.childrenMapDataToDomain() }
     }
+
+    override fun getChild(): Child {
+        return kidStorageImpl.getChild().childMapDomainToData()
+    }
+
+
 
     override fun getKid(kidId: Int): ChildrenItem {
         return kidStorageImpl.getKid(kidId).childrenMapDataToDomain()

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
+import com.example.levelty.presenter.utils.getParentBottomNavigationBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -25,28 +26,28 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val bottomNavigation: BottomNavigationView = view.findViewById(R.id.bottomAppBar_parent_settings_fragment)
-
-        getParentBottomNavigationBar(bottomNavigation)
+        bottomNavigation.selectedItemId = R.id.parent_settings
+        getParentBottomNavigationBar(bottomNavigation, view)
     }
 
-    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
-        bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.tasks -> {
-                    findNavController().navigate(R.id.tasksFragment)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.profileFragment)
-                    true
-                }
-                R.id.settings -> {
-                    findNavController().navigate(R.id.settingsFragment)
-                    true
-                }
-                else -> false
-            }
-        }
-    }
+//    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+//        bottomNavigation.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.tasks -> {
+//                    findNavController().navigate(R.id.tasksFragment)
+//                    true
+//                }
+//                R.id.profile -> {
+//                    findNavController().navigate(R.id.profileFragment)
+//                    true
+//                }
+//                R.id.settings -> {
+//                    findNavController().navigate(R.id.settingsFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//    }
 
 }

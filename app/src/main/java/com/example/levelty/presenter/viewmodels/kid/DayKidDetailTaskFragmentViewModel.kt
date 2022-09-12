@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 class DayKidDetailTaskFragmentViewModel  @Inject constructor(private val getKidDetailTasksUseCase: GetKidDetailTasksUseCase): ViewModel() {
 
-    private val _taskList = MutableLiveData<List<CreatedTasksItem>>()
-    val taskList: LiveData<List<CreatedTasksItem>> get() = _taskList
+    private val _taskList = MutableLiveData<List<ProcessedTask>>()
+    val taskList: LiveData<List<ProcessedTask>> get() = _taskList
     private val _currentDay = MutableLiveData<String>()
     val currentDay: LiveData<String> get() = _currentDay
 
@@ -25,11 +25,11 @@ class DayKidDetailTaskFragmentViewModel  @Inject constructor(private val getKidD
             val list = getKidDetailTasksUseCase.execute()
             val processedTask = mutableListOf<ProcessedTask>()
             for (task in list){
-                if (task.isPeriodic == true){
+//                if (task.isPeriodic == true){
 //                    processedTask.add(ProcessedTask(task.id, task.title, task.cost, "", "", task.creatorId, task.category, task.assigneeId, task.status))
                 }
-            }
-            _taskList.postValue(list)
+
+//            _taskList.postValue(list)
         }
     }
 

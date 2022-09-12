@@ -18,9 +18,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentDayPersonalTasksBinding
 import com.example.levelty.di.DaggerAppComponent
-import com.example.levelty.domain.models.CreatedTasksItem
-import com.example.levelty.domain.models.DateTask
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.ProcessedTask
 import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
@@ -29,9 +27,6 @@ import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.ParentDayKidTasksViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import kotlinx.coroutines.delay
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 
@@ -78,7 +73,7 @@ class ParentDayKidTasksFragment : Fragment() {
 //        val currentDay = arguments?.getString("current date")
         val currentDay = getTodayShortDate()
         var checkedDay = currentDay
-
+//        Log.d("MyLog", "checked day = $checkedDay")
 //        var checkedDay = getTodayDate()
 
         val progressText = binding.tvFragmentDayPersonalTasksProgressText
@@ -90,17 +85,22 @@ class ParentDayKidTasksFragment : Fragment() {
         val bottomNavigation = binding.bottomAppBarParentDayKidTasksFragment
         val kidNameField = binding.tvFragmentDayPersonalTasksKidName
 
+        bottomNavigation.selectedItemId = R.id.parent_profile
         //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
-        getParentBottomNavigationBar(bottomNavigation)
+        getParentBottomNavigationBar(bottomNavigation, view)
 //        Log.d("MyLog", "name = $kidName")
         kidNameField.text = kidName.toString()
+
+
         //**** Back to profile fragment
 
         backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_dayPersonalTasksFragment_to_profileFragment)
+            findNavController().navigate(R.id.action_parentDayKidTasksFragment_to_parenProfileFragment)
         }
 
-
+        setNewTaskFutureText.setOnClickListener {
+            findNavController().navigate(R.id.action_parentDayKidTasksFragment_to_parentNewTaskFragment)
+        }
         // ***** Fill data Days personal tasks
 
         //      dayPersonalTasksFragmentViewModel.getDayTasks()
@@ -114,6 +114,7 @@ class ParentDayKidTasksFragment : Fragment() {
         parentDayKidTasksViewModel.getTasksList()
 
         parentDayKidTasksViewModel.allTaskList.observe(this.viewLifecycleOwner) { allTasks ->
+//            Log.d("MyLog", "allTasks = $allTasks")
             if (kidID != null) {
                 parentDayKidTasksViewModel.getDayTasks(allTasks, kidID, checkedDay)
             }
@@ -127,6 +128,7 @@ class ParentDayKidTasksFragment : Fragment() {
         }
 
         parentDayKidTasksViewModel.dayTaskList.observe(this.viewLifecycleOwner) { dayTaskList ->
+//            Log.d("MyLog", "dayTaskList = $dayTaskList")
 
             futureTaskDialog.visibility = View.INVISIBLE
             pastTaskDialog.visibility = View.INVISIBLE
@@ -155,17 +157,19 @@ class ParentDayKidTasksFragment : Fragment() {
             // *** Fill list tasks according selected date
             val dayPersonalTaskRecyclerView: RecyclerView =
                 view.findViewById(R.id.rv_fragment_day_personal_tasks_tasks_list)
-            val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(dayTaskList, checkedDay)
+            val fragmentDayPersonalTasksAdapter =
+                FragmentDayPersonalTasksAdapter(dayTaskList, checkedDay)
             dayPersonalTaskRecyclerView.adapter = fragmentDayPersonalTasksAdapter
-            val bundle = Bundle()
+
             fragmentDayPersonalTasksAdapter.shortOnClickListener =
                 object : FragmentDayPersonalTasksAdapter.ShortOnClickListener {
-                    override fun ShortClick(task: CreatedTasksItem) {
-//                        bundle.putParcelable("current task", task)
-                        val navController = Navigation.findNavController(view)
-                        navController.navigate(
-                            R.id.action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment,
-//                            bundle
+                    override fun ShortClick(task: ProcessedTask) {
+                      val bundle = Bundle()
+                        task.id?.let { bundle.putInt(CURRENT_TASK_ID, it) }
+                        bundle.putParcelable(CURRENT_TASK, task.mapToEditTask())
+                        findNavController().navigate(
+                            R.id.action_parentDayKidTasksFragment_to_parentDayKidChangeStatusTaskDialogFragment,
+                            bundle
                         )
                     }
                 }
@@ -181,26 +185,33 @@ class ParentDayKidTasksFragment : Fragment() {
         }
 
 
-    // ***** Go to NewTaskFragment *****
-    addNewTaskButton.setOnClickListener{
-        val navController = Navigation.findNavController(view)
-        navController.navigate(R.id.action_dayPersonalTasksFragment_to_newTaskFragment)
-    }
-
-    // ***** Date Wheel ******
-
-    val pickerLayoutManager = pickerLayoutManager(view)
-
-    pickerLayoutManager.setOnScrollStopListener(
-    object : PickerLayoutManager.ScrollStopListener {
-        override fun selectedView(view: View?) {
-            val day = view?.findViewById<TextView>(R.id.tv_date_item_number)
-            val month = view?.findViewById<TextView>(R.id.tv_date_item_month)
-            val year = view?.findViewById<TextView>(R.id.tv_date_item_year)
-            parentDayKidTasksViewModel.transferDateValue("${year?.text}-${getMonthNumber(month?.text.toString())}-${day?.text}")
-            checkedDay = "${year?.text}-${getMonthNumber(month?.text.toString())}-${day?.text}"
+        // ***** Go to NewTaskFragment *****
+        addNewTaskButton.setOnClickListener {
+            val navController = Navigation.findNavController(view)
+            navController.navigate(R.id.action_parentDayKidTasksFragment_to_parentNewTaskFragment)
         }
-    })
+
+        // ***** Date Wheel ******
+
+        val pickerLayoutManager = pickerLayoutManager(view)
+
+        pickerLayoutManager.setOnScrollStopListener(
+            object : PickerLayoutManager.ScrollStopListener {
+                override fun selectedView(view: View?) {
+                    val day = view?.findViewById<TextView>(R.id.tv_date_item_number)
+                    val month = view?.findViewById<TextView>(R.id.tv_date_item_month)
+                    val year = view?.findViewById<TextView>(R.id.tv_date_item_year)
+                    parentDayKidTasksViewModel.transferDateValue(
+                        "${year?.text}-${
+                            String.format("%02d",getMonthNumber(
+                                month?.text.toString())
+                            )
+                        }-${day?.text}"
+                    )
+                    checkedDay =
+                        "${year?.text}-${getMonthNumber(month?.text.toString())}-${day?.text}"
+                }
+            })
 
 //    parentDayKidTasksViewModel.currentDay.observe(this.viewLifecycleOwner)
 //    { checkedDay ->
@@ -208,88 +219,107 @@ class ParentDayKidTasksFragment : Fragment() {
 //            parentDayKidTasksViewModel.getDayTasks(tasks, kidID, checkedDay)
 //        }
 //    }
-}
+    }
 
 
-private fun pickerLayoutManager(view: View): PickerLayoutManager {
-    val dateRV: RecyclerView = binding.dateWheelParentDayKidTasks.rvCommonDateWheelDates
+    private fun pickerLayoutManager(view: View): PickerLayoutManager {
+        val dateRV: RecyclerView = binding.dateWheelParentDayKidTasks.rvCommonDateWheelDates
 //        view.findViewById(R.id.rv_fragment_day_personal_task_date)
-    val pickerLayoutManager =
-        PickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-    val beginDaysCount = 365
-    val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
-    val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
-    val formatDateYear = SimpleDateFormat("yyyy")
-    val todayDate = Calendar.getInstance()
-    todayDate.add(Calendar.DATE, -beginDaysCount)
+        val pickerLayoutManager =
+            PickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//        val beginDaysCount = 365
+//        val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
+//        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
+//        val formatDateYear = SimpleDateFormat("yyyy")
+//        val todayDate = Calendar.getInstance()
+//        Log.d("MyLog", "today date = $todayDate")
+//        todayDate.add(Calendar.DATE, -beginDaysCount)
+//
+//        val dateValues = mutableListOf<DateTask>()
+//        var counter = 0L
+//        for (day in 1..(beginDaysCount + 377)) {
+//            todayDate.add(Calendar.DATE, 1)
+//            dateValues.add(
+//                DateTask(
+//                    counter, formatDateDay.format(todayDate.timeInMillis),
+//                    formatDateMonth.format(todayDate.timeInMillis),
+//                    formatDateYear.format(todayDate.timeInMillis)
+//                )
+//            )
+//            counter++
+//        }
 
-    val dateValues = mutableListOf<DateTask>()
-    var counter = 0L
-    for (day in 1..(beginDaysCount + 377)) {
-        todayDate.add(Calendar.DATE, 1)
-        dateValues.add(
-            DateTask(
-                counter, formatDateDay.format(todayDate.timeInMillis),
-                formatDateMonth.format(todayDate.timeInMillis),
-                formatDateYear.format(todayDate.timeInMillis)
-            )
-        )
-        counter++
-    }
-
-    val dateTasksFragmentAdapter =
-        context?.let { PickerAdapter(it, dateValues.toList(), dateRV) }
-    val snapHelper: SnapHelper = LinearSnapHelper()
-    snapHelper.attachToRecyclerView(dateRV)
-    dateRV.setLayoutManager(pickerLayoutManager)
-    dateRV.adapter = dateTasksFragmentAdapter
-    lifecycleScope.launchWhenCreated {
+        val dateTasksFragmentAdapter =
+            context?.let { PickerAdapter(it, getDateList(), dateRV) }
+        val snapHelper: SnapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(dateRV)
+        dateRV.setLayoutManager(pickerLayoutManager)
+        dateRV.adapter = dateTasksFragmentAdapter
+        lifecycleScope.launchWhenCreated {
 //        delay(10)   // TODO check on centre position
-        dateRV.scrollToPosition(beginDaysCount + 1)
-    }
-    return pickerLayoutManager
-}
-
-
-private fun getUpcomingCountTask(tasksList: List<CreatedTasksItem>, checkedDate: String): Int {
-    var count = 0
-    for (task in tasksList) {
-        if (task.chores != null){
-            for (chore in task.chores){
-                if (chore?.date == checkedDate){
-                    if (chore.status != "done" ){
-                        count++
-                    }
-                }
-            }
+            pickerLayoutManager.scrollToPosition(DAYS_BEFORE_TODAY-3)
+//            dateRV.scrollToPosition(DAYS_BEFORE_TODAY -1)
         }
+        return pickerLayoutManager
     }
-    return count
-}
 
-override fun onDestroy() {
-    _binding = null
-    super.onDestroy()
-}
+//    private fun getDateList(): List<DateTask> {
+//        val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
+//        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
+//        val formatDateYear = SimpleDateFormat("yyyy")
+//        val todayDate = Calendar.getInstance()
+////        Log.d("MyLog","today day = $todayDate")
+////        todayDate.add(Calendar.DATE, -daysAfterCurrent)
+//        todayDate.add(Calendar.DATE, -DAYS_BEFORE_TODAY)
+//
+//        val dateValues = mutableListOf<DateTask>()
+//        var counter = 0L
+//        for (day in 1..(DAYS_BEFORE_TODAY + DAYS_AFTER_TODAY)) {
+//            todayDate.add(Calendar.DATE, 1)
+//            dateValues.add(
+//                DateTask(
+//                    counter, formatDateDay.format(todayDate.timeInMillis),
+//                    formatDateMonth.format(todayDate.timeInMillis),
+//                    formatDateYear.format(todayDate.timeInMillis)
+//                )
+//            )
+//            counter++
+//        }
+//        return dateValues.toList()
+//    }
 
-private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
-    bottomNavigation.setOnItemSelectedListener { item ->
-        when (item.itemId) {
-            R.id.tasks -> {
-                findNavController().navigate(R.id.tasksFragment)
-                true
-            }
-            R.id.profile -> {
-                findNavController().navigate(R.id.profileFragment)
-                true
-            }
-            R.id.settings -> {
-                findNavController().navigate(R.id.settingsFragment)
-                true
-            }
-            else -> false
+
+    private fun getUpcomingCountTask(tasksList: List<ProcessedTask>, checkedDate: String): Int {
+        var count = 0
+        for (task in tasksList) {
+            if (task.choreStatus != "done") count++
         }
+        return count
     }
-}
+
+    override fun onDestroy() {
+        _binding = null
+        super.onDestroy()
+    }
+
+//    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+//        bottomNavigation.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.tasks -> {
+//                    findNavController().navigate(R.id.tasksFragment)
+//                    true
+//                }
+//                R.id.profile -> {
+//                    findNavController().navigate(R.id.profileFragment)
+//                    true
+//                }
+//                R.id.settings -> {
+//                    findNavController().navigate(R.id.settingsFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//    }
 
 }

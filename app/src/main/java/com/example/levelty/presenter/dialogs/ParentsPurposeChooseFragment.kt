@@ -57,8 +57,8 @@ class ParentsPurposeChooseFragment : BottomSheetDialogFragment() {
         val saveButton: Button = view.findViewById(R.id.bt_fragment_parents_purpose_choose_save)
 
         parentPurposeChooseViewModel.getPurposeVariants()
-        parentPurposeChooseViewModel.purposeList.observe(this.viewLifecycleOwner){
-            val purposeAdapter = OrderStringAdapter(it.map { (id, value) -> value})
+        parentPurposeChooseViewModel.purposeList.observe(this.viewLifecycleOwner){ purpose ->
+            val purposeAdapter = OrderStringAdapter(purpose)
             purposeRV.layoutManager = LinearLayoutManager(context)
             purposeRV.adapter = purposeAdapter
 

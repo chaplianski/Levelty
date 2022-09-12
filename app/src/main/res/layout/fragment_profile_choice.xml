@@ -9,8 +9,8 @@
 
     <Button
         android:id="@+id/bt_profile_choice_fragment_parent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:text="Parent"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,8 +21,8 @@
 
     <Button
         android:id="@+id/bt_profile_choice_fragment_kid"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:text="Kid"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"

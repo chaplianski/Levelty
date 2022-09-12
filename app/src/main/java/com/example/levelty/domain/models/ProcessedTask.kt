@@ -1,5 +1,9 @@
 package com.example.levelty.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
 data class ProcessedTask(
     val id: Int? = null,
     val title: String? = null,
@@ -11,6 +15,8 @@ data class ProcessedTask(
     val categoryId: Int? = null,
     val category: Category? = null,
     val creatorId: Int? = null,
+    val isPeriodic: Boolean? = null,
+    val repeatInterval: Int? = null,
     val childInterests: List<ChildInterestsItem?>? = null,
     val status: String? = null,
     val choreDate: String? = null,

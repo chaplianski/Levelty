@@ -7,15 +7,16 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.domain.models.CreatedTasksItem
+import com.example.levelty.domain.models.ProcessedTask
 import com.example.levelty.domain.models.Task
 import java.lang.ref.WeakReference
 
-class FragmentDayPersonalTasksAdapter (private val dayTasksList: List<CreatedTasksItem>, val checkedDay: String) : RecyclerView.Adapter<FragmentDayPersonalTasksAdapter.ViewHolder>(){
+class FragmentDayPersonalTasksAdapter (private val dayTasksList: List<ProcessedTask>, val checkedDay: String) : RecyclerView.Adapter<FragmentDayPersonalTasksAdapter.ViewHolder>(){
 
 
 
     interface ShortOnClickListener {
-        fun ShortClick(task: CreatedTasksItem)
+        fun ShortClick(task: ProcessedTask)
     }
 
     var shortOnClickListener: ShortOnClickListener? = null
@@ -51,17 +52,12 @@ class FragmentDayPersonalTasksAdapter (private val dayTasksList: List<CreatedTas
         val view = WeakReference(itemView)
 
 
-        fun onBind(task: CreatedTasksItem){
+        fun onBind(task: ProcessedTask){
             taskName.text = task.title
 //            tasksMoney.text = "${(task.taskPoints*10).toString()}$ "
             taskCoins.text = "${task.cost} coins"
-            if (task.chores != null){
-                for (chore in task.chores){
-                    if (chore?.date == checkedDay){
-                        taskStatus.text = chore.status
-                    }
-                }
-            }
+            taskStatus.text = task.choreStatus
+
 
 
         }

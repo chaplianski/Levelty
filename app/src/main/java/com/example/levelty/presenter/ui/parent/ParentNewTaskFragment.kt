@@ -18,13 +18,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentNewTaskBinding
 import com.example.levelty.di.DaggerAppComponent
+import com.example.levelty.domain.models.NewTask
 import com.example.levelty.presenter.adapters.parent.AddingStringChipsAdapter
 import com.example.levelty.presenter.adapters.parent.SampleStringChipsAdapter
 import com.example.levelty.presenter.factories.parent.NewTaskViewModelFactory
-import com.example.levelty.presenter.utils.dateTimeToShortString
-import com.example.levelty.presenter.utils.dayToMls
-import com.example.levelty.presenter.utils.getTodayDateMls
-import com.example.levelty.presenter.utils.getTodayShortDate
+import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.NewTaskViewModel
 import com.google.android.material.chip.Chip
 import javax.inject.Inject
@@ -46,9 +44,7 @@ class ParentNewTaskFragment : Fragment() {
             .context(context)
             .build()
             .newTaskFragmentInject(this)
-
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,13 +60,6 @@ class ParentNewTaskFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val taskText: EditText = binding.etFragmentNewTaskTaskText
-//        val category: Chip = binding.chipFragmentNewTaskCategory
-//        val points: Chip = binding.chipFragmentNewTaskPoints
-//        val date: Chip = binding.chipFragmentNewTaskDate
-//        val startTime: Chip = binding.chipFragmentNewTaskStartTime
-//        val repeat: Chip = binding.chipFragmentNewTaskRepeat
-//        val parentPurpose: Chip = binding.chipFragmentNewTaskParentsPurpose
-//        val kidsInterest: Chip = binding.chipFragmentNewTaskKidsInterest
         val closeButton: ImageView = binding.ivFragmentNewTaskClose
         val saveButton: Button = binding.btFragmentNewTaskSave
 
@@ -80,9 +69,7 @@ class ParentNewTaskFragment : Fragment() {
         val repeatRV: RecyclerView = binding.rvFragmentNewTaskRepeat
         val dateRV: RecyclerView = binding.rvFragmentNewTaskSetDate
 
-
         var kidId = 0
-        var categoryValue = ""
         var dateValue = ""
         var startTimeValue = ""
         var pointsValue = 0
@@ -93,8 +80,9 @@ class ParentNewTaskFragment : Fragment() {
 
         newTaskViewModel.getKids()
         newTaskViewModel.kids.observe(this.viewLifecycleOwner) { kids ->
+            val kidPosition = -1
             val kidsAdapter =
-                SampleStringChipsAdapter(kids.map { kid -> kid.user?.firstName.toString() })
+                SampleStringChipsAdapter(kids.map { kid -> kid.user?.firstName.toString() }, kidPosition)
 //            kidsRV.layoutManager = LinearLayoutManager(context)
             kidsRV.adapter = kidsAdapter
             kidsAdapter.chipClickListener = object : SampleStringChipsAdapter.ChipClickListener {
@@ -108,8 +96,9 @@ class ParentNewTaskFragment : Fragment() {
 
         newTaskViewModel.getPurpose()
         newTaskViewModel.purpose.observe(this.viewLifecycleOwner) { purposes ->
+            val purposePosition = -1
             val purposeAdapter =
-                SampleStringChipsAdapter(purposes.map { purpose -> purpose.purposeName })
+                SampleStringChipsAdapter(purposes, purposePosition)
             purposeRV.adapter = purposeAdapter
             purposeAdapter.chipClickListener = object : SampleStringChipsAdapter.ChipClickListener {
                 override fun clickChip(item: String, position: Int) {
@@ -120,8 +109,8 @@ class ParentNewTaskFragment : Fragment() {
 
         newTaskViewModel.getDateVariants()
         newTaskViewModel.dates.observe(this.viewLifecycleOwner) { dates ->
-
-            val datesAdapter = AddingStringChipsAdapter(dates)
+            val datePosition = -1
+            val datesAdapter = AddingStringChipsAdapter(dates, datePosition)
             dateRV.adapter = datesAdapter
             datesAdapter.chipClickListener = object : AddingStringChipsAdapter.ChipClickListener{
                 override fun clickChip(item: String, isLast: Boolean, position: Int) {
@@ -139,8 +128,8 @@ class ParentNewTaskFragment : Fragment() {
 
         newTaskViewModel.getRepeatVariants()
         newTaskViewModel.repeats.observe(this.viewLifecycleOwner) { repeats ->
-
-            val repeatsAdapter = AddingStringChipsAdapter(repeats)
+            val repeatPosition = -1
+            val repeatsAdapter = AddingStringChipsAdapter(repeats, repeatPosition)
             repeatRV.adapter = repeatsAdapter
             repeatsAdapter.chipClickListener = object : AddingStringChipsAdapter.ChipClickListener{
                 override fun clickChip(item: String, isLast: Boolean, position: Int) {
@@ -160,15 +149,16 @@ class ParentNewTaskFragment : Fragment() {
 
         newTaskViewModel.getPointsVariants()
         newTaskViewModel.points.observe(this.viewLifecycleOwner) { points ->
-
-            val pointsAdapter = AddingStringChipsAdapter(points)
+            val pointsPosition = -1
+            val pointsAdapter = AddingStringChipsAdapter(points, pointsPosition)
             pointRV.adapter = pointsAdapter
             pointsAdapter.chipClickListener = object : AddingStringChipsAdapter.ChipClickListener{
                 override fun clickChip(item: String, isLast: Boolean, position: Int) {
                     if (isLast) {
                         val bundle = Bundle()
                         bundle.putString(TASK_NAME, taskText.text.toString())
-                        findNavController().navigate(R.id.action_newTaskFragment_to_pointChooseFragment)
+                        Log.d("MyLog", "task name new task = ${taskText.text}")
+                        findNavController().navigate(R.id.action_newTaskFragment_to_pointChooseFragment, bundle)
                     } else pointsValue = item.toInt()
                 }
             }
@@ -248,8 +238,8 @@ class ParentNewTaskFragment : Fragment() {
             val isPeriodic = repeatValue > 1
             Log.d("MyLog", "title = $taskNameValue, category_id = 0, parent_purpose = $parentPurposeValue, cost = $pointsValue, start_date = $dateValue, due_date = 0, is_periodic = $isPeriodic, repeat_interval = $repeatValue" +
                     ", custom_schedule, assignee_id = $kidId, child_interest_ids")
-//            val newTask = Task(0,taskNameValue,categoryValue,pointsValue,dateValue,startTimeValue,repeatValue,parentPurposeValue,kidInterestValue,kidName, "Upcoming")
-//            newTaskViewModel.addTask(newTask)
+            val newTask = NewTask(null, pointsValue, null, dateValue, null, parentPurposeValue, null, repeatValue, taskNameValue, isPeriodic, dateValue, kidId)
+            newTaskViewModel.addTask(newTask)
             findNavController().navigate(R.id.action_newTaskFragment_to_tasksFragment)
         }
 
@@ -264,8 +254,6 @@ class ParentNewTaskFragment : Fragment() {
         _binding = null
     }
 
-    companion object {
-        val TASK_NAME = "task name"
-    }
+
 
 }

@@ -110,13 +110,13 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         val stringWheelPickerAdapter = context?.let { StringWheelPickerAdapter(it, monthValues.toList(), monthRV) }
         val monthSnapHelper: SnapHelper = LinearSnapHelper()
 
-        Log.d("MyLog", "month = ${calendar.get(Calendar.MONTH)}")
+//        Log.d("MyLog", "month = ${calendar.get(Calendar.MONTH)}")
         for (date in monthValues.withIndex()){
-            Log.d("MyLog", "month = ${date}")
+//            Log.d("MyLog", "month = ${date}")
         }
 
         monthRV.setLayoutManager(monthPickerLayoutManager)
-        monthRV.layoutManager?.scrollToPosition(calendar.get(Calendar.MONTH))
+        monthRV.layoutManager?.scrollToPosition(calendar.get(Calendar.MONTH)+2)
         monthRV.adapter = stringWheelPickerAdapter
         monthSnapHelper.attachToRecyclerView(monthRV)
 

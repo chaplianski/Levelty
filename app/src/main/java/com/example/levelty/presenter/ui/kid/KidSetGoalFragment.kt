@@ -9,6 +9,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentKidSetGoalBinding
+import com.example.levelty.presenter.utils.getKidBottomNavigationBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
@@ -34,30 +35,30 @@ class KidSetGoalFragment : Fragment() {
         val backButton = binding.ivKidSetGoalFragmentBack
         val bottomNavigation = binding.bottomAppBarKidSetGoalFragment
 
-        getKidBottomNavigationBar(bottomNavigation)
+        getKidBottomNavigationBar(bottomNavigation, view)
         goalsRV.layoutManager = GridLayoutManager(context,2)
 
     }
 
-    private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
-        bottomNavigation.setOnItemSelectedListener { itemMenu ->
-            when (itemMenu.itemId) {
-                R.id.tasks -> {
-                    findNavController().navigate(R.id.kidDayTasksFragment)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.kidProfileFragment)
-                    true
-                }
-                R.id.goals -> {
-                    findNavController().navigate(R.id.kidGoalsFragment)
-                    true
-                }
-                else -> false
-            }
-
-        }
-    }
+//    private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+//        bottomNavigation.setOnItemSelectedListener { itemMenu ->
+//            when (itemMenu.itemId) {
+//                R.id.tasks -> {
+//                    findNavController().navigate(R.id.kidDayTasksFragment)
+//                    true
+//                }
+//                R.id.profile -> {
+//                    findNavController().navigate(R.id.kidProfileFragment)
+//                    true
+//                }
+//                R.id.goals -> {
+//                    findNavController().navigate(R.id.kidGoalsFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//
+//        }
+//    }
 
 }

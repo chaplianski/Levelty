@@ -15,6 +15,7 @@ import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.models.GoalsItem
 import com.example.levelty.presenter.adapters.parent.KidGoalsFragmentAdapter
 import com.example.levelty.presenter.factories.parent.ParentKidGoalsFragmentViewModelFactory
+import com.example.levelty.presenter.utils.getParentBottomNavigationBar
 import com.example.levelty.presenter.viewmodels.parent.ParentKidGoalsFragmentViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
@@ -49,7 +50,9 @@ class ParentKidsGoalsFragment : Fragment() {
         val goalsRV: RecyclerView = view.findViewById(R.id.rv_fragment_kids_goals)
         val bottomNavigation: BottomNavigationView = view.findViewById(R.id.bottomAppBar_parent_kids_goals_fragment)
 
-        getParentBottomNavigationBar(bottomNavigation)
+        bottomNavigation.selectedItemId = R.id.parent_profile
+
+        getParentBottomNavigationBar(bottomNavigation, view)
         parentKidGoalsFragmentViewModel.getGoalsList()
 
         parentKidGoalsFragmentViewModel.goalsValue.observe(this.viewLifecycleOwner){
@@ -75,25 +78,25 @@ class ParentKidsGoalsFragment : Fragment() {
         }
     }
 
-    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
-        bottomNavigation.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.tasks -> {
-                    findNavController().navigate(R.id.tasksFragment)
-                    true
-                }
-                R.id.profile -> {
-                    findNavController().navigate(R.id.profileFragment)
-                    true
-                }
-                R.id.settings -> {
-                    findNavController().navigate(R.id.settingsFragment)
-                    true
-                }
-                else -> false
-            }
-        }
-    }
+//    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+//        bottomNavigation.setOnItemSelectedListener { item ->
+//            when (item.itemId) {
+//                R.id.tasks -> {
+//                    findNavController().navigate(R.id.tasksFragment)
+//                    true
+//                }
+//                R.id.profile -> {
+//                    findNavController().navigate(R.id.profileFragment)
+//                    true
+//                }
+//                R.id.settings -> {
+//                    findNavController().navigate(R.id.settingsFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
+//    }
 
 
 }

@@ -46,8 +46,8 @@ class ApiModule {
     fun provideOkhttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         val okkHttpclient = OkHttpClient.Builder()
             .cache(provideCache())
-            .addInterceptor(provideOfflineCacheInterceptor())
-            .addNetworkInterceptor(provideCacheInterceptor())
+//            .addInterceptor(provideOfflineCacheInterceptor())
+//            .addNetworkInterceptor(provideCacheInterceptor())
 //            .addInterceptor(interceptor)
             .addInterceptor {chain ->
                 val request = chain.request().newBuilder().addHeader("Authorization", "Bearer $PARENT_TOKEN").build()

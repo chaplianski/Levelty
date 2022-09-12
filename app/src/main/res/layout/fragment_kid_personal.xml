@@ -9,7 +9,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_appBar_kid_detail_fragment"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_appBar_kid_profile_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
                 android:background="@drawable/my_gradient">
 
                 <ImageView
-                    android:id="@+id/imageView4"
+                    android:id="@+id/iv_kid_profile_fragment_avatar"
                     android:layout_width="335dp"
                     android:layout_height="335dp"
                     android:layout_marginTop="24dp"
@@ -37,10 +37,10 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    app:layout_constraintVertical_bias="0.12" />
 
                 <TextView
-                    android:id="@+id/tv_kid_detail_fragment_level"
+                    android:id="@+id/tv_kid_profile_fragment_level"
                     style="@style/Bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -51,16 +51,16 @@
                     android:text="level 154"
                     android:textColor="@color/white"
                     app:layout_behavior=".presenter.helpers.MyBehavior"
-                    app:layout_constraintBottom_toBottomOf="@+id/iv_kid_detail_fragment_level"
-                    app:layout_constraintEnd_toEndOf="@+id/iv_kid_detail_fragment_level"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_kid_profile_fragment_level"
+                    app:layout_constraintEnd_toEndOf="@+id/iv_kid_profile_fragment_level"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="@+id/iv_kid_detail_fragment_level"
-                    app:layout_constraintTop_toTopOf="@+id/iv_kid_detail_fragment_level">
+                    app:layout_constraintStart_toStartOf="@+id/iv_kid_profile_fragment_level"
+                    app:layout_constraintTop_toTopOf="@+id/iv_kid_profile_fragment_level">
 
                 </TextView>
 
                 <ImageView
-                    android:id="@+id/iv_kid_detail_fragment_level"
+                    android:id="@+id/iv_kid_profile_fragment_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
@@ -91,7 +91,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_kid_detail_fragment_coins"
+                    android:id="@+id/cv_kid_profile_fragment_coins"
                     android:layout_width="match_parent"
                     android:layout_height="124dp"
                     android:layout_marginStart="20dp"
@@ -108,7 +108,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tv_kid_detail_fragment_coins_title"
+                            android:id="@+id/tv_kid_profile_fragment_coins_title"
                             style="@style/Bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                             app:layout_constraintVertical_bias="1.0" />
 
                         <TextView
-                            android:id="@+id/tv_kid_detail_fragment_coins_value"
+                            android:id="@+id/tv_kid_profile_fragment_coins_value"
                             style="@style/ExtraBold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -166,15 +166,15 @@
                             android:text="coins"
                             android:textColor="@color/text_accent"
                             android:textSize="14sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/tv_kid_detail_fragment_coins_value"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_kid_profile_fragment_coins_value"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toEndOf="@+id/tv_kid_detail_fragment_coins_value"
-                            app:layout_constraintTop_toTopOf="@+id/tv_kid_detail_fragment_coins_value"
+                            app:layout_constraintStart_toEndOf="@+id/tv_kid_profile_fragment_coins_value"
+                            app:layout_constraintTop_toTopOf="@+id/tv_kid_profile_fragment_coins_value"
                             app:layout_constraintVertical_bias="1.0" />
 
                         <TextView
-                            android:id="@+id/tv_kid_detail_fragment_coins_tasks"
+                            android:id="@+id/tv_kid_profile_fragment_coins_tasks"
                             style="@style/Regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -184,15 +184,15 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="@+id/tv_kid_detail_fragment_coins_value"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_kid_detail_fragment_coins_value"
+                            app:layout_constraintStart_toStartOf="@+id/tv_kid_profile_fragment_coins_value"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_kid_profile_fragment_coins_value"
                             app:layout_constraintVertical_bias="0.047" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_kid_detail_fragment_today_tasks"
+                    android:id="@+id/cv_kid_profile_fragment_today_tasks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -201,7 +201,7 @@
                     app:cardCornerRadius="25dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_detail_fragment_coins"
+                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_profile_fragment_coins"
                     app:strokeWidth="1dp">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -210,7 +210,7 @@
                         android:layout_height="130dp">
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_kid_detail_fragment_today"
+                            android:id="@+id/chip_kid_profile_fragment_today"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginStart="6dp"
@@ -233,7 +233,7 @@
                             app:layout_constraintVertical_bias="0.0" />
 
                         <TextView
-                            android:id="@+id/tv_kid_detail_fragment_today_progress_text"
+                            android:id="@+id/tv_kid_profile_fragment_today_progress_text"
                             style="@style/Regular"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -249,7 +249,7 @@
                             app:layout_constraintVertical_bias="0.0" />
 
                         <com.google.android.material.progressindicator.LinearProgressIndicator
-                            android:id="@+id/pb_kid_detail_fragment_today_progress_image"
+                            android:id="@+id/pb_kid_profile_fragment_today_progress_image"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -273,7 +273,7 @@
 
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_kid_detail_fragment_achievements"
+                    android:id="@+id/cv_kid_profile_fragment_achievements"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
@@ -283,14 +283,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_detail_fragment_interests">
+                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_profile_fragment_interests">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_kid_detail_fragment_achievements"
+                            android:id="@+id/chip_kid_profile_fragment_achievements"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginStart="6dp"
@@ -313,7 +313,7 @@
                             app:layout_constraintVertical_bias="0.0" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_kid_detail_fragment_achievents"
+                            android:id="@+id/rv_kid_profile_fragment_achievents"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="20dp"
@@ -325,7 +325,7 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/chip_kid_detail_fragment_achievements"
+                            app:layout_constraintTop_toBottomOf="@+id/chip_kid_profile_fragment_achievements"
                             app:layout_constraintVertical_bias="0.672"
                             tools:listitem="@layout/fragment_profile_goal_item" />
 
@@ -333,7 +333,7 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_kid_detail_fragment_interests"
+                    android:id="@+id/cv_kid_profile_fragment_interests"
                     android:layout_width="match_parent"
                     android:layout_height="114dp"
                     android:layout_marginStart="20dp"
@@ -343,14 +343,14 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_detail_fragment_today_tasks">
+                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_profile_fragment_today_tasks">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <com.google.android.material.chip.Chip
-                            android:id="@+id/chip_kid_detail_fragment_interests"
+                            android:id="@+id/chip_kid_profile_fragment_interests"
                             android:layout_width="match_parent"
                             android:layout_height="40dp"
                             android:layout_marginStart="6dp"
@@ -373,7 +373,7 @@
                             app:layout_constraintVertical_bias="0.0" />
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/rv_kid_detail_fragment_interests"
+                            android:id="@+id/rv_kid_profile_fragment_interests"
                             android:layout_width="match_parent"
                             android:layout_height="30dp"
                             android:layout_marginStart="16dp"
@@ -385,14 +385,14 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/chip_kid_detail_fragment_interests"
+                            app:layout_constraintTop_toBottomOf="@+id/chip_kid_profile_fragment_interests"
                             app:layout_constraintVertical_bias="0.0"
                             tools:listitem="@layout/item_string_chip" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cv_kid_detail_fragment_statistics"
+                    android:id="@+id/cv_kid_profile_fragment_statistics"
                     android:layout_width="match_parent"
                     android:layout_height="344dp"
                     android:layout_marginStart="20dp"
@@ -403,14 +403,14 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_detail_fragment_achievements">
+                    app:layout_constraintTop_toBottomOf="@+id/cv_kid_profile_fragment_achievements">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/tv_kid_detail_fragment_interests_statistics"
+                            android:id="@+id/tv_kid_profile_fragment_interests_statistics"
                             style="@style/Bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -427,7 +427,7 @@
                             app:layout_constraintVertical_bias="0.0" />
 
                         <com.github.mikephil.charting.charts.PieChart
-                            android:id="@+id/pie_kid_detail_fragment_interests_tasks"
+                            android:id="@+id/pie_kid_profile_fragment_tasks"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
                             android:layout_marginStart="20dp"
@@ -443,7 +443,7 @@
 
 
                         <com.github.mikephil.charting.charts.PieChart
-                            android:id="@+id/pie_kid_detail_fragment_interests_categories"
+                            android:id="@+id/pie_kid_profile_fragment_categories"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
 
@@ -495,8 +495,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="@+id/pie_kid_detail_fragment_interests_categories"
-                            app:layout_constraintTop_toBottomOf="@+id/pie_kid_detail_fragment_interests_categories"
+                            app:layout_constraintStart_toStartOf="@+id/pie_kid_profile_fragment_categories"
+                            app:layout_constraintTop_toBottomOf="@+id/pie_kid_profile_fragment_categories"
                             app:layout_constraintVertical_bias="0.0">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -504,7 +504,7 @@
                                 android:layout_height="match_parent">
 
                                 <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rv_kid_detail_fragment_pie_category"
+                                    android:id="@+id/rv_kid_profile_fragment_pie_category"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -524,8 +524,8 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="@+id/pie_kid_detail_fragment_interests_tasks"
-                            app:layout_constraintTop_toBottomOf="@+id/pie_kid_detail_fragment_interests_tasks"
+                            app:layout_constraintStart_toStartOf="@+id/pie_kid_profile_fragment_tasks"
+                            app:layout_constraintTop_toBottomOf="@+id/pie_kid_profile_fragment_tasks"
                             app:layout_constraintVertical_bias="0.0">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
@@ -533,7 +533,7 @@
                                 android:layout_height="match_parent">
 
                                 <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rv_kid_detail_fragment_pie_task"
+                                    android:id="@+id/rv_kid_profile_fragment_pie_task"
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
@@ -547,32 +547,32 @@
 
 
                         <TextView
-                            android:id="@+id/tv_kid_detail_fragment_category_counrt"
+                            android:id="@+id/tv_kid_profile_fragment_category_count"
                             style="@style/Bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="6"
                             android:textColor="@color/text_primary"
                             android:textSize="32sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/pie_kid_detail_fragment_interests_categories"
-                            app:layout_constraintEnd_toEndOf="@+id/pie_kid_detail_fragment_interests_categories"
+                            app:layout_constraintBottom_toBottomOf="@+id/pie_kid_profile_fragment_categories"
+                            app:layout_constraintEnd_toEndOf="@+id/pie_kid_profile_fragment_categories"
                             app:layout_constraintHorizontal_bias="0.45"
-                            app:layout_constraintStart_toStartOf="@+id/pie_kid_detail_fragment_interests_categories"
-                            app:layout_constraintTop_toTopOf="@+id/pie_kid_detail_fragment_interests_categories" />
+                            app:layout_constraintStart_toStartOf="@+id/pie_kid_profile_fragment_categories"
+                            app:layout_constraintTop_toTopOf="@+id/pie_kid_profile_fragment_categories" />
 
                         <TextView
-                            android:id="@+id/tv_profile_fragment_tasks_counrt"
+                            android:id="@+id/tv_profile_fragment_tasks_count"
                             style="@style/Bold"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/text_primary"
                             android:text="6"
                             android:textSize="32sp"
-                            app:layout_constraintBottom_toBottomOf="@+id/pie_kid_detail_fragment_interests_tasks"
-                            app:layout_constraintEnd_toEndOf="@+id/pie_kid_detail_fragment_interests_tasks"
+                            app:layout_constraintBottom_toBottomOf="@+id/pie_kid_profile_fragment_tasks"
+                            app:layout_constraintEnd_toEndOf="@+id/pie_kid_profile_fragment_tasks"
                             app:layout_constraintHorizontal_bias="0.45"
-                            app:layout_constraintStart_toStartOf="@+id/pie_kid_detail_fragment_interests_tasks"
-                            app:layout_constraintTop_toTopOf="@+id/pie_kid_detail_fragment_interests_tasks" />
+                            app:layout_constraintStart_toStartOf="@+id/pie_kid_profile_fragment_tasks"
+                            app:layout_constraintTop_toTopOf="@+id/pie_kid_profile_fragment_tasks" />
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -586,7 +586,7 @@
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_appBar_kid_detail_fragment"
+        android:id="@+id/bottom_appBar_kid_profile_fragment"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

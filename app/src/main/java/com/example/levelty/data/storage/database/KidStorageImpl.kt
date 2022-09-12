@@ -1,8 +1,6 @@
 package com.example.levelty.data.storage.database
 
-import com.example.levelty.data.storage.model.ChildrenItemDTO
-import com.example.levelty.data.storage.model.GoalsItemDTO
-import com.example.levelty.data.storage.model.UserDTO
+import com.example.levelty.data.storage.model.*
 import com.example.levelty.data.storage.storage.KidStorage
 import javax.inject.Inject
 
@@ -25,10 +23,9 @@ class KidStorageImpl @Inject constructor(): KidStorage {
         val goalList1 = mutableListOf<GoalsItemDTO>()
         for (goal in goalList){
             if (goal.childId == 1){
-                goalList0.add(goal)
+                goalList1.add(goal)
             }
         }
-
 
         val kidList = mutableListOf<ChildrenItemDTO>()
         val user1 = UserDTO(
@@ -41,6 +38,31 @@ class KidStorageImpl @Inject constructor(): KidStorage {
         kidList.add(ChildrenItemDTO(1, 1, user2, goalList1))
         return kidList.toList()
     }
+
+    override fun getChild(): ChildDTO {
+        val balance = BalanceDTO(233,0)
+        val assignedTasks = mutableListOf<AssignedTasksItemDTO>()
+        assignedTasks.add(AssignedTasksItemDTO(15,"10-10-2022","dsdsdfsdfsdf","","09-09-2022",null,null,"Walk Dog", 0,0,3,0,null,true,"10-09-2022",0,"pending"))
+        assignedTasks.add(AssignedTasksItemDTO(25,"11-11-2022","erwerwerwer","","09-11-2022",null,null,"Go to school", 1,0,1,1,null,true,"11-09-2022",0,"pending"))
+        assignedTasks.add(AssignedTasksItemDTO(55,"11-11-2022","xcbvcbxcbcc","","09-11-2022",null,null,"watch TV", 1,0,1,2,null,true,"11-09-2022",0,"pending"))
+        val interests = mutableListOf<InterestsItemDTO>()
+        interests.add(InterestsItemDTO(0,"Phone"))
+        interests.add(InterestsItemDTO(1,"Computer"))
+        interests.add(InterestsItemDTO(2,"Cat"))
+        val parents = mutableListOf<ParentsItemDTO>()
+        parents.add(ParentsItemDTO(0))
+        parents.add(ParentsItemDTO(1))
+        val user = UserDTO(0,"23432",null,true,"05-06-2010",true,"Bond","+52345234523","En","James")
+        val goals = mutableListOf<GoalsItemDTO>()
+        goals.add(GoalsItemDTO(0,0,125,"Very nice","01-01-2020","New phone", "Approved"))
+        goals.add(GoalsItemDTO(1,0,85,"Very nice","08-01-2022","New phone", "Approved"))
+        goals.add(GoalsItemDTO(2,0,500,"Very nice","09-09-2022","New phone", "Approved"))
+
+        return ChildDTO(
+            2,3, balance, 4, 0, assignedTasks, 10, 122,interests,user,parents,goals
+        )
+    }
+
 
     override fun getKid(kidId: Int): ChildrenItemDTO {
         val goalList = mutableListOf<GoalsItemDTO>()

@@ -1,8 +1,7 @@
-package com.example.levelty.presenter.dialogs
+package com.example.levelty.presenter.dialogs.parent
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
@@ -10,14 +9,14 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.EditTask
 import com.example.levelty.presenter.factories.parent.ParentDayKidTasksViewModelFactory
+import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.ParentDayKidTasksViewModel
 import javax.inject.Inject
 
 
-class DayPersonalTasksDialogFragment () : DialogFragment() {
-
+class ParentDayKidChangeStatusTaskDialogFragment () : DialogFragment() {
 
     @Inject
     lateinit var parentDayKidTasksViewModelFactory: ParentDayKidTasksViewModelFactory
@@ -27,10 +26,9 @@ class DayPersonalTasksDialogFragment () : DialogFragment() {
         DaggerAppComponent.builder()
             .context(context)
             .build()
-            .dayPersonalTasksDialogInject(this)
+            .parentDayKidChangeStatusTaskDialogFragmentInject(this)
         super.onAttach(context)
     }
-
 
     val navController: NavController by lazy { findNavController() }
 
@@ -53,40 +51,35 @@ class DayPersonalTasksDialogFragment () : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-   //     val viewModel = DayPersonalTasksFragmentViewModel by viewModels<> {  }
-  //      val viewModel = ViewModelProvider(requireActivity()).get(DayPersonalTasksFragmentViewModel::class.java)
-
         val approveButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_approve)
         val declineButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_decline)
         val editButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_edit)
         val cancelButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_cancel)
-//        val navController = Navigation.findNavController(view)
-        val task = arguments?.getParcelable<Task>("current task")
-        Log.d("MyLog", "task = $task")
+        val taskId = arguments?.getInt(CURRENT_TASK_ID)
+        val task: EditTask? = arguments?.getParcelable(CURRENT_TASK)
+
+//        Log.d("MyLog", "task = $task")
 
         approveButton.setOnClickListener {
-            task?.taskStatus = "Approval"
-            if (task != null) {
-                parentDayKidTasksViewModel.updateTask(task)
-            }
-
-//            if (task != null) {
-//                viewModel.updateTask(task)
-//            }
+                if (taskId != null) {
+                    parentDayKidTasksViewModel.updateTask(taskId, DONE_TASK_STATUS)
+                }
             dismiss()
         }
 //
         declineButton.setOnClickListener {
-            task?.taskStatus = "Decline"
-            if (task != null) {
-                parentDayKidTasksViewModel.updateTask(task)
+            if (taskId != null) {
+                parentDayKidTasksViewModel.updateTask(taskId, REJECTED_TASK_STATUS)
             }
             dismiss()
         }
 
         editButton.setOnClickListener {
             val bundle = Bundle().apply {
-                putParcelable("current task", task)
+                if (taskId != null) {
+                    putInt(CURRENT_TASK_ID, taskId)
+                }
+                putParcelable(CURRENT_TASK, task)
             }
             navController.navigate(R.id.action_dayPersonalTasksDialogFragment_to_editTaskFragment, bundle)
             dismiss()
@@ -97,6 +90,7 @@ class DayPersonalTasksDialogFragment () : DialogFragment() {
         }
 
     }
+
 
 
 }

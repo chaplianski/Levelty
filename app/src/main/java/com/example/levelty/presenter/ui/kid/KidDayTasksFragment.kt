@@ -24,6 +24,7 @@ import com.example.levelty.databinding.FragmentKidDayTasksBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.DateTask
+import com.example.levelty.domain.models.ProcessedTask
 import com.example.levelty.domain.models.Task
 import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
@@ -226,36 +227,36 @@ class KidDayTasksFragment : Fragment() {
 //        }
     }
 
-    private fun fetchListTaskLayout(
-        tasks: List<CreatedTasksItem>,
-        view: View, checkedDate: String
-    ) {
-        val tasksListRV = binding.layoutFragmentDayKidListTasks.rvKidDayTasksList
-
-        val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(tasks, checkedDate)
-        tasksListRV.adapter = fragmentDayPersonalTasksAdapter
-        val bundle = Bundle()
-        fragmentDayPersonalTasksAdapter.shortOnClickListener =
-            object : FragmentDayPersonalTasksAdapter.ShortOnClickListener {
-                override fun ShortClick(task: CreatedTasksItem) {
-//                    bundle.putParcelable("current task", task)
-                    val navController = Navigation.findNavController(view)
-                    navController.navigate(
-                        R.id.action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment,
-//                        bundle
-                    )
-                }
-            }
-
-        //***** Set progress indicators *******
-        val progressListText = binding.layoutFragmentDayKidListTasks.tvKidDayTasksListProgressText
-        val progressListView = binding.layoutFragmentDayKidListTasks.pbKidDayTasksListProgressView
-        val allTaskCount = tasks.size
-        val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks, checkedDate)
-        progressListText.text = "$completedTaskCount of $allTaskCount are completed"
-        progressListView.max = allTaskCount
-        progressListView.progress = completedTaskCount
-    }
+//    private fun fetchListTaskLayout(
+//        tasks: List<CreatedTasksItem>,
+//        view: View, checkedDate: String
+//    ) {
+//        val tasksListRV = binding.layoutFragmentDayKidListTasks.rvKidDayTasksList
+//
+//        val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(tasks, checkedDate)
+//        tasksListRV.adapter = fragmentDayPersonalTasksAdapter
+//        val bundle = Bundle()
+//        fragmentDayPersonalTasksAdapter.shortOnClickListener =
+//            object : FragmentDayPersonalTasksAdapter.ShortOnClickListener {
+//                override fun ShortClick(task: ProcessedTask) {
+////                    bundle.putParcelable("current task", task)
+//                    val navController = Navigation.findNavController(view)
+//                    navController.navigate(
+//                        R.id.action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment,
+////                        bundle
+//                    )
+//                }
+//            }
+//
+//        //***** Set progress indicators *******
+//        val progressListText = binding.layoutFragmentDayKidListTasks.tvKidDayTasksListProgressText
+//        val progressListView = binding.layoutFragmentDayKidListTasks.pbKidDayTasksListProgressView
+//        val allTaskCount = tasks.size
+//        val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks, checkedDate)
+//        progressListText.text = "$completedTaskCount of $allTaskCount are completed"
+//        progressListView.max = allTaskCount
+//        progressListView.progress = completedTaskCount
+//    }
 
     private fun getWheelPickerLayoutManager(view: View): PickerLayoutManager {
         val dateWheelRV = binding.datesWheelLayout.rvCommonDateWheelDates
@@ -376,15 +377,15 @@ class KidDayTasksFragment : Fragment() {
     private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
         bottomNavigation.setOnItemSelectedListener { itemMenu ->
             when (itemMenu.itemId) {
-                R.id.tasks -> {
+                R.id.kid_tasks -> {
                     findNavController().navigate(R.id.kidDayTasksFragment)
                     true
                 }
-                R.id.profile -> {
+                R.id.kid_profile -> {
                     findNavController().navigate(R.id.kidProfileFragment)
                     true
                 }
-                R.id.goals -> {
+                R.id.kid_goals -> {
                     findNavController().navigate(R.id.kidGoalsFragment)
                     true
                 }

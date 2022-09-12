@@ -6,5 +6,5 @@ interface PurposeRepository {
 
     fun getParentsPurpose(): List<Purpose>
 
-    fun getParentsPurposes(): List<Purpose>
+    fun getParentsPurposes(): List<String>
 }

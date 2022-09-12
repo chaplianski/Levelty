@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/levelty_navigation"
-    app:startDestination="@id/profileFragment">
+    app:startDestination="@id/profileChoiceFragment">
 
     <fragment
         android:id="@+id/profileFragment"
@@ -22,9 +22,6 @@
         <action
             android:id="@+id/action_profileFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
-        <action
-            android:id="@+id/action_profileFragment_to_profileChoiceFragment"
-            app:destination="@id/profileChoiceFragment" />
     </fragment>
     <fragment
         android:id="@+id/kidsGoalsFragment"
@@ -41,16 +38,16 @@
         android:label="fragment_day_personal_tasks"
         tools:layout="@layout/fragment_day_personal_tasks" >
         <action
-            android:id="@+id/action_dayPersonalTasksFragment_to_newTaskFragment"
+            android:id="@+id/action_parentDayKidTasksFragment_to_parentNewTaskFragment"
             app:destination="@id/newTaskFragment" />
         <action
-            android:id="@+id/action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment"
+            android:id="@+id/action_parentDayKidTasksFragment_to_parentDayKidChangeStatusTaskDialogFragment"
             app:destination="@id/dayPersonalTasksDialogFragment" />
         <action
             android:id="@+id/action_dayPersonalTasksFragment_to_editTaskFragment2"
             app:destination="@id/editTaskFragment" />
         <action
-            android:id="@+id/action_dayPersonalTasksFragment_to_profileFragment"
+            android:id="@+id/action_parentDayKidTasksFragment_to_parenProfileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
     <fragment
@@ -145,15 +142,15 @@
         android:label="fragment_profile_choice"
         tools:layout="@layout/fragment_profile_choice" >
         <action
-            android:id="@+id/action_profileChoiceFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
-        <action
             android:id="@+id/action_profileChoiceFragment_to_kidPersonalFragment"
             app:destination="@id/kidProfileFragment" />
+        <action
+            android:id="@+id/action_profileChoiceFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <dialog
         android:id="@+id/dayPersonalTasksDialogFragment"
-        android:name="com.example.levelty.presenter.dialogs.DayPersonalTasksDialogFragment"
+        android:name="com.example.levelty.presenter.dialogs.parent.ParentDayKidChangeStatusTaskDialogFragment"
         android:label="fragment_day_personal_tasks_dialog"
         tools:layout="@layout/fragment_day_personal_tasks_dialog" >
         <action
@@ -165,7 +162,7 @@
     </dialog>
     <fragment
         android:id="@+id/editTaskFragment"
-        android:name="com.example.levelty.presenter.ui.parent.EditTaskFragment"
+        android:name="com.example.levelty.presenter.ui.parent.ParentEditTaskFragment"
         android:label="EditTaskFragment"
         tools:layout="@layout/fragment_edit_task">
         <action
@@ -180,6 +177,12 @@
         <action
             android:id="@+id/action_editTaskFragment_to_dateChooseFragment"
             app:destination="@id/dateChooseFragment" />
+        <action
+            android:id="@+id/action_editTaskFragment_to_categoryFragment"
+            app:destination="@id/categoryFragment" />
+        <action
+            android:id="@+id/action_editTaskFragment_to_repeatChoiceDialogFragment"
+            app:destination="@id/repeatChoiceDialogFragment" />
     </fragment>
     <dialog
         android:id="@+id/repeatChoiceDialogFragment"
@@ -197,6 +200,9 @@
         <action
             android:id="@+id/action_categoryFragment_to_tasksFragment"
             app:destination="@id/tasksFragment" />
+        <action
+            android:id="@+id/action_categoryFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
     </fragment>
     <dialog
         android:id="@+id/kidSuccessCloseTaskFragment"

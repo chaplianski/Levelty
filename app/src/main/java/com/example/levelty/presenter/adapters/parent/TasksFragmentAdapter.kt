@@ -1,6 +1,5 @@
 package com.example.levelty.presenter.adapters.parent
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,8 +9,6 @@ import android.view.ViewTreeObserver
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.core.graphics.toColorInt
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
@@ -19,9 +16,6 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.example.levelty.R
 import com.example.levelty.domain.models.Category
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.MaterialShapeDrawable
-import com.google.android.material.shape.ShapeAppearanceModel
 
 
 class TasksFragmentAdapter (val tasksList: List<Category>): RecyclerView.Adapter<TasksFragmentAdapter.ViewHolder>() {
@@ -87,6 +81,14 @@ class TasksFragmentAdapter (val tasksList: List<Category>): RecyclerView.Adapter
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         holder.onBind(tasksList[position])
+        if (position % 10 == 1|| position % 10 == 2||position % 10 ==6||position % 10 ==7) {
+            holder.taskImage.apply {
+                scaleY = 0.7f
+                scaleX = 0.7f
+                translationX = 50f
+                translationY = 50f
+            }
+        }
         holder.itemView.setOnClickListener {
             if (position == 0){
                 val navController = holder.itemView.let { Navigation.findNavController(it) }
@@ -121,10 +123,9 @@ class TasksFragmentAdapter (val tasksList: List<Category>): RecyclerView.Adapter
 //            val shapeDrawableLL = MaterialShapeDrawable(shapeAppearanceModelLL)
 
             if (category.id == null) {
-
                 taskCard.setCardBackgroundColor("#2D98FB".toColorInt())
                 Glide.with(itemView.context).load(R.drawable.ic_big_plus)
-                    .override(30, 30)
+                    .override(100, 100)
 //                    .centerCrop()
                     .circleCrop()
                     .into(taskImage)
@@ -132,8 +133,8 @@ class TasksFragmentAdapter (val tasksList: List<Category>): RecyclerView.Adapter
 
                 taskNameText.text = category.title.toString()
                 category.backgroundColor?.toColorInt()?.let { taskCard.setCardBackgroundColor(it) }
-                Glide.with(itemView.context).load(category.image)
-                    .override(68, 68)
+                Glide.with(itemView.context).load(R.drawable.saly12)
+                    .override(100, 100)
 //                    .centerCrop()
                     .circleCrop()
                     .into(taskImage)

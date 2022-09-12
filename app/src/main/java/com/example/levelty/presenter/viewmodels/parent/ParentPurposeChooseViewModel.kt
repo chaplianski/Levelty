@@ -13,8 +13,8 @@ import javax.inject.Inject
 
 class ParentPurposeChooseViewModel @Inject constructor(private val getParentPurposesUseCase: GetParentPurposesUseCase): ViewModel() {
 
-    val _purposeList = MutableLiveData<List<Purpose>>()
-    val purposeList: LiveData<List<Purpose>> get() = _purposeList
+    val _purposeList = MutableLiveData<List<String>>()
+    val purposeList: LiveData<List<String>> get() = _purposeList
 
     fun getPurposeVariants(){
         viewModelScope.launch(Dispatchers.IO) {

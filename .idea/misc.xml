@@ -58,6 +58,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_interest_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_new_task.xml" value="0.5246720799500312" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_parent_tasks_in_category.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_parents_purpose_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_point_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile.xml" value="0.4" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_profile_choice.xml" value="0.5421875" />
@@ -103,6 +104,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/menu/bottom_app_bar.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/menu/kid_app_bar.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/menu/kid_bottom_app_bar.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/menu/parent_bottom_app_bar.xml" value="0.5421875" />
       </map>
     </option>
   </component>

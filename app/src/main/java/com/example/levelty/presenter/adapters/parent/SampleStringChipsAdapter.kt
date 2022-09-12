@@ -9,9 +9,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.google.android.material.chip.Chip
 
-class SampleStringChipsAdapter(val itemsList: List<String>): RecyclerView.Adapter<SampleStringChipsAdapter.ViewHolder>() {
+class SampleStringChipsAdapter(val itemsList: List<String>, beginPosition: Int): RecyclerView.Adapter<SampleStringChipsAdapter.ViewHolder>() {
 
-    var checkedPosition = -1
+    var checkedPosition = beginPosition
+
     interface ChipClickListener{
         fun clickChip(item: String, position: Int)
     }

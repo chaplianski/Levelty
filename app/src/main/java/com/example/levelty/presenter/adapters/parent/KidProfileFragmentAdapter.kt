@@ -16,14 +16,14 @@ import com.example.levelty.domain.models.Kid
 import de.hdodenhof.circleimageview.CircleImageView
 
 
-class KidProfileFragmentAdapter(private val kidList: List<ChildrenItem>, currentKid: ChildrenItem) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class KidProfileFragmentAdapter(private val kidList: List<ChildrenItem>, val currentKid: Int) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     var selectedPosition = getSelectedPosition(currentKid)
 
-    private fun getSelectedPosition(checkedKid: ChildrenItem): Int {
+    private fun getSelectedPosition(checkedKidId: Int): Int {
         var position = 0
         for (kid in kidList){
-            if (kid == checkedKid) return position
+            if (kid.id == checkedKidId) return position
             else position++
         }
         return position

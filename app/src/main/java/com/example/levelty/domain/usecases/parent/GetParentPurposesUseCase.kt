@@ -6,7 +6,7 @@ import javax.inject.Inject
 
 class GetParentPurposesUseCase @Inject constructor(private val purposeRepository: PurposeRepository) {
 
-    fun execute(): List<Purpose> {
+    fun execute(): List<String> {
         return purposeRepository.getParentsPurposes()
     }
 }
