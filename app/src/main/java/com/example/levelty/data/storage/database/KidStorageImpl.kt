@@ -41,10 +41,25 @@ class KidStorageImpl @Inject constructor(): KidStorage {
 
     override fun getChild(): ChildDTO {
         val balance = BalanceDTO(233,0)
+        val category1 = CategoryDTO(null,"",0,"School")
+        val category2 = CategoryDTO(null,"",1,"Science")
+        val category3 = CategoryDTO(null,"",2,"School")
+        val category4 = CategoryDTO(null,"",3,"Physical growth")
+        val choresList = mutableListOf<ChoresItemDTO>()
+        choresList.add(ChoresItemDTO("09-13-2022",0,"09-27-2022","Any comment", 0, "pending"))
+        choresList.add(ChoresItemDTO("09-14-2022",0,"09-27-2022","Any comment", 1, "done"))
+        choresList.add(ChoresItemDTO("09-14-2022",0,"09-27-2022","Any comment", 2, "pending"))
+        val choresList2 = mutableListOf<ChoresItemDTO>()
+        choresList2.add(ChoresItemDTO("09-13-2022",0,"09-27-2022","Any comment", 0, "pending"))
+        choresList2.add(ChoresItemDTO("09-14-2022",0,"09-27-2022","Any comment", 1, "done"))
+        choresList2.add(ChoresItemDTO("09-14-2022",0,"09-27-2022","Any comment", 2, "pending"))
+        val interestsList = mutableListOf<ChildInterestsItemDTO>()
+        interestsList.add(ChildInterestsItemDTO(0,"Happy"))
+        interestsList.add(ChildInterestsItemDTO(1,"Second"))
         val assignedTasks = mutableListOf<AssignedTasksItemDTO>()
-        assignedTasks.add(AssignedTasksItemDTO(15,"10-10-2022","dsdsdfsdfsdf","","09-09-2022",null,null,"Walk Dog", 0,0,3,0,null,true,"10-09-2022",0,"pending"))
-        assignedTasks.add(AssignedTasksItemDTO(25,"11-11-2022","erwerwerwer","","09-11-2022",null,null,"Go to school", 1,0,1,1,null,true,"11-09-2022",0,"pending"))
-        assignedTasks.add(AssignedTasksItemDTO(55,"11-11-2022","xcbvcbxcbcc","","09-11-2022",null,null,"watch TV", 1,0,1,2,null,true,"11-09-2022",0,"pending"))
+        assignedTasks.add(AssignedTasksItemDTO(15,"10-10-2022","dsdsdfsdfsdf","","09-09-2022",interestsList,choresList,"Walk Dog", 0,0,3,0,category1,true,"10-09-2022",0,"pending"))
+        assignedTasks.add(AssignedTasksItemDTO(25,"11-11-2022","erwerwerwer","","09-11-2022",interestsList,choresList2,"Go to school", 1,0,1,1,category2,true,"11-09-2022",0,"pending"))
+        assignedTasks.add(AssignedTasksItemDTO(55,"11-11-2022","xcbvcbxcbcc","","09-11-2022",interestsList,choresList,"watch TV", 1,0,1,2,category3,true,"11-09-2022",0,"pending"))
         val interests = mutableListOf<InterestsItemDTO>()
         interests.add(InterestsItemDTO(0,"Phone"))
         interests.add(InterestsItemDTO(1,"Computer"))
@@ -59,7 +74,7 @@ class KidStorageImpl @Inject constructor(): KidStorage {
         goals.add(GoalsItemDTO(2,0,500,"Very nice","09-09-2022","New phone", "Approved"))
 
         return ChildDTO(
-            2,3, balance, 4, 0, assignedTasks, 10, 122,interests,user,parents,goals
+            2,3, balance, 14, 0, assignedTasks, 10, 122,interests,user,parents,goals
         )
     }
 

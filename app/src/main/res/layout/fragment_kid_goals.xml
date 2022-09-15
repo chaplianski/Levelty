@@ -187,6 +187,7 @@
         android:layout_height="wrap_content"
         app:backgroundTint="@color/white"
         android:alpha="0.8"
+        app:itemTextColor="@color/menu_text_color_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -34,8 +34,8 @@ class NewTaskViewModel @Inject constructor(
     val dates: LiveData<List<String>> get() = _dates
     private val _points = MutableLiveData<List<String>>()
     val points: LiveData<List<String>> get() = _points
-    private val _task = MutableLiveData<ProcessedTask>()
-    val task: LiveData<ProcessedTask> get() = _task
+    private val _task = MutableLiveData<ParentProcessedTask>()
+    val task: LiveData<ParentProcessedTask> get() = _task
 
     fun addTask(newTask: NewTask){
         viewModelScope.launch(Dispatchers.IO) {

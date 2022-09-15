@@ -7,8 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.ChildrenItem
 import com.example.levelty.domain.models.NewTask
-import com.example.levelty.domain.models.ProcessedTask
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.ParentProcessedTask
 import com.example.levelty.domain.usecases.parent.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
@@ -33,8 +32,8 @@ class ParentEditTaskFragmentViewModel @Inject constructor(
     val dates: LiveData<List<String>> get() = _dates
     private val _points = MutableLiveData<List<String>>()
     val points: LiveData<List<String>> get() = _points
-    private val _task = MutableLiveData<ProcessedTask>()
-    val task: LiveData<ProcessedTask> get() = _task
+    private val _task = MutableLiveData<ParentProcessedTask>()
+    val task: LiveData<ParentProcessedTask> get() = _task
 
 
 

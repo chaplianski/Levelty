@@ -6,17 +6,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
-import com.example.levelty.domain.models.CreatedTasksItem
-import com.example.levelty.domain.models.ProcessedTask
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.ParentProcessedTask
 import java.lang.ref.WeakReference
 
-class FragmentDayPersonalTasksAdapter (private val dayTasksList: List<ProcessedTask>, val checkedDay: String) : RecyclerView.Adapter<FragmentDayPersonalTasksAdapter.ViewHolder>(){
+class FragmentDayPersonalTasksAdapter (private val dayTasksList: List<ParentProcessedTask>, val checkedDay: String) : RecyclerView.Adapter<FragmentDayPersonalTasksAdapter.ViewHolder>(){
 
 
 
     interface ShortOnClickListener {
-        fun ShortClick(task: ProcessedTask)
+        fun ShortClick(task: ParentProcessedTask)
     }
 
     var shortOnClickListener: ShortOnClickListener? = null
@@ -52,7 +50,7 @@ class FragmentDayPersonalTasksAdapter (private val dayTasksList: List<ProcessedT
         val view = WeakReference(itemView)
 
 
-        fun onBind(task: ProcessedTask){
+        fun onBind(task: ParentProcessedTask){
             taskName.text = task.title
 //            tasksMoney.text = "${(task.taskPoints*10).toString()}$ "
             taskCoins.text = "${task.cost} coins"

@@ -2,12 +2,13 @@ package com.example.levelty.presenter.utils
 
 import android.view.View
 import androidx.navigation.Navigation
+import androidx.navigation.Navigation.findNavController
 import com.example.levelty.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView, view: View) {
 
-    val navController = Navigation.findNavController(view)
+    val navController = findNavController(view)
 
     bottomNavigation.setOnItemSelectedListener { itemMenu ->
         when (itemMenu.itemId) {
@@ -40,7 +41,7 @@ fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView, view: V
                 true
             }
             R.id.parent_profile -> {
-                navController.navigate(R.id.profileFragment)
+                navController.navigate(R.id.parentProfileFragment)
                 true
             }
             R.id.parent_settings -> {

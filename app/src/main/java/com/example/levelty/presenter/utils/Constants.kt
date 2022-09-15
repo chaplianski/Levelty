@@ -16,3 +16,6 @@ const val DAYS_BEFORE_TODAY = 30
 const val DAYS_AFTER_TODAY = 365
 
 const val TASK_NAME = "task name"
+const val CURRENT_KID_NAME = "current kid name"
+const val CURRENT_KID_LEVEL = "current kid level"
+const val CURRENT_KID_COINS = "current kid coins"

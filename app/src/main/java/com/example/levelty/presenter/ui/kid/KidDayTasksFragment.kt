@@ -8,8 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.ViewCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -24,16 +22,16 @@ import com.example.levelty.databinding.FragmentKidDayTasksBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.CreatedTasksItem
 import com.example.levelty.domain.models.DateTask
-import com.example.levelty.domain.models.ProcessedTask
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.KidProcessedTask
 import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
 import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter
+import com.example.levelty.presenter.adapters.kid.KidDaysTasksListAdapter
 import com.example.levelty.presenter.adapters.kid.TaskPickerLayoutManager
-import com.example.levelty.presenter.factories.kid.DayKidDetailTaskFragmentViewModelFactory
-import com.example.levelty.presenter.utils.getTodayDate
-import com.example.levelty.presenter.viewmodels.kid.DayKidDetailTaskFragmentViewModel
+import com.example.levelty.presenter.factories.kid.KidDayTaskFragmentViewModelFactory
+import com.example.levelty.presenter.utils.*
+import com.example.levelty.presenter.viewmodels.kid.KidDayTaskFragmentViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
@@ -46,8 +44,8 @@ import javax.inject.Inject
 class KidDayTasksFragment : Fragment() {
 
     @Inject
-    lateinit var dayKidDetailTaskFragmentViewModelFactory: DayKidDetailTaskFragmentViewModelFactory
-    val dayKidDetailTaskFragmentViewModel: DayKidDetailTaskFragmentViewModel by viewModels { dayKidDetailTaskFragmentViewModelFactory }
+    lateinit var kidDayTaskFragmentViewModelFactory: KidDayTaskFragmentViewModelFactory
+    val kidDayTaskFragmentViewModel: KidDayTaskFragmentViewModel by viewModels { kidDayTaskFragmentViewModelFactory }
 
     var _binding: FragmentKidDayTasksBinding? = null
     val binding: FragmentKidDayTasksBinding get() = _binding!!
@@ -71,7 +69,17 @@ class KidDayTasksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var checkedDate = getTodayDate()
+        val kidName = binding.tvFragmentDayKidDetailKidName
+        val kidLevel = binding.tvFragmentDayKidDetailLevel
+        val kidCoins = binding.tvFragmentDayKidDetailKidNumberCoins
+
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        kidName.text = sharedPref?.getString(CURRENT_KID_NAME, "")
+        kidLevel.text = "Level ${sharedPref?.getInt(CURRENT_KID_LEVEL, 0)}"
+        kidCoins.text = sharedPref?.getInt(CURRENT_KID_COINS, 0).toString()
+
+
+        var checkedDate = getTodayShortDate()
         val tasksWheelRV = binding.layoutFragmentDayKidWheelTasks.rvKidTasksCardsWheel
         val progressWheelText =
             binding.layoutFragmentDayKidWheelTasks.tvKidTasksCardsWheelProgressText
@@ -82,28 +90,46 @@ class KidDayTasksFragment : Fragment() {
         val tasksWheelLayout = binding.layoutFragmentDayKidWheelTasks.viewKidTasksCardsWheelLayout
         val tasksListLayout = binding.layoutFragmentDayKidListTasks.viewKidDayTasksListLayout
         val noTasksPastLayout = binding.layoutKidDayTasksNoTaskInPast.viewKidMessageNoTaskInPast
-        val noTaskFutureLayout = binding.layoutKidDayTasksNoTaskInFuture.viewKidDialogDialogNoTaskInFuture
+        val noTaskFutureLayout =
+            binding.layoutKidDayTasksNoTaskInFuture.viewKidDialogDialogNoTaskInFuture
         val skipTaskLayout = binding.layoutKidSkipTaskDialog.viewKidSkipTaskDialogLayout
 
-        val skipReasonField = binding.layoutKidSkipTaskDialog.otlSkipTaskMessageContainer
+//        val skipReasonField = binding.layoutKidSkipTaskDialog.otlSkipTaskMessageContainer
         val skipReasonText = binding.layoutKidSkipTaskDialog.etSkipTaskMessageText
         val skipButton = binding.layoutKidSkipTaskDialog.btSkipTaskMessageSent
 
         val bottomNavigation = binding.bottomAppBarKidDayTasks
+//        getKidBottomNavigationBar(bottomNavigation)
+        bottomNavigation.selectedItemId = R.id.kid_tasks
         getKidBottomNavigationBar(bottomNavigation)
+        bottomNavigation.itemIconTintList = null
 
+        kidDayTaskFragmentViewModel.getTaskList()
+        kidDayTaskFragmentViewModel.taskList.observe(this.viewLifecycleOwner) { allTasks ->
+//            Log.d("MyLog", "checkedDate = $checkedDate, allTasks = $allTasks")
 
-        //***** Skip message block *****
-        skipButton.setOnClickListener {
-            if (skipReasonText.text?.isBlank() == true){
-                skipReasonField.error = "Please, enter reason"
-            }else{
-                // TODO add sent data to server
-                skipReasonText.setText("")
-                dayKidDetailTaskFragmentViewModel.getTaskList()
+            kidDayTaskFragmentViewModel.getDayTaskList(checkedDate, allTasks)
+
+            kidDayTaskFragmentViewModel.currentDay.observe(this.viewLifecycleOwner) { day ->
+//                Log.d("MyLog", "date = $day, taskS = ${allTasks.size}" )
+                checkedDate = day
+                kidDayTaskFragmentViewModel.getDayTaskList(day, allTasks)
             }
         }
-        changeErrorStatus(skipReasonText, skipReasonField)
+
+
+//        //***** Skip message block *****
+//        skipButton.setOnClickListener {
+//            if (skipReasonText.text?.isBlank() == true) {
+//                skipReasonField.error = "Please, enter reason"
+//            } else {
+//                // TODO add sent data to server
+//                skipReasonText.setText("")
+//                kidDayTaskFragmentViewModel.getTaskList()
+//            }
+//        }
+//        changeErrorStatus(skipReasonText, skipReasonField)
+
 
         // ***** Date Wheel ******
 
@@ -115,20 +141,23 @@ class KidDayTasksFragment : Fragment() {
                 val day = view?.findViewById<TextView>(R.id.tv_date_item_number)
                 val month = view?.findViewById<TextView>(R.id.tv_date_item_month)
                 val year = view?.findViewById<TextView>(R.id.tv_date_item_year)
-                dayKidDetailTaskFragmentViewModel.transferDateValue("${day?.text} ${month?.text} ${year?.text}")
-
+                kidDayTaskFragmentViewModel.transferDateValue("${year?.text}-${
+                    String.format("%02d", getMonthNumber(
+                        month?.text.toString())
+                    )
+                }-${day?.text}")
             }
         })
 
-        dayKidDetailTaskFragmentViewModel.currentDay.observe(this.viewLifecycleOwner) { date ->
-
-            checkedDate = date
-            dayKidDetailTaskFragmentViewModel.getTaskList()
+//        kidDayTaskFragmentViewModel.currentDay.observe(this.viewLifecycleOwner) { date ->
+//
+//            checkedDate = date
+//            kidDayTaskFragmentViewModel.getTaskList()
 //            Toast.makeText(
 //                context,
 //                "Selected date ${date}", Toast.LENGTH_SHORT
 //            ).show()
-        }
+//        }
 
         // ******  Tasks wheel  ********
 
@@ -136,127 +165,128 @@ class KidDayTasksFragment : Fragment() {
 //            view.findViewById(R.id.rv_fragment_day_kid_detail_tasks_tasks_list)
         val taskPickerLayoutManager =
             TaskPickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        dayKidDetailTaskFragmentViewModel.getTaskList()
+        kidDayTaskFragmentViewModel.getTaskList()
 
-//        dayKidDetailTaskFragmentViewModel.taskList.observe(this.viewLifecycleOwner) { tasks ->
-//            Log.d("MyLog", "checked date = $checkedDate, today = ${getTodayDate()}" )
-//            datesWheelLayout.visibility = View.VISIBLE
-//            when (true) {
-//                (checkedDate == getTodayDate() && tasks.isNotEmpty()) -> {
-//                    // *** Fill wheel cards tasks
-//                    noTaskFutureLayout.visibility = View.INVISIBLE
-//                    noTasksPastLayout.visibility = View.INVISIBLE
-//                    tasksListLayout.visibility = View.INVISIBLE
-//                    tasksWheelLayout.visibility = View.VISIBLE
-//                    skipTaskLayout.visibility = View.INVISIBLE
-//
-//                    val kidDayTasksFragmentAdapter =
-//                        KidDayTasksFragmentAdapter(tasks, tasksWheelRV)
-//                    //         val dayKidDetailTaskFragmentTasksAdapter = DayKidDetailTaskFragmentTasksAdapter(it)
-//                    tasksWheelRV.onFlingListener = null
-//                    val tasksSnapHelper: SnapHelper = LinearSnapHelper()
-//                    tasksSnapHelper.attachToRecyclerView(tasksWheelRV)
-//
-//                    if (tasks.size > 1) {
-//                        tasksWheelRV.layoutManager = taskPickerLayoutManager
-//                    }
-//
-//                    tasksWheelRV.adapter = kidDayTasksFragmentAdapter
-//
-//                    lifecycleScope.launchWhenCreated {
-//                        delay(100)
-//                        tasksWheelRV.scrollToPosition(0)
-//                    }
-//
-//                    kidDayTasksFragmentAdapter.checkTaskElementListener = object : KidDayTasksFragmentAdapter.CheckTaskElementListener{
-//                        override fun clickOnDoneButton(task: CreatedTasksItem) {
-//                            findNavController().navigate(R.id.action_kidDayTasksFragment_to_kidSuccessCloseTaskFragment)
-//                        }
-//
-//                        override fun clickOnSkipButton(task: CreatedTasksItem) {
-//                            noTaskFutureLayout.visibility = View.INVISIBLE
-//                            datesWheelLayout.visibility = View.INVISIBLE
-//                            noTasksPastLayout.visibility = View.INVISIBLE
-//                            tasksListLayout.visibility = View.INVISIBLE
-//                            tasksWheelLayout.visibility = View.INVISIBLE
-//                            skipTaskLayout.visibility = View.VISIBLE
-//                        }
-//
-//                        override fun clickOnCancelTaskButton(task: CreatedTasksItem) {
-//                            TODO("Not yet implemented")
-//                        }
-//
-//                        override fun clickOnRedoButton(task: CreatedTasksItem) {
-//                            TODO("Not yet implemented")
-//                        }
-//
-//                    }
-//
-//                    //***** Set progress indicators *******
-//
-//                    val allTaskCount = tasks.size
-//                    val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks)
-//                    progressWheelText.text = "$completedTaskCount of $allTaskCount are completed"
-//                    progressWheelView.max = allTaskCount
-//                    progressWheelView.progress = completedTaskCount
-//                }
-//
-//                (checkedDate > getTodayDate() && tasks.isEmpty()) -> {
-//                    noTaskFutureLayout.visibility = View.VISIBLE
-//                    noTasksPastLayout.visibility = View.INVISIBLE
-//                    tasksListLayout.visibility = View.INVISIBLE
-//                    tasksWheelLayout.visibility = View.INVISIBLE
-//                    skipTaskLayout.visibility = View.INVISIBLE
-//                }
-//                (checkedDate < getTodayDate() && tasks.isEmpty()) -> {
-//                    noTaskFutureLayout.visibility = View.INVISIBLE
-//                    noTasksPastLayout.visibility = View.VISIBLE
-//                    tasksListLayout.visibility = View.INVISIBLE
-//                    tasksWheelLayout.visibility = View.INVISIBLE
-//                    skipTaskLayout.visibility = View.INVISIBLE
-//                }
-//                else -> {
-//                    noTaskFutureLayout.visibility = View.INVISIBLE
-//                    noTasksPastLayout.visibility = View.INVISIBLE
-//                    tasksListLayout.visibility = View.VISIBLE
-//                    tasksWheelLayout.visibility = View.INVISIBLE
-//                    skipTaskLayout.visibility = View.INVISIBLE
-//                    fetchListTaskLayout(tasks, view, checkedDate)
-//                }
-//            }
-//        }
+        kidDayTaskFragmentViewModel.todayTasksList.observe(this.viewLifecycleOwner) { todayTasks ->
+//            Log.d("MyLog", "checked date = $checkedDate, today = ${getTodayShortDate()}, task size = ${tasks.size}")
+            datesWheelLayout.visibility = View.VISIBLE
+            when (true) {
+                (dateShortStringToTime(checkedDate) == getTodayDateMls() && todayTasks.isNotEmpty()) -> {
+                    // *** Fill wheel cards tasks
+                    noTaskFutureLayout.visibility = View.INVISIBLE
+                    noTasksPastLayout.visibility = View.INVISIBLE
+                    tasksListLayout.visibility = View.INVISIBLE
+                    tasksWheelLayout.visibility = View.VISIBLE
+                    skipTaskLayout.visibility = View.INVISIBLE
+
+                    val kidDayTasksFragmentAdapter =
+                        KidDayTasksFragmentAdapter(todayTasks, tasksWheelRV)
+                    //         val dayKidDetailTaskFragmentTasksAdapter = DayKidDetailTaskFragmentTasksAdapter(it)
+                    tasksWheelRV.onFlingListener = null
+                    val tasksSnapHelper: SnapHelper = LinearSnapHelper()
+                    tasksSnapHelper.attachToRecyclerView(tasksWheelRV)
+
+                    if (todayTasks.size > 1) {
+                        tasksWheelRV.layoutManager = taskPickerLayoutManager
+                    }
+
+                    tasksWheelRV.adapter = kidDayTasksFragmentAdapter
+
+                    lifecycleScope.launchWhenCreated {
+                        delay(100)
+                        tasksWheelRV.scrollToPosition(0)
+                    }
+
+                    kidDayTasksFragmentAdapter.checkTaskElementListener =
+                        object : KidDayTasksFragmentAdapter.CheckTaskElementListener {
+                            override fun clickOnDoneButton(task: KidProcessedTask) {
+
+                                findNavController().navigate(R.id.action_kidDayTasksFragment_to_kidSuccessCloseTaskFragment)
+                            }
+
+                            override fun clickOnSkipButton(task: KidProcessedTask) {
+                                noTaskFutureLayout.visibility = View.INVISIBLE
+                                datesWheelLayout.visibility = View.INVISIBLE
+                                noTasksPastLayout.visibility = View.INVISIBLE
+                                tasksListLayout.visibility = View.INVISIBLE
+                                tasksWheelLayout.visibility = View.INVISIBLE
+                                skipTaskLayout.visibility = View.VISIBLE
+                            }
+
+                            override fun clickOnCancelTaskButton(task: KidProcessedTask) {
+                                TODO("Not yet implemented")
+                            }
+
+                            override fun clickOnRedoButton(task: KidProcessedTask) {
+                                TODO("Not yet implemented")
+                            }
+
+                        }
+
+                    //***** Set progress indicators *******
+
+                    val allTaskCount = todayTasks.size
+                    val completedTaskCount = allTaskCount - getUncompletedCountTask(todayTasks, checkedDate)
+                    progressWheelText.text = "$completedTaskCount of $allTaskCount are completed"
+                    progressWheelView.max = allTaskCount
+                    progressWheelView.progress = completedTaskCount
+                }
+
+                (checkedDate > getTodayShortDate() && todayTasks.isEmpty()) -> {
+                    noTaskFutureLayout.visibility = View.VISIBLE
+                    noTasksPastLayout.visibility = View.INVISIBLE
+                    tasksListLayout.visibility = View.INVISIBLE
+                    tasksWheelLayout.visibility = View.INVISIBLE
+                    skipTaskLayout.visibility = View.INVISIBLE
+                }
+                (checkedDate < getTodayShortDate() && todayTasks.isEmpty()) -> {
+                    noTaskFutureLayout.visibility = View.INVISIBLE
+                    noTasksPastLayout.visibility = View.VISIBLE
+                    tasksListLayout.visibility = View.INVISIBLE
+                    tasksWheelLayout.visibility = View.INVISIBLE
+                    skipTaskLayout.visibility = View.INVISIBLE
+                }
+                else -> {
+                    noTaskFutureLayout.visibility = View.INVISIBLE
+                    noTasksPastLayout.visibility = View.INVISIBLE
+                    tasksListLayout.visibility = View.VISIBLE
+                    tasksWheelLayout.visibility = View.INVISIBLE
+                    skipTaskLayout.visibility = View.INVISIBLE
+                    fetchListTaskLayout(todayTasks, view, checkedDate)
+                }
+            }
+        }
     }
 
-//    private fun fetchListTaskLayout(
-//        tasks: List<CreatedTasksItem>,
-//        view: View, checkedDate: String
-//    ) {
-//        val tasksListRV = binding.layoutFragmentDayKidListTasks.rvKidDayTasksList
-//
-//        val fragmentDayPersonalTasksAdapter = FragmentDayPersonalTasksAdapter(tasks, checkedDate)
-//        tasksListRV.adapter = fragmentDayPersonalTasksAdapter
-//        val bundle = Bundle()
-//        fragmentDayPersonalTasksAdapter.shortOnClickListener =
-//            object : FragmentDayPersonalTasksAdapter.ShortOnClickListener {
-//                override fun ShortClick(task: ProcessedTask) {
-////                    bundle.putParcelable("current task", task)
-//                    val navController = Navigation.findNavController(view)
-//                    navController.navigate(
+    private fun fetchListTaskLayout(
+        tasks: List<KidProcessedTask>,
+        view: View, checkedDate: String
+    ) {
+        val tasksListRV = binding.layoutFragmentDayKidListTasks.rvKidDayTasksList
+//        Log.d("MyLog", "tasks = ${tasks}")
+        val fragmentDayPersonalTasksAdapter = KidDaysTasksListAdapter(tasks)
+        tasksListRV.adapter = fragmentDayPersonalTasksAdapter
+        val bundle = Bundle()
+        fragmentDayPersonalTasksAdapter.shortOnClickListener =
+            object : KidDaysTasksListAdapter.ShortOnClickListener {
+                override fun ShortClick(task: KidProcessedTask) {
+//                    bundle.putParcelable("current task", task)
+//                    findNavController().navigate(
 //                        R.id.action_dayPersonalTasksFragment_to_dayPersonalTasksDialogFragment,
-////                        bundle
+//                        bundle
 //                    )
-//                }
-//            }
+                }
+            }
 //
-//        //***** Set progress indicators *******
-//        val progressListText = binding.layoutFragmentDayKidListTasks.tvKidDayTasksListProgressText
-//        val progressListView = binding.layoutFragmentDayKidListTasks.pbKidDayTasksListProgressView
-//        val allTaskCount = tasks.size
-//        val completedTaskCount = allTaskCount - getUpcomingCountTask(tasks, checkedDate)
-//        progressListText.text = "$completedTaskCount of $allTaskCount are completed"
-//        progressListView.max = allTaskCount
-//        progressListView.progress = completedTaskCount
-//    }
+        //***** Set progress indicators *******
+        val progressListText = binding.layoutFragmentDayKidListTasks.tvKidDayTasksListProgressText
+        val progressListView = binding.layoutFragmentDayKidListTasks.pbKidDayTasksListProgressView
+        val allTaskCount = tasks.size
+        val completedTaskCount = allTaskCount - getUncompletedCountTask(tasks, checkedDate)
+        progressListText.text = "$completedTaskCount of $allTaskCount are completed"
+        progressListView.max = allTaskCount
+        progressListView.progress = completedTaskCount
+    }
 
     private fun getWheelPickerLayoutManager(view: View): PickerLayoutManager {
         val dateWheelRV = binding.datesWheelLayout.rvCommonDateWheelDates
@@ -274,9 +304,10 @@ class KidDayTasksFragment : Fragment() {
         dateWheelRV.layoutManager = pickerLayoutManager
         dateWheelRV.adapter = dateTasksFragmentAdapter
 
-        dateTasksFragmentAdapter?.registerAdapterDataObserver(object : RecyclerView.AdapterDataObserver(){
+        dateTasksFragmentAdapter?.registerAdapterDataObserver(object :
+            RecyclerView.AdapterDataObserver() {
             override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
-                dateWheelRV.scrollToPosition(beginDaysCount-1)
+                dateWheelRV.scrollToPosition(beginDaysCount - 1)
             }
 
 //            override fun onItemRangeRemoved(positionStart: Int, itemCount: Int) {
@@ -285,28 +316,29 @@ class KidDayTasksFragment : Fragment() {
 //            }
 
         })
-        dateTasksFragmentAdapter?.stateRestorationPolicy = RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
+        dateTasksFragmentAdapter?.stateRestorationPolicy =
+            RecyclerView.Adapter.StateRestorationPolicy.PREVENT_WHEN_EMPTY
         lifecycleScope.launchWhenCreated {
             delay(50)
             dateWheelRV.scrollToPosition(beginDaysCount + 1)
         }
 
-        var currentPosition = beginDaysCount-1
+        var currentPosition = beginDaysCount - 1
 
-        dateTasksFragmentAdapter?.pickerDateListener = object : PickerAdapter.PickerDateListener{
+        dateTasksFragmentAdapter?.pickerDateListener = object : PickerAdapter.PickerDateListener {
             override fun onItemClick(position: Int, dateTask: DateTask) {
                 pickerLayoutManager.enableScrolling()
-                Log.d("MyLog","currentPosition = $currentPosition, position = $position")
+                Log.d("MyLog", "currentPosition = $currentPosition, position = $position")
                 var scrollPosition = 0
-                scrollPosition = if (position > currentPosition) position+2
-                else if (position < currentPosition) position-2
+                scrollPosition = if (position > currentPosition) position + 2
+                else if (position < currentPosition) position - 2
                 else currentPosition
-                    lifecycleScope.launchWhenCreated {
-                        delay(50)
-                        dateWheelRV.scrollToPosition(scrollPosition)
-                        currentPosition = position
-                    }
-                dayKidDetailTaskFragmentViewModel.transferDateValue("${dateTask.month} ${dateTask.day} ${dateTask.year}")
+                lifecycleScope.launchWhenCreated {
+                    delay(50)
+                    dateWheelRV.scrollToPosition(scrollPosition)
+                    currentPosition = position
+                }
+                kidDayTaskFragmentViewModel.transferDateValue("${dateTask.year}-${String.format("%02d", getMonthNumber(dateTask.month))}-${dateTask.day} ")
                 pickerLayoutManager.disableScrolling()
 
             }
@@ -347,18 +379,17 @@ class KidDayTasksFragment : Fragment() {
 //        return count
 //    }
 
-    private fun getUpcomingCountTask(tasksList: List<CreatedTasksItem>, checkedDate: String): Int {
+    private fun getUncompletedCountTask(
+        tasksList: List<KidProcessedTask>,
+        checkedDate: String
+    ): Int {
         var count = 0
         for (task in tasksList) {
-            if (task.chores != null){
-                for (chore in task.chores){
-                    if (chore?.date == checkedDate){
-                        if (chore.status != "done" ){
-                            count++
-                        }
-                    }
+//            if (task.choreDate == checkedDate) {
+                if (task.choreStatus != "done") {
+                    count++
                 }
-            }
+//            }
         }
         return count
     }
@@ -375,6 +406,27 @@ class KidDayTasksFragment : Fragment() {
     }
 
     private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { itemMenu ->
+            when (itemMenu.itemId) {
+                R.id.kid_tasks -> {
+                    findNavController().navigate(R.id.kidDayTasksFragment)
+                    true
+                }
+                R.id.kid_profile -> {
+                    findNavController().navigate(R.id.kidProfileFragment)
+                    true
+                }
+                R.id.kid_goals -> {
+                    findNavController().navigate(R.id.kidGoalsFragment)
+                    true
+                }
+                else -> false
+            }
+
+        }
+    }
+
+    private fun getBottonNavigation(bottomNavigation: BottomNavigationView) {
         bottomNavigation.setOnItemSelectedListener { itemMenu ->
             when (itemMenu.itemId) {
                 R.id.kid_tasks -> {

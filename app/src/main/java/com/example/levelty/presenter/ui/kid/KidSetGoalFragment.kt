@@ -35,11 +35,35 @@ class KidSetGoalFragment : Fragment() {
         val backButton = binding.ivKidSetGoalFragmentBack
         val bottomNavigation = binding.bottomAppBarKidSetGoalFragment
 
-        getKidBottomNavigationBar(bottomNavigation, view)
+        bottomNavigation.itemIconTintList = null
+
+//        getKidBottomNavigationBar(bottomNavigation, view)
+        getBottonNavigation(bottomNavigation)
         goalsRV.layoutManager = GridLayoutManager(context,2)
+
 
     }
 
+    private fun getBottonNavigation(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { itemMenu ->
+            when (itemMenu.itemId) {
+                R.id.kid_tasks -> {
+                    findNavController().navigate(R.id.kidDayTasksFragment)
+                    true
+                }
+                R.id.kid_profile -> {
+                    findNavController().navigate(R.id.kidProfileFragment)
+                    true
+                }
+                R.id.kid_goals -> {
+                    findNavController().navigate(R.id.kidGoalsFragment)
+                    true
+                }
+                else -> false
+            }
+
+        }
+    }
 //    private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
 //        bottomNavigation.setOnItemSelectedListener { itemMenu ->
 //            when (itemMenu.itemId) {

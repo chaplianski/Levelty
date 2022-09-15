@@ -19,6 +19,9 @@ import com.example.levelty.presenter.adapters.kid.KidGoalsWheelAdapter
 import com.example.levelty.presenter.adapters.kid.TaskPickerLayoutManager
 import com.example.levelty.presenter.factories.kid.KidGoalsFragmentViewModelFactory
 import com.example.levelty.presenter.factories.parent.ParentKidGoalsFragmentViewModelFactory
+import com.example.levelty.presenter.utils.CURRENT_KID_COINS
+import com.example.levelty.presenter.utils.CURRENT_KID_LEVEL
+import com.example.levelty.presenter.utils.CURRENT_KID_NAME
 import com.example.levelty.presenter.utils.getKidBottomNavigationBar
 import com.example.levelty.presenter.viewmodels.kid.KidGoalsFragmentViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -55,19 +58,32 @@ class KidGoalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val kidName = binding.tvKidGoalsFragmentKidName
+        val kidLevel = binding.tvKidGoalsFragmentKidLevel
+        val kidCoins = binding.tvKidGoalsFragmentCoinsNumber
+
+        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+        kidName.text = sharedPref?.getString(CURRENT_KID_NAME, "")
+        kidLevel.text = "Level ${sharedPref?.getInt(CURRENT_KID_LEVEL, 0)}"
+        kidCoins.text = sharedPref?.getInt(CURRENT_KID_COINS, 0).toString()
+
+
         val progressText = binding.tvKidGoalsFragmentProgressText
         val progressView = binding.pbKidGoalsFragmentProgressView
         val goalsRV = binding.rvKidGoalsFragmentTasksList
         val kidAvatar = binding.ivKidGoalsFragmentAvatar
-        val kidName = binding.tvKidGoalsFragmentKidName
-        val kidLevel = binding.tvKidGoalsFragmentKidLevel
-        val kidCoins = binding.ivKidGoalsFragmentCoins
+//        val kidName = binding.tvKidGoalsFragmentKidName
+//        val kidLevel = binding.tvKidGoalsFragmentKidLevel
+//        val kidCoins = binding.ivKidGoalsFragmentCoins
 
         val bottomNavigation: BottomNavigationView = binding.bottomAppBarKidGoalsFragment
         val goalPickerLayoutManager =
             TaskPickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
 
-        getKidBottomNavigationBar(bottomNavigation, view)
+//        getKidBottomNavigationBar(bottomNavigation, view)
+        bottomNavigation.selectedItemId = R.id.kid_goals
+        getBottonNavigation(bottomNavigation)
+        bottomNavigation.itemIconTintList = null
 
         kidGoalsFragmentViewModel.getGoals()
         kidGoalsFragmentViewModel.goals.observe(this.viewLifecycleOwner){ goals ->
@@ -115,4 +131,25 @@ class KidGoalsFragment : Fragment() {
 //        }
 //    }
 
+
+    private fun getBottonNavigation(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { itemMenu ->
+            when (itemMenu.itemId) {
+                R.id.kid_tasks -> {
+                    findNavController().navigate(R.id.kidDayTasksFragment)
+                    true
+                }
+                R.id.kid_profile -> {
+                    findNavController().navigate(R.id.kidProfileFragment)
+                    true
+                }
+                R.id.kid_goals -> {
+                    findNavController().navigate(R.id.kidGoalsFragment)
+                    true
+                }
+                else -> false
+            }
+
+        }
+    }
 }

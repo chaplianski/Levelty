@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -44,6 +46,12 @@ class KidSuccessCloseTaskFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val bottomNavigation = view.findViewById<BottomNavigationView>(R.id.bottom_appBar_kid_success_close_task)
+//        getKidBottomNavigationBar(bottomNavigation)
+        bottomNavigation.selectedItemId = R.id.kid_tasks
+        getKidBottomNavigationBar(bottomNavigation)
+        bottomNavigation.itemIconTintList = null
+
         val coolButton: Button = view.findViewById(R.id.bt_kid_success_close_task_cool)
 //        coolButton.background.alpha = (0.1*255).toInt()
 
@@ -52,6 +60,25 @@ class KidSuccessCloseTaskFragment : BottomSheetDialogFragment() {
             dismiss()
         }
     }
+    private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
+        bottomNavigation.setOnItemSelectedListener { itemMenu ->
+            when (itemMenu.itemId) {
+                R.id.kid_tasks -> {
+                    findNavController().navigate(R.id.kidDayTasksFragment)
+                    true
+                }
+                R.id.kid_profile -> {
+                    findNavController().navigate(R.id.kidProfileFragment)
+                    true
+                }
+                R.id.kid_goals -> {
+                    findNavController().navigate(R.id.kidGoalsFragment)
+                    true
+                }
+                else -> false
+            }
 
+        }
+    }
 
 }

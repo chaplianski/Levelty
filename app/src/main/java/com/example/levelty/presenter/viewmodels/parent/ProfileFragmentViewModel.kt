@@ -1,15 +1,11 @@
 package com.example.levelty.presenter.viewmodels.parent
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.*
 import com.example.levelty.domain.usecases.parent.*
-import com.example.levelty.presenter.utils.dateShortStringToTime
-import com.example.levelty.presenter.utils.dayToMls
-import com.example.levelty.presenter.utils.getTodayDateMls
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
@@ -27,8 +23,8 @@ class ProfileFragmentViewModel @Inject constructor(
 
     private val _kidsList = MutableLiveData<List<ChildrenItem>>()
     val kidList: LiveData<List<ChildrenItem>> get() = _kidsList
-    private val _todayTaskList = MutableLiveData<List<ProcessedTask>>()
-    val todayTasksList: LiveData<List<ProcessedTask>> get() = _todayTaskList
+    private val _todayTaskList = MutableLiveData<List<ParentProcessedTask>>()
+    val todayTasksList: LiveData<List<ParentProcessedTask>> get() = _todayTaskList
     private val _kidValue = MutableLiveData<ChildrenItem>()
     val kidValue: LiveData<ChildrenItem> get() = _kidValue
     val _kidInterestList = MutableLiveData<List<Interest>>()

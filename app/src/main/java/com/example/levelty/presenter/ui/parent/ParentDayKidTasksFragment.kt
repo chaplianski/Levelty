@@ -18,14 +18,13 @@ import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentDayPersonalTasksBinding
 import com.example.levelty.di.DaggerAppComponent
-import com.example.levelty.domain.models.ProcessedTask
+import com.example.levelty.domain.models.ParentProcessedTask
 import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
 import com.example.levelty.presenter.factories.parent.ParentDayKidTasksViewModelFactory
 import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.ParentDayKidTasksViewModel
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import javax.inject.Inject
 
@@ -163,7 +162,7 @@ class ParentDayKidTasksFragment : Fragment() {
 
             fragmentDayPersonalTasksAdapter.shortOnClickListener =
                 object : FragmentDayPersonalTasksAdapter.ShortOnClickListener {
-                    override fun ShortClick(task: ProcessedTask) {
+                    override fun ShortClick(task: ParentProcessedTask) {
                       val bundle = Bundle()
                         task.id?.let { bundle.putInt(CURRENT_TASK_ID, it) }
                         bundle.putParcelable(CURRENT_TASK, task.mapToEditTask())
@@ -289,7 +288,7 @@ class ParentDayKidTasksFragment : Fragment() {
 //    }
 
 
-    private fun getUpcomingCountTask(tasksList: List<ProcessedTask>, checkedDate: String): Int {
+    private fun getUpcomingCountTask(tasksList: List<ParentProcessedTask>, checkedDate: String): Int {
         var count = 0
         for (task in tasksList) {
             if (task.choreStatus != "done") count++

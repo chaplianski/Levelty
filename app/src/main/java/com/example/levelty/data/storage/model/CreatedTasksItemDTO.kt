@@ -1,9 +1,5 @@
 package com.example.levelty.data.storage.model
 
-import com.example.levelty.domain.models.Category
-import com.example.levelty.domain.models.ChildInterestsItem
-import com.example.levelty.domain.models.ChoresItem
-
 data class CreatedTasksItemDTO (
     val id: Int? = null,
     val title: String? = null,

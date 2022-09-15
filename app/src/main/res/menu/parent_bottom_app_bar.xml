@@ -7,14 +7,14 @@
     <group>
         <item
             android:id="@+id/parent_tasks"
-            android:icon="@drawable/ic_tasks"
+            android:icon="@drawable/ic_tasks_selected"
             android:title="@string/tasks"
             android:contentDescription="@string/content_tasks"
             app:showAsAction="ifRoom|withText"
             />
         <item
             android:id="@+id/parent_profile"
-            android:icon="@drawable/ic_profile"
+            android:icon="@drawable/ic_profile_selected"
             android:title="@string/profile"
             app:itemTextColor="@color/black"
             android:contentDescription="@string/content_profile"

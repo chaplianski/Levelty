@@ -239,8 +239,8 @@ fun ChoresItem.choreMapDataToDomain(): ChoresItemDTO {
     )
 }
 
-fun ProcessedTaskDTO.processedMapTaskDataToDomain(): ProcessedTask {
-    return ProcessedTask(
+fun ParentProcessedTaskDTO.processedMapTaskDataToDomain(): ParentProcessedTask {
+    return ParentProcessedTask(
         id = id,
         title = title,
         parentPurpose = parentPurpose,
@@ -409,5 +409,30 @@ fun AssignedTasksItemDTO.assignedTaskMapDataToDomain(): AssignedTasksItem{
         category = category?.categoryMapDataToDomain(),
         isPeriodic = isPeriodic,
         startDate = startDate
+    )
+}
+
+fun KidProcessedTaskDTO.kidProcessedTaskMapDataToDomain(): KidProcessedTask{
+    return KidProcessedTask(
+        id = id,
+        title = title,
+        parentPurpose = parentPurpose,
+        cost = cost,
+        description = description,
+        createdAt = createdAt,
+        assigneeId = assigneeId,
+        categoryId = categoryId,
+        category = category?.categoryMapDataToDomain(),
+        creatorId = creatorId,
+        isPeriodic = isPeriodic,
+        repeatInterval = repeatInterval,
+        childInterests = childInterests?.map { it?.interestsMapDataToDomain() },
+        status = status,
+        choreDate = choreDate,
+        choreFinishDate = choreFinishDate,
+        choreStatus = choreStatus,
+        choreID = choreID,
+        choreComment = choreComment
+
     )
 }

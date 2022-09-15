@@ -2,34 +2,31 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".presenter.ui.MainActivity" >
+    tools:context=".presenter.ui.MainActivity">
 
     <group>
         <item
             android:id="@+id/kid_tasks"
-            android:icon="@drawable/ic_tasks"
-            android:title="@string/tasks"
             android:contentDescription="@string/content_tasks"
-            app:showAsAction="ifRoom|withText"
-            />
+            android:icon="@drawable/tasks_color_selector"
+            android:title="@string/tasks"
+
+            app:itemTextColor="@color/menu_text_color_selector"
+            app:showAsAction="ifRoom|withText" />
         <item
             android:id="@+id/kid_profile"
-            android:icon="@drawable/ic_profile"
-            android:title="@string/profile"
-            app:itemTextColor="@color/black"
             android:contentDescription="@string/content_profile"
-            app:showAsAction="always|withText"
-            />
+            android:icon="@drawable/profile_color_selector"
+            android:title="@string/profile"
+            app:showAsAction="always|withText" />
         <item
             android:id="@+id/kid_goals"
-            android:icon="@drawable/ic_igoals"
-            android:title="Goals"
             android:contentDescription="@string/content_goals"
-            app:showAsAction="ifRoom|withText"
-            />
+            android:icon="@drawable/goals_color_selector"
+            android:title="Goals"
+            app:showAsAction="ifRoom|withText" />
 
     </group>
-
 
 
 </menu>

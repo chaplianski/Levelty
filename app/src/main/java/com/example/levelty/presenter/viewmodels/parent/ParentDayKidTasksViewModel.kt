@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.levelty.domain.models.ProcessedTask
+import com.example.levelty.domain.models.ParentProcessedTask
 import com.example.levelty.domain.usecases.parent.GetTasksUseCase
 import com.example.levelty.domain.usecases.parent.UpdateTaskStatusUseCase
 import kotlinx.coroutines.Dispatchers
@@ -17,10 +17,10 @@ class ParentDayKidTasksViewModel @Inject constructor(
     private val updateTaskStatusUseCase: UpdateTaskStatusUseCase
 ) : ViewModel() {
 
-    private val _allTaskList = MutableLiveData<List<ProcessedTask>>()
-    val allTaskList: LiveData<List<ProcessedTask>> get() = _allTaskList
-    private val _dayTaskList = MutableLiveData<List<ProcessedTask>>()
-    val dayTaskList: LiveData<List<ProcessedTask>> = _dayTaskList
+    private val _allTaskList = MutableLiveData<List<ParentProcessedTask>>()
+    val allTaskList: LiveData<List<ParentProcessedTask>> get() = _allTaskList
+    private val _dayTaskList = MutableLiveData<List<ParentProcessedTask>>()
+    val dayTaskList: LiveData<List<ParentProcessedTask>> = _dayTaskList
     val _currentDay = MutableLiveData<String>()
     val currentDay: LiveData<String> get() = _currentDay
 
@@ -32,8 +32,8 @@ class ParentDayKidTasksViewModel @Inject constructor(
         }
     }
 
-    fun getDayTasks(tasks: List<ProcessedTask>, kidId: Int, date: String) {
-        val dayTasks = mutableListOf<ProcessedTask>()
+    fun getDayTasks(tasks: List<ParentProcessedTask>, kidId: Int, date: String) {
+        val dayTasks = mutableListOf<ParentProcessedTask>()
         for (task in tasks) {
             if (task.choreDate == date && task.assigneeId == kidId)
                 dayTasks.add(task)

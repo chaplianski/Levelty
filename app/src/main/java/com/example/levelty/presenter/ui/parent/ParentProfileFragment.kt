@@ -38,7 +38,6 @@ import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
-import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.chip.Chip
 import java.text.DateFormatSymbols
@@ -307,7 +306,7 @@ class ParentProfileFragment : Fragment() {
         goalsRV.adapter = goalsProfileFragmentAdapter
     }
 
-    private fun getUncomingTaskList(tasks: List<ProcessedTask>): List<ProcessedTask> {
+    private fun getUncomingTaskList(tasks: List<ParentProcessedTask>): List<ParentProcessedTask> {
         val upcomingTaskList = getUpcomingTasks(tasks)
         val uncomingTaskAdapter = UpcomingTasksProfileFragmentAdapter(upcomingTaskList)
         val upcomingTaskRV = binding.rvProfileFragmentUncomingTasks
@@ -322,7 +321,7 @@ class ParentProfileFragment : Fragment() {
 //        interestRV.adapter = interestsProfileFragmentAdapter
 //    }
 
-    private fun getPurposeList(it: List<ProcessedTask>) {
+    private fun getPurposeList(it: List<ParentProcessedTask>) {
         val purposePosition = -1
         val purposeList = it.map { task -> task.parentPurpose.toString() }.toSet().toList()
         val sampleStringChipsAdapter = SampleStringChipsAdapter(purposeList, purposePosition)
@@ -351,7 +350,7 @@ class ParentProfileFragment : Fragment() {
         _binding = null
     }
 
-    private fun getPieCategoriesEntries(tasks: List<ProcessedTask>): MutableList<PieEntry> {
+    private fun getPieCategoriesEntries(tasks: List<ParentProcessedTask>): MutableList<PieEntry> {
         val pieCategoryList = mutableListOf<PieEntry>()
         val pieCategorySet = mutableSetOf<String>()
         for (task in tasks) {
@@ -368,7 +367,7 @@ class ParentProfileFragment : Fragment() {
         return pieCategoryList
     }
 
-    private fun getPieTaskEntries(tasks: List<ProcessedTask>): MutableList<PieEntry> {
+    private fun getPieTaskEntries(tasks: List<ParentProcessedTask>): MutableList<PieEntry> {
         val pieTaskList = mutableListOf<PieEntry>()
         val pieTaskSet = mutableSetOf<String>()
         for (task in tasks) {
@@ -389,8 +388,8 @@ class ParentProfileFragment : Fragment() {
 //        return tasks.map { task -> task.childInterests }.toSet().toList()
 //    }
 
-    private fun getUpcomingTasks(taskList: List<ProcessedTask>): List<ProcessedTask> {
-        val upcomingTaskList = mutableListOf<ProcessedTask>()
+    private fun getUpcomingTasks(taskList: List<ParentProcessedTask>): List<ParentProcessedTask> {
+        val upcomingTaskList = mutableListOf<ParentProcessedTask>()
         for (task in taskList) {
             if (task.status == DONE_TASK_STATUS) {
                 upcomingTaskList.add(task)

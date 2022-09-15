@@ -2,10 +2,7 @@ package com.example.levelty.data.storage.database
 
 import android.util.Log
 import com.example.levelty.data.storage.dao.LeveltyDao
-import com.example.levelty.data.storage.model.CategoryDTO
-import com.example.levelty.data.storage.model.ChoresItemDTO
-import com.example.levelty.data.storage.model.CreatedTasksItemDTO
-import com.example.levelty.data.storage.model.TaskDTO
+import com.example.levelty.data.storage.model.*
 import com.example.levelty.data.storage.storage.TaskStorage
 import com.example.levelty.domain.models.ChoresItem
 import com.example.levelty.domain.models.CreatedTasksItem
@@ -89,7 +86,7 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
 //        return taskList.toList()
     }
 
-    override fun getTasksList(): List<CreatedTasksItemDTO> {
+    override fun getCreatedTasksList(): List<CreatedTasksItemDTO> {
 //        val taskList = mutableListOf<TaskDTO>()
 //        return leveltyDao.getTasksList()
         val choresList = mutableListOf<ChoresItemDTO>()
@@ -165,6 +162,87 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
 //        Log.d("MyLog", "list in taskStorageImpl = $list")
         return listTasks
     }
+
+    override fun getAssignedTaskList(): List<AssignedTasksItemDTO> {
+        val choresList = mutableListOf<ChoresItemDTO>()
+        choresList.add(ChoresItemDTO("2022-09-14", 0, "2022-09-20", "Nothing", 0, "done"))
+        choresList.add(ChoresItemDTO("2022-09-13", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "done"))
+        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "rejected"))
+        choresList.add(
+            ChoresItemDTO(
+                "2022-09-16",
+                0,
+                "2022-09-20",
+                "Nothing",
+                0,
+                "waiting for approval"
+            )
+        )
+        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "waiting_for_approval"))
+        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "refused"))
+        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "rejected"))
+
+        val choresList2 = mutableListOf<ChoresItemDTO>()
+        choresList2.add(ChoresItemDTO("2022-09-12", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-13", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-14", 0, "2022-09-20", "Nothing", 0, "refused"))
+
+        val category1 = CategoryDTO(null, "#AED581", 0, "School")
+        val category2 = CategoryDTO(null, "#EA80FC", 1, "Science")
+        val category3 = CategoryDTO(null, "#FF7043", 1, "Sport")
+
+        val listTasks = mutableListOf<AssignedTasksItemDTO>()
+        listTasks.add(
+            AssignedTasksItemDTO(
+                25,
+                "25-10-2022",
+                "Home help",
+                "Health",
+                "2022-09-11",
+                null,
+                choresList,
+                "Walk dog",
+                0,
+                0,
+                3,
+                1,
+                category1,
+                true,
+                "2022-09-10",
+                0,
+                "pending"
+            )
+        )
+        listTasks.add(
+            AssignedTasksItemDTO(
+                35,
+                "25-10-2022",
+                "Home help",
+                "Study",
+                "2022-09-09",
+                null,
+                choresList2,
+                "Go to school",
+                1,
+                0,
+                1,
+                1,
+                category2,
+                true,
+                "2022-09-09",
+                0,
+                "pending"
+            )
+        )
+
+//        val list = leveltyDao.getTodayTask(kidName, date)
+//        Log.d("MyLog", "list in taskStorageImpl = $listTasks")
+
+        return listTasks
+    }
+
 
     override fun getKidDetailTasksList(): List<TaskDTO> {
         val taskList = mutableListOf<TaskDTO>()

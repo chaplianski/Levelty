@@ -1,10 +1,6 @@
-package com.example.levelty.data.storage.model
+package com.example.levelty.domain.models
 
-import com.example.levelty.domain.models.Category
-import com.example.levelty.domain.models.ChildInterestsItem
-
-data class ProcessedTaskDTO(
-
+data class KidProcessedTask(
     val id: Int? = null,
     val title: String? = null,
     val parentPurpose: String? = null,
@@ -13,16 +9,15 @@ data class ProcessedTaskDTO(
     val createdAt: String? = null,
     val assigneeId: Int? = null,
     val categoryId: Int? = null,
-    val category: CategoryDTO? = null,
+    val category: Category? = null,
     val creatorId: Int? = null,
     val isPeriodic: Boolean? = null,
     val repeatInterval: Int? = null,
-    val childInterests: List<ChildInterestsItemDTO?>? = null,
+    val childInterests: List<ChildInterestsItem?>? = null,
     val status: String? = null,
     val choreDate: String? = null,
-    val choreFinishDate: String? = null,
+    val choreFinishDate : String? = null,
     val choreStatus: String? = null,
     val choreID: Int? = null,
     val choreComment: String? = null,
-
-    )
+)

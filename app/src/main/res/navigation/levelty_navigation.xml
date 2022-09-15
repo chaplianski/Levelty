@@ -6,7 +6,7 @@
     app:startDestination="@id/profileChoiceFragment">
 
     <fragment
-        android:id="@+id/profileFragment"
+        android:id="@+id/parentProfileFragment"
         android:name="com.example.levelty.presenter.ui.parent.ParentProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" >
@@ -48,7 +48,7 @@
             app:destination="@id/editTaskFragment" />
         <action
             android:id="@+id/action_parentDayKidTasksFragment_to_parenProfileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/parentProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/tasksFragment"
@@ -118,7 +118,7 @@
         android:id="@+id/kidProfileFragment"
         android:name="com.example.levelty.presenter.ui.kid.KidProfileFragment"
         android:label="fragment_kid_personal"
-        tools:layout="@layout/fragment_kid_personal" >
+        tools:layout="@layout/fragment_kid_profile" >
         <action
             android:id="@+id/action_kidProfileFragment_to_kidDayTasksFragment"
             app:destination="@id/kidDayTasksFragment" />
@@ -142,11 +142,14 @@
         android:label="fragment_profile_choice"
         tools:layout="@layout/fragment_profile_choice" >
         <action
-            android:id="@+id/action_profileChoiceFragment_to_kidPersonalFragment"
+            android:id="@+id/action_profileChoiceFragment_to_parentProfileFragment"
+            app:destination="@id/parentProfileFragment" />
+        <action
+            android:id="@+id/action_profileChoiceFragment_to_kidProfileFragment"
             app:destination="@id/kidProfileFragment" />
         <action
-            android:id="@+id/action_profileChoiceFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            android:id="@+id/action_profileChoiceFragment_to_kidDayTasksFragment"
+            app:destination="@id/kidDayTasksFragment" />
     </fragment>
     <dialog
         android:id="@+id/dayPersonalTasksDialogFragment"

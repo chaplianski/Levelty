@@ -4,18 +4,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
-import com.example.levelty.domain.models.CreatedTasksItem
-import com.example.levelty.domain.models.ProcessedTask
-import com.example.levelty.domain.models.Task
-import kotlinx.coroutines.NonDisposableHandle.parent
+import com.example.levelty.domain.models.ParentProcessedTask
 
-class CategoryFragmentAdapter(val taskList: List<ProcessedTask>): RecyclerView.Adapter<CategoryFragmentAdapter.ViewHolder>() {
+class CategoryFragmentAdapter(val taskList: List<ParentProcessedTask>): RecyclerView.Adapter<CategoryFragmentAdapter.ViewHolder>() {
 
     interface CategoryClickListener{
-        fun onItemClick(processedTask: ProcessedTask)
+        fun onItemClick(parentProcessedTask: ParentProcessedTask)
     }
 
     var categoryClickListener: CategoryClickListener? = null
@@ -49,7 +45,7 @@ class CategoryFragmentAdapter(val taskList: List<ProcessedTask>): RecyclerView.A
         val taskCoins: TextView = itemView.findViewById(R.id.tv_categories_fragment_task_coins)
         val taskNumber: TextView = itemView.findViewById(R.id.tv_categories_fragment_task_number)
 
-        fun onBind(task: ProcessedTask){
+        fun onBind(task: ParentProcessedTask){
             taskName.text = task.title
             taskCoins.text = "${task.cost} coins"
 

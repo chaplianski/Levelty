@@ -1,5 +1,6 @@
 package com.example.levelty.data.storage.storage
 
+import com.example.levelty.data.storage.model.AssignedTasksItemDTO
 import com.example.levelty.data.storage.model.CreatedTasksItemDTO
 import com.example.levelty.data.storage.model.TaskDTO
 
@@ -9,7 +10,9 @@ interface TaskStorage {
 
     fun getTodayTask(kidId: Int, date: String): List<CreatedTasksItemDTO>
 
-    fun getTasksList(): List<CreatedTasksItemDTO>
+    fun getCreatedTasksList(): List<CreatedTasksItemDTO>
+
+    fun getAssignedTaskList(): List<AssignedTasksItemDTO>
 
     fun getKidDetailTasksList(): List<TaskDTO>
 

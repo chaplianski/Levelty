@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
 import com.example.levelty.di.DaggerAppComponent
-import com.example.levelty.domain.models.ProcessedTask
+import com.example.levelty.domain.models.ParentProcessedTask
 import com.example.levelty.presenter.adapters.parent.CategoryFragmentAdapter
 import com.example.levelty.presenter.factories.parent.CategoryFragmentViewModelFactory
 import com.example.levelty.presenter.utils.CURRENT_TASK
@@ -67,9 +67,9 @@ class CategoryFragment : Fragment() {
             categoryRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             categoryRV.adapter = taskAdapter
             taskAdapter.categoryClickListener = object : CategoryFragmentAdapter.CategoryClickListener{
-                override fun onItemClick(processedTask: ProcessedTask) {
+                override fun onItemClick(parentProcessedTask: ParentProcessedTask) {
                     val bundle = Bundle()
-                    val editTask = processedTask.mapToEditTask()
+                    val editTask = parentProcessedTask.mapToEditTask()
                     bundle.putParcelable(CURRENT_TASK, editTask)
                     bundle.putString(CATEGORY_MARK, "from category fragment")
                     findNavController().navigate(R.id.action_categoryFragment_to_editTaskFragment, bundle)

@@ -1,15 +1,11 @@
 package com.example.levelty.data.repository
 
+import android.util.Log
 import com.example.levelty.data.network.retrofit.parents.CreateNewTaskApiHelper
 import com.example.levelty.data.network.retrofit.parents.UpdateParenTaskApiHelper
 import com.example.levelty.data.network.retrofit.parents.UpdateTaskStatusApiHelper
-import com.example.levelty.data.network.service.CreateNewTaskApiService
-import com.example.levelty.data.network.service.UpdateTaskStatusApiService
 import com.example.levelty.data.storage.database.TaskStorageImpl
-import com.example.levelty.domain.models.CreatedTasksItem
-import com.example.levelty.domain.models.NewTask
-import com.example.levelty.domain.models.ProcessedTask
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.*
 import com.example.levelty.domain.repository.TaskRepository
 import javax.inject.Inject
 
@@ -34,16 +30,19 @@ class TaskRepositoryImpl @Inject constructor(
     //    override fun getTasksList(): List<CreatedTasksItem> {
 //        return taskStorageImpl.getTasksList().map { it.taskMapDataToDomain() }
 //    }
-    override fun getTasksList(): List<ProcessedTask> {
-        val createdTasks = taskStorageImpl.getTasksList()
+    override fun getTasksList(): List<ParentProcessedTask> {
+        val createdTasks = taskStorageImpl.getCreatedTasksList()
         return createdTasksItemToProcessedTask(createdTasks).map { it.processedMapTaskDataToDomain() }
     }
 
 
-    override fun getKidDetailTasksList(): List<ProcessedTask> {
-        val createdTask = taskStorageImpl.getTasksList()
-        return createdTasksItemToProcessedTask(createdTask).map { it.processedMapTaskDataToDomain() }
+    override fun getKidTasksList(): List<KidProcessedTask> {
+        val assignedTasks = taskStorageImpl.getAssignedTaskList()
+        Log.d("MyLog", "list in taskRepositoryImpl = ${assignedTasksItemToProcessedTask(assignedTasks).map { it.kidProcessedTaskMapDataToDomain() }}")
+        return assignedTasksItemToProcessedTask(assignedTasks).map { it.kidProcessedTaskMapDataToDomain() }
     }
+
+
 
     override suspend fun addTask(newTask: NewTask) {
         createNewTaskApiHelper.createNewTask(newTask.taskMapDomainToData())

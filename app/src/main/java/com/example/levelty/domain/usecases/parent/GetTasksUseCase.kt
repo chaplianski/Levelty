@@ -1,8 +1,6 @@
 package com.example.levelty.domain.usecases.parent
 
-import com.example.levelty.domain.models.CreatedTasksItem
-import com.example.levelty.domain.models.ProcessedTask
-import com.example.levelty.domain.models.Task
+import com.example.levelty.domain.models.ParentProcessedTask
 import com.example.levelty.domain.repository.TaskRepository
 import javax.inject.Inject
 
@@ -11,7 +9,7 @@ class GetTasksUseCase @Inject constructor(private val taskRepository: TaskReposi
     //    fun execute(): List<CreatedTasksItem>{
 //        return taskRepository.getTasksList()
 //    }
-    fun execute(): List<ProcessedTask> {
+    fun execute(): List<ParentProcessedTask> {
         return taskRepository.getTasksList()
     }
 

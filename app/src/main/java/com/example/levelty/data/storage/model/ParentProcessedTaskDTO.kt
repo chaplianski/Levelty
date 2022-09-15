@@ -1,10 +1,10 @@
-package com.example.levelty.domain.models
+package com.example.levelty.data.storage.model
 
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+import com.example.levelty.domain.models.Category
+import com.example.levelty.domain.models.ChildInterestsItem
 
+data class ParentProcessedTaskDTO(
 
-data class ProcessedTask(
     val id: Int? = null,
     val title: String? = null,
     val parentPurpose: String? = null,
@@ -13,16 +13,16 @@ data class ProcessedTask(
     val createdAt: String? = null,
     val assigneeId: Int? = null,
     val categoryId: Int? = null,
-    val category: Category? = null,
+    val category: CategoryDTO? = null,
     val creatorId: Int? = null,
     val isPeriodic: Boolean? = null,
     val repeatInterval: Int? = null,
-    val childInterests: List<ChildInterestsItem?>? = null,
+    val childInterests: List<ChildInterestsItemDTO?>? = null,
     val status: String? = null,
     val choreDate: String? = null,
-    val choreFinishDate : String? = null,
+    val choreFinishDate: String? = null,
     val choreStatus: String? = null,
     val choreID: Int? = null,
     val choreComment: String? = null,
 
-)
+    )

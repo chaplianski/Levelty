@@ -63,44 +63,46 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_skip_task_message_1"
         app:layout_constraintVertical_bias="0.0" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/otl_skip_task_message_container"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="20dp"
-        android:backgroundTint="#0DFFFFFF"
-        app:boxBackgroundColor="#1AFFFFFF"
-        app:boxCornerRadiusBottomEnd="25dp"
-        app:boxStrokeWidthFocused="1dp"
-        app:boxCornerRadiusBottomStart="25dp"
-        app:boxCornerRadiusTopEnd="25dp"
-        app:boxCornerRadiusTopStart="25dp"
-        app:boxStrokeColor="#80FFFFFF"
-        app:boxStrokeWidth="1dp"
-        app:hintEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_skip_task_message_2"
-        app:layout_constraintVertical_bias="0.0">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_skip_task_message_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Type here"
-            android:inputType="text"
-            android:paddingStart="10dp"
-            android:textAppearance="@style/ChipTextRegular"
-            android:textColor="@color/white"
-            android:textColorHint="#80FFFFFF"
-            android:textSize="18dp" />
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/otl_skip_task_message_container"-->
+    <!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="54dp"-->
+    <!--        android:layout_marginStart="20dp"-->
+    <!--        android:layout_marginTop="56dp"-->
+    <!--        android:layout_marginEnd="20dp"-->
+    <!--        android:backgroundTint="#0DFFFFFF"-->
+    <!--        app:boxBackgroundColor="#1AFFFFFF"-->
+    <!--        app:boxCornerRadiusBottomEnd="25dp"-->
+    <!--        app:boxCornerRadiusBottomStart="25dp"-->
+    <!--        app:boxCornerRadiusTopEnd="25dp"-->
+    <!--        app:boxCornerRadiusTopStart="25dp"-->
+    <!--        app:boxStrokeColor="#1AFFFFFF"-->
+    <!--        app:boxStrokeWidth="1dp"-->
+    <!--        app:boxStrokeWidthFocused="1dp"-->
+    <!--        app:hintEnabled="false"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="1.0"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/tv_skip_task_message_2"-->
+    <!--        app:layout_constraintVertical_bias="0.0">-->
 
-    </com.google.android.material.textfield.TextInputLayout>
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:id="@+id/et_skip_task_message_text"-->
+    <!--            style="@style/Regular"-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:hint="Type the reason here"-->
+    <!--            android:inputType="text"-->
+    <!--            android:paddingStart="20dp"-->
+    <!--            android:textAppearance="@style/ChipTextRegular"-->
+    <!--            android:textColor="@color/white"-->
+    <!--            android:textColorHint="#80FFFFFF"-->
+    <!--            android:textSize="18dp" />-->
+
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <Button
         android:id="@+id/bt_skip_task_message_sent"
@@ -114,7 +116,8 @@
         android:backgroundTint="#26FFFFFF"
         android:insetTop="0dp"
         android:insetBottom="0dp"
-        android:text="Sent to my parents"
+        android:stateListAnimator="@null"
+        android:text="Send to my parents"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -124,7 +127,29 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otl_skip_task_message_container"
+        app:layout_constraintTop_toBottomOf="@+id/et_skip_task_message_text"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/et_skip_task_message_text"
+        style="@style/Regular"
+        android:layout_width="match_parent"
+        android:layout_height="54dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/edittext_border"
+        android:ems="10"
+        android:hint="Type the reason here"
+        android:inputType="textPersonName"
+        android:paddingStart="20dp"
+        android:textColor="@color/white"
+        android:textColorHint="#99FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_skip_task_message_2"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
