@@ -1,6 +1,8 @@
 package com.example.levelty.presenter.dialogs.parent
 
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.DialogFragment
@@ -39,17 +41,19 @@ class ParentDayKidChangeStatusTaskDialogFragment () : DialogFragment() {
         // Inflate the layout for this fragment
 
         val window: Window? = dialog!!.window
-        window?.setGravity(Gravity.TOP or Gravity.LEFT)
+        window?.setGravity(Gravity.TOP or Gravity.NO_GRAVITY)
         val params: WindowManager.LayoutParams? = window?.getAttributes()
   //      params?.x = 300
         params?.y = 1100
         window?.setAttributes(params)
-
+//        window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         return inflater.inflate(R.layout.fragment_day_personal_tasks_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         val approveButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_approve)
         val declineButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_decline)

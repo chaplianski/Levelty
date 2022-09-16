@@ -1,5 +1,6 @@
 package com.example.levelty.presenter.adapters.kid
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +18,9 @@ import kotlinx.coroutines.NonDisposableHandle.parent
 
 class KidDayTasksFragmentAdapter (
 //    val taskList: List<KidProcessedTask>, private val recyclerView: RecyclerView): RecyclerView.Adapter<KidDayTasksFragmentAdapter.ViewHolder>() {
+
     val taskList: List<KidProcessedTask>, private val recyclerView: RecyclerView): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     interface CheckTaskElementListener {
         fun clickOnDoneButton(task: KidProcessedTask)
         fun clickOnSkipButton(task: KidProcessedTask)
@@ -56,7 +59,8 @@ class KidDayTasksFragmentAdapter (
 
 //    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (taskList[position].choreStatus){
+//    Log.d("MyLog", "list = ${taskList.map { list -> list.title }}")
+    when (taskList[position].choreStatus){
             "pending" -> {
                 (holder as NormalStatusViewHolder).onBind(taskList[position])
                 holder.taskNameText.setOnClickListener { recyclerView.smoothScrollToPosition(position) }
@@ -140,6 +144,7 @@ class KidDayTasksFragmentAdapter (
 
         fun onBind(task: KidProcessedTask){
 
+            Log.d("MyLog", "name = ${task.title}, cost = ${task.cost}")
             taskNameText.text = task.title
             costValueText.text = if (task.cost == 1){
                 "${task.cost} coin"

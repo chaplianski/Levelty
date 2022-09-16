@@ -50,7 +50,11 @@ class ApiModule {
 //            .addNetworkInterceptor(provideCacheInterceptor())
 //            .addInterceptor(interceptor)
             .addInterceptor {chain ->
-                val request = chain.request().newBuilder().addHeader("Authorization", "Bearer $PARENT_TOKEN").build()
+                val request = chain.request()
+                    .newBuilder()
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("Authorization", "Bearer $PARENT_TOKEN")
+                    .build()
                 chain.proceed(request)  }
             .addNetworkInterceptor(interceptor)
             .build()

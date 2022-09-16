@@ -113,6 +113,9 @@
         <action
             android:id="@+id/action_kidDayTasksFragment_to_kidSuccessCloseTaskFragment"
             app:destination="@id/kidSuccessCloseTaskFragment" />
+        <action
+            android:id="@+id/action_kidDayTasksFragment_to_kidRedoTaskDialog"
+            app:destination="@id/kidRedoTaskDialog" />
     </fragment>
     <fragment
         android:id="@+id/kidProfileFragment"
@@ -230,4 +233,9 @@
             android:id="@+id/action_kidSetGoalFragment_to_kidGoalsFragment"
             app:destination="@id/kidGoalsFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/kidRedoTaskDialog"
+        android:name="com.example.levelty.presenter.dialogs.kid.KidRedoTaskDialog"
+        android:label="fragment_kid_redo_task_dialog"
+        tools:layout="@layout/fragment_kid_redo_task_dialog" />
 </navigation>

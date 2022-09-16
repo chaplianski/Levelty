@@ -64,8 +64,8 @@ class KidDaysTasksListAdapter (
 //            tasksMoney.text = "${(task.taskPoints*10).toString()}$ "
                 taskCoins.text = "${task.cost} coins"
                 taskStatus.text = task.choreStatus
-                Log.d("MyLog", "task status = ${task.choreStatus}")
-                Log.d("MyLog", "task = ${task}")
+//                Log.d("MyLog", "task status = ${task.choreStatus}")
+//                Log.d("MyLog", "task = ${task}")
 
                 when (task.choreStatus) {
                     "done" -> taskStatus.setTextColor(Color.GREEN)

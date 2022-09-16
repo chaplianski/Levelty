@@ -51,6 +51,7 @@ class ParentTasksFragment : Fragment() {
         bottomNavigation.selectedItemId = R.id.parent_tasks
 
         getParentBottomNavigationBar(bottomNavigation, view)
+        bottomNavigation.itemIconTintList = null
         tasksFragmentViewModel.getTasksListValue()
         tasksFragmentViewModel.tasksListValue.observe(this.viewLifecycleOwner){ tasks ->
 

@@ -114,6 +114,7 @@ class ParentProfileFragment : Fragment() {
         val kidLevelText: TextView = binding.tvProfileFragmentKidLevel
 
         bottomNavigation.selectedItemId = R.id.parent_profile
+        bottomNavigation.itemIconTintList = null
 
         val tasksPie = binding.pieProfileFragmentTasks
         val categoryPie = binding.pieProfileFragmentCategories

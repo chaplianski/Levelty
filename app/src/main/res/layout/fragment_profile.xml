@@ -685,6 +685,7 @@
         app:contentInsetEnd="0dp"
         app:contentInsetStart="0dp"
         app:elevation="0dp"
+        app:itemTextColor="@color/menu_text_color_selector"
         app:fabAlignmentMode="center"
         app:fabAnimationMode="scale"
         app:fabCradleMargin="10dp"

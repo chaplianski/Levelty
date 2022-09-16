@@ -1,7 +1,9 @@
 package com.example.levelty.presenter.ui.kid
 
+import android.app.ProgressDialog.show
 import android.content.Context
 import android.os.Bundle
+import android.provider.SyncStateContract
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.FragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -29,6 +32,7 @@ import com.example.levelty.presenter.adapters.PickerLayoutManager
 import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter
 import com.example.levelty.presenter.adapters.kid.KidDaysTasksListAdapter
 import com.example.levelty.presenter.adapters.kid.TaskPickerLayoutManager
+import com.example.levelty.presenter.dialogs.kid.KidRedoTaskDialog
 import com.example.levelty.presenter.factories.kid.KidDayTaskFragmentViewModelFactory
 import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.kid.KidDayTaskFragmentViewModel
@@ -93,10 +97,18 @@ class KidDayTasksFragment : Fragment() {
         val noTaskFutureLayout =
             binding.layoutKidDayTasksNoTaskInFuture.viewKidDialogDialogNoTaskInFuture
         val skipTaskLayout = binding.layoutKidSkipTaskDialog.viewKidSkipTaskDialogLayout
-
-//        val skipReasonField = binding.layoutKidSkipTaskDialog.otlSkipTaskMessageContainer
+        val skipSendButton = binding.layoutKidSkipTaskDialog.btSkipTaskMessageSend
         val skipReasonText = binding.layoutKidSkipTaskDialog.etSkipTaskMessageText
-        val skipButton = binding.layoutKidSkipTaskDialog.btSkipTaskMessageSent
+
+
+        skipSendButton.setOnClickListener {
+            if (!skipReasonText.text.isEmpty()) {
+                datesWheelLayout.visibility = View.VISIBLE
+                tasksWheelLayout.visibility = View.VISIBLE
+                skipTaskLayout.visibility = View.INVISIBLE  // TODO send data to server
+            }
+        }
+
 
         val bottomNavigation = binding.bottomAppBarKidDayTasks
 //        getKidBottomNavigationBar(bottomNavigation)
@@ -123,7 +135,7 @@ class KidDayTasksFragment : Fragment() {
 //            if (skipReasonText.text?.isBlank() == true) {
 //                skipReasonField.error = "Please, enter reason"
 //            } else {
-//                // TODO add sent data to server
+//                // TODO add send data to server
 //                skipReasonText.setText("")
 //                kidDayTaskFragmentViewModel.getTaskList()
 //            }
@@ -169,6 +181,7 @@ class KidDayTasksFragment : Fragment() {
 
         kidDayTaskFragmentViewModel.todayTasksList.observe(this.viewLifecycleOwner) { todayTasks ->
 //            Log.d("MyLog", "checked date = $checkedDate, today = ${getTodayShortDate()}, task size = ${tasks.size}")
+
             datesWheelLayout.visibility = View.VISIBLE
             when (true) {
                 (dateShortStringToTime(checkedDate) == getTodayDateMls() && todayTasks.isNotEmpty()) -> {
@@ -200,7 +213,6 @@ class KidDayTasksFragment : Fragment() {
                     kidDayTasksFragmentAdapter.checkTaskElementListener =
                         object : KidDayTasksFragmentAdapter.CheckTaskElementListener {
                             override fun clickOnDoneButton(task: KidProcessedTask) {
-
                                 findNavController().navigate(R.id.action_kidDayTasksFragment_to_kidSuccessCloseTaskFragment)
                             }
 
@@ -218,10 +230,11 @@ class KidDayTasksFragment : Fragment() {
                             }
 
                             override fun clickOnRedoButton(task: KidProcessedTask) {
-                                TODO("Not yet implemented")
+                                task.choreID?.let { showDialog(it) }
                             }
 
                         }
+                    setupCustomDialog()
 
                     //***** Set progress indicators *******
 
@@ -371,14 +384,6 @@ class KidDayTasksFragment : Fragment() {
         return dateValues.toList()
     }
 
-//    private fun getUpcomingCountTask(tasksList: List<CreatedTasksItem>): Int {
-//        var count = 0
-//        for (task in tasksList) {
-//            if (task.taskStatus == "Upcoming") count++
-//        }
-//        return count
-//    }
-
     private fun getUncompletedCountTask(
         tasksList: List<KidProcessedTask>,
         checkedDate: String
@@ -426,24 +431,13 @@ class KidDayTasksFragment : Fragment() {
         }
     }
 
-    private fun getBottonNavigation(bottomNavigation: BottomNavigationView) {
-        bottomNavigation.setOnItemSelectedListener { itemMenu ->
-            when (itemMenu.itemId) {
-                R.id.kid_tasks -> {
-                    findNavController().navigate(R.id.kidDayTasksFragment)
-                    true
-                }
-                R.id.kid_profile -> {
-                    findNavController().navigate(R.id.kidProfileFragment)
-                    true
-                }
-                R.id.kid_goals -> {
-                    findNavController().navigate(R.id.kidGoalsFragment)
-                    true
-                }
-                else -> false
-            }
+     fun showDialog(currentChoreId: Int) {
+        KidRedoTaskDialog.show(parentFragmentManager, currentChoreId)
+    }
 
+    private fun setupCustomDialog() {
+        KidRedoTaskDialog.setupListener(parentFragmentManager, this) { choreId ->
+            kidDayTaskFragmentViewModel.updateChoreStatus(choreId)
         }
     }
 }

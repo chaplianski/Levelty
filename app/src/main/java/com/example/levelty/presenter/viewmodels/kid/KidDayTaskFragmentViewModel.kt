@@ -8,13 +8,17 @@ import androidx.lifecycle.viewModelScope
 import com.example.levelty.domain.models.KidProcessedTask
 import com.example.levelty.domain.models.ParentProcessedTask
 import com.example.levelty.domain.usecases.kid.GetKidDetailTasksUseCase
+import com.example.levelty.domain.usecases.kid.UpdateChoreStatusUseCase
 import com.example.levelty.presenter.utils.dateShortStringToTime
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class KidDayTaskFragmentViewModel  @Inject constructor(private val getKidDetailTasksUseCase: GetKidDetailTasksUseCase): ViewModel() {
+class KidDayTaskFragmentViewModel  @Inject constructor(
+    private val getKidDetailTasksUseCase: GetKidDetailTasksUseCase,
+    private val updateChoreStatusUseCase: UpdateChoreStatusUseCase
+    ): ViewModel() {
 
     private val _taskList = MutableLiveData<List<KidProcessedTask>>()
     val taskList: LiveData<List<KidProcessedTask>> get() = _taskList
@@ -45,6 +49,13 @@ class KidDayTaskFragmentViewModel  @Inject constructor(private val getKidDetailT
             }
         }
         _todayTasksList.postValue(daysTasks)
+    }
+
+    fun updateChoreStatus(choreId: Int){
+       viewModelScope.launch (Dispatchers.IO) {
+           updateChoreStatusUseCase.execute(choreId)
+       }
+
     }
 
 //    fun getTaskList(){

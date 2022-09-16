@@ -1,6 +1,7 @@
 package com.example.levelty.data.repository
 
 import android.util.Log
+import com.example.levelty.data.network.retrofit.kid.UpdateChoreStatusApiHelper
 import com.example.levelty.data.network.retrofit.parents.CreateNewTaskApiHelper
 import com.example.levelty.data.network.retrofit.parents.UpdateParenTaskApiHelper
 import com.example.levelty.data.network.retrofit.parents.UpdateTaskStatusApiHelper
@@ -13,7 +14,8 @@ class TaskRepositoryImpl @Inject constructor(
     private val taskStorageImpl: TaskStorageImpl,
     private val updateTaskStatusApiHelper: UpdateTaskStatusApiHelper,
     private val createNewTaskApiHelper: CreateNewTaskApiHelper,
-    private val updateParenTaskApiHelper: UpdateParenTaskApiHelper
+    private val updateParenTaskApiHelper: UpdateParenTaskApiHelper,
+    private val updateChoreStatusApiHelper: UpdateChoreStatusApiHelper
 ) :
     TaskRepository {
 
@@ -35,10 +37,15 @@ class TaskRepositoryImpl @Inject constructor(
         return createdTasksItemToProcessedTask(createdTasks).map { it.processedMapTaskDataToDomain() }
     }
 
+    override suspend fun updateChoreStatus(choreId: Int) {
+//        updateChoreStatusApiHelper.updateChoreStatus(choreId)
+        Log.d("MyLog", "Update chore Id to server, choreId = $choreId")
+    }
+
 
     override fun getKidTasksList(): List<KidProcessedTask> {
         val assignedTasks = taskStorageImpl.getAssignedTaskList()
-        Log.d("MyLog", "list in taskRepositoryImpl = ${assignedTasksItemToProcessedTask(assignedTasks).map { it.kidProcessedTaskMapDataToDomain() }}")
+//        Log.d("MyLog", "list in taskRepositoryImpl = ${assignedTasksItemToProcessedTask(assignedTasks).map { it.kidProcessedTaskMapDataToDomain() }}")
         return assignedTasksItemToProcessedTask(assignedTasks).map { it.kidProcessedTaskMapDataToDomain() }
     }
 

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/approved_task_form.xml" value="0.361" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/chip_state_color.xml" value="0.3455" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/coin.xml" value="0.3795" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/custom_checkbox.xml" value="0.3795" />
@@ -23,6 +24,8 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_no_kid_ischecked.xml" value="0.3795" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_profile.xml" value="0.361" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_profile_unselected.xml" value="0.361" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_settings.xml" value="0.361" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_settings_unselected.xml" value="0.361" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_tasks.xml" value="0.361" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_tasks_selected.xml" value="0.361" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/ic_tasks_unselected.xml" value="0.361" />
@@ -40,6 +43,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/radius_constraint_layout_bottom.xml" value="0.3795" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/radius_constraint_layout_top.xml" value="0.3795" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/round.xml" value="0.3795" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/settings_color_selector.xml" value="0.361" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/tasks_color_selector.xml" value="0.361" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/drawable/top_round_corners_layout.xml" value="0.3795" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/activity_main.xml" value="0.5421875" />
@@ -60,10 +64,14 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_edit_task.xml" value="0.34375" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_goal_approve.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_all_tasks.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_check_new_tasks_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_day_tasks.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_earn_coins_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_goals.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_new_level_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_personal.xml" value="0.41774891774891776" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_profile.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_redo_task_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_set_goal.xml" value="0.4" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_close_goal.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_close_task.xml" value="0.4" />
@@ -89,6 +97,7 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_task_in_categories_item_add.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_tasks.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_tasks_item.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/item_approved_task.xml" value="0.5411458333333333" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/item_fragment_kid_day_task.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/item_fragment_kid_day_task_1.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/item_fragment_kid_day_task_approved.xml" value="0.5421875" />

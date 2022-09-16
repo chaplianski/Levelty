@@ -87,6 +87,7 @@ class ParentDayKidTasksFragment : Fragment() {
         bottomNavigation.selectedItemId = R.id.parent_profile
         //     val swipeRefresh: SwipeRefreshLayout = view.findViewById(R.id.swipe_fragment_day_personal_task)
         getParentBottomNavigationBar(bottomNavigation, view)
+        bottomNavigation.itemIconTintList = null
 //        Log.d("MyLog", "name = $kidName")
         kidNameField.text = kidName.toString()
 

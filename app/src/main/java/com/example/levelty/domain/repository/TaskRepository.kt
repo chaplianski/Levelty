@@ -13,7 +13,7 @@ interface TaskRepository {
 //    fun getTasksList(): List<CreatedTasksItem>
     fun getTasksList(): List<ParentProcessedTask>
 
-
+    suspend fun updateChoreStatus(choreId: Int)
 
     suspend fun addTask(newTask: NewTask)
 

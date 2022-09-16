@@ -28,6 +28,7 @@ class SettingsFragment : Fragment() {
         val bottomNavigation: BottomNavigationView = view.findViewById(R.id.bottomAppBar_parent_settings_fragment)
         bottomNavigation.selectedItemId = R.id.parent_settings
         getParentBottomNavigationBar(bottomNavigation, view)
+        bottomNavigation.itemIconTintList = null
     }
 
 //    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {

@@ -105,7 +105,7 @@
     <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <Button
-        android:id="@+id/bt_skip_task_message_sent"
+        android:id="@+id/bt_skip_task_message_send"
         style="@style/Bold"
         android:layout_width="match_parent"
         android:layout_height="50dp"

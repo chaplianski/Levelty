@@ -53,6 +53,7 @@ class ParentKidsGoalsFragment : Fragment() {
         bottomNavigation.selectedItemId = R.id.parent_profile
 
         getParentBottomNavigationBar(bottomNavigation, view)
+        bottomNavigation.itemIconTintList = null
         parentKidGoalsFragmentViewModel.getGoalsList()
 
         parentKidGoalsFragmentViewModel.goalsValue.observe(this.viewLifecycleOwner){

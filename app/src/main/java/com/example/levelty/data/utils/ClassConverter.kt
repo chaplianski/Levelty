@@ -1,5 +1,6 @@
 package com.example.levelty.data.repository
 
+import android.util.Log
 import com.example.levelty.data.storage.model.AssignedTasksItemDTO
 import com.example.levelty.data.storage.model.CreatedTasksItemDTO
 import com.example.levelty.data.storage.model.KidProcessedTaskDTO
@@ -74,6 +75,7 @@ fun assignedTasksItemToProcessedTask(assignedTasks: List<AssignedTasksItemDTO>):
                         assigneeId, categoryId, category, creatorId, isPeriodic, repeatInterval, childInterests, status, choreDate,
                         choreFinishDate, choreStatus, choreID, choreComment )
                 )
+//                Log.d("MyLog", "task = $title")
             }
         }
     }

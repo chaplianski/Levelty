@@ -90,10 +90,10 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
 //        val taskList = mutableListOf<TaskDTO>()
 //        return leveltyDao.getTasksList()
         val choresList = mutableListOf<ChoresItemDTO>()
-        choresList.add(ChoresItemDTO("2022-09-02", 0, "2022-09-20", "Nothing", 0, "done"))
-        choresList.add(ChoresItemDTO("2022-09-03", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList.add(ChoresItemDTO("2022-09-04", 0, "2022-09-20", "Nothing", 0, "refused"))
-        choresList.add(ChoresItemDTO("2022-09-05", 0, "2022-09-20", "Nothing", 0, "rejected"))
+        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "done"))
+        choresList.add(ChoresItemDTO("2022-09-17", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "refused"))
+        choresList.add(ChoresItemDTO("2022-09-18", 0, "2022-09-20", "Nothing", 0, "rejected"))
         choresList.add(
             ChoresItemDTO(
                 "2022-09-05",
@@ -106,9 +106,9 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
         )
 
         val choresList2 = mutableListOf<ChoresItemDTO>()
-        choresList2.add(ChoresItemDTO("2022-09-02", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList2.add(ChoresItemDTO("2022-09-03", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList2.add(ChoresItemDTO("2022-09-04", 0, "2022-09-20", "Nothing", 0, "refused"))
+        choresList2.add(ChoresItemDTO("2022-09-16", 1, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-17", 1, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-18", 1, "2022-09-20", "Nothing", 0, "refused"))
 
         val category1 = CategoryDTO(null, "#AED581", 0, "School")
         val category2 = CategoryDTO(null, "#EA80FC", 1, "Science")
@@ -167,11 +167,11 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
         val choresList = mutableListOf<ChoresItemDTO>()
         choresList.add(ChoresItemDTO("2022-09-14", 0, "2022-09-20", "Nothing", 0, "done"))
         choresList.add(ChoresItemDTO("2022-09-13", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "done"))
-        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "rejected"))
+        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "refused"))
+        choresList.add(ChoresItemDTO("2022-09-17", 0, "2022-09-20", "Nothing", 0, "rejected"))
         choresList.add(
             ChoresItemDTO(
-                "2022-09-16",
+                "2022-09-18",
                 0,
                 "2022-09-20",
                 "Nothing",
@@ -179,15 +179,19 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
                 "waiting for approval"
             )
         )
-        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "waiting_for_approval"))
-        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "refused"))
-        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "rejected"))
+//        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "waiting_for_approval"))
+//        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "pending"))
+//        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "refused"))
+//        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "rejected"))
 
         val choresList2 = mutableListOf<ChoresItemDTO>()
-        choresList2.add(ChoresItemDTO("2022-09-12", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList2.add(ChoresItemDTO("2022-09-13", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList2.add(ChoresItemDTO("2022-09-14", 0, "2022-09-20", "Nothing", 0, "refused"))
+        choresList2.add(ChoresItemDTO("2022-09-12", 1, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-13", 1, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-14", 1, "2022-09-20", "Nothing", 0, "refused"))
+
+        val choresList3 = mutableListOf<ChoresItemDTO>()
+        choresList3.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "pending"))
+
 
         val category1 = CategoryDTO(null, "#AED581", 0, "School")
         val category2 = CategoryDTO(null, "#EA80FC", 1, "Science")
@@ -207,7 +211,7 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
                 0,
                 0,
                 3,
-                1,
+                0,
                 category1,
                 true,
                 "2022-09-10",
@@ -230,6 +234,28 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
                 1,
                 1,
                 category2,
+                true,
+                "2022-09-09",
+                0,
+                "pending"
+            )
+        )
+
+        listTasks.add(
+            AssignedTasksItemDTO(
+                40,
+                "25-10-2022",
+                "Home help",
+                "Study",
+                "2022-09-09",
+                null,
+                choresList3,
+                "Go to shop",
+                1,
+                0,
+                0,
+                2,
+                category3,
                 true,
                 "2022-09-09",
                 0,
