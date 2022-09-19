@@ -63,6 +63,7 @@ class KidDayTasksFragmentAdapter (
     when (taskList[position].choreStatus){
             "pending" -> {
                 (holder as NormalStatusViewHolder).onBind(taskList[position])
+                Log.d("MyLog", "adapter = ${taskList[position]}")
                 holder.taskNameText.setOnClickListener { recyclerView.smoothScrollToPosition(position) }
                 holder.doneButton.setOnClickListener {
                     checkTaskElementListener?.clickOnDoneButton(taskList[position])

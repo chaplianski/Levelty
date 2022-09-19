@@ -26,6 +26,18 @@
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
 
+    <style name="DialogFragmentTheme"
+        parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:statusBarColor">#D147F3</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowIsFloating">false</item>
+
+        <item name="android:windowSoftInputMode">adjustResize</item>
+    </style>
+
+
     <style name="AppModalStyle"
         parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@drawable/top_round_corners_layout</item>

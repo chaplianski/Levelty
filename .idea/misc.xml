@@ -63,22 +63,28 @@
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_day_personal_tasks_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_edit_task.xml" value="0.34375" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_goal_approve.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_add_new_goal_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_all_tasks.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_check_new_tasks_dialog.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_confirm_goal_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_day_tasks.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_earn_coins_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_goals.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_new_level_dialog.xml" value="0.5421875" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_notification_send_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_personal.xml" value="0.41774891774891776" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_profile.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_redo_task_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_set_goal.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_choose_goal_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_close_goal.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_close_task.xml" value="0.4" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kid_success_goal_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_goals.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_goals_item.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_kids_interest_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_new_task.xml" value="0.5246720799500312" />
+        <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_parent_success_create_task_dialog.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_parent_tasks_in_category.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_parents_purpose_choose.xml" value="0.5421875" />
         <entry key="..\:/Users/user/AndroidStudioProjects/Levelty/app/src/main/res/layout/fragment_point_choose.xml" value="0.5421875" />

@@ -12,22 +12,24 @@ import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.models.GoalsItem
 import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter.Companion.DECLINED_STATUS
 import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter.Companion.NORMAL_STATUS
+import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter.Companion.WRONG_STATUS
 import kotlinx.coroutines.NonDisposableHandle.parent
 
 class KidGoalsWheelAdapter(
 val goalList: List<GoalsItem>, private val recyclerView: RecyclerView):
-    RecyclerView.Adapter<KidGoalsWheelAdapter.ViewHolder>() {
-//    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+//    RecyclerView.Adapter<KidGoalsWheelAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
     interface GoalCardListener{
-        fun onChangeButtonClick()
-        fun onGetButtonClick()
+        fun onChangeButtonClick(goal: GoalsItem)
+        fun onGetButtonClick(goal: GoalsItem)
         fun onCancelButtonClick(goal: GoalsItem)
-        fun onChooseButtonClick()
+        fun onChooseButtonClick(goal: GoalsItem)
     }
 
-    val goalCardListener: GoalCardListener? = null
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    var goalCardListener: GoalCardListener? = null
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layout = when (viewType){
             NORMAL_STATUS -> R.layout.item_fragment_kid_goals
             COMPLETED_STATUS -> R.layout.item_fragment_kid_goals_completed
@@ -37,69 +39,69 @@ val goalList: List<GoalsItem>, private val recyclerView: RecyclerView):
             DECLINED_STATUS -> R.layout.item_fragment_kid_goals_declined
             else -> R.layout.item_fragment_kid_goals
         }
-//        val v = LayoutInflater.from(parent.context).inflate(layout, parent,false)
-//        return when (viewType){
-//            NORMAL_STATUS -> KidDayTasksFragmentAdapter.NormalStatusViewHolder(v)
-//            COMPLETED_STATUS -> CompletedStatusViewHolder(v)
-//            LOCKED_STATUS -> LockedStatusViewHolder(v)
-//            WAITING_FOR_APPRUVAL_STATUS -> WaitingForApprovalStatusViewHolder(v)
-//            CHOOSE_GOAL_STATUS -> ChooseGoalStatusViewHolder(v)
-//            DECLINED_STATUS -> DeclineStatusViewHolder(v)
-//            else -> KidDayTasksFragmentAdapter.NormalStatusViewHolder(v)
-//        }
+        val v = LayoutInflater.from(parent.context).inflate(layout, parent,false)
+        return when (viewType){
+            NORMAL_STATUS -> NormalStatusViewHolder(v)
+            COMPLETED_STATUS -> CompletedStatusViewHolder(v)
+            LOCKED_STATUS -> LockedStatusViewHolder(v)
+            WAITING_FOR_APPRUVAL_STATUS -> WaitingForApprovalStatusViewHolder(v)
+            CHOOSE_GOAL_STATUS -> ChooseGoalStatusViewHolder(v)
+            DECLINED_STATUS -> DeclineStatusViewHolder(v)
+            else -> NormalStatusViewHolder(v)
+        }
 
 
 
-        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_fragment_kid_goals, parent,false)
-        return ViewHolder(v)
+//        val v = LayoutInflater.from(parent.context).inflate(R.layout.item_fragment_kid_goals, parent,false)
+//        return ViewHolder(v)
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-//        when (goalList[position].status){
-//            "normal" -> {
-//                (holder as KidDayTasksFragmentAdapter.NormalStatusViewHolder).onBind(goalList[position])
-//                holder.changeButton.setOnClickListener {
-//                    goalCardListener?.onChangeButtonClick()
-//                }
-//                holder.getButton.setOnClickListener {
-//                    goalCardListener?.onGetButtonClick()
-//                }
-//            }
-//            "completed" -> {
-//                (holder as CompletedStatusViewHolder).onBind(goalList[position])
-//            }
-//            "locked" -> {
-//                (holder as LockedStatusViewHolder).onBind(goalList[position])
-//            }
-//            "waiting for approval" -> {
-//                (holder as WaitingForApprovalStatusViewHolder).onBind(goalList[position])
-//                holder.cancelButton.setOnClickListener {
-//                    goalCardListener?.onCancelButtonClick(goalList[position])
-//                }
-//            }
-//            "choose_goal_status" -> {
-//                (holder as ChooseGoalStatusViewHolder).chooseButton.setOnClickListener {
-//                    goalCardListener?.onChooseButtonClick()
-//                }
-//            }
-//            "declined" -> {
-//                (holder as DeclineStatusViewHolder).onBind(goalList[position])
-//                holder.chooseNewGoalButton.setOnClickListener {
-//                    goalCardListener?.onChooseButtonClick()
-//                }
-//
-//            }
-//            else -> {}
+//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            when (goalList[position].status) {
+                "normal" -> {
+                    (holder as NormalStatusViewHolder).onBind(goalList[position])
+                    holder.changeButton.setOnClickListener {
+                        goalCardListener?.onChangeButtonClick(goalList[position])
+                    }
+                    holder.getButton.setOnClickListener {
+                        goalCardListener?.onGetButtonClick(goalList[position])
+                    }
+                }
+                "completed" -> {
+                    (holder as CompletedStatusViewHolder).onBind(goalList[position])
+                }
+                "locked" -> {
+                    (holder as LockedStatusViewHolder).onBind(goalList[position])
+                }
+                "waiting_for_approval" -> {
+                    (holder as WaitingForApprovalStatusViewHolder).onBind(goalList[position])
+                    holder.cancelButton.setOnClickListener {
+                        goalCardListener?.onCancelButtonClick(goalList[position])
+                    }
+                }
+                "choose_goal_status" -> {
+                    (holder as ChooseGoalStatusViewHolder).chooseButton.setOnClickListener {
+                        goalCardListener?.onChooseButtonClick(goalList[position])
+                    }
+                }
+                "declined" -> {
+                    (holder as DeclineStatusViewHolder).onBind(goalList[position])
+                    holder.chooseNewGoalButton.setOnClickListener {
+                        goalCardListener?.onChooseButtonClick(goalList[position])
+                    }
+
+                }
+                else -> {}
+            }
+
+//        holder.onBind(goalList[position])
+//        holder.itemView.setOnClickListener { recyclerView.smoothScrollToPosition(position) }
+//        holder.changeButton.setOnClickListener {
 //        }
-
-        holder.onBind(goalList[position])
-        holder.itemView.setOnClickListener { recyclerView.smoothScrollToPosition(position) }
-        holder.changeButton.setOnClickListener {
-        }
-        holder.getButton.setOnClickListener {
-
-        }
+//        holder.getButton.setOnClickListener {
+//
+//        }
 
     }
 
@@ -107,17 +109,17 @@ val goalList: List<GoalsItem>, private val recyclerView: RecyclerView):
         return goalList.size
     }
 
-//    override fun getItemViewType(position: Int): Int {
-//        return when (goalList[position].status){
-//            "normal" -> NORMAL_STATUS
-//            "completed" -> COMPLETED_STATUS
-//            "locked" -> LOCKED_STATUS
-//            "waiting for approval" -> WAITING_FOR_APPRUVAL_STATUS
-//            "choose_goal_status" -> CHOOSE_GOAL_STATUS
-//            "declined" -> DECLINED_STATUS
-//            else -> WRONG_STATUS
-//        }
-//    }
+    override fun getItemViewType(position: Int): Int {
+        return when (goalList[position].status){
+            "normal" -> NORMAL_STATUS
+            "completed" -> COMPLETED_STATUS
+            "locked" -> LOCKED_STATUS
+            "waiting_for_approval" -> WAITING_FOR_APPRUVAL_STATUS
+            "choose_goal_status" -> CHOOSE_GOAL_STATUS
+            "declined" -> DECLINED_STATUS
+            else -> WRONG_STATUS
+        }
+    }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val goalImage: ImageView = itemView.findViewById(R.id.iv_item_fragment_kid_goals)
@@ -143,7 +145,7 @@ val goalList: List<GoalsItem>, private val recyclerView: RecyclerView):
         fun onBind(goal: GoalsItem){
 
             goalName.text = goal.title
-            goalCost.text = goal.price.toString()
+            goalCost.text = "${goal.price.toString()} coins"
         }
     }
 
@@ -155,7 +157,7 @@ val goalList: List<GoalsItem>, private val recyclerView: RecyclerView):
         fun onBind(goal: GoalsItem){
 
             goalName.text = goal.title
-            goalCost.text = goal.price.toString()
+            goalCost.text = "${goal.price.toString()} coins"
         }
     }
 

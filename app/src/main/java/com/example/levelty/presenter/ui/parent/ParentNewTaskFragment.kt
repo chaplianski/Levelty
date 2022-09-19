@@ -182,35 +182,7 @@ class ParentNewTaskFragment : Fragment() {
 //                repeat.setTextColor(Color.BLACK)
                 repeatValue = it
             }
-//
-//
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("purpose")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                parentPurpose.text = it.toString()
-//                parentPurpose.setTextColor(Color.BLACK)
-//                parentPurposeValue = it
-//            }
-//
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("interest")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                kidsInterest.text = it.toString()
-//                kidsInterest.setTextColor(Color.BLACK)
-//                kidInterestValue = it
-//            }
-//
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("category")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                category.text = it.toString()
-//                category.setTextColor(Color.BLACK)
-//                categoryValue = it
-//            }
-//
+
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
             ?.observe(
                 viewLifecycleOwner
@@ -219,15 +191,7 @@ class ParentNewTaskFragment : Fragment() {
 //                date.setTextColor(Color.BLACK)
                 dateValue = it
             }
-//
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("start time")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                startTime.text = it.toString()
-//                startTime.setTextColor(Color.BLACK)
-//                startTimeValue = it
-//            }
+
 
         closeButton.setOnClickListener {
             navController.popBackStack()
@@ -239,8 +203,8 @@ class ParentNewTaskFragment : Fragment() {
             Log.d("MyLog", "title = $taskNameValue, category_id = 0, parent_purpose = $parentPurposeValue, cost = $pointsValue, start_date = $dateValue, due_date = 0, is_periodic = $isPeriodic, repeat_interval = $repeatValue" +
                     ", custom_schedule, assignee_id = $kidId, child_interest_ids")
             val newTask = NewTask(null, pointsValue, null, dateValue, null, parentPurposeValue, null, repeatValue, taskNameValue, isPeriodic, dateValue, kidId)
-            newTaskViewModel.addTask(newTask)
-            findNavController().navigate(R.id.action_newTaskFragment_to_tasksFragment)
+//            newTaskViewModel.addTask(newTask)
+            findNavController().navigate(R.id.action_newTaskFragment_to_parentSuccessCreateTaskDialog)
         }
 
 

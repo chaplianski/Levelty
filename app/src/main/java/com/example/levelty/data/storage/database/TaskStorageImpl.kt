@@ -91,17 +91,17 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
 //        return leveltyDao.getTasksList()
         val choresList = mutableListOf<ChoresItemDTO>()
         choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "done"))
-        choresList.add(ChoresItemDTO("2022-09-17", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList.add(ChoresItemDTO("2022-09-19", 0, "2022-09-20", "Nothing", 0, "pending"))
         choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "refused"))
         choresList.add(ChoresItemDTO("2022-09-18", 0, "2022-09-20", "Nothing", 0, "rejected"))
         choresList.add(
             ChoresItemDTO(
-                "2022-09-05",
+                "2022-09-18",
                 0,
                 "2022-09-20",
                 "Nothing",
                 0,
-                "waiting for approval"
+                "waiting_for_approval"
             )
         )
 
@@ -165,18 +165,18 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
 
     override fun getAssignedTaskList(): List<AssignedTasksItemDTO> {
         val choresList = mutableListOf<ChoresItemDTO>()
-        choresList.add(ChoresItemDTO("2022-09-14", 0, "2022-09-20", "Nothing", 0, "done"))
-        choresList.add(ChoresItemDTO("2022-09-13", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList.add(ChoresItemDTO("2022-09-19", 0, "2022-09-20", "Nothing", 0, "done"))
+        choresList.add(ChoresItemDTO("2022-09-19", 0, "2022-09-20", "Nothing", 0, "pending"))
         choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "refused"))
         choresList.add(ChoresItemDTO("2022-09-17", 0, "2022-09-20", "Nothing", 0, "rejected"))
         choresList.add(
             ChoresItemDTO(
-                "2022-09-18",
+                "2022-09-19",
                 0,
                 "2022-09-20",
                 "Nothing",
                 0,
-                "waiting for approval"
+                "waiting_for_approval"
             )
         )
 //        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "waiting_for_approval"))

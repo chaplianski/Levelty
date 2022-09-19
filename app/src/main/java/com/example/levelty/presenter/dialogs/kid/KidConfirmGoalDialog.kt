@@ -1,24 +1,29 @@
 package com.example.levelty.presenter.dialogs.kid
 
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class KidSuccessTaskDialog: BottomSheetDialogFragment()  {
+
+class KidConfirmGoalDialog : BottomSheetDialogFragment() {
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kid_success_close_task, container, false)
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_kid_confirm_goal_dialog, container, false)
     }
 
     override fun getTheme(): Int {
@@ -34,19 +39,30 @@ class KidSuccessTaskDialog: BottomSheetDialogFragment()  {
             val behavior = BottomSheetBehavior.from(bottomSheet)
 
             behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            //      behavior.isHideable = false
             behavior.isDraggable = false
-            //    behavior.state = BottomSheetBehavior.SAVE_HIDEABLE
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val coolButton: Button = view.findViewById(R.id.bt_kid_success_close_task_cool)
-        Log.d("MyLog", "cool task")
-        coolButton.setOnClickListener {
-            Log.d("MyLog", "cool button")
+        val closeButton: ImageView = view.findViewById(R.id.iv_dialog_confirm_goal_close)
+        val sendButton: Button = view.findViewById(R.id.bt_dialog_confirm_goal_send)
+        val goalTitle: TextView = view.findViewById(R.id.tv_dialog_confirm_goal_name)
+
+        val goalName = arguments?.getString("goal name", "")
+
+        goalTitle.text = goalName
+
+        closeButton.setOnClickListener {
+            dismiss()
+        }
+
+        sendButton.setOnClickListener {
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "goal confirm",
+               true
+            )
             dismiss()
         }
     }

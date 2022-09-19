@@ -6,15 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/my_gradient"
-    tools:context=".presenter.ui.kid.KidSuccessCloseGoalFragment">
+    tools:context=".presenter.dialogs.kid.KidSuccessCloseTaskDialog">
 
 
     <ImageView
-        android:id="@+id/iv_kid_success_chose_task"
+        android:id="@+id/iv_kid_success_close_task"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="200dp"
-        android:src="@drawable/success_goal"
+        android:src="@drawable/party_popper_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/tv_kid_success_chose_message_hooray"
+        android:id="@+id/tv_kid_success_close_message_hooray"
         style="@style/Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,23 +34,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_kid_success_chose_task"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <TextView
-        android:id="@+id/tv_kid_success_chose_message"
-        style="@style/Regular"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:alpha="0.6"
-        android:text="Your new goal chosen!"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/bt_kid_success_chose_task_cool"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kid_success_chose_message_hooray"
+        app:layout_constraintTop_toBottomOf="@+id/iv_kid_success_close_task"
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
@@ -59,51 +43,55 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:alpha="0.6"
-        android:text="Let's wait for parent's approval."
+        android:text="You've close a task"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/bt_kid_success_chose_task_cool"
+        app:layout_constraintBottom_toTopOf="@+id/bt_kid_success_close_task_cool"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_kid_success_chose_message"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kid_success_close_message_hooray"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/bt_kid_success_chose_task_cool"
+        android:id="@+id/bt_kid_success_close_task_cool"
+        style="@style/Bold"
         android:layout_width="match_parent"
-        android:layout_height="55dp"
+        android:layout_height="60dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="131dp"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/white"
-        android:stateListAnimator="@null"
+        android:backgroundTint="#26FFFFFF"
         android:text="Cool"
+        android:stateListAnimator="@null"
         android:textAllCaps="false"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
+        android:textSize="18sp"
         app:cornerRadius="25dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_appBar_kid_success_chose_task_cool"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_appBar_kid_success_close_task"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_kid_success_close_message" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_appBar_kid_success_chose_task_cool"
+        android:id="@+id/bottom_appBar_kid_success_close_task"
         style="@style/Widget.MaterialComponents.BottomAppBar.Colored"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:backgroundTint="@color/white"
         android:alpha="0.8"
+        app:backgroundTint="@color/white"
+        app:itemTextColor="@color/menu_text_color_selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/kid_bottom_app_bar"
         tools:ignore="BottomAppBar">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-

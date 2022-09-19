@@ -2,6 +2,7 @@ package com.example.levelty.presenter.ui.kid
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.databinding.FragmentKidGoalsBinding
 import com.example.levelty.di.DaggerAppComponent
+import com.example.levelty.domain.models.GoalsItem
 import com.example.levelty.presenter.adapters.kid.KidGoalsWheelAdapter
 import com.example.levelty.presenter.adapters.kid.TaskPickerLayoutManager
 import com.example.levelty.presenter.factories.kid.KidGoalsFragmentViewModelFactory
@@ -58,6 +60,10 @@ class KidGoalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+        val allTasksCount = 46
+        val quantityTaskForGoal = 20
+
         val kidName = binding.tvKidGoalsFragmentKidName
         val kidLevel = binding.tvKidGoalsFragmentKidLevel
         val kidCoins = binding.tvKidGoalsFragmentCoinsNumber
@@ -72,9 +78,10 @@ class KidGoalsFragment : Fragment() {
         val progressView = binding.pbKidGoalsFragmentProgressView
         val goalsRV = binding.rvKidGoalsFragmentTasksList
         val kidAvatar = binding.ivKidGoalsFragmentAvatar
-//        val kidName = binding.tvKidGoalsFragmentKidName
-//        val kidLevel = binding.tvKidGoalsFragmentKidLevel
-//        val kidCoins = binding.ivKidGoalsFragmentCoins
+        var progressTextValue = ""
+
+
+
 
         val bottomNavigation: BottomNavigationView = binding.bottomAppBarKidGoalsFragment
         val goalPickerLayoutManager =
@@ -86,16 +93,16 @@ class KidGoalsFragment : Fragment() {
         bottomNavigation.itemIconTintList = null
 
         kidGoalsFragmentViewModel.getGoals()
-        kidGoalsFragmentViewModel.goals.observe(this.viewLifecycleOwner){ goals ->
+        kidGoalsFragmentViewModel.goals.observe(this.viewLifecycleOwner){ allGoals ->
 
             val kidGoalsWheelAdapter =
-                KidGoalsWheelAdapter(goals, goalsRV)
+                KidGoalsWheelAdapter(allGoals, goalsRV)
             //         val dayKidDetailTaskFragmentTasksAdapter = DayKidDetailTaskFragmentTasksAdapter(it)
             goalsRV.onFlingListener = null
             val tasksSnapHelper: SnapHelper = LinearSnapHelper()
             tasksSnapHelper.attachToRecyclerView(goalsRV)
 
-            if (goals.size > 1) {
+            if (allGoals.size > 1) {
                 goalsRV.layoutManager = goalPickerLayoutManager
             }
 
@@ -105,32 +112,52 @@ class KidGoalsFragment : Fragment() {
                 delay(100)
                 goalsRV.scrollToPosition(0)
             }
+
+//            val unexecutedGoalsCount = allGoals.map { goalsItem -> goalsItem.status }.sortedBy { s -> "done" }.size
+
+            val taskToNextGoal = allTasksCount%quantityTaskForGoal
+            if (taskToNextGoal>0){
+                progressTextValue = "${quantityTaskForGoal-taskToNextGoal} tasks to the next Level"
+
+                progressText.text = progressTextValue
+                progressView.max = quantityTaskForGoal
+                progressView.progress = taskToNextGoal
+            }
+
+            kidGoalsWheelAdapter.goalCardListener = object : KidGoalsWheelAdapter.GoalCardListener{
+                override fun onChangeButtonClick(goal: GoalsItem) {
+                    Log.d("MyLog", "goal = ${goal.title}")
+                    val bundle = Bundle()
+                    bundle.putString(TASK_PROGRESS_TEXT, progressTextValue)
+                    bundle.putInt(TASK_COUNT, quantityTaskForGoal)
+                    bundle.putInt(TASK_PROGRESS, taskToNextGoal)
+                    findNavController().navigate(R.id.action_kidGoalsFragment_to_kidSetGoalFragment, bundle)
+
+                }
+
+                override fun onGetButtonClick(goal: GoalsItem) {
+                    findNavController().navigate(R.id.action_kidGoalsFragment_to_kidSuccessChooseGoalDialog)
+                }
+
+                override fun onCancelButtonClick(goal: GoalsItem) {
+                    Log.d("MyLog", "Cancel button")
+                }
+
+                override fun onChooseButtonClick(goal: GoalsItem) {
+                    findNavController().navigate(R.id.action_kidGoalsFragment_to_kidSetGoalFragment)
+                }
+
+            }
+
+
         }
 
 
+
+
+
+
     }
-
-//    private fun getKidBottomNavigationBar(bottomNavigation: BottomNavigationView) {
-//        bottomNavigation.setOnItemSelectedListener { itemMenu ->
-//            when (itemMenu.itemId) {
-//                R.id.tasks -> {
-//                    findNavController().navigate(R.id.kidDayTasksFragment)
-//                    true
-//                }
-//                R.id.profile -> {
-//                    findNavController().navigate(R.id.kidProfileFragment)
-//                    true
-//                }
-//                R.id.goals -> {
-//                    findNavController().navigate(R.id.kidGoalsFragment)
-//                    true
-//                }
-//                else -> false
-//            }
-//
-//        }
-//    }
-
 
     private fun getBottonNavigation(bottomNavigation: BottomNavigationView) {
         bottomNavigation.setOnItemSelectedListener { itemMenu ->
@@ -151,5 +178,15 @@ class KidGoalsFragment : Fragment() {
             }
 
         }
+    }
+
+    private fun getUnexecutedGoals(goalsList: List<GoalsItem>): Int {
+        return goalsList.map { goalsItem -> goalsItem.status }.sortedBy { s -> "done" }.size
+    }
+
+    companion object {
+        val TASK_COUNT = "task count"
+        val TASK_PROGRESS = "task progress"
+        val TASK_PROGRESS_TEXT = "task progress text"
     }
 }

@@ -2,7 +2,6 @@ package com.example.levelty.presenter.ui.kid
 
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +10,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +21,10 @@ import com.example.levelty.domain.models.ChildInterestsItem
 import com.example.levelty.domain.models.KidProcessedTask
 import com.example.levelty.presenter.adapters.PieChartCategoryAdapter
 import com.example.levelty.presenter.adapters.parent.SampleStringChipsAdapter
+import com.example.levelty.presenter.dialogs.kid.KidCheckNewTasksDialog
+import com.example.levelty.presenter.dialogs.kid.KidEarnCoinsDialog
+import com.example.levelty.presenter.dialogs.kid.KidNewLevelDialog
+import com.example.levelty.presenter.dialogs.kid.KidRedoTaskDialog
 import com.example.levelty.presenter.factories.kid.KidProfileFragmentViewModelFactory
 import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.kid.KidProfileFragmentViewModel
@@ -38,7 +41,7 @@ class KidProfileFragment : Fragment() {
 
     @Inject
     lateinit var kidProfileFragmentViewModelFactory: KidProfileFragmentViewModelFactory
-    val kidProfileFragmentViewModel: KidProfileFragmentViewModel by viewModels { kidProfileFragmentViewModelFactory }
+    val kidProfileFragmentViewModel: KidProfileFragmentViewModel by activityViewModels { kidProfileFragmentViewModelFactory }
 
     var _binding: FragmentKidProfileBinding? = null
     val binding get() = _binding!!
@@ -139,9 +142,14 @@ class KidProfileFragment : Fragment() {
 
             setupPieChartCategories(categoryPie)
             loadPieCategories(categoryPie, pieCategoryList, view)
+
+//            showEarnCoinsDialod()  // TODO уточноить условия показа этого диалога
+//            showNewTasksDialog()   // TODO уточноить условия показа этого диалога
+//            showNewLevelDialog()
         }
 
-
+        setupEarnCoinsDialog()
+        setupCheckNewTaskDialog()
 
         todayTasksButton.setOnClickListener {
             findNavController().navigate(R.id.action_kidProfileFragment_to_kidDayTasksFragment)
@@ -341,5 +349,30 @@ class KidProfileFragment : Fragment() {
         pieRV.layoutManager = LinearLayoutManager(context)
         pieRV.adapter = pieChartCategoryAdapter
     }
+
+    fun showEarnCoinsDialod() {
+        KidEarnCoinsDialog.show(parentFragmentManager)
+    }
+
+    fun showNewTasksDialog() {
+        KidCheckNewTasksDialog.show(parentFragmentManager)
+    }
+
+    fun showNewLevelDialog() {
+        KidNewLevelDialog.show(parentFragmentManager)
+    }
+
+    private fun setupEarnCoinsDialog() {
+        KidEarnCoinsDialog.setupListener(parentFragmentManager, this) { ok ->
+            if (ok) findNavController().navigate(R.id.action_kidProfileFragment_to_kidDayTasksFragment)
+        }
+    }
+
+    private fun setupCheckNewTaskDialog() {
+        KidCheckNewTasksDialog.setupListener(parentFragmentManager, this) { ok ->
+            if (ok) findNavController().navigate(R.id.action_kidProfileFragment_to_kidDayTasksFragment)
+        }
+    }
+
 }
 

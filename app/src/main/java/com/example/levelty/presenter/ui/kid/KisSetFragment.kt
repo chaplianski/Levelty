@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import com.example.levelty.R
 
 
-class KidSuccessCloseGoalFragment : Fragment() {
+class KisSetFragment : Fragment() {
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_kid_success_close_goal, container, false)
+        return inflater.inflate(R.layout.fragment_kis_set, container, false)
     }
 
 

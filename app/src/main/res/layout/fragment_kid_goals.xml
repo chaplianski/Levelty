@@ -149,14 +149,14 @@
             android:layout_marginStart="26dp"
             android:layout_marginEnd="26dp"
             android:layout_marginBottom="4dp"
-            app:indicatorColor="#6D51FF"
+            app:indicatorColor="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_kid_goals_fragment_progress_text"
             app:layout_constraintVertical_bias="0.0"
-            app:trackColor="#E1E1E1"
+            app:trackColor="#3DFFFFFF"
             app:trackCornerRadius="4dp"
             app:trackThickness="8dp" />
 

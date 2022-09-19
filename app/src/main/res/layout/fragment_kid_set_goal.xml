@@ -24,13 +24,14 @@
 
     <TextView
         android:id="@+id/tv_kid_set_goal_fragment_title"
+        style="@style/Bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="20dp"
         android:orientation="horizontal"
-        android:text="@string/categories"
+        android:text="Set a goal"
         android:textColor="@color/text_primary"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="4 from 6 completed"
+        android:text="12 tasks to the next Level"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -62,7 +63,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="20dp"
-        app:indicatorColor="#6D51FF"
+        app:indicatorColor="@color/graphic_accent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -77,13 +78,16 @@
         android:id="@+id/rv_kid_set_goal_fragment_goals"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginEnd="21dp"
         android:layout_marginTop="24dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/bottomAppBar_kid_set_goal_fragment"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pb_kid_set_goal_fragment_progress_view"
-        tools:listitem="@layout/item_kid_goal_square"/>
+        tools:listitem="@layout/item_kid_set_goal_square"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomAppBar_kid_set_goal_fragment"
