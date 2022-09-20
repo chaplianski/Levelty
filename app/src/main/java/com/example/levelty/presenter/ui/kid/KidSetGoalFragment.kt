@@ -72,11 +72,10 @@ class KidSetGoalFragment : Fragment() {
         val kidId = sharedPref?.getInt(CURRENT_KID_ID, 0)
 
         var currentGoal: GoalsItem? = null
-
+        bottomNavigation.selectedItemId = R.id.kid_goals
         bottomNavigation.itemIconTintList = null
-
-//        getKidBottomNavigationBar(bottomNavigation, view)
         getBottonNavigation(bottomNavigation)
+
 
         progressText.text = progressTextValue
         if (progressMax != null) {
@@ -96,7 +95,7 @@ class KidSetGoalFragment : Fragment() {
         kidSetGoalFragmentViewModel.goals.observe(this.viewLifecycleOwner){ listGoals ->
 
             val goalsList = mutableListOf<GoalsItem>()
-            goalsList.add(GoalsItem(0, kidId,0,"Add new goal","", "Add yours",""))
+            goalsList.add(GoalsItem(0, kidId,0,"Add new goal","", "New goal",""))
             goalsList.addAll(listGoals)
             val goalAdapter = KidSetGoalsAdapter(goalsList)
             goalsRV.adapter = goalAdapter
@@ -138,15 +137,15 @@ class KidSetGoalFragment : Fragment() {
         bottomNavigation.setOnItemSelectedListener { itemMenu ->
             when (itemMenu.itemId) {
                 R.id.kid_tasks -> {
-                    findNavController().navigate(R.id.kid_tasks)
+                    findNavController().navigate(R.id.kidDayTasksFragment)
                     true
                 }
                 R.id.kid_profile -> {
-                    findNavController().navigate(R.id.kid_profile)
+                    findNavController().navigate(R.id.kidProfileFragment)
                     true
                 }
                 R.id.kid_goals -> {
-                    findNavController().navigate(R.id.kid_goals)
+                    findNavController().navigate(R.id.kidGoalsFragment)
                     true
                 }
                 else -> false

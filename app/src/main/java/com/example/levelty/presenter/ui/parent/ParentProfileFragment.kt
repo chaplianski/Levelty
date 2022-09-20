@@ -152,7 +152,7 @@ class ParentProfileFragment : Fragment() {
 
         // ***** Go to
         kidInterestsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_tasksFragment)
+            findNavController().navigate(R.id.action_profileFragment_to_tasksFragment)  // TODO сделать правильную навигацию
         }
 
         // **** Add kid list *****
@@ -190,7 +190,7 @@ class ParentProfileFragment : Fragment() {
                                 it1
                             )?.apply()
                         }
-
+                        sharedPref?.edit()?.putString(CURRENT_KID_NAME, childrenItem.user?.firstName)?.apply()
                         kidNameText.text = childrenItem.user?.firstName
                         kidLevelText.text = "Level ${childrenItem.level.toString()}"
                         fillKidData(kidImage)

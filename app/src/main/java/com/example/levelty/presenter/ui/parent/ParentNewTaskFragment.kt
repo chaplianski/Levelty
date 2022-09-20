@@ -189,9 +189,17 @@ class ParentNewTaskFragment : Fragment() {
             ) {
 //                date.text = it.toString()
 //                date.setTextColor(Color.BLACK)
-                dateValue = it
+                dateValue = dateFullStringToShortString(it).toString()
             }
 
+        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>("cool")
+            ?.observe(
+                viewLifecycleOwner
+            ) {
+                Log.d("MyLog", "cool = $it")
+//            if (it) findNavController().popBackStack()
+//                findNavController().popBackStack()
+            }
 
         closeButton.setOnClickListener {
             navController.popBackStack()
@@ -204,8 +212,12 @@ class ParentNewTaskFragment : Fragment() {
                     ", custom_schedule, assignee_id = $kidId, child_interest_ids")
             val newTask = NewTask(null, pointsValue, null, dateValue, null, parentPurposeValue, null, repeatValue, taskNameValue, isPeriodic, dateValue, kidId)
 //            newTaskViewModel.addTask(newTask)
+
             findNavController().navigate(R.id.action_newTaskFragment_to_parentSuccessCreateTaskDialog)
+
         }
+
+
 
 
     }

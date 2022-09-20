@@ -12,24 +12,23 @@ import com.example.levelty.databinding.FragmentParentSuccessCreateTaskDialogBind
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class ParentSuccessCreateTaskDialog : DialogFragment() {
+class ParentSuccessCreateTaskDialog : Fragment() {
 
     var _binding: FragmentParentSuccessCreateTaskDialogBinding? = null
     val binding get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentParentSuccessCreateTaskDialogBinding.inflate(layoutInflater, container,false)
         return binding.root
 
     }
 
-    override fun getTheme(): Int {
-        return R.style.DialogFragmentTheme
-    }
+//    override fun getTheme(): Int {
+//        return R.style.DialogFragmentTheme
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,7 +41,13 @@ class ParentSuccessCreateTaskDialog : DialogFragment() {
         val coolButton = binding.btParentSuccessCreateTaskTaskGo
 
         coolButton.setOnClickListener {
-            dismiss()
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "cool",
+                true
+            )
+//            dismiss()
+            findNavController().navigate(R.id.action_parentSuccessCreateTaskDialog_to_dayPersonalTasksFragment)
+//                dismiss()
         }
     }
 

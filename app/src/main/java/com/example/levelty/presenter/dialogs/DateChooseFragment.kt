@@ -19,11 +19,14 @@ import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
 import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
 import com.example.levelty.presenter.adapters.IntegerWheelPickerAdapter
+import com.example.levelty.presenter.utils.dateShortStringToTime
 import com.example.levelty.presenter.utils.getMonthNumber
+import com.example.levelty.presenter.utils.getTodayShortDate
 import com.example.levelty.presenter.viewmodels.parent.DateChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import java.text.DateFormatSymbols
+import java.text.SimpleDateFormat
 import java.time.YearMonth
 import java.util.*
 
@@ -60,14 +63,34 @@ class DateChooseFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val checkedDate = arguments?.getString("checked date")
+        var checkedDay = 0
+        var checkedYear = 0
+        var checkedMonth = ""
+        if (checkedDate !=null){
+            checkedDay = getCheckedDay(checkedDate)
+            checkedYear = getCheckedYear(checkedDate)
+            checkedMonth = getCheckedMonth(checkedDate)
+        }
+
         val saveButton: Button = view.findViewById(R.id.bt_fragment_date_choose_save)
         val closeButton: ImageView = view.findViewById(R.id.iv_fragment_date_choose_close)
 
         val calendar = Calendar.getInstance(TimeZone.getDefault())
-        var currentDayValue = calendar[Calendar.DAY_OF_MONTH]
-        var currentYearValue = calendar[Calendar.YEAR]
-        var currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
+        var currentDayValue: Int = if (checkedDay == 0) {
+            calendar[Calendar.DAY_OF_MONTH]
+        } else checkedDay
 
+        var currentYearValue = if (checkedYear == 0) {
+            calendar[Calendar.YEAR]
+        } else checkedYear
+//        var currentDayValue = calendar[Calendar.DAY_OF_MONTH]
+//        var currentYearValue = calendar[Calendar.YEAR]
+        var currentMonthValue = if (checkedMonth == ""){
+            DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
+        }else checkedMonth
+
+        Log.d("MyLog", "month = $currentMonthValue, checked day = $checkedDay, checked month = $checkedMonth, checked year = $checkedYear")
 
         val yearRV: RecyclerView = view.findViewById(R.id.rv_fragment_date_choose_year)
         val yearPickerLayoutManager = DatePickerLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -151,7 +174,15 @@ class DateChooseFragment : BottomSheetDialogFragment() {
 
         dayRV.setLayoutManager(dayPickerLayoutManager)
  //       dayRV.layoutManager?.scrollToPosition(Calendar.DAY_OF_MONTH + 9)
-        dayRV.layoutManager?.scrollToPosition(currentDayValue+1)
+//        if (checkedDate != getTodayShortDate()){
+//            if (checkedDay != null) {
+//                dayRV.layoutManager?.scrollToPosition(checkedDay+1)
+//            }
+//        } else {
+            dayRV.layoutManager?.scrollToPosition(currentDayValue?.plus(1) ?: 1)
+//        }
+
+
 
         dayRV.adapter = dayPickerAdapter
         daySnapHelper.attachToRecyclerView(dayRV)
@@ -302,6 +333,24 @@ class DateChooseFragment : BottomSheetDialogFragment() {
         return monthNumber
     }
 
+    fun getCheckedDay(date: String): Int {
+        val dateMls = dateShortStringToTime(date)
+        val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
+        return formatDateDay.format(dateMls).toInt()
+    }
+
+    fun getCheckedMonth(date: String): String{
+        val dateMls = dateShortStringToTime(date)
+        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
+        return formatDateMonth.format(dateMls)
+    }
+
+    fun getCheckedYear(date: String): Int{
+        val dateMls = dateShortStringToTime(date)
+        val formatDateYear = SimpleDateFormat("yyyy", Locale.getDefault())
+        return formatDateYear.format(dateMls).toInt()
+    }
+
 }
 
 class CenterLayoutManager1 : LinearLayoutManager {
@@ -343,4 +392,6 @@ class CenterLayoutManager1 : LinearLayoutManager {
             return boxStart + (boxEnd - boxStart) / 2 - (viewStart + (viewEnd - viewStart) / 2)
         }
     }
+
+
 }

@@ -282,11 +282,15 @@
         android:name="com.example.levelty.presenter.dialogs.kid.KidNotificationSendDialog"
         android:label="fragment_kid_notification_send_dialog"
         tools:layout="@layout/fragment_kid_notification_send_dialog" />
-    <dialog
+    <fragment
         android:id="@+id/parentSuccessCreateTaskDialog"
         android:name="com.example.levelty.presenter.dialogs.parent.ParentSuccessCreateTaskDialog"
         android:label="fragment_parent_success_create_task_dialog"
-        tools:layout="@layout/fragment_parent_success_create_task_dialog" />
+        tools:layout="@layout/fragment_parent_success_create_task_dialog" >
+        <action
+            android:id="@+id/action_parentSuccessCreateTaskDialog_to_dayPersonalTasksFragment"
+            app:destination="@id/dayPersonalTasksFragment" />
+    </fragment>
     <dialog
         android:id="@+id/kidSuccessCloseTaskDialog"
         android:name="com.example.levelty.presenter.dialogs.kid.KidSuccessCloseTaskDialog"

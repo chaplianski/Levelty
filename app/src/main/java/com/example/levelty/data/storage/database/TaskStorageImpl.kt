@@ -93,7 +93,7 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
         choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "done"))
         choresList.add(ChoresItemDTO("2022-09-19", 0, "2022-09-20", "Nothing", 0, "pending"))
         choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "refused"))
-        choresList.add(ChoresItemDTO("2022-09-18", 0, "2022-09-20", "Nothing", 0, "rejected"))
+        choresList.add(ChoresItemDTO("2022-08-29", 0, "2022-09-20", "Nothing", 0, "rejected"))
         choresList.add(
             ChoresItemDTO(
                 "2022-09-18",

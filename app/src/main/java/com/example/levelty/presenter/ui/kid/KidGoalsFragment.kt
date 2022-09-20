@@ -60,9 +60,8 @@ class KidGoalsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        val allTasksCount = 46
-        val quantityTaskForGoal = 20
+        val allTasksCount = 46   // TODO Get real data
+        val quantityTaskForGoal = 20  // TODO Get real data
 
         val kidName = binding.tvKidGoalsFragmentKidName
         val kidLevel = binding.tvKidGoalsFragmentKidLevel
@@ -136,15 +135,20 @@ class KidGoalsFragment : Fragment() {
                 }
 
                 override fun onGetButtonClick(goal: GoalsItem) {
+
                     findNavController().navigate(R.id.action_kidGoalsFragment_to_kidSuccessChooseGoalDialog)
                 }
 
                 override fun onCancelButtonClick(goal: GoalsItem) {
-                    Log.d("MyLog", "Cancel button")
+                    Log.d("MyLog", "Cancel button")  // TODO удаляем из списка целей данную цель и создаем карточку со статусом выбора новой цели
                 }
 
                 override fun onChooseButtonClick(goal: GoalsItem) {
-                    findNavController().navigate(R.id.action_kidGoalsFragment_to_kidSetGoalFragment)
+                    val bundle = Bundle()
+                    bundle.putString(TASK_PROGRESS_TEXT, progressTextValue)
+                    bundle.putInt(TASK_COUNT, quantityTaskForGoal)
+                    bundle.putInt(TASK_PROGRESS, taskToNextGoal)
+                    findNavController().navigate(R.id.action_kidGoalsFragment_to_kidSetGoalFragment, bundle)
                 }
 
             }

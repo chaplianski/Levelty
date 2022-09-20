@@ -23,9 +23,7 @@ import com.example.levelty.domain.models.NewTask
 import com.example.levelty.presenter.adapters.parent.AddingStringChipsAdapter
 import com.example.levelty.presenter.adapters.parent.SampleStringChipsAdapter
 import com.example.levelty.presenter.factories.parent.EditTaskFragmentViewModelFactory
-import com.example.levelty.presenter.utils.CURRENT_TASK
-import com.example.levelty.presenter.utils.TASK_NAME
-import com.example.levelty.presenter.utils.dateShortStringToFullString
+import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.ParentEditTaskFragmentViewModel
 import javax.inject.Inject
 
@@ -91,11 +89,11 @@ class ParentEditTaskFragment : Fragment() {
         val kidId = task?.assigneeId
         val isPeriodic = task?.isPeriodic
         var categoryValue = ""
-        var dateValue = ""
+        var dateValue = task?.choreDate
         var startTimeValue = ""
-        var pointsValue = 0
-        var repeatValue = 0
-        var parentPurposeValue = ""
+        var pointsValue = task?.cost
+        var repeatValue = task?.repeatInterval
+        var parentPurposeValue = task?.parentPurpose
         var kidInterestValue = ""
 //        val status = task?.taskStatus ?: "Upcoming"
 
@@ -188,48 +186,12 @@ class ParentEditTaskFragment : Fragment() {
         }
 
         changeDataButton.setOnClickListener {
-            findNavController().navigate(R.id.action_editTaskFragment_to_dateChooseFragment)
+            val bundle = Bundle()
+            bundle.putString("checked date", task?.choreDate)
+            findNavController().navigate(R.id.action_editTaskFragment_to_dateChooseFragment, bundle)
         }
 
 
-
-
-//        category.setOnClickListener {
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(R.id.action_editTaskFragment_to_categoryChooseFragment)
-//
-//        }
-//
-//        date.setOnClickListener {
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(R.id.action_editTaskFragment_to_dateChooseFragment)
-//        }
-//
-//        startTime.setOnClickListener {
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(R.id.action_editTaskFragment_to_startTimeChooseFragment)
-//        }
-//
-//        points.setOnClickListener {
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(R.id.action_editTaskFragment_to_pointChooseFragment)
-//        }
-//
-//        purpose.setOnClickListener {
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(R.id.action_editTaskFragment_to_parentsPurposeChooseFragment)
-//        }
-//
-//        repeat.setOnClickListener {
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(R.id.action_editTaskFragment_to_repeatChooseFragment)
-//        }
-//
-//        kidsInterest.setOnClickListener {
-//            val navController = Navigation.findNavController(view)
-//            navController.navigate(R.id.action_editTaskFragment_to_kidsInterestChooseFragment)
-//
-//        }
 
         val navController = Navigation.findNavController(view)
 //        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<Int>("points")?.observe(
@@ -249,52 +211,15 @@ class ParentEditTaskFragment : Fragment() {
                 repeatValue = it
 
             }
-//
-//
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("purpose")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                purpose.text = it.toString()
-//                purpose.setTextColor(Color.BLACK)
-//                parentPurposeValue = it
-//            }
-//
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("interest")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                kidsInterest.text = it.toString()
-//                kidsInterest.setTextColor(Color.BLACK)
-//                kidInterestValue = it
-//            }
-//
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("category")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                category.text = it.toString()
-//                category.setTextColor(Color.BLACK)
-//                categoryValue = it
-//            }
+
 
         navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("date")
             ?.observe(
                 viewLifecycleOwner
             ) {
                 dateText.text = it.toString()
-//                date.setTextColor(Color.BLACK)
-                dateValue = it
+                dateValue = dateFullStringToShortString(it).toString()
             }
-
-//        navController.currentBackStackEntry?.savedStateHandle?.getLiveData<String>("start time")
-//            ?.observe(
-//                viewLifecycleOwner
-//            ) {
-//                startTime.text = it.toString()
-//                startTime.setTextColor(Color.BLACK)
-//                startTimeValue = it
-//            }
 
         closeButton.setOnClickListener {
             view.findNavController().popBackStack()
@@ -309,7 +234,13 @@ class ParentEditTaskFragment : Fragment() {
 //            parentEditTaskFragmentViewModel.updateTask(editedTask)
    //         val navController = Navigation.findNavController(view)
             if (fromFragment == "from category fragment") view.findNavController().navigate(R.id.action_editTaskFragment_to_categoryFragment)
-            else view.findNavController().navigate(R.id.action_editTaskFragment_to_dayPersonalTasksFragment)
+            else {
+                val bundle = Bundle()
+                bundle.putInt("deference days", getDeferenceDays(dateValue.toString()))
+                bundle.putString("checked date", dateValue)
+                view.findNavController()
+                    .navigate(R.id.action_editTaskFragment_to_dayPersonalTasksFragment, bundle)
+            }
         }
 
 
@@ -323,6 +254,13 @@ class ParentEditTaskFragment : Fragment() {
             "Every Monthly" -> 30
             else -> -2
         }
+    }
+
+    private fun getDeferenceDays(date: String): Int{
+        val todayDateMls = getTodayDateMls()
+        val currentDateMls = dateShortStringToTime(date)
+        return mlsToDay(currentDateMls- todayDateMls!!)
+
     }
 
     override fun onDestroy() {

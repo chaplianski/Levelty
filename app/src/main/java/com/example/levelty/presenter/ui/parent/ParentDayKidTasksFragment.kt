@@ -66,9 +66,10 @@ class ParentDayKidTasksFragment : Fragment() {
 
         //   val dataPicker: NumberPicker = view.findViewById(R.id.np_fragment_day_personal_tasks_numbers)
         val addNewTaskButton: FloatingActionButton = binding.fbDayPersonalTasksFragmentAdd
-        val kidName = arguments?.getString("kid name")
+//        val kidName = arguments?.getString("kid name")
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
         val kidID = sharedPref?.getInt(CURRENT_KID_ID, 0)
+        val kidName = sharedPref?.getString(CURRENT_KID_NAME, "")
 //        val currentDay = arguments?.getString("current date")
         val currentDay = getTodayShortDate()
         var checkedDay = currentDay
@@ -202,11 +203,8 @@ class ParentDayKidTasksFragment : Fragment() {
                     val month = view?.findViewById<TextView>(R.id.tv_date_item_month)
                     val year = view?.findViewById<TextView>(R.id.tv_date_item_year)
                     parentDayKidTasksViewModel.transferDateValue(
-                        "${year?.text}-${
-                            String.format("%02d",getMonthNumber(
-                                month?.text.toString())
-                            )
-                        }-${day?.text}"
+                        "${year?.text}-${String.format("%02d",getMonthNumber(
+                                month?.text.toString()))}-${day?.text}"
                     )
                     checkedDay =
                         "${year?.text}-${getMonthNumber(month?.text.toString())}-${day?.text}"
@@ -227,27 +225,7 @@ class ParentDayKidTasksFragment : Fragment() {
 //        view.findViewById(R.id.rv_fragment_day_personal_task_date)
         val pickerLayoutManager =
             PickerLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-//        val beginDaysCount = 365
-//        val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
-//        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
-//        val formatDateYear = SimpleDateFormat("yyyy")
-//        val todayDate = Calendar.getInstance()
-//        Log.d("MyLog", "today date = $todayDate")
-//        todayDate.add(Calendar.DATE, -beginDaysCount)
-//
-//        val dateValues = mutableListOf<DateTask>()
-//        var counter = 0L
-//        for (day in 1..(beginDaysCount + 377)) {
-//            todayDate.add(Calendar.DATE, 1)
-//            dateValues.add(
-//                DateTask(
-//                    counter, formatDateDay.format(todayDate.timeInMillis),
-//                    formatDateMonth.format(todayDate.timeInMillis),
-//                    formatDateYear.format(todayDate.timeInMillis)
-//                )
-//            )
-//            counter++
-//        }
+
 
         val dateTasksFragmentAdapter =
             context?.let { PickerAdapter(it, getDateList(), dateRV) }
@@ -256,37 +234,26 @@ class ParentDayKidTasksFragment : Fragment() {
         dateRV.setLayoutManager(pickerLayoutManager)
         dateRV.adapter = dateTasksFragmentAdapter
         lifecycleScope.launchWhenCreated {
-//        delay(10)   // TODO check on centre position
-            pickerLayoutManager.scrollToPosition(DAYS_BEFORE_TODAY-3)
+            val deferenceDays = arguments?.getInt("deference days", 0)
+            val scrollTo = if (deferenceDays != 0 && deferenceDays != null){
+                DAYS_BEFORE_TODAY-3 + deferenceDays
+
+
+
+            } else DAYS_BEFORE_TODAY-3
+            val checkDate: String? = arguments?.getString("checked date", "")
+            if (checkDate != "" && checkDate != null){
+               parentDayKidTasksViewModel.transferDateValue(checkDate)
+            }
+            pickerLayoutManager.scrollToPosition(scrollTo)
+//            pickerLayoutManager.scrollToPosition(DAYS_BEFORE_TODAY-3)
+
 //            dateRV.scrollToPosition(DAYS_BEFORE_TODAY -1)
         }
         return pickerLayoutManager
     }
 
-//    private fun getDateList(): List<DateTask> {
-//        val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
-//        val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
-//        val formatDateYear = SimpleDateFormat("yyyy")
-//        val todayDate = Calendar.getInstance()
-////        Log.d("MyLog","today day = $todayDate")
-////        todayDate.add(Calendar.DATE, -daysAfterCurrent)
-//        todayDate.add(Calendar.DATE, -DAYS_BEFORE_TODAY)
-//
-//        val dateValues = mutableListOf<DateTask>()
-//        var counter = 0L
-//        for (day in 1..(DAYS_BEFORE_TODAY + DAYS_AFTER_TODAY)) {
-//            todayDate.add(Calendar.DATE, 1)
-//            dateValues.add(
-//                DateTask(
-//                    counter, formatDateDay.format(todayDate.timeInMillis),
-//                    formatDateMonth.format(todayDate.timeInMillis),
-//                    formatDateYear.format(todayDate.timeInMillis)
-//                )
-//            )
-//            counter++
-//        }
-//        return dateValues.toList()
-//    }
+
 
 
     private fun getUpcomingCountTask(tasksList: List<ParentProcessedTask>, checkedDate: String): Int {
@@ -302,24 +269,6 @@ class ParentDayKidTasksFragment : Fragment() {
         super.onDestroy()
     }
 
-//    private fun getParentBottomNavigationBar(bottomNavigation: BottomNavigationView) {
-//        bottomNavigation.setOnItemSelectedListener { item ->
-//            when (item.itemId) {
-//                R.id.tasks -> {
-//                    findNavController().navigate(R.id.tasksFragment)
-//                    true
-//                }
-//                R.id.profile -> {
-//                    findNavController().navigate(R.id.profileFragment)
-//                    true
-//                }
-//                R.id.settings -> {
-//                    findNavController().navigate(R.id.settingsFragment)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-//    }
+
 
 }

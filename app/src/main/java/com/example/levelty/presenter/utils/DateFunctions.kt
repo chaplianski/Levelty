@@ -1,5 +1,6 @@
 package com.example.levelty.presenter.utils
 
+import android.util.Log
 import com.example.levelty.domain.models.DateTask
 import java.text.SimpleDateFormat
 import java.time.Month
@@ -45,6 +46,15 @@ fun dateFullStringToTime(date: String): Long? {
     return format.parse(date)?.time
 }
 
+fun dateFullStringToShortString(date: String): String? {
+    val fullToMls = dateFullStringToTime(date)
+    Log.d("MyLog", "mls = $fullToMls")
+
+    val mlsToShort = fullToMls?.let { dateTimeToShortString(it) }
+    Log.d("MyLog", "short = $mlsToShort")
+    return mlsToShort
+}
+
 fun dateTimeToFullString(date: Long): String {
     val format = SimpleDateFormat("MMMM dd yyyy")
     return format.format(date)
@@ -68,8 +78,11 @@ fun dayToMls(day: Int): Long {
     return (day*24*60*60*1000).toLong()
 }
 
-fun getMonthNumber(month: String): Int{
+fun mlsToDay(mls: Long): Int{
+    return (mls/(24*60*60*1000)).toInt()
+}
 
+fun getMonthNumber(month: String): Int{
     return  Month.valueOf(month.uppercase(Locale.getDefault())).value
 }
 
