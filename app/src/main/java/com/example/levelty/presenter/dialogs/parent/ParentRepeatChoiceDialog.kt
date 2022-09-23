@@ -1,4 +1,4 @@
-package com.example.levelty.presenter.dialogs
+package com.example.levelty.presenter.dialogs.parent
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class RepeatChoiceDialogFragment : BottomSheetDialogFragment() {
+class ParentRepeatChoiceDialog : BottomSheetDialogFragment() {
 
  //   val startTimeChooseFragmentViewModel: StartTimeChooseFragmentViewModel by viewModels()
 

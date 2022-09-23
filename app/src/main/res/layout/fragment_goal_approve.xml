@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:fitsSystemWindows="true"
-    tools:context=".presenter.dialogs.PointChooseFragment">
+    tools:context=".presenter.dialogs.parent.ParentPointChooseDialog">
 
     <TextView
         android:id="@+id/tv_goal_approve_fragment_name_goal"

@@ -90,13 +90,13 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
 //        val taskList = mutableListOf<TaskDTO>()
 //        return leveltyDao.getTasksList()
         val choresList = mutableListOf<ChoresItemDTO>()
-        choresList.add(ChoresItemDTO("2022-09-16", 0, "2022-09-20", "Nothing", 0, "done"))
-        choresList.add(ChoresItemDTO("2022-09-19", 0, "2022-09-20", "Nothing", 0, "pending"))
-        choresList.add(ChoresItemDTO("2022-09-15", 0, "2022-09-20", "Nothing", 0, "refused"))
-        choresList.add(ChoresItemDTO("2022-08-29", 0, "2022-09-20", "Nothing", 0, "rejected"))
+        choresList.add(ChoresItemDTO("2022-09-23", 0, "2022-09-20", "Nothing", 0, "done"))
+        choresList.add(ChoresItemDTO("2022-09-24", 0, "2022-09-20", "Nothing", 0, "pending"))
+        choresList.add(ChoresItemDTO("2022-09-25", 0, "2022-09-20", "Nothing", 0, "refused"))
+        choresList.add(ChoresItemDTO("2022-08-26", 0, "2022-09-20", "Nothing", 0, "rejected"))
         choresList.add(
             ChoresItemDTO(
-                "2022-09-18",
+                "2022-09-20",
                 0,
                 "2022-09-20",
                 "Nothing",
@@ -106,13 +106,17 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
         )
 
         val choresList2 = mutableListOf<ChoresItemDTO>()
-        choresList2.add(ChoresItemDTO("2022-09-16", 1, "2022-09-20", "Nothing", 0, "pending"))
-        choresList2.add(ChoresItemDTO("2022-09-17", 1, "2022-09-20", "Nothing", 0, "pending"))
-        choresList2.add(ChoresItemDTO("2022-09-18", 1, "2022-09-20", "Nothing", 0, "refused"))
+        choresList2.add(ChoresItemDTO("2022-09-20", 1, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-23", 1, "2022-09-20", "Nothing", 0, "pending"))
+        choresList2.add(ChoresItemDTO("2022-09-24", 1, "2022-09-20", "Nothing", 0, "refused"))
 
         val category1 = CategoryDTO(null, "#AED581", 0, "School")
         val category2 = CategoryDTO(null, "#EA80FC", 1, "Science")
         val category3 = CategoryDTO(null, "#FF7043", 1, "Sport")
+        val category4 = CategoryDTO(null, "#bcaaa4", 1, "Intellect")
+        val category5 = CategoryDTO(null, "#80cbc4", 1, "Animal")
+        val category6 = CategoryDTO(null, "#ff5252", 1, "Technics")
+        val category7 = CategoryDTO(null, "#fbc02d", 1, "Nature")
 
         val listTasks = mutableListOf<CreatedTasksItemDTO>()
         listTasks.add(
@@ -152,6 +156,114 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
                 0,
                 0,
                 category2,
+                "2022-09-02",
+                0,
+                "done"
+            )
+        )
+
+        listTasks.add(
+            CreatedTasksItemDTO(
+                2,
+                "Wash the dishes",
+                "Physical growth",
+                40,
+                true,
+                1,
+                "2022-10-01",
+                "Any description",
+                "Father",
+                null,
+                choresList2.toList(),
+                0,
+                0,
+                category1,
+                "2022-09-02",
+                0,
+                "done"
+            )
+        )
+
+        listTasks.add(
+            CreatedTasksItemDTO(
+                3,
+                "Сleaning the room",
+                "Curiosity",
+                75,
+                true,
+                1,
+                "2022-10-01",
+                "Any description",
+                "Father",
+                null,
+                choresList2.toList(),
+                0,
+                0,
+                category4,
+                "2022-09-02",
+                0,
+                "done"
+            )
+        )
+
+        listTasks.add(
+            CreatedTasksItemDTO(
+                4,
+                "Do your homework",
+                "Creativity",
+                45,
+                true,
+                1,
+                "2022-10-01",
+                "Any description",
+                "Father",
+                null,
+                choresList2.toList(),
+                0,
+                0,
+                category5,
+                "2022-09-02",
+                0,
+                "done"
+            )
+        )
+        listTasks.add(
+            CreatedTasksItemDTO(
+                5,
+                "Make the bed",
+                "Home help",
+                50,
+                true,
+                1,
+                "2022-10-01",
+                "Any description",
+                "Father",
+                null,
+                choresList2.toList(),
+                0,
+                0,
+                category6,
+                "2022-09-02",
+                0,
+                "done"
+            )
+        )
+        listTasks.add(
+            CreatedTasksItemDTO(
+                6,
+                "Help your mother cook",
+                "Family relation",
+                55,
+                true,
+                1,
+                "2022-10-01",
+                "Any description",
+                "Father",
+                null,
+                choresList2.toList(),
+                0,
+                0,
+                category7,
                 "2022-09-02",
                 0,
                 "done"

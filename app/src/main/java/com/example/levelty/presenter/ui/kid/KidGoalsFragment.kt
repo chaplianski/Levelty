@@ -20,14 +20,11 @@ import com.example.levelty.domain.models.GoalsItem
 import com.example.levelty.presenter.adapters.kid.KidGoalsWheelAdapter
 import com.example.levelty.presenter.adapters.kid.TaskPickerLayoutManager
 import com.example.levelty.presenter.factories.kid.KidGoalsFragmentViewModelFactory
-import com.example.levelty.presenter.factories.parent.ParentKidGoalsFragmentViewModelFactory
 import com.example.levelty.presenter.utils.CURRENT_KID_COINS
 import com.example.levelty.presenter.utils.CURRENT_KID_LEVEL
 import com.example.levelty.presenter.utils.CURRENT_KID_NAME
-import com.example.levelty.presenter.utils.getKidBottomNavigationBar
 import com.example.levelty.presenter.viewmodels.kid.KidGoalsFragmentViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
@@ -135,7 +132,7 @@ class KidGoalsFragment : Fragment() {
                 }
 
                 override fun onGetButtonClick(goal: GoalsItem) {
-
+                    goal.id?.let { kidGoalsFragmentViewModel.completeGoal(it) } // TODO меняем статус цели, пропускаем по цепочке, получаем реквест, меняем итем в листе, переходим на экран поздравления
                     findNavController().navigate(R.id.action_kidGoalsFragment_to_kidSuccessChooseGoalDialog)
                 }
 

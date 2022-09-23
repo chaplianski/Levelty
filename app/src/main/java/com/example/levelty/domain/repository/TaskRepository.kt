@@ -6,7 +6,7 @@ interface TaskRepository {
 
     fun getTodayTasks(kidId: Int, date: String): List<CreatedTasksItem>
 
-    fun getDayTasks(kidName: String, date: String): List<Task>
+//    fun getDayTasks(kidName: String, date: String): List<Task>
 
     fun getKidTasksList(): List<KidProcessedTask>
 

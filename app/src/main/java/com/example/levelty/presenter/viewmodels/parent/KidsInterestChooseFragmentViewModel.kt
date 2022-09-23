@@ -11,23 +11,23 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class KidsInterestChooseFragmentViewModel @Inject constructor(
-    private val getKidsInterestChooseUseCase: GetKidsInterestChooseUseCase
-): ViewModel() {
-
-    val _interestList = MutableLiveData<List<Interest>>()
-    val interestList: LiveData<List<Interest>> get() = _interestList
-
-    fun getInterestVariants(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val list = getKidsInterestChooseUseCase.execute()
-            _interestList.postValue(list)
-        }
-
-    }
-
-
-    override fun onCleared() {
-        viewModelScope.cancel()
-    }
-}
+//class KidsInterestChooseFragmentViewModel @Inject constructor(
+//    private val getKidsInterestChooseUseCase: GetKidsInterestChooseUseCase
+//): ViewModel() {
+//
+//    val _interestList = MutableLiveData<List<Interest>>()
+//    val interestList: LiveData<List<Interest>> get() = _interestList
+//
+//    fun getInterestVariants(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val list = getKidsInterestChooseUseCase.execute()
+//            _interestList.postValue(list)
+//        }
+//
+//    }
+//
+//
+//    override fun onCleared() {
+//        viewModelScope.cancel()
+//    }
+//}

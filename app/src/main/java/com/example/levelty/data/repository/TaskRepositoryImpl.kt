@@ -25,9 +25,9 @@ class TaskRepositoryImpl @Inject constructor(
         return list
     }
 
-    override fun getDayTasks(kidName: String, date: String): List<Task> {
-        return taskStorageImpl.getDayTask(kidName, date).map { it.taskMapDataToDomain() }
-    }
+//    override fun getDayTasks(kidName: String, date: String): List<Task> {
+//        return taskStorageImpl.getDayTask(kidName, date).map { it.taskMapDataToDomain() }
+//    }
 
     //    override fun getTasksList(): List<CreatedTasksItem> {
 //        return taskStorageImpl.getTasksList().map { it.taskMapDataToDomain() }

@@ -29,14 +29,14 @@ class GoalsProfileFragmentAdapter(val goals: List<GoalsItem?>): RecyclerView.Ada
 
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
 
-        val goalNameText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_name)
-        val goalRewardText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_reward)
+        val goalNameText: TextView = itemView.findViewById(R.id.tv_item_parent_kid_goal_name)
+        val goalCoinsText: TextView = itemView.findViewById(R.id.tv_item_parent_kid_goal_coins)
 //        val isApprovalButton: Chip = itemView.findViewById(R.id.chip_fragment_profile_goal_approval)
 //        val goalImage: ImageView = itemView.findViewById(R.id.iv_fragment_profile_goal_image)
 
         fun onBind(goal: GoalsItem){
             goalNameText.text = goal.title
-            goalRewardText.text = goal.price.toString()
+            goalCoinsText.text = goal.price.toString()
 //            Glide.with(itemView.context).load(R.drawable.kid_goal_image_1)
 //                .override(68, 68)
 //                .centerCrop()

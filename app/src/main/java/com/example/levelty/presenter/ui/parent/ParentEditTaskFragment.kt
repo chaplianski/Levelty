@@ -1,7 +1,6 @@
 package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +21,7 @@ import com.example.levelty.domain.models.EditTask
 import com.example.levelty.domain.models.NewTask
 import com.example.levelty.presenter.adapters.parent.AddingStringChipsAdapter
 import com.example.levelty.presenter.adapters.parent.SampleStringChipsAdapter
-import com.example.levelty.presenter.factories.parent.EditTaskFragmentViewModelFactory
+import com.example.levelty.presenter.factories.parent.ParentEditTaskFragmentViewModelFactory
 import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.ParentEditTaskFragmentViewModel
 import javax.inject.Inject
@@ -31,8 +30,8 @@ import javax.inject.Inject
 class ParentEditTaskFragment : Fragment() {
 
     @Inject
-    lateinit var editTaskFragmentViewModelFactory: EditTaskFragmentViewModelFactory
-    val parentEditTaskFragmentViewModel: ParentEditTaskFragmentViewModel by viewModels { editTaskFragmentViewModelFactory }
+    lateinit var parentEditTaskFragmentViewModelFactory: ParentEditTaskFragmentViewModelFactory
+    val parentEditTaskFragmentViewModel: ParentEditTaskFragmentViewModel by viewModels { parentEditTaskFragmentViewModelFactory }
 
     var _binding: FragmentEditTaskBinding? = null
     val binding get() = _binding!!
@@ -74,6 +73,7 @@ class ParentEditTaskFragment : Fragment() {
         val fromFragment = arguments?.getString(CategoryFragment.CATEGORY_MARK)
 
         val task = arguments?.getParcelable<EditTask>(CURRENT_TASK)
+
 
 //        val taskId = arguments?.getInt(CURRENT_TASK_ID)
 //        if (taskId != null){
@@ -135,7 +135,7 @@ class ParentEditTaskFragment : Fragment() {
 //                Log.d("MyLog", "coin = ${coin.value}, taskCoin = ${task?.cost.toString()}")
                 if (task?.cost.toString() == coin.value){
                     coinPosition = coin.index
-                }
+                } else coinPosition = coins.size-1
             }
             val coinsAdapter = AddingStringChipsAdapter(coins, coinPosition)
             pointsRV.adapter = coinsAdapter

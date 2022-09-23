@@ -12,7 +12,7 @@ import com.example.levelty.databinding.FragmentKidSuccessChooseGoalDialogBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class KidSuccessChooseGoalDialog : DialogFragment() {
+class KidSuccessChooseGoalDialog : Fragment() {
 
     var _binding: FragmentKidSuccessChooseGoalDialogBinding? = null
     val binding get() = _binding!!
@@ -38,7 +38,8 @@ class KidSuccessChooseGoalDialog : DialogFragment() {
         val coolButton = binding.btKidSuccessCloseGoalCool
 
         coolButton.setOnClickListener {
-            dismiss()
+            findNavController().navigate(R.id.action_kidSuccessChooseGoalDialog_to_kidGoalsFragment)
+
         }
     }
 

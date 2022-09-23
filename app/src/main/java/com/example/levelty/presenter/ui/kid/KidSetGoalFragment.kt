@@ -95,7 +95,7 @@ class KidSetGoalFragment : Fragment() {
         kidSetGoalFragmentViewModel.goals.observe(this.viewLifecycleOwner){ listGoals ->
 
             val goalsList = mutableListOf<GoalsItem>()
-            goalsList.add(GoalsItem(0, kidId,0,"Add new goal","", "New goal",""))
+            goalsList.add(GoalsItem(0, kidId,"Add new goal","0",0, "New goal",""))
             goalsList.addAll(listGoals)
             val goalAdapter = KidSetGoalsAdapter(goalsList)
             goalsRV.adapter = goalAdapter

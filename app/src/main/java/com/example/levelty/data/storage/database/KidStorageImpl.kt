@@ -8,11 +8,12 @@ class KidStorageImpl @Inject constructor(): KidStorage {
 
     override fun getKids(): List<ChildrenItemDTO> {
         val goalList = mutableListOf<GoalsItemDTO>()
-        goalList.add(GoalsItemDTO(0, 0, 250, "New phone", "March 12 2022", "Phone", "need approval" ))
-        goalList.add(GoalsItemDTO(1, 1, 350, "New bike", "June 22 2022", "Bike", "need approval" ))
-        goalList.add(GoalsItemDTO(2, 0, 200, "New trust", "June 10 2022", "Trust", "need approval" ))
-        goalList.add(GoalsItemDTO(3, 0, 550, "Upgrade computer", "August 04 2022", "Computer", "need approval" ))
-        goalList.add(GoalsItemDTO(4, 1, 150, "New drill", "March 27 2022", "Drill", "need approval" ))
+        goalList.add(GoalsItemDTO(0, 150, "150", "0", 0, "New version Iphone", "normal" ))
+        goalList.add(GoalsItemDTO(0, 250, "", "New phone", 0, "Phone", "declined" ))
+        goalList.add(GoalsItemDTO(0, 400, "", "New bike", 0, "Bike", "waiting_for_approval" ))
+        goalList.add(GoalsItemDTO(0, 8000, "", "New trust", 0, "Car", "completed" ))
+        goalList.add(GoalsItemDTO(0, 550, "", "Upgrade computer", 0, "Computer", "locked" ))
+        goalList.add(GoalsItemDTO(0, 120, "", "New drill", 0, "Drill", "choose_goal_status" ))
 
         val goalList0 = mutableListOf<GoalsItemDTO>()
         for (goal in goalList){
@@ -54,8 +55,8 @@ class KidStorageImpl @Inject constructor(): KidStorage {
         choresList2.add(ChoresItemDTO("09-14-2022",0,"09-27-2022","Any comment", 1, "done"))
         choresList2.add(ChoresItemDTO("09-14-2022",0,"09-27-2022","Any comment", 2, "pending"))
         val interestsList = mutableListOf<ChildInterestsItemDTO>()
-        interestsList.add(ChildInterestsItemDTO(0,"Happy"))
-        interestsList.add(ChildInterestsItemDTO(1,"Second"))
+        interestsList.add(ChildInterestsItemDTO("0","Happy"))
+        interestsList.add(ChildInterestsItemDTO("1","Second"))
         val assignedTasks = mutableListOf<AssignedTasksItemDTO>()
         assignedTasks.add(AssignedTasksItemDTO(15,"10-10-2022","dsdsdfsdfsdf","","09-09-2022",interestsList,choresList,"Walk Dog", 0,0,3,0,category1,true,"10-09-2022",0,"pending"))
         assignedTasks.add(AssignedTasksItemDTO(25,"11-11-2022","erwerwerwer","","09-11-2022",interestsList,choresList2,"Go to school", 1,0,1,1,category2,true,"11-09-2022",0,"pending"))
@@ -69,9 +70,9 @@ class KidStorageImpl @Inject constructor(): KidStorage {
         parents.add(ParentsItemDTO(1))
         val user = UserDTO(0,"23432",null,true,"05-06-2010",true,"Bond","+52345234523","En","James")
         val goals = mutableListOf<GoalsItemDTO>()
-        goals.add(GoalsItemDTO(0,0,125,"Very nice","01-01-2020","New phone", "Approved"))
-        goals.add(GoalsItemDTO(1,0,85,"Very nice","08-01-2022","New phone", "Approved"))
-        goals.add(GoalsItemDTO(2,0,500,"Very nice","09-09-2022","New phone", "Approved"))
+        goals.add(GoalsItemDTO(0, 400, "", "New bike", 0, "Bike", "waiting_for_approval" ))
+        goals.add(GoalsItemDTO(0, 8000, "", "New trust", 0, "Car", "completed" ))
+        goals.add(GoalsItemDTO(0, 550, "", "Upgrade computer", 0, "Computer", "locked" ))
 
         return ChildDTO(
             2,3, balance, 14, 0, assignedTasks, 10, 122,interests,user,parents,goals
@@ -81,11 +82,12 @@ class KidStorageImpl @Inject constructor(): KidStorage {
 
     override fun getKid(kidId: Int): ChildrenItemDTO {
         val goalList = mutableListOf<GoalsItemDTO>()
-        goalList.add(GoalsItemDTO(0, 0, 250, "New phone", "March 12 2022", "Phone", "need approval" ))
-        goalList.add(GoalsItemDTO(0, 1, 350, "New bike", "June 22 2022", "Bike", "need approval" ))
-        goalList.add(GoalsItemDTO(0, 0, 200, "New trust", "June 10 2022", "Trust", "need approval" ))
-        goalList.add(GoalsItemDTO(0, 0, 550, "Upgrade computer", "August 04 2022", "Computer", "need approval" ))
-        goalList.add(GoalsItemDTO(0, 1, 150, "New drill", "March 27 2022", "Drill", "need approval" ))
+        goalList.add(GoalsItemDTO(0, 150, "150", "0", 0, "New version Iphone", "normal" ))
+        goalList.add(GoalsItemDTO(0, 250, "", "New phone", 0, "Phone", "declined" ))
+        goalList.add(GoalsItemDTO(0, 400, "", "New bike", 0, "Bike", "waiting_for_approval" ))
+        goalList.add(GoalsItemDTO(0, 8000, "", "New trust", 0, "Car", "completed" ))
+        goalList.add(GoalsItemDTO(0, 550, "", "Upgrade computer", 0, "Computer", "locked" ))
+        goalList.add(GoalsItemDTO(0, 120, "", "New drill", 0, "Drill", "choose_goal_status" ))
 
 
 

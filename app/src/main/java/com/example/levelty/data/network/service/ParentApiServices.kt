@@ -3,6 +3,7 @@ package com.example.levelty.data.network.service
 import com.example.levelty.data.storage.model.ChildrenItemDTO
 import com.example.levelty.data.storage.model.CreatedTasksItemDTO
 import com.example.levelty.data.storage.model.NewTaskDTO
+import com.example.levelty.data.storage.request.ParentResponse
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -12,7 +13,7 @@ interface GetChildrenApiService {
     @GET("parents/me/children")
     suspend fun getKids(
 //        @Header("Authorization") token: String
-    ): Response<List<ChildrenItemDTO>>
+    ): Response<ParentResponse>
 //            Response <(String, List<ChildrenItemDTO>) -> List<ChildrenItemDTO>>
 }
 

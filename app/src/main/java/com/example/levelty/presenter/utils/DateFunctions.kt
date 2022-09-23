@@ -48,10 +48,7 @@ fun dateFullStringToTime(date: String): Long? {
 
 fun dateFullStringToShortString(date: String): String? {
     val fullToMls = dateFullStringToTime(date)
-    Log.d("MyLog", "mls = $fullToMls")
-
     val mlsToShort = fullToMls?.let { dateTimeToShortString(it) }
-    Log.d("MyLog", "short = $mlsToShort")
     return mlsToShort
 }
 
@@ -89,7 +86,7 @@ fun getMonthNumber(month: String): Int{
 fun getDateList(): List<DateTask> {
     val formatDateDay = SimpleDateFormat("dd", Locale.getDefault())
     val formatDateMonth = SimpleDateFormat("MMMM", Locale.getDefault())
-    val formatDateYear = SimpleDateFormat("yyyy")
+    val formatDateYear = SimpleDateFormat("yyyy", Locale.getDefault())
     val todayDate = Calendar.getInstance()
 //        Log.d("MyLog","today day = $todayDate")
 //        todayDate.add(Calendar.DATE, -daysAfterCurrent)

@@ -1,24 +1,29 @@
 package com.example.levelty.presenter.viewmodels.parent
 
+import androidx.annotation.StringRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.levelty.domain.exceptions.InternetConnectionException
+import com.example.levelty.domain.exceptions.NetworkException
 import com.example.levelty.domain.models.*
 import com.example.levelty.domain.usecases.parent.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class ProfileFragmentViewModel @Inject constructor(
+class ParentProfileFragmentViewModel @Inject constructor(
     private val getKidsUseCase: GetKidsUseCase,
     private val getTasksUseCase: GetTasksUseCase,
 //    private val getTodayTasksUseCase: GetTodayTasksUseCase,
     private val getKidInterestUseCase: GetKidInterestUseCase,
     private val getKidsGoalsUseCase: GetKidsGoalsUseCase,
     private val getParentsPurposeUseCase: GetParentsPurposeUseCase,
-    private val getKidUseCase: GetKidUseCase
+//    private val getKidUseCase: GetKidUseCase
 ) : ViewModel() {
 
     private val _kidsList = MutableLiveData<List<ChildrenItem>>()
@@ -42,40 +47,39 @@ class ProfileFragmentViewModel @Inject constructor(
         }
     }
 
-    fun getKid(kidId: Int){
-        viewModelScope.launch(Dispatchers.IO) {
-            val currentKid = getKidUseCase.execute(kidId)
-            _kidValue.postValue(currentKid)
-        }
-    }
+//    private val screenStateData = MutableStateFlow<ParentProfileState>(
+//        ParentProfileState.Loading
+//    )
+//    val screenState = screenStateData.asStateFlow()
+//
+//    suspend fun getKids() {
+//        getKidsUseCase.execute().fold({
+//            screenStateData.emit(ParentProfileState.Success(it))
+//        }, {
+//            when (it) {
+//                is NetworkException -> {
+//                    screenStateData.emit(ParentProfileState.Error(it.errorMessage))
+//                }
+//                is InternetConnectionException -> {
+//                    screenStateData.emit(ParentProfileState.Error(it.errorMessage))
+//                }
+//                else -> {}
+//            }
+//        })
+//    }
+
+
+//    fun getKid(kidId: Int){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val currentKid = getKidUseCase.execute(kidId)
+//            _kidValue.postValue(currentKid)
+//        }
+//    }
 
     fun getTodayTasks(kidId: Int){
         viewModelScope.launch(Dispatchers.IO) {
 
             val allTasksList = getTasksUseCase.execute()
-//            val allTasksList = getTasksUseCase.execute()
-//            val todayTasks = mutableListOf<CreatedTasksItem>()
-//
-//            val currentDate = getTodayDateMls()
-//
-//            for (task in allTasksList){
-//                if (kidId == task.assigneeId){
-//
-//                    val startDate = task.startDate?.let { dateShortStringToTime(it) }
-//                    val endDate = task.dueDate?.let { dateShortStringToTime(it) }
-//                    val repeat = task.repeatInterval?.let { dayToMls(it) }
-//                    Log.d("MyLog", "start = $startDate, end = $endDate, current = $currentDate")
-//                    if (currentDate != null) {
-//                        if (currentDate < endDate!!){
-//                            if (startDate == currentDate || ((currentDate - startDate!!) % repeat!!) == 0L){
-//                                todayTasks.add(task)
-//                            }
-//                        }
-//                    }
-//
-//                }
-//            }
-
             _todayTaskList.postValue(allTasksList)
         }
     }
@@ -104,4 +108,11 @@ class ProfileFragmentViewModel @Inject constructor(
     override fun onCleared() {
         viewModelScope.cancel()
     }
+
+    sealed class ParentProfileState {
+        data class Error (@StringRes val exception: Int): ParentProfileState()
+        data class Success (val kidList: List<ChildrenItem>): ParentProfileState()
+        object Loading: ParentProfileState()
+    }
 }
+

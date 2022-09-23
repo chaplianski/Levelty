@@ -93,7 +93,7 @@
         tools:layout="@layout/fragment_start_time_choose" />
     <dialog
         android:id="@+id/pointChooseFragment"
-        android:name="com.example.levelty.presenter.dialogs.PointChooseFragment"
+        android:name="com.example.levelty.presenter.dialogs.parent.ParentPointChooseDialog"
         android:label="fragment_point_choose"
         tools:layout="@layout/fragment_point_choose" >
         <action
@@ -146,7 +146,7 @@
     </fragment>
     <dialog
         android:id="@+id/goalApproveFragment"
-        android:name="com.example.levelty.presenter.dialogs.GoalApproveFragment"
+        android:name="com.example.levelty.presenter.dialogs.parent.ParentGoalApproveDialog"
         android:label="fragment_goal_approve"
         tools:layout="@layout/fragment_goal_approve" />
     <fragment
@@ -171,7 +171,7 @@
     </fragment>
     <dialog
         android:id="@+id/dayPersonalTasksDialogFragment"
-        android:name="com.example.levelty.presenter.dialogs.parent.ParentDayKidChangeStatusTaskDialogFragment"
+        android:name="com.example.levelty.presenter.dialogs.parent.ParentDayKidChangeStatusTaskDialog"
         android:label="fragment_day_personal_tasks_dialog"
         tools:layout="@layout/fragment_day_personal_tasks_dialog" >
         <action
@@ -207,7 +207,7 @@
     </fragment>
     <dialog
         android:id="@+id/repeatChoiceDialogFragment"
-        android:name="com.example.levelty.presenter.dialogs.RepeatChoiceDialogFragment"
+        android:name="com.example.levelty.presenter.dialogs.parent.ParentRepeatChoiceDialog"
         android:label="RepeatChoiceDialogFragment"
         tools:layout="@layout/fragment_repeat_choice_dialog"/>
     <fragment
@@ -261,7 +261,11 @@
         android:id="@+id/kidSuccessChooseGoalDialog"
         android:name="com.example.levelty.presenter.dialogs.kid.KidSuccessChooseGoalDialog"
         android:label="fragment_kid_success_choose_goal_dialog"
-        tools:layout="@layout/fragment_kid_success_choose_goal_dialog" />
+        tools:layout="@layout/fragment_kid_success_choose_goal_dialog" >
+        <action
+            android:id="@+id/action_kidSuccessChooseGoalDialog_to_kidGoalsFragment"
+            app:destination="@id/kidGoalsFragment" />
+    </fragment>
     <dialog
         android:id="@+id/kidCheckNewTasksDialog"
         android:name="com.example.levelty.presenter.dialogs.kid.KidCheckNewTasksDialog"

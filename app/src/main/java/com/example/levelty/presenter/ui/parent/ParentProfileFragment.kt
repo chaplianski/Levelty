@@ -26,11 +26,10 @@ import com.example.levelty.domain.models.*
 import com.example.levelty.presenter.adapters.GoalsProfileFragmentAdapter
 import com.example.levelty.presenter.adapters.PieChartCategoryAdapter
 import com.example.levelty.presenter.adapters.parent.KidProfileFragmentAdapter
-import com.example.levelty.presenter.adapters.parent.SampleStringChipsAdapter
-import com.example.levelty.presenter.adapters.parent.UpcomingTasksProfileFragmentAdapter
-import com.example.levelty.presenter.factories.parent.ProfileFragmentViewModelFactory
+import com.example.levelty.presenter.adapters.parent.StringChipAdapter
+import com.example.levelty.presenter.factories.parent.ParentProfileFragmentViewModelFactory
 import com.example.levelty.presenter.utils.*
-import com.example.levelty.presenter.viewmodels.parent.ProfileFragmentViewModel
+import com.example.levelty.presenter.viewmodels.parent.ParentProfileFragmentViewModel
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
@@ -48,8 +47,8 @@ import javax.inject.Inject
 class ParentProfileFragment : Fragment() {
 
     @Inject
-    lateinit var profileFragmentViewModelFactory: ProfileFragmentViewModelFactory
-    val profileFragmentViewModel: ProfileFragmentViewModel by viewModels { profileFragmentViewModelFactory }
+    lateinit var parentProfileFragmentViewModelFactory: ParentProfileFragmentViewModelFactory
+    val parentProfileFragmentViewModel: ParentProfileFragmentViewModel by viewModels { parentProfileFragmentViewModelFactory }
 
 
     var _binding: FragmentProfileBinding? = null
@@ -122,7 +121,7 @@ class ParentProfileFragment : Fragment() {
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
         val currentKidId = sharedPref?.getInt(CURRENT_KID_ID, -1)
         var kidName = ""
-        var currentKid = ChildrenItem(0, 0)
+//        var currentKid = ChildrenItem(0, 0)
 
         //****** Current date *****
         val dateItem = getCurrentDate()
@@ -152,61 +151,84 @@ class ParentProfileFragment : Fragment() {
 
         // ***** Go to
         kidInterestsButton.setOnClickListener {
-            findNavController().navigate(R.id.action_profileFragment_to_tasksFragment)  // TODO сделать правильную навигацию
+//            findNavController().navigate(R.id.action_profileFragment_to_tasksFragment)  // TODO сделать правильную навигацию
         }
 
         // **** Add kid list *****
 
-        profileFragmentViewModel.getKids()
+        parentProfileFragmentViewModel.getKids()
 
-        profileFragmentViewModel.kidList.observe(this.viewLifecycleOwner) { kids ->
+//        lifecycleScope.launchWhenResumed {
+//            parentProfileFragmentViewModel.getKids()
+//        }
+//
+//        viewLifecycleOwner.lifecycleScope.launch {
+//            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+//                parentProfileFragmentViewModel.screenState.collect {
+//                    when (it) {
+//                        is ParentProfileFragmentViewModel.ParentProfileState.Loading -> {
+//                        }
+//                        is ParentProfileFragmentViewModel.ParentProfileState.Success -> {
+//
+//
+//                        }
+//                        is ParentProfileFragmentViewModel.ParentProfileState.Error -> {
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
+
+            parentProfileFragmentViewModel.kidList.observe(this.viewLifecycleOwner) { kids ->
 //            Log.d("MyLog", "$kids")
 
-            // Fill upper information about kid
-            for (kid in kids) {
-                if (kid.id == currentKidId) {
-                    kidLevelText.text = "Level ${kid.level.toString()}"
-                    kidNameText.text = kid.user?.firstName
-                    fillKidData(kidImage)
-                    fillKidGoals(kid.goals)
-                    kid.id?.let { profileFragmentViewModel.getTodayTasks(it) }
-                    kidName = kid.user?.firstName.toString()
-                }
-            }
-
-            val kidAdapter = currentKidId?.let { KidProfileFragmentAdapter(kids, it) }
-
-            val purposeRV = binding.rvProfileFragmentKids
-            purposeRV.adapter = kidAdapter
-
-            kidAdapter?.kidShortOnClickListener =
-                object : KidProfileFragmentAdapter.KidShortOnClickListener {
-                    override fun shortClick(childrenItem: ChildrenItem) {
-
-                        val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
-                        childrenItem.id?.let { it1 ->
-                            sharedPref?.edit()?.putInt(
-                                CURRENT_KID_ID,
-                                it1
-                            )?.apply()
-                        }
-                        sharedPref?.edit()?.putString(CURRENT_KID_NAME, childrenItem.user?.firstName)?.apply()
-                        kidNameText.text = childrenItem.user?.firstName
-                        kidLevelText.text = "Level ${childrenItem.level.toString()}"
+                // Fill upper information about kid
+                for (kid in kids) {
+                    if (kid.id == currentKidId) {
+                        kidLevelText.text = "Level ${kid.level.toString()}"
+                        kidNameText.text = kid.user?.firstName
                         fillKidData(kidImage)
-//                        Log.d("MyLog", "$childrenItem")
-                        fillKidGoals(childrenItem.goals)
-                        kidName = childrenItem.user?.firstName.toString()
-//                        Log.d("MyLog", "profile name 2 = $kidName")
-                        childrenItem.id?.let { profileFragmentViewModel.getTodayTasks(it) }
-                    }
-
-                    override fun shortAddClick() {
-                        Log.d("MyLog", "Add new kid")
+                        fillKidGoals(kid.goals)
+                        kid.id?.let { parentProfileFragmentViewModel.getTodayTasks(it) }
+                        kidName = kid.user?.firstName.toString()
                     }
                 }
 
-            // **** Add goals list *****
+                val kidAdapter = currentKidId?.let { KidProfileFragmentAdapter(kids, it) }
+
+                val purposeRV = binding.rvProfileFragmentKids
+                purposeRV.adapter = kidAdapter
+
+                kidAdapter?.kidShortOnClickListener =
+                    object : KidProfileFragmentAdapter.KidShortOnClickListener {
+                        override fun shortClick(childrenItem: ChildrenItem) {
+
+                            val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE)
+                            childrenItem.id?.let { it1 ->
+                                sharedPref?.edit()?.putInt(
+                                    CURRENT_KID_ID,
+                                    it1
+                                )?.apply()
+                            }
+                            sharedPref?.edit()
+                                ?.putString(CURRENT_KID_NAME, childrenItem.user?.firstName)?.apply()
+                            kidNameText.text = childrenItem.user?.firstName
+                            kidLevelText.text = "Level ${childrenItem.level.toString()}"
+                            fillKidData(kidImage)
+//                        Log.d("MyLog", "$childrenItem")
+                            fillKidGoals(childrenItem.goals)
+                            kidName = childrenItem.user?.firstName.toString()
+//                        Log.d("MyLog", "profile name 2 = $kidName")
+                            childrenItem.id?.let { parentProfileFragmentViewModel.getTodayTasks(it) }
+                        }
+
+                        override fun shortAddClick() {
+                            Log.d("MyLog", "Add new kid")
+                        }
+                    }
+
+                // **** Add goals list *****
 
 //            val goalsList = kids
 
@@ -215,70 +237,73 @@ class ParentProfileFragment : Fragment() {
 //                fillKidGoals(it)
 //            }
 
-            goalsButton.setOnClickListener {
-                findNavController().navigate(R.id.action_profileFragment_to_kidsGoalsFragment)
+                goalsButton.setOnClickListener {
+                    findNavController().navigate(R.id.action_profileFragment_to_kidsGoalsFragment)
+                }
             }
-        }
 
-        // **** Tasks card *****
+            // **** Tasks card *****
 
-        if (currentKidId != null) {
-            profileFragmentViewModel.getTodayTasks(currentKidId)
-        }
-        profileFragmentViewModel.todayTasksList.observe(this.viewLifecycleOwner) { tasks ->
+            if (currentKidId != null) {
+                parentProfileFragmentViewModel.getTodayTasks(currentKidId)
+            }
+            parentProfileFragmentViewModel.todayTasksList.observe(this.viewLifecycleOwner) { tasks ->
 
-            // ***** Upcoming list ******
-            val upcomingTaskList = getUncomingTaskList(tasks)
+                // ***** Upcoming list ******
+                val upcomingTaskList = getUncomingTaskList(tasks)
 
-            // ***** Progress view in Task card *****
-            val currentTaskQuantity = tasks.size
-            val currentProgress = currentTaskQuantity - upcomingTaskList.size
+                // ***** Progress view in Today Task card *****
+                val todayTaskQuantity = tasks.filter { it.choreDate == getTodayShortDate() }.size
+                val todayCurrentProgress = todayTaskQuantity - upcomingTaskList.size
 
-            textProgress.text = "$currentProgress of $currentTaskQuantity tasks are completed"
-            taskProgressBar.max = currentTaskQuantity
-            taskProgressBar.progress = currentProgress
+                textProgress.text = "$todayCurrentProgress of $todayTaskQuantity tasks are completed"
+                taskProgressBar.max = todayTaskQuantity
+                taskProgressBar.progress = todayCurrentProgress
 
 
-            // **** Add interest list *****
+                // **** Add interest list *****
 //            getInterestList(tasks)
 
 
-            // ****** Pie diagrams *****
-            val pieCategoryList = getPieCategoriesEntries(tasks)
-            val pieTaskList = getPieTaskEntries(tasks)
+                // ****** Pie diagrams *****
+                val pieCategoryList = getPieCategoriesEntries(tasks)
+                val pieTaskList = getPieTaskEntries(tasks)
 
 //            setupPieChartTasks(tasksPie, 60f)
-            setupPieChartTasks(tasksPie, 0f)
-            loadPieTasks(tasksPie, pieTaskList, view)
+                setupPieChartTasks(tasksPie, 0f)
+                loadPieTasks(tasksPie, pieTaskList, view)
 
-            setupPieChartCategories(categoryPie)
-            loadPieCategories(categoryPie, pieCategoryList, view)
+                setupPieChartCategories(categoryPie)
+                loadPieCategories(categoryPie, pieCategoryList, view)
 
 
-            // **** Add purpose list *****
+                // **** Add purpose list *****
 
-            //       profileFragmentViewModel.getParentsPurpose()
-            //       profileFragmentViewModel.parantsPurposeList.observe(this.viewLifecycleOwner){
-            getPurposeList(tasks)
-            //       }
+                //       profileFragmentViewModel.getParentsPurpose()
+                //       profileFragmentViewModel.parantsPurposeList.observe(this.viewLifecycleOwner){
+                getPurposeList(tasks)
+                //       }
 
-        }
+            }
 
-        dayTaskButton.setOnClickListener {
-            val bundle = Bundle()
-            bundle.putString("kid name", kidName)
-            bundle.putString("current date", dateItem)
-            val navController = Navigation.findNavController(view)
-            navController.navigate(R.id.action_profileFragment_to_dayPersonalTasksFragment, bundle)
-        }
+            dayTaskButton.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putString("kid name", kidName)
+                bundle.putString("current date", dateItem)
+                val navController = Navigation.findNavController(view)
+                navController.navigate(
+                    R.id.action_profileFragment_to_dayPersonalTasksFragment,
+                    bundle
+                )
+            }
 
-        parentPurposeButton.setOnClickListener {
+            parentPurposeButton.setOnClickListener {
 
-        }
+            }
 
-        // ***** Add data pies diagrams *****
+            // ***** Add data pies diagrams *****
 
-        getParentBottomNavigationBar(bottomNavigation, view)
+            getParentBottomNavigationBar(bottomNavigation, view)
 
 //        bottomNavigation.setOnItemSelectedListener { item ->
 //            when (item.itemId) {
@@ -299,21 +324,21 @@ class ParentProfileFragment : Fragment() {
 //                else -> false
 //            }
 //        }
-    }
+        }
 
-    private fun fillKidGoals(goals: List<GoalsItem?>?) {
-        val goalsProfileFragmentAdapter = goals?.let { GoalsProfileFragmentAdapter(it) }
-        val goalsRV = binding.rvProfileFragmentGoals
-        goalsRV.adapter = goalsProfileFragmentAdapter
-    }
+        private fun fillKidGoals(goals: List<GoalsItem?>?) {
+            val goalsProfileFragmentAdapter = goals?.let { GoalsProfileFragmentAdapter(it) }
+            val goalsRV = binding.rvProfileFragmentGoals
+            goalsRV.adapter = goalsProfileFragmentAdapter
+        }
 
-    private fun getUncomingTaskList(tasks: List<ParentProcessedTask>): List<ParentProcessedTask> {
-        val upcomingTaskList = getUpcomingTasks(tasks)
-        val uncomingTaskAdapter = UpcomingTasksProfileFragmentAdapter(upcomingTaskList)
-        val upcomingTaskRV = binding.rvProfileFragmentUncomingTasks
-        upcomingTaskRV.adapter = uncomingTaskAdapter
-        return upcomingTaskList
-    }
+        private fun getUncomingTaskList(tasks: List<ParentProcessedTask>): List<ParentProcessedTask> {
+            val upcomingTaskList = getUpcomingTasks(tasks)
+            val uncomingTaskAdapter = StringChipAdapter(upcomingTaskList.map{it.title.toString()})
+            val upcomingTaskRV = binding.rvProfileFragmentUncomingTasks
+            upcomingTaskRV.adapter = uncomingTaskAdapter
+            return upcomingTaskList
+        }
 
 //    private fun getInterestList(tasks: List<CreatedTasksItem>) {
 //        val interestList = getInerestList(tasks)
@@ -322,214 +347,213 @@ class ParentProfileFragment : Fragment() {
 //        interestRV.adapter = interestsProfileFragmentAdapter
 //    }
 
-    private fun getPurposeList(it: List<ParentProcessedTask>) {
-        val purposePosition = -1
-        val purposeList = it.map { task -> task.parentPurpose.toString() }.toSet().toList()
-        val sampleStringChipsAdapter = SampleStringChipsAdapter(purposeList, purposePosition)
-        val purposeRV = binding.rvProfileFragmentPurposes
-        purposeRV.adapter = sampleStringChipsAdapter
-    }
-
-    private fun fillKidData(kidImage: ImageView) {
-
-        view?.context?.let {
-            Glide.with(it).load(R.drawable.kid_icon_1)  // должно быть (kid.image)
-                .override(68, 68)
-                .centerCrop()
-                .circleCrop()
-                .into(kidImage)
+        private fun getPurposeList(it: List<ParentProcessedTask>) {
+            val purposeList = it.map { task -> task.parentPurpose.toString() }.toSet().toList()
+            val sampleStringChipsAdapter = StringChipAdapter(purposeList)
+            val purposeRV = binding.rvProfileFragmentPurposes
+            purposeRV.adapter = sampleStringChipsAdapter
         }
 
-        // ******** Data get from task *************
+        private fun fillKidData(kidImage: ImageView) {
+
+            view?.context?.let {
+                Glide.with(it).load(R.drawable.kid_icon_1)  // должно быть (kid.image)
+                    .override(68, 68)
+                    .centerCrop()
+                    .circleCrop()
+                    .into(kidImage)
+            }
+
+            // ******** Data get from task *************
 //        profileFragmentViewModel.getInterests()
 //        profileFragmentViewModel.getParentsPurpose()
 //        profileFragmentViewModel.getTodayGoals()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
-    private fun getPieCategoriesEntries(tasks: List<ParentProcessedTask>): MutableList<PieEntry> {
-        val pieCategoryList = mutableListOf<PieEntry>()
-        val pieCategorySet = mutableSetOf<String>()
-        for (task in tasks) {
-            task.category?.title?.let { it1 -> pieCategorySet.add(it1) }
         }
-        for (category in pieCategorySet) {
-            var categoryCount = 0f
+
+        override fun onDestroyView() {
+            super.onDestroyView()
+            _binding = null
+        }
+
+        private fun getPieCategoriesEntries(tasks: List<ParentProcessedTask>): MutableList<PieEntry> {
+            val pieCategoryList = mutableListOf<PieEntry>()
+            val pieCategorySet = mutableSetOf<String>()
             for (task in tasks) {
-                if (task.category?.title == category)
-                    categoryCount += 0.1f
+                task.category?.title?.let { it1 -> pieCategorySet.add(it1) }
             }
-            pieCategoryList.add(PieEntry(categoryCount, category))
+            for (category in pieCategorySet) {
+                var categoryCount = 0f
+                for (task in tasks) {
+                    if (task.category?.title == category)
+                        categoryCount += 0.1f
+                }
+                pieCategoryList.add(PieEntry(categoryCount, category))
+            }
+            return pieCategoryList
         }
-        return pieCategoryList
-    }
 
-    private fun getPieTaskEntries(tasks: List<ParentProcessedTask>): MutableList<PieEntry> {
-        val pieTaskList = mutableListOf<PieEntry>()
-        val pieTaskSet = mutableSetOf<String>()
-        for (task in tasks) {
-            task.status?.let { it1 -> pieTaskSet.add(it1) }
-        }
-        for (status in pieTaskSet) {
-            var statusCount = 0f
+        private fun getPieTaskEntries(tasks: List<ParentProcessedTask>): MutableList<PieEntry> {
+            val pieTaskList = mutableListOf<PieEntry>()
+            val pieTaskSet = mutableSetOf<String>()
             for (task in tasks) {
-                if (task.status == status)
-                    statusCount += 1f
+                task.status?.let { it1 -> pieTaskSet.add(it1) }
             }
-            pieTaskList.add(PieEntry(statusCount, status))
+            for (status in pieTaskSet) {
+                var statusCount = 0f
+                for (task in tasks) {
+                    if (task.status == status)
+                        statusCount += 1f
+                }
+                pieTaskList.add(PieEntry(statusCount, status))
+            }
+            return pieTaskList
         }
-        return pieTaskList
-    }
 
 //    private fun getInerestList(tasks: List<CreatedTasksItem>): List<String> {
 //        return tasks.map { task -> task.childInterests }.toSet().toList()
 //    }
 
-    private fun getUpcomingTasks(taskList: List<ParentProcessedTask>): List<ParentProcessedTask> {
-        val upcomingTaskList = mutableListOf<ParentProcessedTask>()
-        for (task in taskList) {
-            if (task.status == DONE_TASK_STATUS) {
-                upcomingTaskList.add(task)
+        private fun getUpcomingTasks(taskList: List<ParentProcessedTask>): List<ParentProcessedTask> {
+            val upcomingTaskList = mutableListOf<ParentProcessedTask>()
+            for (task in taskList) {
+                if (task.choreStatus != DONE_TASK_STATUS && task.choreDate == getTodayShortDate()) {
+                    upcomingTaskList.add(task)
+                }
             }
-        }
 //        Log.d("MyLog", "up tasks = $upcomingTaskList")
-        return upcomingTaskList
-    }
+            return upcomingTaskList
+        }
 
-    private fun setupPieChartCategories(pieChart: PieChart) {
-        pieChart.isDrawHoleEnabled = true
-        pieChart.setDrawEntryLabels(false)
-        pieChart.holeRadius = 75f
-        pieChart.setDrawRoundedSlices(true)
+        private fun setupPieChartCategories(pieChart: PieChart) {
+            pieChart.isDrawHoleEnabled = true
+            pieChart.setDrawEntryLabels(false)
+            pieChart.holeRadius = 75f
+            pieChart.setDrawRoundedSlices(true)
 
-        // ограничивает окружность
-        pieChart.maxAngle = 360f
+            // ограничивает окружность
+            pieChart.maxAngle = 360f
 //        Log.d("MyLog", "v = $handler")
 
-        pieChart.setExtraOffsets(0f, 0f, 5f, 0f)
+            pieChart.setExtraOffsets(0f, 0f, 5f, 0f)
 
-        pieChart.setCenterTextSize(24f)
-        pieChart.description?.isEnabled = false
+            pieChart.setCenterTextSize(24f)
+            pieChart.description?.isEnabled = false
 
 
-        val legend = pieChart.legend
+            val legend = pieChart.legend
 
-        legend?.isEnabled = false
-    }
+            legend?.isEnabled = false
+        }
 
-    private fun loadPieCategories(pieChart: PieChart, entries: List<PieEntry>, view: View) {
+        private fun loadPieCategories(pieChart: PieChart, entries: List<PieEntry>, view: View) {
 
 
 //        entries.add(PieEntry(0.1f, "not complete"))
 
-        val colors = mutableListOf<Int>()//mutableListOf<Int>()
+            val colors = mutableListOf<Int>()//mutableListOf<Int>()
 
-        //       val colorsSet = listOf<Int>(Color.BLUE, Color.CYAN, Color.GRAY, Color.MAGENTA, Color.RED, Color.YELLOW)
-        //        for (color in colorsSet){
+            //       val colorsSet = listOf<Int>(Color.BLUE, Color.CYAN, Color.GRAY, Color.MAGENTA, Color.RED, Color.YELLOW)
+            //        for (color in colorsSet){
 //            colors.add(color)
 //        }
 
-        for (color in ColorTemplate.MATERIAL_COLORS) {
-            colors.add(color)
-        }
-        for (color in ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color)
-        }
+            for (color in ColorTemplate.MATERIAL_COLORS) {
+                colors.add(color)
+            }
+            for (color in ColorTemplate.VORDIPLOM_COLORS) {
+                colors.add(color)
+            }
 
 
 //        Log.d("MyLog", "colors: $colors")
-        val dataSet = PieDataSet(entries, "")//"All tasks")
-        dataSet.colors = colors
+            val dataSet = PieDataSet(entries, "")//"All tasks")
+            dataSet.colors = colors
 
-        val data = PieData(dataSet)
-        data.setDrawValues(false)
+            val data = PieData(dataSet)
+            data.setDrawValues(false)
 //        data.setValueFormatter(PercentFormatter(pieChart))
 //        data.setValueTextSize(12f)
 //        data.setValueTextColor(Color.BLACK)
-        //       Log.d("MyLog", "dataset: $dataSet")
+            //       Log.d("MyLog", "dataset: $dataSet")
 
-        pieChart.data = data
-        pieChart.invalidate()
+            pieChart.data = data
+            pieChart.invalidate()
 
-        val categoryCountText: TextView =
-            view.findViewById(R.id.tv_profile_fragment_category_counrt)
-        categoryCountText.text = entries.size.toString()
+            val categoryCountText: TextView =
+                view.findViewById(R.id.tv_profile_fragment_category_counrt)
+            categoryCountText.text = entries.size.toString()
 
-        val pieChartCategoryAdapter = PieChartCategoryAdapter(entries, colors)
-        val pieRV: RecyclerView = view.findViewById(R.id.rv_profile_fragment_pie_category)
-        pieRV.layoutManager = LinearLayoutManager(context)
-        pieRV.adapter = pieChartCategoryAdapter
-
-
-    }
-
-    private fun setupPieChartTasks(pieChart: PieChart, noComplite: Float) {
-        pieChart.isDrawHoleEnabled = true
-        pieChart.setDrawEntryLabels(false)
-        pieChart.holeRadius = 75f
-        pieChart.setDrawRoundedSlices(true)
+            val pieChartCategoryAdapter = PieChartCategoryAdapter(entries, colors)
+            val pieRV: RecyclerView = view.findViewById(R.id.rv_profile_fragment_pie_category)
+            pieRV.layoutManager = LinearLayoutManager(context)
+            pieRV.adapter = pieChartCategoryAdapter
 
 
-        // ограничивает окружность
-        pieChart.maxAngle = 360f - noComplite
-
-        pieChart.setExtraOffsets(0f, 0f, 5f, 0f)
-
-        pieChart.setCenterTextSize(24f)
-        pieChart.description?.isEnabled = false
-
-
-        val legend = pieChart.legend
-        legend?.isEnabled = false
-    }
-
-    private fun loadPieTasks(pieChart: PieChart, entries: List<PieEntry>, view: View) {
-
-        val colors = mutableListOf<Int>()
-        for (color in ColorTemplate.VORDIPLOM_COLORS) {
-            colors.add(color)
         }
+
+        private fun setupPieChartTasks(pieChart: PieChart, noComplite: Float) {
+            pieChart.isDrawHoleEnabled = true
+            pieChart.setDrawEntryLabels(false)
+            pieChart.holeRadius = 75f
+            pieChart.setDrawRoundedSlices(true)
+
+
+            // ограничивает окружность
+            pieChart.maxAngle = 360f - noComplite
+
+            pieChart.setExtraOffsets(0f, 0f, 5f, 0f)
+
+            pieChart.setCenterTextSize(24f)
+            pieChart.description?.isEnabled = false
+
+
+            val legend = pieChart.legend
+            legend?.isEnabled = false
+        }
+
+        private fun loadPieTasks(pieChart: PieChart, entries: List<PieEntry>, view: View) {
+
+            val colors = mutableListOf<Int>()
+            for (color in ColorTemplate.VORDIPLOM_COLORS) {
+                colors.add(color)
+            }
 
 //        for (color in ColorTemplate.MATERIAL_COLORS){
 //            colors.add(color)
 //        }
 
-        val dataSet = PieDataSet(entries, "")//"All tasks")
-        dataSet.colors = colors
+            val dataSet = PieDataSet(entries, "")//"All tasks")
+            dataSet.colors = colors
 
-        val data = PieData(dataSet)
-        data.setDrawValues(false)
+            val data = PieData(dataSet)
+            data.setDrawValues(false)
 
-        pieChart.data = data
-        pieChart.invalidate()
+            pieChart.data = data
+            pieChart.invalidate()
 
-        val taskCountText: TextView = view.findViewById(R.id.tv_profile_fragment_tasks_counrt)
-        var allTasks = 0f
-        for (entry in entries) {
-            allTasks += entry.value
-            //          Log.d("MyLog","value = ${entry.value}")
+            val taskCountText: TextView = view.findViewById(R.id.tv_profile_fragment_tasks_counrt)
+            var allTasks = 0f
+            for (entry in entries) {
+                allTasks += entry.value
+                //          Log.d("MyLog","value = ${entry.value}")
+            }
+
+
+            taskCountText.text = allTasks.toInt().toString()
+
+            val pieChartCategoryAdapter = PieChartCategoryAdapter(entries, colors)
+            val pieRV: RecyclerView = view.findViewById(R.id.rv_profile_fragment_pie_task)
+            pieRV.layoutManager = LinearLayoutManager(context)
+            pieRV.adapter = pieChartCategoryAdapter
+        }
+
+        fun getCurrentDate(): String {
+            val calendar = Calendar.getInstance(TimeZone.getDefault())
+            val currentDayValue = calendar[Calendar.DAY_OF_MONTH]
+            val currentYearValue = calendar[Calendar.YEAR]
+            val currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
+            return "$currentMonthValue $currentDayValue $currentYearValue"
         }
 
 
-        taskCountText.text = allTasks.toInt().toString()
-
-        val pieChartCategoryAdapter = PieChartCategoryAdapter(entries, colors)
-        val pieRV: RecyclerView = view.findViewById(R.id.rv_profile_fragment_pie_task)
-        pieRV.layoutManager = LinearLayoutManager(context)
-        pieRV.adapter = pieChartCategoryAdapter
     }
-
-    fun getCurrentDate(): String {
-        val calendar = Calendar.getInstance(TimeZone.getDefault())
-        val currentDayValue = calendar[Calendar.DAY_OF_MONTH]
-        val currentYearValue = calendar[Calendar.YEAR]
-        val currentMonthValue = DateFormatSymbols().months[calendar.get(Calendar.MONTH)]
-        return "$currentMonthValue $currentDayValue $currentYearValue"
-    }
-
-
-}

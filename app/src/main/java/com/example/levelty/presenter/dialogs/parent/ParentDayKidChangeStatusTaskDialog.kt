@@ -18,7 +18,7 @@ import com.example.levelty.presenter.viewmodels.parent.ParentDayKidTasksViewMode
 import javax.inject.Inject
 
 
-class ParentDayKidChangeStatusTaskDialogFragment () : DialogFragment() {
+class ParentDayKidChangeStatusTaskDialog () : DialogFragment() {
 
     @Inject
     lateinit var parentDayKidTasksViewModelFactory: ParentDayKidTasksViewModelFactory

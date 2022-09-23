@@ -10,21 +10,21 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 
-class RepeatChooseFragmentViewModel(private val getRepeatVariansUseCase: GetRepeatVariantsUseCase) : ViewModel() {
-
-    val _repeatList = MutableLiveData<List<Repeat>>()
-    val repeatList: LiveData<List<Repeat>> get() = _repeatList
-
-    fun getRepeatVariants(){
-        viewModelScope.launch(Dispatchers.IO) {
-            val list = getRepeatVariansUseCase.execute()
-            _repeatList.postValue(list)
-        }
-
-    }
-
-
-    override fun onCleared() {
-        viewModelScope.cancel()
-    }
-}
+//class RepeatChooseFragmentViewModel(private val getRepeatVariansUseCase: GetRepeatVariantsUseCase) : ViewModel() {
+//
+//    val _repeatList = MutableLiveData<List<Repeat>>()
+//    val repeatList: LiveData<List<Repeat>> get() = _repeatList
+//
+//    fun getRepeatVariants(){
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val list = getRepeatVariansUseCase.execute()
+//            _repeatList.postValue(list)
+//        }
+//
+//    }
+//
+//
+//    override fun onCleared() {
+//        viewModelScope.cancel()
+//    }
+//}

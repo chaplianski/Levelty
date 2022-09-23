@@ -95,7 +95,7 @@ class TasksFragmentAdapter (val tasksList: List<Category>): RecyclerView.Adapter
                 navController.navigate(R.id.action_tasksFragment_to_newTaskFragment)
             } else {
                 val bundle = Bundle()
-                bundle.getString("category", tasksList[position].title)
+                bundle.putString("category", tasksList[position].title)
                 val navController = holder.itemView.let { Navigation.findNavController(it) }
                 navController.navigate(R.id.action_tasksFragment_to_categoryFragment, bundle)
             }
@@ -115,7 +115,7 @@ class TasksFragmentAdapter (val tasksList: List<Category>): RecyclerView.Adapter
 
         fun onBind(category: Category){
 
-            Log.d("MyLog", "category = ${category.title}")
+
 //            val shapeAppearanceModelLL = ShapeAppearanceModel()
 //                .toBuilder()
 //                .setAllCorners(CornerFamily.ROUNDED, 50F)

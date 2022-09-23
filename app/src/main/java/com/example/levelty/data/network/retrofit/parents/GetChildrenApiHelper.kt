@@ -17,10 +17,10 @@ class GetChildrenApiHelper @Inject constructor() {
     @Inject
     lateinit var context: Context
 
-    suspend fun getChildren(): List<ChildrenItemDTO>{
+    suspend fun getChildren(): List<ChildrenItemDTO?>{
         val retrofit = getChildrenRetrofit.create(GetChildrenApiService::class.java)
 
-        var kidList: List<ChildrenItemDTO> = emptyList()
+        var kidList: List<ChildrenItemDTO?> = emptyList()
 //        val json =JSONObject()
 //        json.put("token", PARENT_TOKEN)
 //        val sendData = json.toString().toRequestBody("application/json".toMediaTypeOrNull())
@@ -29,7 +29,8 @@ class GetChildrenApiHelper @Inject constructor() {
 
         when (responseKids.code()) {
             in 200..299 -> {
-                kidList = responseKids.body() ?: emptyList()
+                kidList = (responseKids.body()?.data?.children ?: emptyList()) //as List<ChildrenItemDTO>
+
             }
             in 300..399 -> {
                 throw NetworkException(R.string.internet_error)

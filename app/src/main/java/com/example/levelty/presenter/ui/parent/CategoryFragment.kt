@@ -2,6 +2,7 @@ package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,7 +20,7 @@ import com.example.levelty.presenter.adapters.parent.CategoryFragmentAdapter
 import com.example.levelty.presenter.factories.parent.CategoryFragmentViewModelFactory
 import com.example.levelty.presenter.utils.CURRENT_TASK
 import com.example.levelty.presenter.utils.mapToEditTask
-import com.example.levelty.presenter.viewmodels.parent.CategoryFragmentViewModel
+import com.example.levelty.presenter.viewmodels.parent.ParentCategoryFragmentViewModel
 import javax.inject.Inject
 
 
@@ -27,7 +28,7 @@ class CategoryFragment : Fragment() {
 
     @Inject
     lateinit var categoryFragmentViewModelFactory: CategoryFragmentViewModelFactory
-    val categoryFragmentViewModel: CategoryFragmentViewModel by viewModels { categoryFragmentViewModelFactory }
+    val parentCategoryFragmentViewModel: ParentCategoryFragmentViewModel by viewModels { categoryFragmentViewModelFactory }
 
     override fun onAttach(context: Context) {
         DaggerAppComponent.builder()
@@ -52,6 +53,7 @@ class CategoryFragment : Fragment() {
         val backButton: ImageView = view.findViewById(R.id.iv_category_fragment_back)
         val categoryRV: RecyclerView = view.findViewById(R.id.rv_category_fragment_category_list)
         val addTaskButton: ConstraintLayout = view.findViewById(R.id.cl_category_fragment_add_task)
+        val currentCategory = arguments?.getString("category")
 
         backButton.setOnClickListener {
             findNavController().navigate(R.id.action_categoryFragment_to_tasksFragment)
@@ -61,26 +63,49 @@ class CategoryFragment : Fragment() {
             findNavController().navigate(R.id.action_categoryFragment_to_newTaskFragment)
         }
 
-        categoryFragmentViewModel.getTasks()
-        categoryFragmentViewModel.tasks.observe(this.viewLifecycleOwner){ tasks ->
-            val taskAdapter = CategoryFragmentAdapter(tasks)
-            categoryRV.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            categoryRV.adapter = taskAdapter
-            taskAdapter.categoryClickListener = object : CategoryFragmentAdapter.CategoryClickListener{
-                override fun onItemClick(parentProcessedTask: ParentProcessedTask) {
-                    val bundle = Bundle()
-                    val editTask = parentProcessedTask.mapToEditTask()
-                    bundle.putParcelable(CURRENT_TASK, editTask)
-                    bundle.putString(CATEGORY_MARK, "from category fragment")
-                    findNavController().navigate(R.id.action_categoryFragment_to_editTaskFragment, bundle)
-                }
+        parentCategoryFragmentViewModel.getTasks()
+        parentCategoryFragmentViewModel.tasks.observe(this.viewLifecycleOwner) { tasks ->
+            Log.d("MyLog", "category = ${currentCategory}")
 
-            }
+            val taskAdapter =
+                CategoryFragmentAdapter(getTaskList(tasks.filter { it.category?.title == currentCategory }))
+            categoryRV.layoutManager =
+                LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            categoryRV.adapter = taskAdapter
+            taskAdapter.categoryClickListener =
+                object : CategoryFragmentAdapter.CategoryClickListener {
+                    override fun onItemClick(parentProcessedTask: ParentProcessedTask) {
+                        val bundle = Bundle()
+                        val editTask = parentProcessedTask.mapToEditTask()
+                        bundle.putParcelable(CURRENT_TASK, editTask)
+                        bundle.putString(CATEGORY_MARK, "from category fragment")
+                        findNavController().navigate(
+                            R.id.action_categoryFragment_to_editTaskFragment,
+                            bundle
+                        )
+                    }
+
+                }
         }
 
     }
 
+    fun getTaskList(tasks: List<ParentProcessedTask>): List<ParentProcessedTask> {
+        val taskSet = tasks.map { task -> task.title }.toSet()
+        val taskList = mutableListOf<ParentProcessedTask>()
+        taskSet.forEach { title ->
+            for (task in tasks) {
+                if (task.title == title) {
+                    taskList.add(task)
+                    break
+                }
+            }
+        }
+        Log.d("MyLog", "setSize = ${taskSet.size}, listSize = ${tasks.size}, listsetSize = ${taskList.size}")
+        return taskList
+    }
+
     companion object {
-        val CATEGORY_MARK = "category"
+        const val CATEGORY_MARK = "category"
     }
 }

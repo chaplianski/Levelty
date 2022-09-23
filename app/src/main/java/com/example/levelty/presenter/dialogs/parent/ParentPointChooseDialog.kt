@@ -1,24 +1,19 @@
-package com.example.levelty.presenter.dialogs
+package com.example.levelty.presenter.dialogs.parent
 
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
-import android.view.WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE
 import android.widget.*
 import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
-import com.example.levelty.presenter.ui.parent.ParentNewTaskFragment
 import com.example.levelty.presenter.utils.TASK_NAME
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import java.util.*
 
 
-class PointChooseFragment : BottomSheetDialogFragment() {
+class ParentPointChooseDialog : BottomSheetDialogFragment() {
 
 
     override fun onCreateView(

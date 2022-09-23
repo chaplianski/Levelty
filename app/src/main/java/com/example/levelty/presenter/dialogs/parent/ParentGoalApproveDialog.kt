@@ -1,4 +1,4 @@
-package com.example.levelty.presenter.dialogs
+package com.example.levelty.presenter.dialogs.parent
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class GoalApproveFragment : BottomSheetDialogFragment() {
+class ParentGoalApproveDialog : BottomSheetDialogFragment() {
 
     var _binding: FragmentGoalApproveBinding? = null
     val binding get() = _binding!!

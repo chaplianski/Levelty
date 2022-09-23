@@ -11,7 +11,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class NewTaskViewModel @Inject constructor(
+class ParentNewTaskViewModel @Inject constructor(
     private val addTaskUseCase: AddTaskUseCase,
     private val getKidsUseCase: GetKidsUseCase,
     private val getParentPurposesUseCase: GetParentPurposesUseCase,

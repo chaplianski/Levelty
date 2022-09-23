@@ -22,22 +22,6 @@ fun TaskDTO.taskMapDataToDomain(): Task {
     )
 }
 
-fun Task.taskMapDomainToData(): TaskDTO {
-    return TaskDTO(
-        taskId = taskId,
-        taskName = taskName,
-        taskCategory = taskCategory,
-        taskPoints = taskPoints,
-        taskDate = taskDate,
-        taskStartTime = taskStartTime,
-        taskRepeat = taskRepeat,
-        taskParentPurpose = taskParentPurpose,
-        taskKidsInterest = taskKidsInterest,
-        kidName = kidName,
-        taskStatus = taskStatus
-    )
-}
-
 fun PurposeDTO.purposeMapDataToDomain(): Purpose {
     return Purpose(
         purposeId = purposeId,
@@ -52,22 +36,6 @@ fun InterestDTO.interestMapDataToDomain(): Interest {
     )
 }
 
-fun KidDTO.kidMapDataToDomain(): Kid {
-    return Kid(
-        kidId = kidId,
-        kidName = kidName
-    )
-}
-
-fun GoalDTO.goalMapDataToDomain(): Goal {
-    return Goal(
-        goalId = goalId,
-        goalName = goalName,
-        goalValue = goalValue,
-        isApproval = isApproval,
-        kidId = kidId
-    )
-}
 
 fun ChildrenItemDTO.childrenMapDataToDomain(): ChildrenItem {
     return ChildrenItem(
@@ -265,14 +233,14 @@ fun ParentProcessedTaskDTO.processedMapTaskDataToDomain(): ParentProcessedTask {
 
 fun ChildInterestsItemDTO.interestsMapDataToDomain(): ChildInterestsItem {
     return ChildInterestsItem(
-        id = id,
+        name = name,
         title = title
     )
 }
 
 fun ChildInterestsItem.interestsMapDomainToData(): ChildInterestsItemDTO {
     return ChildInterestsItemDTO(
-        id = id,
+        name = name,
         title = title
     )
 }
@@ -332,7 +300,7 @@ fun Parent.parentMapDomainToData(): ParentDTO {
     return ParentDTO(
         children = children?.map { it?.childrenMapDomainToData() },
         id = id,
-        user = user,
+        user = user?.userMapDomainToData(),
         createdTasks = createdTasks?.map { it?.taskMapDomainToData() }
     )
 }
@@ -341,7 +309,7 @@ fun ParentDTO.parentMapDataToDomain(): Parent {
     return Parent(
         children = children?.map { it?.childrenMapDataToDomain() },
         id = id,
-        user = user,
+        user = user?.userMapDataToDomain(),
         createdTasks = createdTasks?.map { it?.taskMapDataToDomain() }
     )
 }

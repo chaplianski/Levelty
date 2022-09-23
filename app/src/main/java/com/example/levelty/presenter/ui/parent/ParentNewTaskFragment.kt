@@ -1,7 +1,6 @@
 package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
-import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,18 +20,17 @@ import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.NewTask
 import com.example.levelty.presenter.adapters.parent.AddingStringChipsAdapter
 import com.example.levelty.presenter.adapters.parent.SampleStringChipsAdapter
-import com.example.levelty.presenter.factories.parent.NewTaskViewModelFactory
+import com.example.levelty.presenter.factories.parent.ParentNewTaskViewModelFactory
 import com.example.levelty.presenter.utils.*
-import com.example.levelty.presenter.viewmodels.parent.NewTaskViewModel
-import com.google.android.material.chip.Chip
+import com.example.levelty.presenter.viewmodels.parent.ParentNewTaskViewModel
 import javax.inject.Inject
 
 
 class ParentNewTaskFragment : Fragment() {
 
     @Inject
-    lateinit var newTaskViewModelFactory: NewTaskViewModelFactory
-    val newTaskViewModel: NewTaskViewModel by viewModels { newTaskViewModelFactory }
+    lateinit var parentNewTaskViewModelFactory: ParentNewTaskViewModelFactory
+    val parentNewTaskViewModel: ParentNewTaskViewModel by viewModels { parentNewTaskViewModelFactory }
 
     var _binding: FragmentNewTaskBinding? = null
     val binding get() = _binding!!
@@ -78,8 +76,8 @@ class ParentNewTaskFragment : Fragment() {
         var kidInterestValue = ""
 
 
-        newTaskViewModel.getKids()
-        newTaskViewModel.kids.observe(this.viewLifecycleOwner) { kids ->
+        parentNewTaskViewModel.getKids()
+        parentNewTaskViewModel.kids.observe(this.viewLifecycleOwner) { kids ->
             val kidPosition = -1
             val kidsAdapter =
                 SampleStringChipsAdapter(kids.map { kid -> kid.user?.firstName.toString() }, kidPosition)
@@ -94,8 +92,8 @@ class ParentNewTaskFragment : Fragment() {
             }
         }
 
-        newTaskViewModel.getPurpose()
-        newTaskViewModel.purpose.observe(this.viewLifecycleOwner) { purposes ->
+        parentNewTaskViewModel.getPurpose()
+        parentNewTaskViewModel.purpose.observe(this.viewLifecycleOwner) { purposes ->
             val purposePosition = -1
             val purposeAdapter =
                 SampleStringChipsAdapter(purposes, purposePosition)
@@ -107,8 +105,8 @@ class ParentNewTaskFragment : Fragment() {
             }
         }
 
-        newTaskViewModel.getDateVariants()
-        newTaskViewModel.dates.observe(this.viewLifecycleOwner) { dates ->
+        parentNewTaskViewModel.getDateVariants()
+        parentNewTaskViewModel.dates.observe(this.viewLifecycleOwner) { dates ->
             val datePosition = -1
             val datesAdapter = AddingStringChipsAdapter(dates, datePosition)
             dateRV.adapter = datesAdapter
@@ -126,8 +124,8 @@ class ParentNewTaskFragment : Fragment() {
             }
         }
 
-        newTaskViewModel.getRepeatVariants()
-        newTaskViewModel.repeats.observe(this.viewLifecycleOwner) { repeats ->
+        parentNewTaskViewModel.getRepeatVariants()
+        parentNewTaskViewModel.repeats.observe(this.viewLifecycleOwner) { repeats ->
             val repeatPosition = -1
             val repeatsAdapter = AddingStringChipsAdapter(repeats, repeatPosition)
             repeatRV.adapter = repeatsAdapter
@@ -147,8 +145,8 @@ class ParentNewTaskFragment : Fragment() {
             }
         }
 
-        newTaskViewModel.getPointsVariants()
-        newTaskViewModel.points.observe(this.viewLifecycleOwner) { points ->
+        parentNewTaskViewModel.getPointsVariants()
+        parentNewTaskViewModel.points.observe(this.viewLifecycleOwner) { points ->
             val pointsPosition = -1
             val pointsAdapter = AddingStringChipsAdapter(points, pointsPosition)
             pointRV.adapter = pointsAdapter

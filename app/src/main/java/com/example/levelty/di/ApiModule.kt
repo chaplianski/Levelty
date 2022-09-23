@@ -5,9 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.example.levelty.data.network.retrofit.BASE_URL
 import com.example.levelty.data.network.retrofit.PARENT_TOKEN
-import com.example.levelty.di.ApiModule_ProvideCacheFactory.provideCache
-import com.example.levelty.di.ApiModule_ProvideCacheInterceptorFactory.provideCacheInterceptor
-import com.example.levelty.di.ApiModule_ProvideOfflineCacheInterceptorFactory.provideOfflineCacheInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -17,7 +14,8 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.io.File
-import javax.inject.Inject
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 
@@ -91,17 +89,40 @@ class ApiModule {
     fun provideCacheInterceptor(): Interceptor {
         return Interceptor { chain ->
             val response: Response = chain.proceed(chain.request())
+            val cacheControl: CacheControl = CacheControl.Builder()
+                .maxAge(5, TimeUnit.MINUTES)
+                .build()
+            val request = chain.request()
+                .newBuilder()
+                .addHeader("Content-Type", "application/json")
+                .addHeader("Authorization", "Bearer $PARENT_TOKEN")
+                .header("Cache-Control", "public, max-age= $cacheControl")
+                .build()
+            chain.proceed(request)
+
 
             // re-write response header to force use of cache
-//            val cacheControl: CacheControl = Builder()
-//                .maxAge(5, TimeUnit.MINUTES)
-//                .build()
+
             response.newBuilder()
-                .header("Cache-Control", "public, max-age=" +5) //cacheControl.toString())
 
                 .build()
         }
     }
+
+
+//    internal class RequestCacheInterceptor : Interceptor {
+//        @Throws(IOException::class)
+//        override fun intercept(chain: Interceptor.Chain): Response {
+//            val builder: Request.Builder =
+//                chain.request().NewBuilder() // Изменить на основе исходного запроса
+////            if (is) {
+//                // Нет автономного принудительного кэша
+//                builder.cacheControl(CacheControl.FORCE_CACHE) // Эквивалентно добавлению только if-cache
+////            }
+//            val newRequest = builder.build()
+//            return chain.proceed(newRequest)
+//        }
+//    }
 
     @Provides
     @Singleton
@@ -122,7 +143,7 @@ class ApiModule {
     }
 
     fun isNetworkAvailable(context: Context): Boolean? {
-        var isConnected: Boolean? = false // Initial Value
+        var isConnected: Boolean? = false
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
         if (activeNetwork != null && activeNetwork.isConnected)

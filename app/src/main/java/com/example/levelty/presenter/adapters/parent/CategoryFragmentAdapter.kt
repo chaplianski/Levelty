@@ -1,5 +1,6 @@
 package com.example.levelty.presenter.adapters.parent
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,7 @@ class CategoryFragmentAdapter(val taskList: List<ParentProcessedTask>): Recycler
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
+        Log.d("MyLog", "task = ${taskList[position]}")
                 holder.onBind(taskList[position])
                 holder.taskNumber.text = "Task ${position + 1}"
                 holder.itemView.setOnClickListener {

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.levelty.R
@@ -16,7 +15,7 @@ import com.example.levelty.domain.models.Category
 import com.example.levelty.presenter.adapters.parent.TasksFragmentAdapter
 import com.example.levelty.presenter.factories.parent.TaskFragmentViewModelFactory
 import com.example.levelty.presenter.utils.getParentBottomNavigationBar
-import com.example.levelty.presenter.viewmodels.parent.TaskFragmentViewModel
+import com.example.levelty.presenter.viewmodels.parent.ParentTasksFragmentViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import javax.inject.Inject
 
@@ -25,7 +24,7 @@ class ParentTasksFragment : Fragment() {
 
     @Inject
     lateinit var tasksFragmentViewModelFactory: TaskFragmentViewModelFactory
-    val tasksFragmentViewModel: TaskFragmentViewModel by viewModels {tasksFragmentViewModelFactory}
+    val tasksFragmentViewModel: ParentTasksFragmentViewModel by viewModels {tasksFragmentViewModelFactory}
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

@@ -4,12 +4,17 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
+import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.levelty.R
 import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.models.GoalsItem
+import com.google.android.material.chip.Chip
 
 class KidGoalsFragmentAdapter  (val goals: List<GoalsItem>): RecyclerView.Adapter<KidGoalsFragmentAdapter.ViewHolder>() {
 
@@ -29,7 +34,10 @@ class KidGoalsFragmentAdapter  (val goals: List<GoalsItem>): RecyclerView.Adapte
         holder.onBind(goals[position])
 
         holder.itemView.setOnClickListener {
-            shortOnClickListener?.ShortClick(goals[position])
+            if (goals[position].status == "waiting_for_approval"){
+                shortOnClickListener?.ShortClick(goals[position])
+            }
+
         }
 
 
@@ -41,16 +49,37 @@ class KidGoalsFragmentAdapter  (val goals: List<GoalsItem>): RecyclerView.Adapte
 
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
 
-        val goalNameText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_name)
-        val goalRewardText: TextView = itemView.findViewById(R.id.tv_fragment_kid_goal_reward)
-        val goalLayout = itemView.findViewById<CardView>(R.id.cv_fragment_kid_goal_card)
+        val goalNameText: TextView = itemView.findViewById(R.id.tv_item_parent_kid_goal_name)
+        val goalCoinsText: TextView = itemView.findViewById(R.id.tv_item_parent_kid_goal_coins)
+        val goalHelpLayout = itemView.findViewById<TextView>(R.id.layout_item_fragment_kid_goals)
+        val goalStatus = itemView.findViewById<Chip>(R.id.chip_item_parent_kid_goal_status)
+        val goalCoinsImage = itemView.findViewById<ImageView>(R.id.iv_item_parent_kid_goal_coins)
 //        val isApprovalButton: Chip = itemView.findViewById(R.id.chip_fragment_kid_goal_approval)
 //        val goalImage: ImageView = itemView.findViewById(R.id.iv_fragment_profile_goal_image)
 
         fun onBind(goal: GoalsItem){
             goalNameText.text = goal.title
-            goalRewardText.text = goal.price.toString()
+            goalCoinsText.text = goal.price.toString()
 
+       when (goal.status){
+           "waiting_for_approval" -> {
+               val param = goalNameText.layoutParams as ViewGroup.MarginLayoutParams
+               param.topMargin = 50
+               goalNameText.layoutParams = param
+//               goalStatus.layoutParams = param
+
+//               goalHelpLayout.visibility = View.VISIBLE
+               goalStatus.visibility = View.VISIBLE
+               goalCoinsText.visibility = View.INVISIBLE
+               goalCoinsImage.visibility = View.INVISIBLE
+           }
+           else -> {
+//               goalHelpLayout.visibility = View.INVISIBLE
+//               goalStatus.visibility = View.INVISIBLE
+               goalCoinsText.visibility = View.VISIBLE
+               goalCoinsImage.visibility = View.VISIBLE
+           }
+       }
 //            val firstColor = ContextCompat.getColor(itemView.context, R.color.purple_500)
 //            val secondColor = ResourcesCompat.getColor(Resources.getSystem(), R.color.purple_700, null)
 //            val colorA = Color.parseColor("#2D98FB")
@@ -61,12 +90,12 @@ class KidGoalsFragmentAdapter  (val goals: List<GoalsItem>): RecyclerView.Adapte
 
  //           goalLayout.setBackgroundDrawable(gr)
 
-
-//            Glide.with(itemView.context).load(R.drawable.kid_goal_image_1)
-//                .override(68, 68)
+//
+//            Glide.with(itemView.context).load(R.drawable.ic_coins)
+//                .override(50, 120)
 //                .centerCrop()
 //                .circleCrop()
-//                .into(goalImage)
+//                .into(goalCoinsImage)
         }
     }
 }

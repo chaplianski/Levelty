@@ -7,7 +7,7 @@ import com.example.levelty.presenter.viewmodels.parent.ParentEditTaskFragmentVie
 import javax.inject.Inject
 
 @Suppress("UNCHECKED_CAST")
-class EditTaskFragmentViewModelFactory @Inject constructor(
+class ParentEditTaskFragmentViewModelFactory @Inject constructor(
     private val updateParentTaskUseCase: UpdateParentTaskUseCase,
     private val getKidsUseCase: GetKidsUseCase,
     private val getRepeatVariantsForTaskUseCase: GetRepeatVariantsForTaskUseCase,

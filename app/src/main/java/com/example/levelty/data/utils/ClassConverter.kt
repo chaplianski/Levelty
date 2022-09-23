@@ -44,6 +44,31 @@ fun createdTasksItemToProcessedTask(createdTasks: List<CreatedTasksItemDTO>): Li
     return processedTasks
 }
 
+//fun CreatedTasksItemDTO.tasksMapDataToDomain(): List<ParentProcessedTaskDTO> {
+//    return List<ParentProcessedTaskDTO>(
+//        id = id,
+//        title = title,
+//        parentPurpose = parentPurpose,
+//        cost = cost,
+//        description = description,
+//        createdAt = createdAt,
+//        assigneeId = assigneeId,
+//        categoryId = categoryId,
+//        category = category,
+//        creatorId = creatorId,
+//        isPeriodic = isPeriodic,
+//        repeatInterval = repeatInterval,
+//        childInterests = childInterests,
+//        status = status,
+//        choreDate = chores.map {  },
+//        choreFinishDate = chores,
+//        choreStatus = chores,
+//        choreID = chores,
+//        choreComment = chores
+//
+//    )
+//}
+
 
 fun assignedTasksItemToProcessedTask(assignedTasks: List<AssignedTasksItemDTO>): List<KidProcessedTaskDTO>{
 

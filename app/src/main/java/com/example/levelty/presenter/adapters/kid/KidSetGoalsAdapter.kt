@@ -46,7 +46,7 @@ class KidSetGoalsAdapter(private val listGoals: List<GoalsItem>): RecyclerView.A
         fun onBind(goalsItem: GoalsItem){
             goalName.text = goalsItem.title
 
-            if (goalsItem.title == "Add yours"){
+            if (goalsItem.title == "New goal"){
                 Glide.with(itemView.context).load(R.drawable.ic_big_plus)
                     .override(68, 68)
                     .centerCrop()
