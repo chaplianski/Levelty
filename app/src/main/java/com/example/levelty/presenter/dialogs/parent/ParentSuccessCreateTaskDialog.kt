@@ -1,27 +1,26 @@
 package com.example.levelty.presenter.dialogs.parent
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
-import com.example.levelty.databinding.FragmentParentSuccessCreateTaskDialogBinding
+import com.example.levelty.databinding.DialogParentSuccessCreateTaskBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class ParentSuccessCreateTaskDialog : Fragment() {
 
-    var _binding: FragmentParentSuccessCreateTaskDialogBinding? = null
+    var _binding: DialogParentSuccessCreateTaskBinding? = null
     val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentParentSuccessCreateTaskDialogBinding.inflate(layoutInflater, container,false)
+        _binding = DialogParentSuccessCreateTaskBinding.inflate(layoutInflater, container,false)
         return binding.root
 
     }

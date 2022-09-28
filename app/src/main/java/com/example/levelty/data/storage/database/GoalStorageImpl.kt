@@ -1,9 +1,7 @@
 package com.example.levelty.data.storage.database
 
-import com.example.levelty.data.storage.model.GoalDTO
 import com.example.levelty.data.storage.model.GoalsItemDTO
 import com.example.levelty.data.storage.storage.GoalStorage
-import com.example.levelty.domain.models.GoalsItem
 import javax.inject.Inject
 
 class GoalStorageImpl @Inject constructor(): GoalStorage {

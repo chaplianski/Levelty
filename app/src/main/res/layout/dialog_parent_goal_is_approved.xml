@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presenter.dialogs.parent.ParentGoalIsApprovedDialog">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_item_fragment_kid_goals_is_approved"
+        android:layout_width="300dp"
+        android:layout_height="415dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/kid_task_card_form"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tv_parent_goal_is_approved_message"
+            style="@style/Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="The goal is approved!"
+            android:textAlignment="center"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/iv_parent_goal_is_approved"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_parent_goal_is_approved_message"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/baloons_1" />
+
+        <TextView
+            android:id="@+id/tv_parent_goal_is_approved_name"
+            style="@style/Bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="New computer"
+            android:textColor="@color/text_primary"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.506"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_parent_goal_is_approved"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/tv_parent_goal_is_approved_cost"
+            style="@style/Regular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="4000 coins"
+            android:textSize="18sp"
+            android:textColor="@color/text_secondary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_parent_goal_is_approved_name"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/bt_parent_goal_is_approved_cool"
+            android:layout_width="match_parent"
+            android:layout_height="53dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#6D51FF"
+            android:text="Cool"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            app:cornerRadius="25dp"
+            app:ensureMinTouchTargetSize="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_parent_goal_is_approved_cost" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

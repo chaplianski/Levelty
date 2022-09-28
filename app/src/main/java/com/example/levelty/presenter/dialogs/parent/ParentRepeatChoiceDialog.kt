@@ -25,7 +25,7 @@ class ParentRepeatChoiceDialog : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_repeat_choice_dialog, container, false)
+        return inflater.inflate(R.layout.dialog_repeat_choice, container, false)
     }
 
     override fun getTheme(): Int {

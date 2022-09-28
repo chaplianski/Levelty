@@ -1,31 +1,26 @@
 package com.example.levelty.presenter.dialogs.kid
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.FrameLayout
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.example.levelty.R
-import com.example.levelty.databinding.FragmentKidSuccessCloseTaskDialogBinding
+import com.example.levelty.databinding.DialogKidSuccessCloseTaskBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class KidSuccessCloseTaskDialog: DialogFragment()  {
 
 
-    var _binding: FragmentKidSuccessCloseTaskDialogBinding? = null
+    var _binding: DialogKidSuccessCloseTaskBinding? = null
     val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentKidSuccessCloseTaskDialogBinding.inflate(layoutInflater, container, false)
+        _binding = DialogKidSuccessCloseTaskBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 

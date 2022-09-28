@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,20 +11,18 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.*
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.levelty.R
-import com.example.levelty.databinding.FragmentKidEarnCoinsDialogBinding
+import com.example.levelty.databinding.DialogKidEarnCoinsBinding
 import com.example.levelty.di.DaggerAppComponent
 import com.example.levelty.domain.models.KidProcessedTask
 import com.example.levelty.presenter.adapters.kid.KidApprovedTaskAdapter
 import com.example.levelty.presenter.factories.kid.KidProfileFragmentViewModelFactory
-import com.example.levelty.presenter.utils.CURRENT_CHORE_ID
 import com.example.levelty.presenter.viewmodels.kid.KidProfileFragmentViewModel
 import javax.inject.Inject
 
 
 class KidEarnCoinsDialog : DialogFragment() {
 
-    var _binding: FragmentKidEarnCoinsDialogBinding? = null
+    var _binding: DialogKidEarnCoinsBinding? = null
     val binding get() = _binding!!
 
     @Inject
@@ -45,7 +42,7 @@ class KidEarnCoinsDialog : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentKidEarnCoinsDialogBinding.inflate(layoutInflater, container,false)
+        _binding = DialogKidEarnCoinsBinding.inflate(layoutInflater, container,false)
         return binding.root
     }
 

@@ -18,7 +18,7 @@ import com.example.levelty.presenter.viewmodels.parent.ParentDayKidTasksViewMode
 import javax.inject.Inject
 
 
-class ParentDayKidChangeStatusTaskDialog () : DialogFragment() {
+class ParentDayKidChangeStatusTaskDialog : DialogFragment() {
 
     @Inject
     lateinit var parentDayKidTasksViewModelFactory: ParentDayKidTasksViewModelFactory
@@ -43,31 +43,35 @@ class ParentDayKidChangeStatusTaskDialog () : DialogFragment() {
         val window: Window? = dialog!!.window
         window?.setGravity(Gravity.TOP or Gravity.NO_GRAVITY)
         val params: WindowManager.LayoutParams? = window?.getAttributes()
-  //      params?.x = 300
+        //      params?.x = 300
         params?.y = 1100
         window?.setAttributes(params)
 //        window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        return inflater.inflate(R.layout.fragment_day_personal_tasks_dialog, container, false)
+        return inflater.inflate(R.layout.dialog_day_personal_tasks, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
 
-        val approveButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_approve)
-        val declineButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_decline)
-        val editButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_edit)
-        val cancelButton: com.google.android.material.textview.MaterialTextView = view.findViewById(R.id.tv_day_personal_tasks_dialog_cancel)
+        val approveButton: com.google.android.material.textview.MaterialTextView =
+            view.findViewById(R.id.tv_day_personal_tasks_dialog_approve)
+        val declineButton: com.google.android.material.textview.MaterialTextView =
+            view.findViewById(R.id.tv_day_personal_tasks_dialog_decline)
+        val editButton: com.google.android.material.textview.MaterialTextView =
+            view.findViewById(R.id.tv_day_personal_tasks_dialog_edit)
+        val cancelButton: com.google.android.material.textview.MaterialTextView =
+            view.findViewById(R.id.tv_day_personal_tasks_dialog_cancel)
         val taskId = arguments?.getInt(CURRENT_TASK_ID)
         val task: EditTask? = arguments?.getParcelable(CURRENT_TASK)
 
 //        Log.d("MyLog", "task = $task")
 
         approveButton.setOnClickListener {
-                if (taskId != null) {
-                    parentDayKidTasksViewModel.updateTask(taskId, DONE_TASK_STATUS)
-                }
+            if (taskId != null) {
+                parentDayKidTasksViewModel.updateTask(taskId, DONE_TASK_STATUS)
+            }
             dismiss()
         }
 //
@@ -75,7 +79,7 @@ class ParentDayKidChangeStatusTaskDialog () : DialogFragment() {
             if (taskId != null) {
                 parentDayKidTasksViewModel.updateTask(taskId, REJECTED_TASK_STATUS)
             }
-            dismiss()
+            dialog?.dismiss()
         }
 
         editButton.setOnClickListener {
@@ -85,7 +89,10 @@ class ParentDayKidChangeStatusTaskDialog () : DialogFragment() {
                 }
                 putParcelable(CURRENT_TASK, task)
             }
-            navController.navigate(R.id.action_dayPersonalTasksDialogFragment_to_editTaskFragment, bundle)
+            navController.navigate(
+                R.id.action_dayPersonalTasksDialogFragment_to_editTaskFragment,
+                bundle
+            )
             dismiss()
         }
 
@@ -96,5 +103,5 @@ class ParentDayKidChangeStatusTaskDialog () : DialogFragment() {
     }
 
 
-
 }
+

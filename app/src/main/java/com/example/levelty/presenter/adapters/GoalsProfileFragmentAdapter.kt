@@ -3,13 +3,10 @@ package com.example.levelty.presenter.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
-import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.models.GoalsItem
-import com.google.android.material.chip.Chip
 
 class GoalsProfileFragmentAdapter(val goals: List<GoalsItem?>): RecyclerView.Adapter<GoalsProfileFragmentAdapter.ViewHolder>() {
 

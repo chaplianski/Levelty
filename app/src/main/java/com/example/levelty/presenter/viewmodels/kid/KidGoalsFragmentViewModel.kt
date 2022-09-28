@@ -6,7 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.models.GoalsItem
 import com.example.levelty.domain.usecases.kid.CompleteGoalUseCase
 import com.example.levelty.domain.usecases.parent.GetKidsGoalsUseCase

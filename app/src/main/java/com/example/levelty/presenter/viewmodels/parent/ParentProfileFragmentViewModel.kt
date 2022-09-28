@@ -111,7 +111,8 @@ class ParentProfileFragmentViewModel @Inject constructor(
 
     sealed class ParentProfileState {
         data class Error (@StringRes val exception: Int): ParentProfileState()
-        data class Success (val kidList: List<ChildrenItem>): ParentProfileState()
+        data class SuccessKids (val kidList: List<ChildrenItem>): ParentProfileState()
+        data class SuccessTasks (val kidList: List<ParentProcessedTask>): ParentProfileState()
         object Loading: ParentProfileState()
     }
 }

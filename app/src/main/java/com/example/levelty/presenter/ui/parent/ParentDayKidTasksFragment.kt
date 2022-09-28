@@ -2,6 +2,7 @@ package com.example.levelty.presenter.ui.parent
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,8 @@ import com.example.levelty.domain.models.ParentProcessedTask
 import com.example.levelty.presenter.adapters.FragmentDayPersonalTasksAdapter
 import com.example.levelty.presenter.adapters.PickerAdapter
 import com.example.levelty.presenter.adapters.PickerLayoutManager
+import com.example.levelty.presenter.dialogs.kid.KidRedoTaskDialog
+import com.example.levelty.presenter.dialogs.parent.ParentDayKidChangeStatusTaskDialog
 import com.example.levelty.presenter.factories.parent.ParentDayKidTasksViewModelFactory
 import com.example.levelty.presenter.utils.*
 import com.example.levelty.presenter.viewmodels.parent.ParentDayKidTasksViewModel
@@ -172,8 +175,13 @@ class ParentDayKidTasksFragment : Fragment() {
                             R.id.action_parentDayKidTasksFragment_to_parentDayKidChangeStatusTaskDialogFragment,
                             bundle
                         )
+
+
                     }
                 }
+
+
+
 
             //***** Set progress indicators *******
 
@@ -184,6 +192,8 @@ class ParentDayKidTasksFragment : Fragment() {
             progressBar.progress = completedTaskCount
 
         }
+
+
 
 
         // ***** Go to NewTaskFragment *****
@@ -268,6 +278,7 @@ class ParentDayKidTasksFragment : Fragment() {
         _binding = null
         super.onDestroy()
     }
+
 
 
 

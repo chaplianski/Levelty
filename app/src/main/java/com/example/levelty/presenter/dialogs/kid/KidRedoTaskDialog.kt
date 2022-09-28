@@ -25,7 +25,7 @@ class KidRedoTaskDialog : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_kid_redo_task_dialog, container, false)
+        return inflater.inflate(R.layout.dialog_kid_redo_task, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

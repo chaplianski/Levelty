@@ -1,18 +1,12 @@
 package com.example.levelty.presenter.adapters.parent
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.view.marginTop
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.levelty.R
-import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.models.GoalsItem
 import com.google.android.material.chip.Chip
 

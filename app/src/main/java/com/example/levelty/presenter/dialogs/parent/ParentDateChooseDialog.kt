@@ -1,8 +1,6 @@
 package com.example.levelty.presenter.dialogs
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -13,15 +11,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.*
-import androidx.recyclerview.widget.RecyclerView.SmoothScroller
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SnapHelper
 import com.example.levelty.R
 import com.example.levelty.presenter.adapters.DatePickerLayoutManager
-import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
 import com.example.levelty.presenter.adapters.IntegerWheelPickerAdapter
+import com.example.levelty.presenter.adapters.StringWheelPickerAdapter
 import com.example.levelty.presenter.utils.dateShortStringToTime
-import com.example.levelty.presenter.utils.getMonthNumber
-import com.example.levelty.presenter.utils.getTodayShortDate
 import com.example.levelty.presenter.viewmodels.parent.DateChooseFragmentViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -31,7 +29,7 @@ import java.time.YearMonth
 import java.util.*
 
 
-class DateChooseFragment : BottomSheetDialogFragment() {
+class ParentDateChooseDialog : BottomSheetDialogFragment() {
 
     val dateChooseFragmentViewModel: DateChooseFragmentViewModel by viewModels ()
     var currentDayPosition = 0

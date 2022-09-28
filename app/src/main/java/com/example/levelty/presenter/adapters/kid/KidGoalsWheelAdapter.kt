@@ -8,12 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.levelty.R
-import com.example.levelty.domain.models.Goal
 import com.example.levelty.domain.models.GoalsItem
-import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter.Companion.DECLINED_STATUS
-import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter.Companion.NORMAL_STATUS
-import com.example.levelty.presenter.adapters.kid.KidDayTasksFragmentAdapter.Companion.WRONG_STATUS
-import kotlinx.coroutines.NonDisposableHandle.parent
 
 class KidGoalsWheelAdapter(
 val goalList: List<GoalsItem>, private val recyclerView: RecyclerView):

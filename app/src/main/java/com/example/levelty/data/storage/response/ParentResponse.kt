@@ -1,4 +1,4 @@
-package com.example.levelty.data.storage.request
+package com.example.levelty.data.storage.response
 
 import com.example.levelty.data.storage.model.ParentDTO
 
