@@ -8,3 +8,4 @@ data class CategoryDTO(
     val id: Int? = null,
     val title: String? = null
 )
+

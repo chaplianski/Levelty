@@ -2,7 +2,7 @@ package com.example.levelty.presenter.helpers
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+@Deprecated("not use")
 class CircularScrollListener(val itemsNomber: Int): RecyclerView.OnScrollListener() {
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {

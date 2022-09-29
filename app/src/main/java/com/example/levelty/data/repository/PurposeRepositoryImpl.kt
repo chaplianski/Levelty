@@ -1,6 +1,7 @@
 package com.example.levelty.data.repository
 
 import com.example.levelty.data.storage.database.PurposeStorageImpl
+import com.example.levelty.data.utils.purposeMapDataToDomain
 import com.example.levelty.domain.models.Purpose
 import com.example.levelty.domain.repository.PurposeRepository
 import javax.inject.Inject

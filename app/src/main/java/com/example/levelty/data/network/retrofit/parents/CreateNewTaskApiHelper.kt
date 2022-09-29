@@ -29,7 +29,7 @@ class CreateNewTaskApiHelper @Inject constructor() {
             }
             in 300..399 -> {
                 throw NetworkException(R.string.internet_error)
-            }
+            }xx
             in 400..499 -> {
                 throw NetworkException(R.string.client_error)
             }

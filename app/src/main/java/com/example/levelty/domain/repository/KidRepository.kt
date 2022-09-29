@@ -11,7 +11,5 @@ interface KidRepository {
     fun getChild(): Child
 
 
-    fun getKid(kidId: Int): ChildrenItem
-
-
+    fun getKid(kidId: Int): ChildrenItem//TODO rename to getChildById
 }

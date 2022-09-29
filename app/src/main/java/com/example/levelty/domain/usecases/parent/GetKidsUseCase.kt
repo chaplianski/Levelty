@@ -16,6 +16,7 @@ class GetKidsUseCase @Inject constructor(private val kidRepository: KidRepositor
         suspend fun execute(): List<ChildrenItem> {
         return kidRepository.getKids()
 
+            //TODO лучше вынести одну и ту же логику по обработке этих типов ошибок в отдельный класс и его просто использовать тут
 //    suspend fun execute(): Result<List<ChildrenItem>> {
 //        return Result.runCatching {
 //            try {

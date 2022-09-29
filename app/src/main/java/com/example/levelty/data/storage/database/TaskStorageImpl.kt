@@ -16,7 +16,7 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
 
     override fun getDayTask(kidName: String, date: String): List<TaskDTO> {
         return leveltyDao.getTodayTask(kidName, date)
-
+//TODO это обычно удаляют и код в истории гита прекрасно хранится
 //        val taskList = mutableListOf<TaskDTO>()
 //        val dateToday = "" //Calendar.getInstance().timeInMillis
 //        val startDate = "" //Calendar.getInstance().timeInMillis
@@ -73,11 +73,11 @@ class TaskStorageImpl @Inject constructor() : TaskStorage {
                 "created"
             )
         )
-
+//TODO это обычно удаляют и код в истории гита прекрасно хранится
 //        val list = leveltyDao.getTodayTask(kidName, date)
 //        Log.d("MyLog", "list in taskStorageImpl = $list")
         return listTasks
-
+//TODO это обычно удаляют и код в истории гита прекрасно хранится
 //        val taskList = mutableListOf<TaskDTO>()
 //        val dateToday = "" //Calendar.getInstance().timeInMillis
 //        val startDate = "" //Calendar.getInstance().timeInMillis

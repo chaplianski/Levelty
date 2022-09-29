@@ -1,19 +1,15 @@
-package com.example.levelty.data.repository
+package com.example.levelty.data.utils
 
-import android.util.Log
-import com.example.levelty.data.storage.model.AssignedTasksItemDTO
-import com.example.levelty.data.storage.model.CreatedTasksItemDTO
-import com.example.levelty.data.storage.model.KidProcessedTaskDTO
-import com.example.levelty.data.storage.model.ParentProcessedTaskDTO
-import com.example.levelty.domain.models.*
+import com.example.levelty.data.storage.model.*
 
 
-fun createdTasksItemToProcessedTask(createdTasks: List<CreatedTasksItemDTO>): List<ParentProcessedTaskDTO>{
+@Deprecated("Use the new convertTasksItemToProcessedTask() method", replaceWith = ReplaceWith("convertTasksItemToProcessedTask()"))
+fun createdTasksItemToProcessedTask(createdTasks: List<CreatedTasksItemDTO>): List<ParentProcessedTaskDTO> {
 
     val processedTasks = mutableListOf<ParentProcessedTaskDTO>()
-    for (task in createdTasks){
-        if (task.chores != null){
-            for (chore in task.chores){
+    for (task in createdTasks) {
+        if (task.chores != null) {
+            for (chore in task.chores) {
                 val id = task.id
                 val title = task.title
                 val parentPurpose = task.parentPurpose
@@ -33,16 +29,71 @@ fun createdTasksItemToProcessedTask(createdTasks: List<CreatedTasksItemDTO>): Li
                 val choreID = chore?.id
                 val choreComment = chore?.comment
                 val choreFinishDate = chore?.finishedDatetime
-            processedTasks.add(
-                ParentProcessedTaskDTO(id, title, parentPurpose, cost, description, createdAt,
-                assigneeId, categoryId, category, creatorId, isPeriodic, repeatInterval, childInterests, status, choreDate,
-                choreFinishDate, choreStatus, choreID, choreComment )
-            )
+                processedTasks.add(
+                    ParentProcessedTaskDTO(
+                        id,
+                        title,
+                        parentPurpose,
+                        cost,
+                        description,
+                        createdAt,
+                        assigneeId,
+                        categoryId,
+                        category,
+                        creatorId,
+                        isPeriodic,
+                        repeatInterval,
+                        childInterests,
+                        status,
+                        choreDate,
+                        choreFinishDate,
+                        choreStatus,
+                        choreID,
+                        choreComment
+                    )
+                )
             }
         }
     }
     return processedTasks
 }
+
+fun convertTasksItemToProcessedTask(createdTasks: List<CreatedTasksItemDTO>): List<ParentProcessedTaskDTO> {
+    val resultTasks = mutableListOf<ParentProcessedTaskDTO>()
+    createdTasks.forEach { resultTasks.addAll(it.convertItem()) }
+    return resultTasks
+}
+
+private fun CreatedTasksItemDTO.convertItem(): List<ParentProcessedTaskDTO> = if (chores != null) {
+    val comonTaskItem = ParentProcessedTaskDTO(
+        id = id,
+        title = title,
+        parentPurpose = parentPurpose,
+        cost = cost,
+        description = description,
+        createdAt = createdAt,
+        assigneeId = assigneeId,
+        categoryId = categoryId,
+        category = category,
+        creatorId = creatorId,
+        isPeriodic = isPeriodic,
+        repeatInterval = repeatInterval,
+        childInterests = childInterests,
+        status = status
+    )
+    chores.mapNotNull {
+        it?.toParentProcessedTaskDTO(comonTaskItem)
+    }
+} else emptyList()
+
+fun ChoresItemDTO.toParentProcessedTaskDTO(parentProcessedTaskDTO: ParentProcessedTaskDTO): ParentProcessedTaskDTO =
+    parentProcessedTaskDTO.copy(
+        choreDate = date,
+        choreStatus = status,
+        choreID = id,
+        choreComment = comment,
+        choreFinishDate = finishedDatetime
+    )
 
 //fun CreatedTasksItemDTO.tasksMapDataToDomain(): List<ParentProcessedTaskDTO> {
 //    return List<ParentProcessedTaskDTO>(
@@ -70,12 +121,12 @@ fun createdTasksItemToProcessedTask(createdTasks: List<CreatedTasksItemDTO>): Li
 //}
 
 
-fun assignedTasksItemToProcessedTask(assignedTasks: List<AssignedTasksItemDTO>): List<KidProcessedTaskDTO>{
+fun assignedTasksItemToProcessedTask(assignedTasks: List<AssignedTasksItemDTO>): List<KidProcessedTaskDTO> {
 
     val processedTasks = mutableListOf<KidProcessedTaskDTO>()
-    for (task in assignedTasks){
-        if (task.chores != null){
-            for (chore in task.chores){
+    for (task in assignedTasks) {
+        if (task.chores != null) {
+            for (chore in task.chores) {
                 val id = task.id
                 val title = task.title
                 val parentPurpose = task.parentPurpose
@@ -96,9 +147,27 @@ fun assignedTasksItemToProcessedTask(assignedTasks: List<AssignedTasksItemDTO>):
                 val choreComment = chore?.comment
                 val choreFinishDate = chore?.finishedDatetime
                 processedTasks.add(
-                    KidProcessedTaskDTO(id, title, parentPurpose, cost, description, createdAt,
-                        assigneeId, categoryId, category, creatorId, isPeriodic, repeatInterval, childInterests, status, choreDate,
-                        choreFinishDate, choreStatus, choreID, choreComment )
+                    KidProcessedTaskDTO(
+                        id,
+                        title,
+                        parentPurpose,
+                        cost,
+                        description,
+                        createdAt,
+                        assigneeId,
+                        categoryId,
+                        category,
+                        creatorId,
+                        isPeriodic,
+                        repeatInterval,
+                        childInterests,
+                        status,
+                        choreDate,
+                        choreFinishDate,
+                        choreStatus,
+                        choreID,
+                        choreComment
+                    )
                 )
 //                Log.d("MyLog", "task = $title")
             }

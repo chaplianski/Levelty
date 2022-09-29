@@ -4,7 +4,7 @@ import com.example.levelty.domain.models.Purpose
 
 interface PurposeRepository {
 
-    fun getParentsPurpose(): List<Purpose>
+    fun getParentsPurpose(): List<Purpose>//TODO change name
 
     fun getParentsPurposes(): List<String>
 }

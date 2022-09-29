@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import com.example.levelty.data.network.retrofit.BASE_URL
+import com.example.levelty.data.network.retrofit.ErrorHandlerInterceptor
 import com.example.levelty.data.network.retrofit.PARENT_TOKEN
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -40,8 +41,14 @@ class ApiModule {
     }
 
     @Provides
+    fun provideErrorHandlerInterceptor() = ErrorHandlerInterceptor()
+
+    @Provides
     @Singleton
-    fun provideOkhttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
+    fun provideOkhttpClient(
+        interceptor: HttpLoggingInterceptor,
+        errorHandlerInterceptor:ErrorHandlerInterceptor
+    ): OkHttpClient {
         val okkHttpclient = OkHttpClient.Builder()
             .cache(provideCache())
 //            .addInterceptor(provideOfflineCacheInterceptor())
@@ -55,9 +62,12 @@ class ApiModule {
                     .build()
                 chain.proceed(request)  }
             .addNetworkInterceptor(interceptor)
+            .addInterceptor(errorHandlerInterceptor)
             .build()
         return okkHttpclient
     }
+
+
 
     @Provides
     @Singleton

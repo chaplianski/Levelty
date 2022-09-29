@@ -1,8 +1,9 @@
-package com.example.levelty.data.repository
+package com.example.levelty.data.utils
 
 import com.example.levelty.data.storage.model.*
 import com.example.levelty.domain.models.*
 
+//TODO это обычно удаляют и код в истории гита прекрасно хранится
 //class Mapper {
 //}
 
@@ -37,35 +38,30 @@ fun InterestDTO.interestMapDataToDomain(): Interest {
 }
 
 
-fun ChildrenItemDTO.childrenMapDataToDomain(): ChildrenItem {
-    return ChildrenItem(
-        level = level,
-        id = id,
-        user = user?.userMapDataToDomain(),
-        goals = goals?.map { it?.goalMapDataToDomain() }
-    )
-}
+fun ChildrenItemDTO.childrenMapDataToDomain(): ChildrenItem = ChildrenItem(
+    level = level,
+    id = id,
+    user = user?.userMapDataToDomain(),
+    goals = goals?.map { it?.goalMapDataToDomain() }
+)
 
-fun ChildrenItem.childrenMapDomainToData(): ChildrenItemDTO {
-    return ChildrenItemDTO(
-        level = level,
-        id = id,
-        user = user?.userMapDomainToData(),
-        goals = goals?.map { it?.goalMapDomainToData() }
-    )
-}
+fun ChildrenItem.childrenMapDomainToData(): ChildrenItemDTO = ChildrenItemDTO(
+    level = level,
+    id = id,
+    user = user?.userMapDomainToData(),
+    goals = goals?.map { it?.goalMapDomainToData() }
+)
 
-fun GoalsItem.goalMapDomainToData(): GoalsItemDTO {
-    return GoalsItemDTO(
-        id = id,
-        childId = childId,
-        price = price,
-        description = description,
-        createdAt = createdAt,
-        title = title,
-        status = status
-    )
-}
+//TODO можно использовать сразу оператор = для таких кейсов
+fun GoalsItem.goalMapDomainToData(): GoalsItemDTO = GoalsItemDTO(
+    id = id,
+    childId = childId,
+    price = price,
+    description = description,
+    createdAt = createdAt,
+    title = title,
+    status = status
+)
 
 fun GoalsItemDTO.goalMapDataToDomain(): GoalsItem {
     return GoalsItem(
@@ -221,7 +217,7 @@ fun ParentProcessedTaskDTO.processedMapTaskDataToDomain(): ParentProcessedTask {
         creatorId = creatorId,
         isPeriodic = isPeriodic,
         repeatInterval = repeatInterval,
-        childInterests = childInterests?.map { it?.interestsMapDataToDomain() },
+        childInterests = childInterests?.mapNotNull { it?.interestsMapDataToDomain() },//TODO когда ты испольжуешь .map то у тебя может быть ситуация что оператор элвис будет возвращать нулевые значения .mapNotNull возволяет это фильтровать
         status = status,
         choreDate = choreDate,
         choreFinishDate = choreFinishDate,
@@ -314,33 +310,33 @@ fun ParentDTO.parentMapDataToDomain(): Parent {
     )
 }
 
-fun ParentsItem.parentMapDomainToData(): ParentsItemDTO{
+fun ParentsItem.parentMapDomainToData(): ParentsItemDTO {
     return ParentsItemDTO(
         id = id
     )
 }
 
-fun ParentsItemDTO.parentMapDataToDomain(): ParentsItem{
+fun ParentsItemDTO.parentMapDataToDomain(): ParentsItem {
     return ParentsItem(
         id = id
     )
 }
 
-fun Balance.balanceMapDomainToData(): BalanceDTO{
+fun Balance.balanceMapDomainToData(): BalanceDTO {
     return BalanceDTO(
         amount = amount,
         childId = childId
     )
 }
 
-fun BalanceDTO.balanceMapDomainToData(): Balance{
+fun BalanceDTO.balanceMapDomainToData(): Balance {
     return Balance(
         amount = amount,
         childId = childId
     )
 }
 
-fun AssignedTasksItem.assignedTaskMapDomainToData(): AssignedTasksItemDTO{
+fun AssignedTasksItem.assignedTaskMapDomainToData(): AssignedTasksItemDTO {
     return AssignedTasksItemDTO(
         cost = cost,
         dueDate = dueDate,
@@ -360,7 +356,7 @@ fun AssignedTasksItem.assignedTaskMapDomainToData(): AssignedTasksItemDTO{
     )
 }
 
-fun AssignedTasksItemDTO.assignedTaskMapDataToDomain(): AssignedTasksItem{
+fun AssignedTasksItemDTO.assignedTaskMapDataToDomain(): AssignedTasksItem {
     return AssignedTasksItem(
         cost = cost,
         dueDate = dueDate,
@@ -380,7 +376,7 @@ fun AssignedTasksItemDTO.assignedTaskMapDataToDomain(): AssignedTasksItem{
     )
 }
 
-fun KidProcessedTaskDTO.kidProcessedTaskMapDataToDomain(): KidProcessedTask{
+fun KidProcessedTaskDTO.kidProcessedTaskMapDataToDomain(): KidProcessedTask {
     return KidProcessedTask(
         id = id,
         title = title,

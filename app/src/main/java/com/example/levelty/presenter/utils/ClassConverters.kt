@@ -22,7 +22,7 @@ fun ParentProcessedTask.mapToEditTask (): EditTask {
         choreDate = choreDate
     )
 }
-
+//TODO refactor)
 fun assignedTasksItemToProcessedTask(assignedTasks: List<AssignedTasksItem?>?): List<KidProcessedTask>{
 
     val processedTasks = mutableListOf<KidProcessedTask>()

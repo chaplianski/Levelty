@@ -6,6 +6,7 @@ import com.example.levelty.data.network.retrofit.parents.CreateNewTaskApiHelper
 import com.example.levelty.data.network.retrofit.parents.UpdateParenTaskApiHelper
 import com.example.levelty.data.network.retrofit.parents.UpdateTaskStatusApiHelper
 import com.example.levelty.data.storage.database.TaskStorageImpl
+import com.example.levelty.data.utils.*
 import com.example.levelty.domain.models.*
 import com.example.levelty.domain.repository.TaskRepository
 import javax.inject.Inject
@@ -24,7 +25,7 @@ class TaskRepositoryImpl @Inject constructor(
 //        Log.d("MyLog", "list in taskRepositoryImpl = $list")
         return list
     }
-
+//TODO это обычно удаляют и код в истории гита прекрасно хранится
 //    override fun getDayTasks(kidName: String, date: String): List<Task> {
 //        return taskStorageImpl.getDayTask(kidName, date).map { it.taskMapDataToDomain() }
 //    }
@@ -34,7 +35,7 @@ class TaskRepositoryImpl @Inject constructor(
 //    }
     override fun getTasksList(): List<ParentProcessedTask> {
         val createdTasks = taskStorageImpl.getCreatedTasksList()
-        return createdTasksItemToProcessedTask(createdTasks).map { it.processedMapTaskDataToDomain() }
+        return convertTasksItemToProcessedTask(createdTasks).map { it.processedMapTaskDataToDomain() }
     }
 
     override suspend fun updateChoreStatus(choreId: Int) {
