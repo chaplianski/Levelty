@@ -10,7 +10,7 @@ import androidx.core.view.ViewCompat
 import com.example.levelty.R
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.CollapsingToolbarLayout
-
+@Deprecated("not use")
 class LevelButtonBehavior(context: Context, attrs: AttributeSet): CoordinatorLayout.Behavior<TextView>(context, attrs){
 
 

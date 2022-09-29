@@ -4,7 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-
+@Deprecated("not use")
 class TaskDayPersonalTasksFragmentHelper (private val recyclerView: RecyclerView, private val context: Context) {
 
     fun setItemTouchHelper(){

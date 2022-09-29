@@ -23,18 +23,19 @@ import com.example.levelty.presenter.utils.mapToEditTask
 import com.example.levelty.presenter.viewmodels.parent.ParentCategoryFragmentViewModel
 import javax.inject.Inject
 
-
+//Для фрагментов создай общий фрагмент и используй его с вью биндинг а то получается что-то фигово чутка)
 class CategoryFragment : Fragment() {
 
     @Inject
     lateinit var categoryFragmentViewModelFactory: CategoryFragmentViewModelFactory
     val parentCategoryFragmentViewModel: ParentCategoryFragmentViewModel by viewModels { categoryFragmentViewModelFactory }
 
+
     override fun onAttach(context: Context) {
         DaggerAppComponent.builder()
             .context(context)
             .build()
-            .categoryFragmentInject(this)
+            .categoryFragmentInject(this)//TODO https://medium.com/@serapbercin001/how-to-use-android-injector-for-activity-and-fragment-objects-through-new-dagger-2-with-kotlin-704eb8a98c43
         super.onAttach(context)
     }
 
@@ -43,7 +44,7 @@ class CategoryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_category, container, false)
+        return inflater.inflate(R.layout.fragment_category, container, false)//TODO Why don't use ViewBinding?
     }
 
 

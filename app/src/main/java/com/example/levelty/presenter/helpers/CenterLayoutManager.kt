@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-
+@Deprecated("not use")
 class CenterLayoutManager : LinearLayoutManager {
     constructor(context: Context) : super(context)
     constructor(context: Context, orientation: Int, reverseLayout: Boolean) : super(context, orientation, reverseLayout)

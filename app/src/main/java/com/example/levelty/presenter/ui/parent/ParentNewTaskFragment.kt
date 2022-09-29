@@ -225,7 +225,7 @@ class ParentNewTaskFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+        _binding = null//не тут надо занунять) а в onDestroyView
     }
 
 
